@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+        <record id="email_redirector_form" model="ir.ui.view">
+            <field name="name">Email Redirector Form</field>
+            <field name="model">email.redirect</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group col="2">
+                                <field name="regex"/>
+                                <field name="company_id"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="email_redirector_tree" model="ir.ui.view">
+            <field name="name">Email Redirector Tree</field>
+            <field name="model">email.redirect</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="regex"/>
+                    <field name="company_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id='email_redirector_form_action' model='ir.actions.act_window'>
+        <field name="name">Email Redirector</field>
+        <field name="res_model">email.redirect</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p>
+                Create new record
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="email_redirect_menu"
+              name="Email Redirect"
+              parent="helpdesk.helpdesk_team_menu"
+              action="email_redirector_form_action" />
+
+</odoo>
