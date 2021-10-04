@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+        <record id="email_address_instance_form" model="ir.ui.view">
+            <field name="name">Email Address Instance Form</field>
+            <field name="model">email.address.instance</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group col="2">
+                                <field name="type"/>
+                                <field name="contact"/>
+                                <field name="address"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="email_address_type_form" model="ir.ui.view">
+            <field name="name">Email Address Type Form</field>
+            <field name="model">email.address.type</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group col="2">
+                               <field name="name"/>
+                                <field name="default_to"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="email_address_instance_tree" model="ir.ui.view">
+            <field name="name">Email Address Instance Tree</field>
+            <field name="model">email.address.instance</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="type"/>
+                    <field name="contact"/>
+                    <field name="address"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="email_address_type_tree" model="ir.ui.view">
+            <field name="name">Email Address Type Tree</field>
+            <field name="model">email.address.type</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="default_to"/>
+                </tree>
+            </field>
+        </record>
+
+    <record id='email_address_instance_action' model='ir.actions.act_window'>
+        <field name="name">Email Address Instance</field>
+        <field name="res_model">email.address.instance</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p>
+                Create new record
+            </p>
+        </field>
+    </record>
+
+    <record id='email_address_type_action' model='ir.actions.act_window'>
+        <field name="name">Email Address Type</field>
+        <field name="res_model">email.address.type</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p>
+                Create new record
+            </p>
+        </field>
+    </record>
+
+    <record id="view_partner_email_form" model="ir.ui.view">
+        <field name="name">res.partner.email.form.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="priority">2</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <page name="sales_purchases" position="after">
+                <page string="Email Addresses" name="email_addresses" >
+                    <group>
+                        <group string="Email Addresses" name="group_email">
+                            <field name="email_address_instance" nolabel="1">
+                                <tree editable="bottom">
+                                     <field name="type"/>
+                                    <field name="contact"/>
+                                    <field name="address"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </group>
+                </page>
+            </page>
+        </field>
+    </record>
+
+    <record id="view_partner_email_form" model="ir.ui.view">
+        <field name="name">res.partner.email.form.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="priority">2</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <page name="sales_purchases" position="after">
+                <page string="Email Addresses" name="email_addresses" >
+                    <group>
+                        <group string="Email Addresses" name="group_email">
+                            <field name="email_address_instance" nolabel="1">
+                                <tree editable="bottom">
+                                     <field name="type"/>
+                                    <field name="contact"/>
+                                    <field name="address"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </group>
+                </page>
+            </page>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="type_email_template_form">
+		<field name="name">email.type.template.form</field>
+		<field name="model">mail.template</field>
+		<field name="inherit_id" ref="mail.email_template_form" />
+		<field name="arch" type="xml">
+			<field name="scheduled_date" position="after">
+				<field name="email_to_use" />
+			</field>
+		</field>
+	</record>
+
+    <record model="ir.ui.view" id="email_compose_form_type">
+        <field name="name">mail.compose.message.form.type</field>
+        <field name="model">mail.compose.message</field>
+        <field name="inherit_id" ref="mail.email_compose_message_wizard_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='email_from']" position="after">
+                <field name="email_to_use"/>
+            </xpath>
+        </field>
+    </record>
+
+
+
+
+    <menuitem id="email_address_type_menu"
+              name="Email Address Type"
+              parent="contacts.res_partner_menu_config"
+              action="email_address_type_action" />
+
+    <menuitem id="email_address_instance_menu"
+              name="Email Address Instance"
+              parent="contacts.res_partner_menu_config"
+              action="email_address_instance_action" />
+
+</odoo>
