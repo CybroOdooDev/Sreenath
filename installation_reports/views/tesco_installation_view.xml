@@ -1,0 +1,188 @@
+<odoo>
+  <data>
+        <record id="tesco_installation_form_view" model="ir.ui.view">
+            <field name="name">tesco.installation.form.view</field>
+            <field name="model">tesco.installation</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group >
+                            <group>
+                                <field name="issue_date"/>
+                                <field name="install_type"/>
+                                <field name="is_kit_warranty" widget="radio"/>
+                                <field name="warning_sticker" widget="radio"/>
+                             </group>
+                             <group string="Customer Details" >
+                                 <field name="company_name"/>
+                                 <field name="company_sector"/>
+                                 <field name="company_no"/>
+                                 <field name="company_email"/>
+                             </group>
+                             <group string="Vehicle Details" >
+                                 <field name="vrn"/>
+                                 <field name="odometer_reading"/>
+                                 <field name="vehicle_type"/>
+                                 <field name="make"/>
+                                 <field name="vehicle_model"/>
+                                 <field name="vehicle_year"/>
+                                 <field name="full_vin_no"/>
+                                 <field name="trailer_make"/>
+                                 <field name="trailer_no"/>
+                             </group>
+                             <group string="Installation Details" >
+                                 <field name="installation_address"/>
+                                 <field name="time_started"/>
+                                 <field name="time_finished"/>
+                                 <field name="commissioning_number"/>
+                                 <field name="serial_number"/>
+                                 <field name="job_description"/>
+                             </group>
+                             <group>
+                                 <group string="Pre Vehicle Check:">
+                                     <field name="vehicle_headlights"/>
+                                     <field name="eml_light"/>
+                                     <field name="damage_to_vehicle"/>
+                                     <field name="cigarette_lighter"/>
+                                     <field name="photos_taken"/>
+                                     <field name="comments"/>
+                                 </group>
+                                 <group string="Post Vehicle Check:">
+                                     <field name="post_vehicle_headlights"/>
+                                     <field name="post_eml_light"/>
+                                     <field name="post_damage_to_vehicle"/>
+                                     <field name="post_cigarette_lighter"/>
+                                     <field name="post_photos_taken"/>
+                                     <field name="post_comments"/>
+                                 </group>
+                             </group>
+                        </group>
+                        <notebook>
+                        <page name="add_info" string="Additional Installation notes">
+                            <field name="additional_installation_notes"/>
+                        </page>
+                        <page name="client" string="Clients Proposed Objective">
+                            <group>
+                                <group>
+                                    <field name="length"/>
+                                    <field name="height"/>
+                                    <field name="width"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page name="device_conf" string="Device Confirmation">
+                            <group>
+                                <group>
+                                    <field name="had_devices_tampered"/>
+                                    <field name="if_yes_devices_tampered" attrs="{'invisible': [('if_yes_devices_tampered', '=', 'no')]}"/>
+                                    <field name="were_devices_faulty"/>
+                                    <field name="if_yes_devices_faulty" attrs="{'invisible': [('were_devices_faulty', '=', 'no')]}"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page name="attachments" string="Attachments">
+                            <group>
+                                <span>Hold finger on screen where you wish to place image and select the icon. </span>
+                                <span>Insert images from device.</span>
+                               <field name="attachment_ids" widget="many2many_binary"/>
+                            </group>
+                        </page>
+                        <page name="equip_used" string="Equipment Used">
+                            <field name="equipment_used" nolabel="1" mode="tree,kanban" >
+                                <tree  editable="bottom">
+                                    <field name="model_no"/>
+                                    <field name="description"/>
+                                    <field name="serial_no"/>
+                                    <field name="quantity"/>
+                                    <field name="bootstock" />
+                                    <field name="chargeable" />
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="equipment_used_form_view" model="ir.ui.view">
+            <field name="name">equipment.used.form.view</field>
+            <field name="model">equipment.used</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group >
+                            <group>
+                                <field name="model_no"/>
+                                <field name="description"/>
+                                <field name="serial_no"/>
+                                <field name="quantity"/>
+                                <field name="bootstock" widget="radio"/>
+                                <field name="chargeable" widget="radio"/>
+                             </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="tesco_installation_tree_view" model="ir.ui.view">
+            <field name="name">tesco.installation.tree.view</field>
+            <field name="model">tesco.installation</field>
+            <field name="arch" type="xml">
+                <tree>
+
+
+                    <field name="issue_date"/>
+                    <field name="install_type"/>
+                    <field name="company_name"/>
+                    <field name="vehicle_type"/>
+                </tree>
+            </field>
+        </record>
+
+      <record id="equipment_used_tree_view" model="ir.ui.view">
+            <field name="name">equipment.used.tree.view</field>
+            <field name="model">equipment.used</field>
+            <field name="arch" type="xml">
+                <tree>
+                     <field name="model_no"/>
+                    <field name="description"/>
+                    <field name="serial_no"/>
+                    <field name="quantity"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="tesco_installation_action" model="ir.actions.act_window">
+            <field name="name">Tesco Installation</field>
+            <field name="res_model">tesco.installation</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Create The First Allocation
+                </p>
+            </field>
+        </record>
+
+        <record id="equipment_used_action" model="ir.actions.act_window">
+            <field name="name">Equipment Used</field>
+            <field name="res_model">equipment.used</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Create The First Allocation
+                </p>
+            </field>
+        </record>
+
+    <menuitem name="Installations" id="installation_main_menu" />
+    <menuitem name="Tesco Installations" id="tesco_installation_menu" parent="installation_reports.installation_main_menu"
+    action="tesco_installation_action"/>
+
+  <menuitem name="Equipment Used" id="equipment_used_main_menu" />
+    <menuitem name="Equipment Used" id="equipment_used_menu" parent="installation_reports.installation_main_menu"
+    action="equipment_used_action"/>
+  </data>
+</odoo>
+

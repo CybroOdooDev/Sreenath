@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_tesco_installation,tesco.installation,model_tesco_installation,base.group_user,1,1,1,1
+access_equipment_used,equipment.used,model_equipment_used,base.group_user,1,1,1,1

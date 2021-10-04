@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+
+	<report id="tesco_installation_report_id"
+				string="Print Tesco Installation"
+				model="tesco.installation"
+				report_type="qweb-pdf"
+				file="installation_reports.tesco_installation_report_template_id"
+				name="installation_reports.tesco_installation_report_template_id"/>
+
+	<report id="vision_track_installation_report_id"
+				string="VistionTrack Installation Report"
+				model="tesco.installation"
+				report_type="qweb-pdf"
+				file="installation_reports.vision_track_installation_report_template_id"
+				name="installation_reports.vision_track_installation_report_template_id"/>
+
+	</data>
+</odoo>

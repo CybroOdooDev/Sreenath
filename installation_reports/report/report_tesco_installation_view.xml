@@ -1,0 +1,485 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+	<data>
+		<template id="tesco_installation_template_report_view">
+
+        <t t-call="web.external_layout">
+                <div class="page">
+                <table class="table table-bordered">
+                    <t t-foreach="docs" t-as="doc">
+                    <thead>
+                        <tr>
+                            <th>Issue Date</th>
+                            <th><span t-field="doc.issue_date" /></th>
+                            <th>Install Type</th>
+                            <th><span t-field="doc.install_type" /></th>
+                        </tr>
+                    </thead>
+                    </t>
+                </table>
+                <br/>
+                <br/>
+                <h2>Customer Details:</h2>
+                <table class="table table-bordered">
+                    <t t-foreach="docs" t-as="doc">
+                    <thead>
+                        <tr>
+                            <th>Company Name</th>
+                            <th><span t-field="doc.company_name" /></th>
+                            <th>Contact Name</th>
+                            <th><span t-field="doc.company_sector" /></th>
+                        </tr>
+                        <tr>
+                            <th>Company Sector</th>
+                            <th><span t-field="doc.company_sector" /></th>
+                            <th>Contact Email</th>
+                            <th><span t-field="doc.company_email" /></th>
+                        </tr>
+                        <tr>
+                            <th>Contact Number</th>
+                            <th><span t-field="doc.company_no" /></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    </t>
+                </table>
+                <br/>
+                <br/>
+                <h2>Vehicle Details</h2>
+                <table border="1" class="table table-bordered">
+                    <t t-foreach="docs" t-as="doc">
+                    <thead>
+                        <tr>
+                            <th>VRN</th>
+                            <th><span t-field="doc.vrn" /></th>
+
+                        </tr>
+                        <tr>
+                            <th>Odometer Reading</th>
+                            <th><span t-field="doc.odometer_reading" /></th>
+                        </tr>
+                        <tr>
+                            <th>Vehicle Type</th>
+                            <th><span t-field="doc.vehicle_type" /></th>
+                        </tr>
+                        <tr>
+                            <th>make</th>
+                            <th><span t-field="doc.make" /></th>
+                        </tr>
+                        <tr>
+                            <th>Vehicle Model</th>
+                            <th><span t-field="doc.vehicle_model" /></th>
+                        </tr>
+                        <tr>
+                            <th>Vehicle Year</th>
+                            <th><span t-field="doc.vehicle_year" /></th>
+                        </tr>
+                        <tr>
+                            <th>Fill VIN NO</th>
+                            <th><span t-field="doc.full_vin_no" /></th>
+                        </tr>
+                        <tr>
+                            <th>Trailer Make</th>
+                            <th><span t-field="doc.trailer_make" /></th>
+                        </tr>
+                        <tr>
+                            <th>Trailer No</th>
+                            <th><span t-field="doc.trailer_no" /></th>
+                        </tr>
+                    </thead>
+                    </t>
+                </table>
+                <br/>
+                <br/>
+                <h3>Installation Details</h3>
+                <table class="table table-bordered">
+                    <t t-foreach="docs" t-as="doc">
+                    <thead>
+                        <tr>
+                            <th>Installation Address</th>
+                            <th><span t-field="doc.installation_address" /></th>
+                        </tr>
+                        <tr>
+                            <th>Time Started</th>
+                            <th><span t-field="doc.time_started" /></th>
+                            <th>Time Finished</th>
+                            <th><span t-field="doc.time_finished" /></th>
+                        </tr>
+                        <tr>
+                            <th>Commissioning Number</th>
+                            <th><span t-field="doc.commissioning_number" /></th>
+                            <th>Serial Number</th>
+                            <th><span t-field="doc.serial_number" /></th>
+                        </tr>
+                    </thead>
+                    </t>
+                </table>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <table class="table table-bordered">
+                    <br/>
+                    <br/>
+                    <h2>Vehicle Checks</h2>
+                    <t t-foreach="docs" t-as="doc">
+                    <br/>
+                    <thead>
+                        <tr>
+                            <th>Pre Vehicle Check:</th>
+                            <th></th>
+                            <th>Post Vehicle Check:</th>
+                            <th></th>
+                        </tr>
+                        <tr>
+                            <th>Vehicle Headlights</th>
+                            <th><span t-field="doc.installation_address" /></th>
+                            <th>Vehicle Headlights</th>
+                            <th><span t-field="doc.installation_address" /></th>
+                        </tr>
+                        <tr>
+                            <th>EML Light</th>
+                            <th><span t-field="doc.eml_light" /></th>
+                            <th>EML Light</th>
+                            <th><span t-field="doc.post_eml_light" /></th>
+                        </tr>
+                        <tr>
+                            <th>Damage to vehicle</th>
+                            <th><span t-field="doc.damage_to_vehicle" /></th>
+                            <th>Damage to vehicle</th>
+                            <th><span t-field="doc.post_damage_to_vehicle" /></th>
+                        </tr>
+                        <tr>
+                            <th>Cigarette Lighter</th>
+                            <th><span t-field="doc.cigarette_lighter" /></th>
+                            <th>Cigarette Lighter</th>
+                            <th><span t-field="doc.post_cigarette_lighter" /></th>
+                        </tr>
+                        <tr>
+                            <th>Photos Taken</th>
+                            <th><span t-field="doc.photos_taken" /></th>
+                            <th>Photos Taken</th>
+                            <th><span t-field="doc.post_photos_taken" /></th>
+                        </tr>
+                        <tr>
+                            <th>Comments:</th>
+                            <th><span t-field="doc.comments" /></th>
+                            <th>Comments:</th>
+                            <th><span t-field="doc.post_comments" /></th>
+                        </tr>
+                    </thead>
+                    </t>
+                </table>
+                <t t-foreach="docs" t-as="doc">
+                    <h2>Additional Installation Notes</h2>
+                    <span t-field="doc.additional_installation_notes"/>
+                </t>
+                <br/>
+                    <t t-foreach="docs" t-as="doc">
+                        <t t-foreach="doc.attachment_ids" t-as="attachment">
+                            <img t-att-src="attachment.image_src"/>
+                        </t>
+                    </t>
+                </div>
+            </t>
+		</template>
+
+
+		<template id="vision_track_installation_report_view">
+
+        <t t-call="web.external_layout">
+                <div class="page">
+                <table class="table table-bordered">
+                    <t t-foreach="docs" t-as="doc">
+                    <thead>
+                        <tr>
+                            <th>Issue Date</th>
+                            <th><span t-field="doc.issue_date" /></th>
+                            <th>Install Type</th>
+                            <th><span t-field="doc.install_type" /></th>
+                        </tr>
+                    </thead>
+                    </t>
+                </table>
+                <br/>
+                <br/>
+                <h2>Customer Details:</h2>
+                <table class="table table-sm">
+                    <t t-foreach="docs" t-as="doc">
+                    <thead>
+                        <tr>
+                            <th>Company Name</th>
+                            <th><span t-field="doc.company_name" /></th>
+                            <th>Contact Name</th>
+                            <th><span t-field="doc.company_sector" /></th>
+                        </tr>
+                        <tr>
+                            <th>Company Sector</th>
+                            <th><span t-field="doc.company_sector" /></th>
+                            <th>Contact Email</th>
+                            <th><span t-field="doc.company_email" /></th>
+                        </tr>
+                        <tr>
+                            <th>Contact Number</th>
+                            <th><span t-field="doc.company_no" /></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    </t>
+                </table>
+                <br/>
+                <br/>
+                <div class="row">
+                <h2>Is kit in Warranty? &#160;&#160;</h2>
+                <t t-foreach="docs" t-as="doc">
+                <h2 t-field="doc.is_kit_warranty"/>
+                </t>
+                </div>
+                <br/>
+                <br/>
+
+                <h3>Installation Details</h3>
+                <table class="table table-bordered">
+                    <t t-foreach="docs" t-as="doc">
+                    <thead>
+                        <tr>
+                            <th>Installation Address</th>
+                            <th><span t-field="doc.installation_address" /></th>
+                        </tr>
+                        <tr>
+                            <th>Time Started</th>
+                            <th><span t-field="doc.time_started" /></th>
+                            <th>Time Finished</th>
+                            <th><span t-field="doc.time_finished" /></th>
+                        </tr>
+                        <tr>
+                            <th>Commissioning Number</th>
+                            <th><span t-field="doc.commissioning_number" /></th>
+                            <th>Serial Number</th>
+                            <th><span t-field="doc.serial_number" /></th>
+                        </tr>
+                        <tr>
+                            <th>Job Description</th>
+                            <th><span t-field="doc.job_description" /></th>
+                        </tr>
+                    </thead>
+                    </t>
+                </table>
+
+                <table border="1" class="table table-bordered">
+                    <br/>
+                    <br/>
+                    <h2>Vehicle Checks</h2>
+                    <t t-foreach="docs" t-as="doc">
+                    <br/>
+                    <thead>
+                        <tr>
+                            <th>VRN</th>
+                            <th><span t-field="doc.vrn" /></th>
+
+                        </tr>
+                        <tr>
+                            <th>Odometer Reading</th>
+                            <th><span t-field="doc.odometer_reading" /></th>
+                        </tr>
+                        <tr>
+                            <th>Vehicle Type</th>
+                            <th><span t-field="doc.vehicle_type" /></th>
+                        </tr>
+                        <tr>
+                            <th>make</th>
+                            <th><span t-field="doc.make" /></th>
+                        </tr>
+                        <tr>
+                            <th>Vehicle Model</th>
+                            <th><span t-field="doc.vehicle_model" /></th>
+                        </tr>
+                        <tr>
+                            <th>Vehicle Year</th>
+                            <th><span t-field="doc.vehicle_year" /></th>
+                        </tr>
+                        <tr>
+                            <th>Fill VIN NO</th>
+                            <th><span t-field="doc.full_vin_no" /></th>
+                        </tr>
+                    </thead>
+                    </t>
+                </table>
+                <br/>
+                <br/>
+
+                <br/>
+                <br/>
+                <table class="table table-bordered">
+                    <t t-foreach="docs" t-as="doc">
+                    <thead>
+                        <tr>
+                            <th>Length</th>
+                            <th><span t-field="doc.length" /></th>
+                            <th>Height</th>
+                            <th><span t-field="doc.height" /></th>
+                            <th>Width</th>
+                            <th><span t-field="doc.width" /></th>
+                        </tr>
+                    </thead>
+
+                    </t>
+                </table>
+                <br/>
+                <br/>
+                <br/>
+                <table class="table table-bordered">
+                    <t t-foreach="docs" t-as="doc">
+                    <br/>
+                    <br/>
+                    <h2>Vehicle Checks</h2>
+                    <br/>
+                    <br/>
+                        <thead>
+                            <tr>
+                                <th>Pre Vehicle Check:</th>
+                                <th></th>
+                                <th>Post Vehicle Check:</th>
+                                <th></th>
+                            </tr>
+                            <tr>
+                                <th>Vehicle Headlights</th>
+                                <th><span t-field="doc.installation_address" /></th>
+                                <th>Vehicle Headlights</th>
+                                <th><span t-field="doc.installation_address" /></th>
+                            </tr>
+                            <tr>
+                                <th>EML Light</th>
+                                <th><span t-field="doc.eml_light" /></th>
+                                <th>EML Light</th>
+                                <th><span t-field="doc.post_eml_light" /></th>
+                            </tr>
+                            <tr>
+                                <th>Damage to vehicle</th>
+                                <th><span t-field="doc.damage_to_vehicle" /></th>
+                                <th>Damage to vehicle</th>
+                                <th><span t-field="doc.post_damage_to_vehicle" /></th>
+                            </tr>
+                            <tr>
+                                <th>Cigarette Lighter</th>
+                                <th><span t-field="doc.cigarette_lighter" /></th>
+                                <th>Cigarette Lighter</th>
+                                <th><span t-field="doc.post_cigarette_lighter" /></th>
+                            </tr>
+                            <tr>
+                                <th>Photos Taken</th>
+                                <th><span t-field="doc.photos_taken" /></th>
+                                <th>Photos Taken</th>
+                                <th><span t-field="doc.post_photos_taken" /></th>
+                            </tr>
+                            <tr>
+                                <th>Comments:</th>
+                                <th><span t-field="doc.comments" /></th>
+                                <th>Comments:</th>
+                                <th><span t-field="doc.post_comments" /></th>
+                            </tr>
+                        </thead>
+                        </t>
+                    </table>
+                    <br/>
+
+                <table class="table table-bordered">
+                    <t t-foreach="docs" t-as="doc">
+                    <thead>
+                        <h2>Device Confirmation</h2>
+                        <tr>
+                            <th>Had devices been tampered with? </th>
+                            <th><span t-field="doc.had_devices_tampered" /></th>
+                            </tr>
+                            <tr>
+                            <th>If Yes, please describe</th>
+                            <th><span t-if="doc.had_devices_tampered == 'yes'" t-field="doc.if_yes_devices_tampered" /></th>
+                            </tr>
+                            <tr>
+                            <th>Were devices faulty? </th>
+                            <th><span t-field="doc.were_devices_faulty" /></th>
+                        </tr>
+                            <tr>
+                            <th>If Yes, please describe</th>
+                            <th><span t-if="doc.were_devices_faulty == 'yes'" t-field="doc.if_yes_devices_faulty" /></th>
+                        </tr>
+                    </thead>
+
+                    </t>
+                </table>
+                <div class="row">
+                    <h2>Did you fit a VisionTrack Warning Sticker?</h2>
+                    <t t-foreach="docs" t-as="doc">
+                        <h2 t-field="doc.warning_sticker"/>
+                    </t>
+                </div>
+                <div>
+                    <h2>Additional Installation Notes</h2>
+                    <t t-foreach="docs" t-as="doc">
+                        <span t-field="doc.additional_installation_notes"/>
+                    </t>
+                </div>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <table class="table table-condensed table-striped o_main_table" >
+                        <thead>
+                            <tr>
+                                <th class="text-left"><span>Model Number</span></th>
+                                <th class="text-right"><span>Description</span></th>
+                                <th  class="text-left"><span>DRID or Serial Number</span></th>
+                                <th class="text-right"><span>Quantity</span></th>
+                                <th class="text-right"><span>Bootstock?</span></th>
+                                <th class="text-right"><span>Chargable</span></th>
+                            </tr>
+                        </thead>
+                            <tbody class="invoice_tbody">
+                                <t t-set="lines" t-value="o.equipment_used"/>
+
+                                <t t-foreach="lines" t-as="line">
+
+                                    <tr t-att-class="'bg-200 font-weight-bold o_line_section'">
+                                        <t>
+                                            <td><span t-field="line.model_no" t-options="{'widget': 'text'}"/></td>
+                                            <td><span t-field="line.description" t-options="{'widget': 'text'}"/></td>
+                                            <td><span t-field="line.serial_no" t-options="{'widget': 'text'}"/></td>
+                                            <td class="text-right">
+                                                <span t-field="line.quantity"/>
+                                            </td>
+                                            <td><span t-field="line.bootstock" t-options="{'widget': 'checkbox'}"/></td>
+                                            <td><span t-field="line.chargeable" t-options="{'widget': 'checkbox'}"/></td>
+                                        </t>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                     <br/>
+                    <t t-foreach="docs" t-as="doc">
+                        <t t-foreach="doc.attachment_ids" t-as="attachment">
+                            <img t-att-src="attachment.image_src"/>
+                        </t>
+                    </t>
+                </div>
+            </t>
+		</template>
+
+		<template id="tesco_installation_report_template_id">
+			<t t-call="web.html_container">
+				<t t-foreach="docs" t-as="o">
+					<t t-call="installation_reports.tesco_installation_template_report_view" />
+				</t>
+			</t>
+		</template>
+		<template id="vision_track_installation_report_template_id">
+			<t t-call="web.html_container">
+				<t t-foreach="docs" t-as="o">
+					<t t-call="installation_reports.vision_track_installation_report_view" />
+				</t>
+			</t>
+		</template>
+
+	</data>
+</odoo>
