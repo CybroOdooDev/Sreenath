@@ -10,9 +10,11 @@ from odoo.tools import email_re, email_split
 
 class EmailAddressType(models.Model):
     _name = 'email.address.type'
+    _description = 'Email Address Type'
 
     name = fields.Char('Name')
-    default_to = fields.Char('Default To')
+    default_to = fields.Many2one('email.address.type', string='Default To')
+    # parent_id = fields.Many2one('account.chart.template', string='Parent Chart Template')
 
 
 class EmailAddressInstance(models.Model):
@@ -75,8 +77,16 @@ class MailTemplate(models.Model):
                     if self.email_to_use in part.email_address_instance.type:
                         for instance in part.email_address_instance:
                             if self.email_to_use == instance.type:
-                                add_partners = type_partners.find_or_create(instance.address)
-            partner_ids += add_partners.ids
+                                if instance.address:
+                                    add_partners = type_partners.find_or_create(instance.address)
+                                    partner_ids = add_partners.ids
+                                else:
+                                    for instance_ids in part.email_address_instance:
+                                        if instance.type.default_to.id == instance_ids.type.id and instance_ids.address != False:
+                                            add_partners = type_partners.find_or_create(instance_ids.address)
+                                            partner_ids = add_partners.ids
+                            else:
+                                partner_ids += self.env['res.partner'].sudo().browse(tpl_partner_ids).exists().ids
 
             results[res_id]['partner_ids'] = partner_ids
         return results
@@ -96,7 +106,14 @@ class MailComposeMessage(models.TransientModel):
                 for part in type_partners.search([('id', 'in', rec.partner_ids.ids)]):
                     if rec.email_to_use in part.email_address_instance.type:
                         for instance in part.email_address_instance:
-                            if rec.email_to_use == instance.type:
-                                add_partners = type_partners.find_or_create(instance.address)
-                                contacts.append(add_partners.id)
-                rec.partner_ids = rec.partner_ids.ids + contacts
+                            if self.email_to_use == instance.type:
+                                if instance.address:
+                                    add_partners = type_partners.find_or_create(instance.address)
+                                    partner_ids = add_partners.ids
+                                else:
+                                    for instance_ids in part.email_address_instance:
+                                        if instance.type.default_to.id == instance_ids.type.id and instance_ids.address != False:
+                                            add_partners = type_partners.find_or_create(instance_ids.address)
+                                            partner_ids = add_partners.ids
+
+        rec.partner_ids = rec.partner_ids.ids + partner_ids
