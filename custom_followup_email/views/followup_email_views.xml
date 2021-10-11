@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+        <record id="view_account_followup_followup_line_form_inherit_html" model="ir.ui.view">
+            <field name="name">account_followup.followup.line.form.inherit.html</field>
+            <field name="model">account_followup.followup.line</field>
+            <field name="inherit_id" ref="account_followup.view_account_followup_followup_line_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@id='letter_format']" position='after'>
+                    <page string="Message" name="message"
+                        id='letter_format_html' attrs="{'invisible': [('send_email', '=', False),
+                        ('print_letter', '=', False)]}">
+                        <field name="html_description" nolabel="1" colspan="2"/>
+                    </page>
+
+                </xpath>
+            </field>
+        </record>
+</odoo>
