@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="helpdesk_open_tickets_view_kanban_inherit" model="ir.ui.view">
+        <field name="name">Helpdesk Open Tickets</field>
+        <field name="model">helpdesk.team</field>
+        <field name="inherit_id" ref="helpdesk.helpdesk_team_view_kanban"/>
+        <field name="arch" type="xml">
+              <xpath expr='//field[@name="upcoming_sla_fail_tickets"]' position="after">
+                <field name="open_tickets"/>
+            </xpath>
+            <xpath expr='//div[@class="col-6 o_kanban_primary_right"]' position="inside">
+                <div class="mb4">
+                    <a name="%(open_tickets_helpdesk.helpdesk_open_tickets_action_open_ticket)d" type="action"
+                       context="{'search_default_team_id': active_id, 'default_team_id': active_id, 'search_default_is_open' : True}">
+                        <t t-esc="record.open_tickets.raw_value"/>
+                        Open Tickets
+                    </a>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>
