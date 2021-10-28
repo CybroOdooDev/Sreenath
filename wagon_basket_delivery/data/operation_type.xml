@@ -1,0 +1,12 @@
+<odoo>
+    <data>
+        <record id="delivery_return_operation_type" model="stock.picking.type">
+            <field name="name">Delivery Return</field>
+            <field name="code">internal</field>
+            <field name="barcode">WB-RETURN</field>
+            <field name="sequence_code">RETURN</field>
+            <field name="warehouse_id" model="stock.picking.type" eval="obj().search([('code', '=', 'outgoing')]).warehouse_id"/>
+            <field name="default_location_src_id" model="stock.picking.type" eval="obj().search([('code', '=', 'outgoing')]).default_location_src_id"/>
+        </record>
+    </data>
+</odoo>
