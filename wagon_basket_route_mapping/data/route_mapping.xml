@@ -1,0 +1,9 @@
+<odoo>
+    <data>
+        <record id="unassigned_route" model="route.mapping">
+            <field name="name">Unassigned</field>
+            <field name="active">True</field>
+        </record>
+        <function model="route.mapping" name="_default_route"/>
+    </data>
+</odoo>

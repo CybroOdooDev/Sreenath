@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="route_mapping_sale_view_sale_map" model="ir.ui.view">
+        <field name="name">sale.order.view.map</field>
+        <field name="model">sale.order</field>
+        <field name="arch" type="xml">
+            <map res_partner="partner_id" default_order="sequence"/>
+        </field>
+    </record>
+    <record id="view_sale_order_search_new" model="ir.ui.view">
+            <field name="name">sale.order.search.new</field>
+            <field name="model">sale.order</field>
+            <field name="arch" type="xml">
+                <search string="Sales Orders">
+<!--                    <field name="name" string="Transfer" filter_domain="['|', ('name', 'ilike', self), ('origin', 'ilike', self)]"/>-->
+<!--                    <field name="partner_id" filter_domain="[('partner_id', 'child_of', self)]"/>-->
+                    <field name="route_id" string="Route"/>
+                    <field name="deliver_date" string="Del. Date"/>
+                    <field name="shift" string="Shift"/>
+                    <field name="slot" string="Slot"/>
+
+
+<!--                    <filter string="Starred" name="starred" domain="[('priority', '=', '1')]"/>-->
+                    <separator/>
+                    <filter string="Today Delivery" name="expected_today"
+                        domain="[('deliver_date','=',current_date)]"/>
+                    <filter string="Tomorrow Delivery" name="expected_tomorrow" domain="[('deliver_date','=', ((context_today()+datetime.timedelta(days=1)).strftime('%Y-%m-%d')))]"/>
+
+                    <separator/>
+                    <filter string="Slot 1" name="s1"
+                        domain="[('slot','=','s1')]"/>
+                    <filter string="Slot 2" name="s2"
+                        domain="['|',('slot','=','s2'),('last_assigned','=',True)]"/>
+                    <filter string="Slot 3" name="s3"
+                        domain="[('slot','=','s3')]"/>
+                    <filter string="Slot 4" name="s4"
+                        domain="['|',('slot','=','s4'),('last_assigned','=',True)]"/>
+                    <separator/>
+                        <filter string="Shift 1" name="shift1"
+                        domain="[('shift','=','shift1')]"/>
+                    <filter string="Shift 2" name="shift2"
+                        domain="[('shift','=','shift2')]"/>
+<!--                    <filter name="assigned" string="Ready" domain="[('state', '=', 'assigned')]" help="Ready State Pickings"/>-->
+                    <separator/>
+
+                    <group expand="0" string="Group By">
+                        <filter string="Route" name="route_filter"
+                            context="{'group_by':'route_id'}"/>
+
+
+                    </group>
+                </search>
+            </field>
+        </record>
+ <record id="sale_order_new_tree" model="ir.ui.view">
+            <field name="name">wagon.sale.tree</field>
+            <field name="model">sale.order</field>
+            <field name="arch" type="xml">
+            <tree create="false" default_order="sequence">
+                <field name="name" string="Number"/>
+                <field name="date_order"/>
+                <field name="slot"/>
+                <field name="route_id"/>
+                <field name="package_count"/>
+                <field name="partner_id"/>
+                <field name="amount_total"/>
+                <field name="state" invisible="1"/>
+                <field name="payment_state" string="Payment State"/>
+
+            </tree>
+        </field>
+        </record>
+
+    <record id="action_wagon_delivery_route" model="ir.actions.act_window">
+        <field name="name">Orders</field>
+        <field name="res_model">sale.order</field>
+        <field name="view_mode">tree,form,map</field>
+        <field name="view_id" ref="sale.view_order_form"/>
+                         <field name="search_view_id" ref="wagon_basket_route_mapping.view_sale_order_search_new"/>
+
+        <field name="view_ids" eval="[
+            (5, 0, 0),
+            (0, 0, {'view_mode': 'tree', 'view_id': ref('sale_order_new_tree')})]"/>
+
+        <field name="domain">[]</field>
+                             <field name="context">{"search_default_route_filter":1,"search_default_expected_today":1,"search_default_expected_tomorrow":1}</field>
+
+    </record>
+
+
+    <menuitem id="wagon_route_delivery" name="Deliveries" parent="route_mapping_root" sequence="2" action="action_wagon_delivery_route"/>
+
+</odoo>

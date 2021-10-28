@@ -1,0 +1,81 @@
+<odoo>
+
+    <!-- Boat Model Form View-->
+    <record id="route_mapping_form_view" model="ir.ui.view">
+        <field name="name">route.mapping.form</field>
+        <field name="model">route.mapping</field>
+        <field name="arch" type="xml">
+            <form string="Route Mapping">
+                <sheet>
+                        <group>
+                                                         <field name="name"/>
+                                                            <field name="active" widget="toggle_button"/>
+
+                <field name="vehicle_id" />
+                <field name="del_date" invisible="1"/>
+                <field name="slot" invisible="1"/>
+                <field name="driver_code" invisible="0"/>
+                                            <field name="driver_id" invisible="0"/>
+
+                            <field name="sale_order_ids" widget="many2many_tags" invisible="1"/>
+
+
+
+                        </group>
+                </sheet>
+
+            </form>
+        </field>
+    </record>
+
+    <!-- Boat Model Tree View-->
+    <record id="route_mapping_tree_view" model="ir.ui.view">
+        <field name="name">route.mapping.tree</field>
+        <field name="model">route.mapping</field>
+        <field name="arch" type="xml">
+            <tree string="Route Mapping">
+                <field name="name"/>
+                <field name="vehicle_id" />
+                <field name="del_date" invisible="1" />
+                <field name="slot" invisible="1"/>
+                <field name="driver_code"/>
+                                <field name="driver_id"/>
+
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="action_route_mapping" model="ir.actions.act_window">
+        <field name="name">Route Mapping</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">route.mapping</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+
+
+    <menuitem
+            id="route_mapping_root"
+            name="Route Mapping"
+            web_icon="wagon_basket_route_mapping,static/description/route-mapping-icon.png"
+            sequence="6"
+            action="action_route_mapping"
+    />
+    <menuitem
+            id="route_mapping_view"
+            name="Route Mapping"
+            sequence="1"
+            parent="route_mapping_root"
+    />
+    <menuitem
+            id="route_mapping__menu"
+            name="Route Mapping"
+            sequence="1"
+            parent="route_mapping_view"
+            action="wagon_basket_route_mapping.action_route_mapping"
+    />
+
+
+</odoo>

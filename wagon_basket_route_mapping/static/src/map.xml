@@ -1,0 +1,148 @@
+<templates>
+    <t t-name="markerPopupNew"
+        t-inherit="web_map.markerPopup"
+       t-inherit-mode="extension" owl="1">
+                <xpath expr="//table[1]" position="replace">
+
+
+            <table class="o_map_popup_table">
+                <thead>
+                    <tr>
+                        <th colspan="2"></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr t-foreach="fields" t-as="field">
+                                                    <t t-if="field.string != 'model'">
+
+                        <td class="contentName">
+
+                            <t t-esc="field.string"/>
+<!--                                                <t t-esc="props.model"/>-->
+
+                        </td>
+                        <td class="space"></td>
+                        <td class="contentString">
+                            <t t-esc="field.value"/>
+                        </td>
+                                                    </t>
+
+
+
+                    </tr>
+                    <t t-foreach="fields" t-as="fld">
+                        <t t-if="fld.string == 'model'">
+                            <t t-if="fld.value == 'sale.order'">
+                                <t class="py-search-journals">
+						<a type="button" class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <strong>
+                                Routes:
+                            </strong>
+						</a>
+
+						<select class="dropdown-menu py-filters-menu route_fetch" multiple="multiple" id="route_select">
+                            <t t-foreach="routes" t-as="route" t-key="route[1]">
+
+                                    <option t-attf-value="{{route[1]}}">
+
+                                    									<t t-esc="route[0]" />
+
+                                </option>
+
+
+
+                            </t>
+						</select>
+
+                        						<span class="routes_res" id="route_span_id">
+                                                    <t t-if="records">
+                                                        <t t-esc="records"/>
+
+                                                    </t>
+                                                </span>
+
+                    </t>
+                            </t>
+                        </t>
+                    </t>
+
+
+<!--                                        </t>-->
+
+                </tbody>
+            </table>
+
+
+<!--            -->
+                </xpath>
+    </t>
+        <t t-name="web_map.MapRenderer.PinList" t-inherit="web_map.MapRenderer.PinList" t-inherit-mode="extension" owl="1">
+            <xpath expr="//ol[1]" position="replace">
+                <ol t-if="props.numbering" class="o_pin_list_details">
+            <t t-call="wagon_basket_route_mapping.MapRenderer.PinListItems"/>
+        </ol>
+            </xpath>
+            <xpath expr="//ul[1]" position="replace">
+                <ul t-else="" class="o_pin_list_details">
+            <t t-call="wagon_basket_route_mapping.MapRenderer.PinListItems"/>
+        </ul>
+            </xpath>
+
+
+    </t>
+    <t t-name="wagon_basket_route_mapping.MapRenderer.PinListItems" owl="1">
+<!--        <xpath expr="//t[1]" position="replace">-->
+
+<!--&lt;!&ndash;    <t t-name="PinlistContainer"&ndash;&gt;-->
+<!--&lt;!&ndash;       t-inherit="web_map.MapRenderer.PinListContainer"&ndash;&gt;-->
+<!--       t-inherit-mode="extension" owl="1">-->
+        <t t-foreach="records" t-as="record" t-key="record.id">
+            <t t-set="latitude" t-value="record.partner and record.partner.partner_latitude"/>
+            <t t-set="longitude" t-value="record.partner and record.partner.partner_longitude"/>
+            <li
+                t-att-class="{o_pin_located: latitude and longitude}"
+                t-att-title="(!latitude or !longitude) and 'Could not locate'"
+            >
+                <a t-if="latitude and longitude" href=""
+                    t-on-click.prevent="_centerAndOpenPin(record)">
+                    <t t-esc="record.display_name"/>
+                    <t t-if="props.filter[0] == 's2'">
+                        <t t-if="record.last_assigned == true">
+<!--                        <span>#</span>-->
+                        <t t-if="record.slot == 's1'">
+                                                    <span>(Last assigned of <t t-esc="record.slot"/>)</span>
+
+                        </t>
+
+<!--                           <span>:</span>-->
+                    </t>
+                    </t>
+                                        <t t-if="props.filter[0] == 's4'">
+<!--                        <span>#</span>-->
+                       <t t-if="record.last_assigned == true">
+<!--                           <span>:</span>-->
+                                                   <t t-if="record.slot == 's3'">
+
+                        <span>(Last assigned of <t t-esc="record.slot"/>)</span>
+                                                   </t>
+                    </t>
+                    </t>
+
+                </a>
+                <div t-else="" class="text-muted d-flex">
+                    <span t-esc="record.display_name"/>
+                    <span class="ml-auto" t-if="record.partner and record.partner.fetchingCoordinate">
+                        <i class="fa fa-spin fa-spinner"/>
+                    </span>
+                </div>
+            </li>
+        </t>
+
+<!--        </xpath>-->
+
+    </t>
+
+
+</templates>

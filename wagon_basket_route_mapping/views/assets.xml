@@ -1,0 +1,17 @@
+<odoo>
+    <template id="assets_backend" name="web_map_new assets"
+              inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <script type="text/javascript"
+                    src="/wagon_basket_route_mapping/static/src/map.js"/>
+        </xpath>
+        <xpath expr="//script[@src='/web_map/static/src/js/map_renderer.js']"
+               position="replace">
+            <script type="text/javascript"
+                    src="/wagon_basket_route_mapping/static/src/map_renderer.js"/>
+        </xpath>
+        <!--            <script type="text/javascript"-->
+        <!--                    src="/wagon_basket_route_mapping/static/src/map_renderer.js"/>-->
+
+    </template>
+</odoo>
