@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_inventory_trolley,access.inventory.trolley,model_inventory_trolley,stock.group_stock_user,1,1,1,1
+access_trolley_location,access.trolley.location,model_trolley_location,stock.group_stock_user,1,1,1,1
+access_food_vegetable,access.food.vegetable,model_food_vegetable,base.group_user,1,1,1,1
+access_food_vegetable_line,access.food.vegetable.line,model_food_vegetable_lines,base.group_user,1,1,1,1
