@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Backend -->
+    <record id="view_api_backend_form" model="ir.ui.view">
+        <field name="name">api.backend.form</field>
+        <field name="model">api.backend</field>
+        <field name="arch" type="xml">
+            <form string="Backend">
+                <header>
+                    <button name="login"
+                            class="oe_highlight"
+                                                        string="Login"
+                            type="object"/>
+<!---->
+                </header>
+                <sheet>
+                    <label for="name" class="oe_edit_only"/>
+                    <h1>
+                        <field name="name" class="oe_inline"/>
+                    </h1>
+                    <group name="api_backendy" string="Configuration">
+                        <group>
+                            <field name="username"/>
+                            <field name="password" password="True"/>
+                                                            <field name="active" widget="toggle_button"/>
+
+                        </group>
+                        <group>
+                            <field name="token"/>
+                                                    <field name="company_id"/>
+
+                        </group>
+                    </group>
+
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_api_backend_tree" model="ir.ui.view">
+        <field name="name">api.backend.tree</field>
+        <field name="model">api.backend</field>
+        <field name="arch" type="xml">
+            <tree string="Backend">
+                <field name="name"/>
+                <field name="username"/>
+                <field name="active" widget="toggle_button"/>
+            </tree>
+        </field>
+    </record>
+
+     <record id="action_api_backend" model="ir.actions.act_window">
+        <field name="name">Backends</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">api.backend</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <menuitem
+            id="custom_app_root"
+            name="WB Connector"
+            web_icon="wb_custom_app_connector,static/description/wb-connector-icon.png"
+            sequence="10"
+    />
+    <menuitem
+            id="config_menu"
+            name="Configuration"
+            sequence="5"
+            parent="custom_app_root"
+    />
+    <menuitem
+            id="backend_menu"
+            name="Backend"
+            sequence="1"
+            parent="config_menu"
+            action="action_api_backend"
+    />
+
+
+
+
+
+</odoo>
