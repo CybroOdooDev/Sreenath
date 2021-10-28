@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Backend -->
+    <record id="segregation_view" model="ir.ui.view">
+        <field name="name">quantity.segregation.form</field>
+        <field name="model">quantity.segregation</field>
+        <field name="arch" type="xml">
+            <form string="Segregation" create="false" edit="false">
+
+                <sheet>
+                    <h1>
+                        <field name="name" class="oe_inline"/>
+                    </h1>
+                    <group>
+                        <field name="last_scanned_pack" invisible="0"/>
+                        <field name="last_scanned_order" invisible="0"/>
+                        <field name="last_scanned_route" invisible="0"/>
+                        <field name="last_scanned_slot" invisible="0"/>
+                    </group>
+
+
+                    <field name="model" invisible="1"/>
+                    <field name="method" invisible="1"/>
+                    <field name="_barcode_scanned" widget="action_barcode_handler"/>
+                    <notebook>
+                        <page string="Shift1">
+                            <field name="shift_one_crates" widget="one2many_list"
+                                   context="{'group_by':'name'}">
+                                <tree>
+                                    <field name="name" string="Crate"/>
+                                    <field name="product_count"/>
+
+
+                                    <field name="sale_id"/>
+                                    <field name="route_id"/>
+                                    <field name="slot"/>
+                                    <field name="segregation_status"/>
+
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Shift2">
+                            <field name="shift_two_crates" widget="one2many_list"
+                                   context="{'group_by':'name'}">
+                                <tree>
+                                    <field name="name" string="Crate"/>
+                                    <field name="product_count"/>
+
+
+                                    <field name="sale_id"/>
+                                    <field name="route_id"/>
+                                    <field name="slot"/>
+                                    <field name="segregation_status"/>
+
+                                </tree>
+                            </field>
+
+                        </page>
+                    </notebook>
+
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="action_segregation" model="ir.actions.act_window">
+        <field name="name">Segregation</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">quantity.segregation</field>
+        <field name="view_mode">form</field>
+        <field name="context">{'create': False, 'edit': False}</field>
+        <field name="target">inline</field>
+    </record>
+
+
+    <menuitem
+            id="segregation_root"
+            name="Segregation"
+            web_icon="wagon_basket_qc,static/description/segregation-icon.png"
+            sequence="11"
+            action="action_segregation"
+
+    />
+
+
+</odoo>
