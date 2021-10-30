@@ -84,9 +84,17 @@ class BarcodeActionQualityCheck(models.TransientModel):
     @api.depends('quantity_check_package_ids')
     def _compute_crate_count(self):
         for rec in self:
-            rec.total_crates = len(rec.quantity_check_package_ids)
+            package_ids = []
+            for sale in rec.quantity_check_package_ids:
+                sales = self.env['sale.order'].search([('id', '=', sale.sale_id.id)])
+                package = self.env['stock.quant.package'].search([('id', '=', sale.sale_id.id)], limit=1)
+                if package.sale_id.shift:
+                    package_ids.append(package.id)
+            rec.total_crates = len(package_ids)
             rec.scanned_crates = len(rec.quantity_check_package_ids.filtered(lambda l: l.status == 'scanned'))
             rec.not_scanned_crates = len(rec.quantity_check_package_ids.filtered(lambda l: l.status == 'not-scanned'))
+
+
 
 
 class StockQuantPackage(models.Model):
