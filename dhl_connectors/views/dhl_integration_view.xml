@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2021 Onestein (<https://www.onestein.nl>)
+     License OPL-1 (https://www.odoo.com/documentation/14.0/legal/licenses.html#odoo-apps). -->
+
+<odoo>
+
+    <record id="view_dhl_integration_form" model="ir.ui.view">
+        <field name="model">dhl.integration</field>
+        <field name="arch" type="xml">
+            <form create="false">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="client_id"/>
+                            <field name="client_secret_id"/>
+                        </group>
+                        <group>
+                            <field name="bearer_token"/>
+                            <field name="company_id"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_dhl_integration_tree" model="ir.ui.view">
+        <field name="model">dhl.integration</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="client_id"/>
+                <field name="client_secret_id"/>
+                <field name="bearer_token"/>
+                <field name="company_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_dhl_integration" model="ir.actions.act_window">
+        <field name="name">DHL Integrations</field>
+        <field name="res_model">dhl.integration</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_dhl_setup"
+        name="DHL Setup"
+        parent="sale.menu_sale_config"
+        sequence="6"
+        action="action_dhl_integration"/>
+
+</odoo>
