@@ -29,3 +29,5 @@ class DeliveryCarrier(models.Model):
         help="When this value is null, the price is calculated based on the pricelist by countries"
     )
     sendcloud_is_return = fields.Boolean()
+    parcel_origin = fields.Char(string='Parcel Origin')
+    parcel_destination = fields.Char(string='Parcel Destination')

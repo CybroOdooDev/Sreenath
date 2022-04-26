@@ -13,9 +13,9 @@ class SendCloudParcel(models.Model):
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = "DHL Parcel"
 
-    @api.model
-    def _selection_parcel_statuses(self):
-        statuses = self.env["sendcloud.parcel.status"].search([])
+    # @api.model
+    # def _selection_parcel_statuses(self):
+    #     statuses = self.env["sendcloud.parcel.status"].search([])
         # return [(status.sendcloud_code, status.message) for status in statuses]
 
     partner_name = fields.Char()
@@ -53,9 +53,9 @@ class SendCloudParcel(models.Model):
 
     picking_id = fields.Many2one("stock.picking")
     package_id = fields.Many2one("stock.quant.package")
-    sendcloud_status = fields.Selection(
-        selection=lambda self: self._selection_parcel_statuses(), readonly=True
-    )
+    # sendcloud_status = fields.Selection(
+    #     selection=lambda self: self._selection_parcel_statuses(), readonly=True
+    # )
     carrier = fields.Char()
     company_id = fields.Many2one(
         "res.company",

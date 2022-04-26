@@ -16,7 +16,7 @@ _logger = logging.getLogger(__name__)
 class StockPicking(models.Model):
     _inherit = "stock.picking"
 
-    dhl_ids = fields.One2many("dhl.parcel", "picking_id")
+    dhl_ids = fields.Many2many("dhl.parcel", "picking_id")
     dhl_parcel_count = fields.Integer(
         string="Parcels", compute="_compute_dhl_parcel_count"
     )

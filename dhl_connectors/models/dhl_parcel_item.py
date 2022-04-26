@@ -20,4 +20,4 @@ class SendCloudParcelItem(models.Model):
     sku = fields.Char()
     return_reason = fields.Char()
     return_message = fields.Char()
-    parcel_id = fields.Many2one("sendcloud.parcel", ondelete="cascade")
+    parcel_id = fields.Many2one("dhl.parcel", ondelete="cascade")

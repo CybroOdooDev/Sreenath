@@ -116,7 +116,7 @@
                 <field name="tracking_number"/>
                 <field name="is_return"/>
                 <field name="company_id" groups="base.group_multi_company"/>
-                <field name="sendcloud_status"/>
+<!--                <field name="sendcloud_status"/>-->
             </tree>
         </field>
     </record>

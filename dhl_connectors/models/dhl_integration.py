@@ -17,9 +17,38 @@ class SendCloudIntegration(models.Model):
 
     client_id = fields.Char(readonly=False)
     client_secret_id = fields.Char(readonly=False)
+    sender_address = fields.Many2one('res.partner', readonly=False)
     bearer_token = fields.Char()
     company_id = fields.Many2one(
         "res.company", required=True, default=lambda self: self.env.company)
+
+    street = fields.Char('Street', compute='_compute_partner_address_values', readonly=False, store=True)
+    street2 = fields.Char('Street2', compute='_compute_partner_address_values', readonly=False, store=True)
+    zip = fields.Char('Zip', change_default=True, compute='_compute_partner_address_values', readonly=False, store=True)
+    city = fields.Char('City', compute='_compute_partner_address_values', readonly=False, store=True)
+    state_id = fields.Many2one(
+        "res.country.state", string='State',
+        compute='_compute_partner_address_values', readonly=False, store=True,
+        domain="[('country_id', '=?', country_id)]")
+    country_id = fields.Many2one(
+        'res.country', string='Country',
+        compute='_compute_partner_address_values', readonly=False, store=True)
+
+    @api.onchange('sender_address')
+    @api.depends('sender_address')
+    def _compute_partner_address_values(self):
+        for rec in self:
+            rec.street = rec.sender_address.street
+            rec.street2 = rec.sender_address.street2
+            rec.zip = rec.sender_address.zip
+            rec.state_id = rec.sender_address.state_id
+            rec.city = rec.sender_address.city
+            rec.country_id = rec.sender_address.country_id
+
+
+    def dhl_credentials(self):
+        for rec in self:
+            return rec.client_id, rec.client_secret_id, rec.bearer_token
 
     def get_bearer_token(self):
         for rec in self:
@@ -45,7 +74,7 @@ class SendCloudIntegration(models.Model):
                         "parcelDestinationOrganization": "DE",
                         "general": {
                             "parcelIdentifier": sequence_id,
-                            "timestamp": datetime.datetime.now(),
+                            # "timestamp": datetime.datetime.now(),
                             "product": "ParcelEurope.parcelconnect",
                             "routingCode": "2LHR10090+70000000"
                         },
@@ -228,26 +257,119 @@ class SaleOrder(models.Model):
         for order in self:
             for rec in order.picking_ids:
                 parcel_items = []
-                for item in rec.move_line_ids_without_package:
-                    parcel_items.append([(0, 0, {
+                for item in rec.move_ids_without_package:
+                    parcel_items.append((0, 0, {
                         "description": item.product_id.name,
                         "quantity": order.order_line[0].product_uom_qty,
                         "weight": rec.weight,
                         "value": order.amount_total,
                         "product_id": item.product_id.id,
-                    })])
+                        "parcel_id": item.product_id.id,
+                    }))
                     return parcel_items
 
     def action_confirm(self):
         res = super(SaleOrder, self).action_confirm()
         for order in self:
-            print('orderrr', order.read())
             for rec in order.picking_ids:
-                print('qqqqqqqqqqqqqqqqqqqqq', rec)
                 if rec != 0:
                     if rec.delivery_type == 'dhl':
-                        print('recccccccccccccccccc', rec.read())
-                        parcel = self.env['dhl.parcel'].sudo().create({
+                        uurl = "https://api-sandbox.dhl.com"
+                        urls = "https://api-sandbox.dhl.com/ccc/v1/auth/accesstoken"
+
+                        dhl_cred = self.env['dhl.integration'].search([], limit=1)
+
+                        response = requests.request("GET", urls,
+                                                    auth=(str(dhl_cred.client_id), str(dhl_cred.client_secret_id)))
+
+                        tokens = response.json()
+                        bearer_token = dhl_cred.bearer_token
+
+                        querystring = {"generateLabel": "true", "labelFormat": "pdf"}
+
+                        url = "https://api-sandbox.dhl.com/ccc/send-cpan?generateLabel=true&labelFormat=pdf"
+
+                        sequence_id = self.env['ir.sequence'].next_by_code('dhl.integration')
+                        payload = {
+                            "dataElement": {
+                                "parcelOriginOrganization": "AT",
+                                "parcelDestinationOrganization": "GB",
+                                "general": {
+                                    "parcelIdentifier": sequence_id,
+                                    "timestamp": "2016-11-06T10:30:28Z",
+                                    "product": "ParcelEurope.parcelconnect",
+                                    "routingCode": "2LHR10090+70000000"
+                                },
+                                "cPAN": {
+                                    "addresses": {
+                                        "sender": {
+                                            "type": "default",
+                                            "firstName": order.company_id.name,
+                                            "name": order.company_id.name,
+                                            "street1": dhl_cred.street,
+                                            "street1Nr": dhl_cred.street2,
+                                            "postcode": dhl_cred.zip,
+                                            "city": dhl_cred.city,
+                                            "country": dhl_cred.country_id.code,
+                                            "referenceNr": "REF45678901234567890123456789012345",
+                                            "customerIdentification": "6199546008",
+                                            "customerAccountNr1": "Test5012345678",
+                                            "hs_code": "Test5012345678"
+                                        },
+                                        "recipient": {
+                                            "type": "parcelshops",
+                                            "firstName": order.partner_id.name,
+                                            "name": order.partner_id.name,
+                                            "additionalName": order.partner_id.name,
+                                            "mobileNr": order.partner_id.phone,
+                                            "email": order.partner_id.email,
+                                            "street1": order.partner_id.street_name,
+                                            "street1Nr": order.partner_id.street_number,
+                                            "postcode": order.partner_id.zip,
+                                            "city": order.partner_id.city,
+                                            "country": "GB",
+                                            "customerIdentification": "6199546008"
+                                        }
+                                    },
+                                    "features": {
+                                        "physical": {
+                                            "grossWeight": rec.weight
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        headerss = {
+                            "content-type": "application/json",
+                            "Authorization": "Bearer" + ' ' + tokens['access_token']
+                        }
+
+                        print('payloadpayload', payload)
+
+                        cpan_responses = requests.request("POST", url, json=payload, headers=headerss)
+
+                        print('cpan_responses', cpan_responses)
+                        print('textttttttttttt', cpan_responses.text)
+                        # if rec.delivery_type == 'dhl':
+
+                        with open('CPAN.pdf', 'wb') as f:
+                            f.write(response.content)
+
+                        report = self.env['ir.attachment'].sudo().create({
+                            'name': sequence_id + '.pdf',
+                            'type': 'binary',
+                            'datas': base64.encodestring(cpan_responses.content),
+                            # 'res_model': 'dhl.parcel',
+                            'mimetype': 'application/x-pdf'
+                        })
+
+                        soup = BeautifulSoup(cpan_responses.text, 'html.parser')
+                        links = soup.find_all('a')
+                        print('reportsssssssss', report)
+                        print('soup', soup)
+
+                        dhl_parcel = self.env['dhl.parcel']
+                        parcel = dhl_parcel.create({
                             'partner_name': rec.sale_id.partner_shipping_id.name,
                             'address': rec.sale_id.partner_shipping_id.street,
                             'house_number': rec.sale_id.partner_shipping_id.street_number,
@@ -259,9 +381,8 @@ class SaleOrder(models.Model):
                             'email': rec.sale_id.partner_shipping_id.email,
                             'telephone': rec.sale_id.partner_shipping_id.mobile,
                             'company_name': rec.sale_id.partner_shipping_id.commercial_company_name,
-
                             'name': rec.name,
-                            # 'label': fields.Binary(related="attachment_id.datas"),
+                            'label': report,
                             'tracking_number': '1',
                             'order_number': rec.sale_id.name,
                             'customs_invoice_nr': rec.sale_id.partner_invoice_id.name,
@@ -269,95 +390,16 @@ class SaleOrder(models.Model):
 
                             'picking_id': rec.id,
 
-                            'parcel_item_ids': order.action_parcel_items()
+                            'parcel_item_ids': [(0, 0, {
+                                "description": item.product_id.name,
+                                "quantity": order.order_line[0].product_uom_qty,
+                                "weight": rec.weight,
+                                "value": order.amount_total,
+                                "product_id": item.product_id.id,
+                                "parcel_id": item.product_id.id,
+                            }) for item in rec.move_ids_without_package]
 
                         })
-                        print('parcel', parcel)
-
-                        uurl = "https://api-sandbox.dhl.com"
-                        urls = "https://api-sandbox.dhl.com/ccc/v1/auth/accesstoken"
-                        response = requests.request("GET", urls, auth=(str(rec.client_id), str(rec.client_secret_id)))
-                        tokens = response.json()
-                        rec.bearer_token = tokens['access_token']
-
-                        querystring = {"generateLabel": "true", "labelFormat": "pdf"}
-
-                        ct = datetime.datetime.now()
-
-                        url = "https://api-sandbox.dhl.com/ccc/send-cpan?generateLabel=true&labelFormat=pdf"
-
-                        sequence_id = self.env['ir.sequence'].next_by_code('dhl.integration')
-
-                        print('ssssssss', sequence_id)
-                        payload = {
-                            "dataElement": {
-                                "parcelOriginOrganization": "AT",
-                                "parcelDestinationOrganization": "DE",
-                                "general": {
-                                    "parcelIdentifier": sequence_id,
-                                    "timestamp": datetime.datetime.now(),
-                                    "product": "ParcelEurope.parcelconnect",
-                                    "routingCode": "2LHR10090+70000000"
-                                },
-                                "cPAN": {
-                                    "addresses": {
-                                        "sender": {
-                                            "type": "default",
-                                            "firstName": order.company_id.name,
-                                            "name": order.company_id.name,
-                                            "street1": order.company_id.street_name,
-                                            "street1Nr": order.company_id.street_number,
-                                            "postcode": order.company_id.zip,
-                                            "city": order.company_id.city,
-                                            "country": order.company_id.state_id.code,
-                                            "referenceNr": "REF45678901234567890123456789012345",
-                                            "customerIdentification": "6199546008",
-                                            "customerAccountNr1": "Test5012345678"
-                                        },
-                                        "recipient": {
-                                            "type": "parcelshop",
-                                            "firstName":  order.partner_id.name,
-                                            "name":  order.partner_id.name,
-                                            "additionalName":  order.partner_id.name,
-                                            "mobileNr": order.partner_id.phone,
-                                            "email": order.partner_id.email,
-                                            "street1":order.partner_id.street_name,
-                                            "street1Nr":  order.partner_id.street_number,
-                                            "postcode":  order.partner_id.zip,
-                                            "city": order.partner_id.city,
-                                            "country": order.partner_id.city.state_id.code,
-                                            "customerIdentification": ""
-                                        }
-                                    },
-                                    "features": {
-                                        "physical": {
-                                            "grossWeight": rec.weight
-                                        }
-                                    }
-                                }
-                            }
-                        }
-
-                        headerss = {
-                            "content-type": "application/json",
-                            "Authorization": "Bearer" + ' ' + tokens['access_token']
-                        }
-
-                        responsess = requests.request("POST", url,
-                                                      json=payload, headers=headerss)
-
-                        with open('CPAN.pdf', 'wb') as f:
-                            f.write(response.content)
-
-                        report = self.env['ir.attachment'].sudo().create({
-                            'name': sequence_id,
-                            'type': 'binary',
-                            'datas': base64.encodestring(responsess.content),
-                            # 'res_model': 'dhl.parcel',
-                            'mimetype': 'application/x-pdf'
-                        })
-
-                        soup = BeautifulSoup(responsess.text, 'html.parser')
-                        links = soup.find_all('a')
+                        # parcel.picking_id.dhl_ids = parcel.id
 
                         return parcel, res
