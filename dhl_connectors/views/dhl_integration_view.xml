@@ -7,7 +7,10 @@
     <record id="view_dhl_integration_form" model="ir.ui.view">
         <field name="model">dhl.integration</field>
         <field name="arch" type="xml">
-            <form create="false">
+            <form>
+                <header>
+                    <button name="get_bearer_token" string="Get Bearer Token" type="object" />
+                </header>
                 <sheet>
                     <group>
                         <group>
@@ -47,5 +50,15 @@
         parent="sale.menu_sale_config"
         sequence="6"
         action="action_dhl_integration"/>
+
+    <record id="sequence_parcelIdentifier" model="ir.sequence">
+       <field name="name">Parcel Identifier</field>
+       <field name="code">dhl.integration</field>
+       <field name="active">TRUE</field>
+       <field name="prefix">CPAN</field>
+       <field name="padding">10</field>
+       <field name="number_next">1</field>
+       <field name="number_increment">1</field>
+    </record>
 
 </odoo>

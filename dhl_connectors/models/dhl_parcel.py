@@ -10,13 +10,13 @@ from odoo.tools.safe_eval import safe_eval
 
 class SendCloudParcel(models.Model):
     _name = "dhl.parcel"
-    _inherit = ['sendcloud.mixin', 'mail.thread', 'mail.activity.mixin']
-    _description = "SendCloud Parcel"
+    _inherit = ['mail.thread', 'mail.activity.mixin']
+    _description = "DHL Parcel"
 
     @api.model
     def _selection_parcel_statuses(self):
         statuses = self.env["sendcloud.parcel.status"].search([])
-        return [(status.sendcloud_code, status.message) for status in statuses]
+        # return [(status.sendcloud_code, status.message) for status in statuses]
 
     partner_name = fields.Char()
     address = fields.Char()
@@ -30,54 +30,27 @@ class SendCloudParcel(models.Model):
     email = fields.Char()
     telephone = fields.Char()
     name = fields.Char(required=True)
-    sendcloud_code = fields.Integer(required=True)
     label = fields.Binary(related="attachment_id.datas")
     tracking_url = fields.Char()
     tracking_number = fields.Char()
-    label_printer_url = fields.Char()
-    return_portal_url = fields.Char()
     external_reference = fields.Char(
         help="A field to use as a reference for your order."
     )
-    insured_value = fields.Float(help="Insured Value is in Euro currency.")
-    total_insured_value = fields.Float(help="Total Insured Value is in Euro currency.")
     weight = fields.Float(help="Weight unit of measure is KG.")
     is_return = fields.Boolean(readonly=True)
-    collo_count = fields.Integer(
-        help="A number indicating the number of collos within a shipment. For non-multi-collo shipments, this value will always be 1."
-    )
-    collo_nr = fields.Integer(
-        help="A number indicating the collo number within a shipment. For a non-multi-collo shipment, this value will always be 0. In a multi-collo shipment with 3 collos, this number will range from 0 to 2."
-    )
-    colli_uuid = fields.Char()
-    colli_tracking_number = fields.Char(
-        help="Multi-collo only. This is a tracking number assigned by the carrier to identify the entire multi-collo shipment."
-    )
-    external_shipment_id = fields.Char()
-    external_order_id = fields.Char()
-    shipping_method = fields.Integer()
-    shipment_uuid = fields.Char()
-    to_post_number = fields.Text()
-    parcel_item_ids = fields.One2many("sendcloud.parcel.item", "parcel_id")
-    documents = fields.Text(
-        help="An array of documents. A parcel can contain multiple documents, for instance labels and a customs form. This field returns an array of all the available documents for this parcel."
-    )
+
+    parcel_item_ids = fields.One2many("dhl.parcel.item", "parcel_id")
+
     note = fields.Text()
     type = fields.Char(
         help="Returns either ‘parcel’ or ‘letter’ by which you can determine the type of your shipment."
     )
-    to_state = fields.Char()
     order_number = fields.Char()
     customs_invoice_nr = fields.Char()
     shipment = fields.Char(string="Cached Shipment")
     shipment_id = fields.Many2one("delivery.carrier", compute="_compute_shipment_id")
     reference = fields.Char()
-    to_service_point = fields.Char(
-        help="The id of service point to which the shipment is going to be shipped."
-    )
-    sendcloud_customs_shipment_type = fields.Selection(
-        selection="_get_sendcloud_customs_shipment_type", string='DHL Customs Shipment Type'
-    )
+
     picking_id = fields.Many2one("stock.picking")
     package_id = fields.Many2one("stock.quant.package")
     sendcloud_status = fields.Selection(
@@ -111,7 +84,7 @@ class SendCloudParcel(models.Model):
         self.ensure_one()
         return [
             ("company_id", "=", self.company_id.id),
-            ("sendcloud_code", "=", shipment_code),
+            # ("sendcloud_code", "=", shipment_code),
         ]
 
     @api.depends("picking_id.company_id")
@@ -130,75 +103,75 @@ class SendCloudParcel(models.Model):
     def _prepare_sendcloud_parcel_from_response(self, parcel):
         res = {
             "name": parcel.get("id"),
-            "sendcloud_code": parcel.get("id"),
+            # "sendcloud_code": parcel.get("id"),
             "carrier": parcel.get("carrier", {}).get("code") or parcel.get("carrier"),
         }
-        if parcel.get("status", {}).get("id"):
-            res["sendcloud_status"] = str(parcel.get("status", {}).get("id"))
-        if parcel.get("tracking_number"):
-            res["tracking_number"] = parcel.get("tracking_number")
-        if parcel.get("tracking_url"):
-            res["tracking_url"] = parcel.get("tracking_url")
-        if parcel.get("label", {}).get("label_printer"):
-            res["label_printer_url"] = parcel.get("label", {}).get("label_printer")
-        if parcel.get("external_reference"):
-            res["external_reference"] = parcel.get("external_reference", "")
-        if parcel.get("collo_count"):
-            res["collo_count"] = parcel.get("collo_count")
-        if parcel.get("collo_nr"):
-            res["collo_nr"] = parcel.get("collo_nr")
-        if parcel.get("colli_uuid"):
-            res["colli_uuid"] = parcel.get("colli_uuid")
-        if parcel.get("colli_tracking_number"):
-            res["colli_tracking_number"] = parcel.get("colli_tracking_number")
-        customs_shipment_type = parcel.get("customs_shipment_type")
-        res["sendcloud_customs_shipment_type"] = (
-            str(customs_shipment_type) if customs_shipment_type else False
-        )
-        res["to_service_point"] = parcel.get("to_service_point")
-        res["reference"] = parcel.get("reference")
-        res["shipment"] = parcel.get("shipment")
-        res["customs_invoice_nr"] = parcel.get("customs_invoice_nr")
-        res["order_number"] = parcel.get("order_number")
-        res["to_state"] = parcel.get("to_state")
-        res["type"] = parcel.get("type")
-        res["note"] = parcel.get("note")
-        res["documents"] = parcel.get("documents")
-        res["to_post_number"] = parcel.get("to_post_number")
-        res["shipment_uuid"] = parcel.get("shipment_uuid")
-        res["shipping_method"] = parcel.get("shipping_method")
-        res["external_order_id"] = parcel.get("external_order_id")
-        res["external_shipment_id"] = parcel.get("external_shipment_id")
-        res["is_return"] = parcel.get("is_return")
-        res["weight"] = parcel.get("weight")
-        res["total_insured_value"] = parcel.get("total_insured_value")
-        res["insured_value"] = parcel.get("insured_value")
-        res["return_portal_url"] = parcel.get("return_portal_url")
-        res["partner_name"] = parcel.get("name")
-        res["address"] = parcel.get("address")
-        if parcel.get("address_2"):
-            res["address_2"] = parcel.get("address_2")
-        if parcel.get("address_divided"):
-            res["house_number"] = parcel["address_divided"].get(
-                "house_number"
-            ) or parcel.get("house_number")
-            res["street"] = parcel["address_divided"].get("street") or parcel.get(
-                "street"
-            )
-        else:
-            res["house_number"] = parcel.get("house_number")
-            res["street"] = parcel.get("street")
-        res["city"] = parcel.get("city")
-        res["postal_code"] = parcel.get("postal_code")
-        res["company_name"] = parcel.get("company_name")
-        res["country_iso_2"] = parcel.get("country", {}).get("iso_2")
-        res["email"] = parcel.get("email")
-        res["telephone"] = parcel.get("telephone")
-        if isinstance(parcel.get("parcel_items"), list):
-            res["parcel_item_ids"] = [(5, False, False)] + [
-                (0, False, self._prepare_sendcloud_parcel_item_from_response(values))
-                for values in parcel.get("parcel_items")
-            ]
+        # if parcel.get("status", {}).get("id"):
+        #     res["sendcloud_status"] = str(parcel.get("status", {}).get("id"))
+        # if parcel.get("tracking_number"):
+        #     res["tracking_number"] = parcel.get("tracking_number")
+        # if parcel.get("tracking_url"):
+        #     res["tracking_url"] = parcel.get("tracking_url")
+        # if parcel.get("label", {}).get("label_printer"):
+        #     res["label_printer_url"] = parcel.get("label", {}).get("label_printer")
+        # if parcel.get("external_reference"):
+        #     res["external_reference"] = parcel.get("external_reference", "")
+        # if parcel.get("collo_count"):
+        #     res["collo_count"] = parcel.get("collo_count")
+        # if parcel.get("collo_nr"):
+        #     res["collo_nr"] = parcel.get("collo_nr")
+        # if parcel.get("colli_uuid"):
+        #     res["colli_uuid"] = parcel.get("colli_uuid")
+        # if parcel.get("colli_tracking_number"):
+        #     res["colli_tracking_number"] = parcel.get("colli_tracking_number")
+        # customs_shipment_type = parcel.get("customs_shipment_type")
+        # res["sendcloud_customs_shipment_type"] = (
+        #     str(customs_shipment_type) if customs_shipment_type else False
+        # )
+        # res["to_service_point"] = parcel.get("to_service_point")
+        # res["reference"] = parcel.get("reference")
+        # res["shipment"] = parcel.get("shipment")
+        # res["customs_invoice_nr"] = parcel.get("customs_invoice_nr")
+        # res["order_number"] = parcel.get("order_number")
+        # res["to_state"] = parcel.get("to_state")
+        # res["type"] = parcel.get("type")
+        # res["note"] = parcel.get("note")
+        # res["documents"] = parcel.get("documents")
+        # res["to_post_number"] = parcel.get("to_post_number")
+        # res["shipment_uuid"] = parcel.get("shipment_uuid")
+        # res["shipping_method"] = parcel.get("shipping_method")
+        # res["external_order_id"] = parcel.get("external_order_id")
+        # res["external_shipment_id"] = parcel.get("external_shipment_id")
+        # res["is_return"] = parcel.get("is_return")
+        # res["weight"] = parcel.get("weight")
+        # res["total_insured_value"] = parcel.get("total_insured_value")
+        # res["insured_value"] = parcel.get("insured_value")
+        # res["return_portal_url"] = parcel.get("return_portal_url")
+        # res["partner_name"] = parcel.get("name")
+        # res["address"] = parcel.get("address")
+        # if parcel.get("address_2"):
+        #     res["address_2"] = parcel.get("address_2")
+        # if parcel.get("address_divided"):
+        #     res["house_number"] = parcel["address_divided"].get(
+        #         "house_number"
+        #     ) or parcel.get("house_number")
+        #     res["street"] = parcel["address_divided"].get("street") or parcel.get(
+        #         "street"
+        #     )
+        # else:
+        #     res["house_number"] = parcel.get("house_number")
+        #     res["street"] = parcel.get("street")
+        # res["city"] = parcel.get("city")
+        # res["postal_code"] = parcel.get("postal_code")
+        # res["company_name"] = parcel.get("company_name")
+        # res["country_iso_2"] = parcel.get("country", {}).get("iso_2")
+        # res["email"] = parcel.get("email")
+        # res["telephone"] = parcel.get("telephone")
+        # if isinstance(parcel.get("parcel_items"), list):
+        #     res["parcel_item_ids"] = [(5, False, False)] + [
+        #         (0, False, self._prepare_sendcloud_parcel_item_from_response(values))
+        #         for values in parcel.get("parcel_items")
+        #     ]
         return res
 
     def action_get_parcel_label(self):
