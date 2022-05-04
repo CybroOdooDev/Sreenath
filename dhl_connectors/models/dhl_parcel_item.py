@@ -4,7 +4,7 @@
 from odoo import api, models, fields
 
 
-class SendCloudParcelItem(models.Model):
+class DhlParcelItem(models.Model):
     _name = "dhl.parcel.item"
     _description = "DHL Parcel Items"
     _rec_name = "description"
@@ -23,21 +23,22 @@ class SendCloudParcelItem(models.Model):
     return_message = fields.Char()
     parcel_id = fields.Many2one("dhl.parcel", ondelete="cascade")
 
-class SendCloudReturnParcelItem(models.Model):
+
+class DhlReturnParcelItem(models.Model):
     _name = "dhl.return.parcel.item"
     _description = "DHL Parcel Items"
-    _rec_name = "description"
+    _rec_name = "return_description"
 
-    description = fields.Char(required=True)
-    quantity = fields.Integer()
-    weight = fields.Float()
-    volume = fields.Float()
-    value = fields.Float()
-    hs_code = fields.Char()
-    origin_country = fields.Char()
-    product_id = fields.Char()
-    properties = fields.Char()
-    sku = fields.Char()
+    return_description = fields.Char(required=True)
+    return_quantity = fields.Integer()
+    return_weight = fields.Float()
+    return_volume = fields.Float()
+    return_value = fields.Float()
+    return_hs_code = fields.Char()
+    return_origin_country = fields.Char()
+    return_product_id = fields.Char()
+    return_properties = fields.Char()
+    return_sku = fields.Char()
     return_reason = fields.Char()
     return_message = fields.Char()
-    parcel_id = fields.Many2one("dhl.parcel", ondelete="cascade")
+    return_parcel_id = fields.Many2one("dhl.return.parcel", ondelete="cascade")
