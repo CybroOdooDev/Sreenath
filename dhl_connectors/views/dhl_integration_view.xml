@@ -16,6 +16,7 @@
                         <group>
                             <field name="client_id"/>
                             <field name="client_secret_id"/>
+                            <field name="customer_identification_no"/>
                             <field name="sender_address" string="Sender Address"/>
                     <label for="street" string="Address"/>
                     <div class="o_address_format">
@@ -81,6 +82,16 @@
        <field name="code">dhl.integration</field>
        <field name="active">TRUE</field>
        <field name="prefix">CPAN</field>
+       <field name="padding">10</field>
+       <field name="number_next">1</field>
+       <field name="number_increment">1</field>
+    </record>
+
+    <record id="sequence_return_parcelIdentifier" model="ir.sequence">
+       <field name="name">Return Parcel Identifier</field>
+       <field name="code">dhl.integration.return</field>
+       <field name="active">TRUE</field>
+       <field name="prefix">RCPAN</field>
        <field name="padding">10</field>
        <field name="number_next">1</field>
        <field name="number_increment">1</field>

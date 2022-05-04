@@ -11,15 +11,16 @@
                 <button name="button_create_sendcloud_labels" string="DHL Labels" type="object" class="oe_highlight" groups="stock.group_stock_user"/>
             </header>
             <div name="button_box" position="inside">
-                <button name="action_open_dhl_parcels" type="object" class="oe_stat_button" icon='fa-cube' attrs="{'invisible': [('picking_type_code', '=', 'outgoing')]}">
+                <button name="action_open_dhl_parcels" type="object" class="oe_stat_button" icon='fa-cube' attrs="{'invisible': [('picking_type_code', '!=', 'outgoing')]}">
                     <field name="dhl_parcel_count" widget="statinfo" />
                 </button>
-                <button name="action_open_dhl_parcels_return" type="object" class="oe_stat_button" icon='fa-cube' attrs="{'invisible': [('picking_type_code', '!=', 'outgoing')]}">
-                    <field name="dhl_parcel_count" widget="statinfo" />
+                <button name="action_open_dhl_parcels_return" type="object" class="oe_stat_button" icon='fa-cube' attrs="{'invisible': [('picking_type_code', '=', 'outgoing')]}">
+                    <field name="dhl_return_parcel_count" widget="statinfo" />
                 </button>
             </div>
             <field name="shipping_weight" position="after">
                 <field name="volume"/>
+                <field name="return_dhl_ids"/>
             </field>
             <page name="extra" position="after">
                 <page string="DHL Shipping" name="sendcloud_parcel" attrs="{'invisible':['|',('delivery_type','!=','dhl'),('picking_type_code', '!=', 'outgoing')]}">
@@ -28,25 +29,18 @@
                             <field name="dhl_ids" string="Parcel"/>
                             <field name="volume" string="Volume"/>
                             <field name="is_cpan"/>
-<!--                            <field name="sendcloud_apply_shipping_rules" string="Apply Shipping Rules"/>-->
-<!--                            <field name="sendcloud_customs_shipment_type" string="Shipment Type"/>-->
-<!--                            <field name="sendcloud_shipment_uuid" string="Shipment UUID"/>-->
-<!--                            <field name="sendcloud_insured_value" string="Insured Value"/>-->
-<!--                            <field name="sendcloud_shipping_method_checkout_name" string="Shipping Method Checkout Name"/>-->
-<!--                            <field name="sendcloud_service_point_required" invisible="1"/>-->
-<!--                            <field-->
-<!--                                name="sendcloud_service_point_address"-->
-<!--                                attrs="{'invisible':[('sendcloud_service_point_required','=',False)]}"-->
-<!--                                widget="sendcloud_service_point_selector"-->
-<!--                                context="{'selected_partner_id': partner_id}"-->
+                        </group>
+                    </group>
+                </page>
+                <page string="DHL Shipping" name="sendcloud_parcel" attrs="{'invisible':['|',('delivery_type','!=','dhl'),('picking_type_code', '=', 'outgoing')]}">
+                    <group>
+                        <group name="sendcloud_parcel_details">
+                            <field name="return_dhl_ids" string="Parcel"/>
+                            <field name="volume" string="Volume"/>
+                            <field name="is_cpan"/>
 <!--                            />-->
                         </group>
                     </group>
-<!--                    <field name="is_sendcloud_test_mode" invisible="1"/>-->
-<!--                    <group name="testing" string="Only for Testing" attrs="{'invisible': [('is_sendcloud_test_mode', '=', False)]}">-->
-<!--                        <button name="button_to_sendcloud_sync" type="object" string="Sync To SendCloud"/>-->
-<!--                        <button name="button_delete_sendcloud_picking" type="object" string="Delete From SendCloud"/>-->
-<!--                    </group>-->
                 </page>
             </page>
         </field>
