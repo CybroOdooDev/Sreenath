@@ -30,6 +30,18 @@
                         <group>
                             <field name="bearer_token"/>
                             <field name="company_id"/>
+                            <field name="updated_at" readonly="0"/>
+
+                            <field name="return_address" string="Retun Address"/>
+                         <label for="street" string="Return Address"/>
+                        <div class="o_address_format">
+                            <field name="return_street" placeholder="Street..." class="o_address_street"/>
+                            <field name="return_street2" placeholder="Street 2..." class="o_address_street"/>
+                            <field name="return_city" placeholder="City" class="o_address_city"/>
+                            <field name="return_state_id" class="o_address_state" placeholder="State" options='{"no_open": True}'/>
+                            <field name="return_zip" placeholder="ZIP" class="o_address_zip"/>
+                            <field name="return_country_id" placeholder="Country" class="o_address_country" options='{"no_open": True}'/>
+                        </div>
                         </group>
                     </group>
                 </sheet>
@@ -72,6 +84,29 @@
        <field name="padding">10</field>
        <field name="number_next">1</field>
        <field name="number_increment">1</field>
+    </record>
+
+
+    <record id="view_company_form_dhl" model="ir.ui.view">
+        <field name="name">res.company.form.inherit.dhl</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='vat']" position="after">
+                <field name="eori_no"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_partner_form_dhl" model="ir.ui.view">
+        <field name="name">res.partner.form.inherit.dhl</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='vat']" position="after">
+                <field name="eori_no"/>
+            </xpath>
+        </field>
     </record>
 
 </odoo>

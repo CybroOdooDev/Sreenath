@@ -13,11 +13,7 @@ class SendCloudParcel(models.Model):
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = "DHL Parcel"
 
-    # @api.model
-    # def _selection_parcel_statuses(self):
-    #     statuses = self.env["sendcloud.parcel.status"].search([])
-        # return [(status.sendcloud_code, status.message) for status in statuses]
-
+    is_cpan = fields.Boolean('CPAN Parcel', store=True)
     partner_name = fields.Char()
     address = fields.Char()
     address_2 = fields.Char(help="An apartment or floor number.")
@@ -30,8 +26,9 @@ class SendCloudParcel(models.Model):
     email = fields.Char()
     telephone = fields.Char()
     name = fields.Char(required=True)
-    label = fields.Binary(related="attachment_id.datas")
-    tracking_url = fields.Char()
+    cpan_pdf = fields.Binary()
+    cpan_zpl = fields.Binary()
+    tracking_url = fields.Char(compute='_compute_tracking_url')
     tracking_number = fields.Char()
     external_reference = fields.Char(
         help="A field to use as a reference for your order."
@@ -71,6 +68,10 @@ class SendCloudParcel(models.Model):
         comodel_name="ir.attachment",
         ondelete="cascade",
     )
+
+    def _compute_tracking_url(self):
+        for rec in self:
+            rec.tracking_url = "https://www.dhl.com/at-de/home/tracking/tracking-global-forwarding.html?submit=1&tracking-id=" + 'JJD14999029999959750'
 
     @api.depends("shipment")
     def _compute_shipment_id(self):
@@ -262,6 +263,8 @@ class SendCloudParcel(models.Model):
             ]._prepare_sendcloud_parcel_from_response(parcel)
             self.write(parcels_vals)
 
+
+
     def unlink(self):
         if not self.env.context.get("skip_cancel_parcel"):
             for parcel in self:
@@ -300,3 +303,76 @@ class SendCloudParcel(models.Model):
             "return_reason": data.get("return_reason"),
             "return_message": data.get("return_message"),
         }
+
+
+
+class ReturnParcel(models.Model):
+    _name = "dhl.return.parcel"
+    _inherit = ['mail.thread', 'mail.activity.mixin']
+    _description = "DHL Parcel"
+
+    is_cpan = fields.Boolean('CPAN Parcel', store=True)
+    partner_name = fields.Char()
+    address = fields.Char()
+    address_2 = fields.Char(help="An apartment or floor number.")
+    house_number = fields.Char()
+    street = fields.Char()
+    city = fields.Char()
+    postal_code = fields.Char()
+    company_name = fields.Char()
+    country_iso_2 = fields.Char()
+    email = fields.Char()
+    telephone = fields.Char()
+    name = fields.Char(required=True)
+    cpan_pdf = fields.Binary()
+    cpan_zpl = fields.Binary()
+    tracking_url = fields.Char(compute='_compute_tracking_url')
+    tracking_number = fields.Char()
+    external_reference = fields.Char(
+        help="A field to use as a reference for your order."
+    )
+    weight = fields.Float(help="Weight unit of measure is KG.")
+    is_return = fields.Boolean(readonly=True)
+
+    parcel_item_ids = fields.One2many("dhl.parcel.item", "parcel_id")
+
+    note = fields.Text()
+    type = fields.Char(
+        help="Returns either ‘parcel’ or ‘letter’ by which you can determine the type of your shipment."
+    )
+    order_number = fields.Char()
+    customs_invoice_nr = fields.Char()
+    shipment = fields.Char(string="Cached Shipment")
+    shipment_id = fields.Many2one("delivery.carrier", compute="_compute_shipment_id")
+    reference = fields.Char()
+
+    picking_id = fields.Many2one("stock.picking")
+    package_id = fields.Many2one("stock.quant.package")
+    # sendcloud_status = fields.Selection(
+    #     selection=lambda self: self._selection_parcel_statuses(), readonly=True
+    # )
+    carrier = fields.Char()
+    company_id = fields.Many2one(
+        "res.company",
+        required=True,
+        compute="_compute_company_id",
+        store=True,
+        readonly=False,
+    )
+    brand_id = fields.Many2one(
+        "sendcloud.brand", compute="_compute_brand_id", store=True, readonly=False
+    )
+    attachment_id = fields.Many2one(
+        comodel_name="ir.attachment",
+        ondelete="cascade",
+    )
+
+    def button_sync_return_parcel(self):
+        self.ensure_one()
+        integration = self.company_id.sendcloud_default_integration_id
+        if integration:
+            parcel = integration.get_parcel(self.sendcloud_code)
+            parcels_vals = self.env[
+                "sendcloud.parcel"
+            ]._prepare_sendcloud_parcel_from_response(parcel)
+            self.write(parcels_vals)

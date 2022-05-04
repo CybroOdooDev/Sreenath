@@ -26,8 +26,24 @@ class DeliveryCarrier(models.Model):
     dhl_min_weight = fields.Float()
     dhl_max_weight = fields.Float()
     dhl_price = fields.Float(
-        help="When this value is null, the price is calculated based on the pricelist by countries"
-    )
+        help="When this value is null, the price is calculated based on the pricelist by countries")
     sendcloud_is_return = fields.Boolean()
-    parcel_origin = fields.Char(string='Parcel Origin')
-    parcel_destination = fields.Char(string='Parcel Destination')
+    parcel_origin = fields.Many2one('res.country', string='Parcel Origin', )
+    parcel_destination = fields.Many2one('res.country', string='Parcel Destination')
+    return_delivery_duties = fields.Selection(string='Return Delivery Duties',
+                                              selection=[
+                                                  ('ddu', 'DDU'),
+                                                  ('ddp', 'DDP'),
+                                              ])
+
+    label_size = fields.Selection(string='Label SIze',
+                                              selection=[
+                                                  ('15', '10*15'),
+                                                  ('21', '10*21'),
+                                              ])
+
+    resolution = fields.Selection(string='Resolution',
+                                              selection=[
+                                                  ('200', '200'),
+                                                  ('300', '300'),
+                                              ])

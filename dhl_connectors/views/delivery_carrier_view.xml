@@ -20,7 +20,8 @@
                             <field name="dhl_price" string="Price" readonly="1"/>
                             <field name="parcel_origin" readonly="0"/>
                             <field name="parcel_destination" readonly="0"/>
-                            <field name="sendcloud_is_return" string="Is Return" readonly="1"/>
+                            <field name="label_size" readonly="0"/>
+                            <field name="resolution" readonly="0"/>
                         </group>
 
                     </group>

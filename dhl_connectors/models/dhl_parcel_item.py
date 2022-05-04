@@ -12,6 +12,26 @@ class SendCloudParcelItem(models.Model):
     description = fields.Char(required=True)
     quantity = fields.Integer()
     weight = fields.Float()
+    volume = fields.Float()
+    value = fields.Float()
+    hs_code = fields.Char()
+    origin_country = fields.Char()
+    product_id = fields.Char()
+    properties = fields.Char()
+    sku = fields.Char()
+    return_reason = fields.Char()
+    return_message = fields.Char()
+    parcel_id = fields.Many2one("dhl.parcel", ondelete="cascade")
+
+class SendCloudReturnParcelItem(models.Model):
+    _name = "dhl.return.parcel.item"
+    _description = "DHL Parcel Items"
+    _rec_name = "description"
+
+    description = fields.Char(required=True)
+    quantity = fields.Integer()
+    weight = fields.Float()
+    volume = fields.Float()
     value = fields.Float()
     hs_code = fields.Char()
     origin_country = fields.Char()

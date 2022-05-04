@@ -1,4 +1,5 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_dhl_parcel,dhl_parcel,model_dhl_parcel,,1,1,1,1
+access_dhl_return_parcel,dhl_return_parcel,model_dhl_return_parcel,,1,1,1,1
 access_dhl_parcel_item,dhl_parcel_item,model_dhl_parcel_item,,1,1,1,1
 access_dhl_integration,dhl_integration,model_dhl_integration,,1,1,1,1
