@@ -12,12 +12,12 @@
                       >
                     <group>
                         <group>
-                            <field name="dhl_carrier" string="Carrier" readonly="1"/>
+<!--                            <field name="dhl_carrier" string="Carrier" readonly="0"/>-->
                             <field name="dhl_code" string="Code" readonly="1"/>
                             <field name="dhl_service_point_input" string="Service points" readonly="1"/>
                             <field name="dhl_min_weight" string="Min Weight" readonly="1"/>
                             <field name="dhl_max_weight" string="Max Weight" readonly="1"/>
-                            <field name="dhl_price" string="Price" readonly="1"/>
+                            <field name="dhl_price" string="Price" readonly="0"/>
                             <field name="parcel_origin" readonly="0"/>
                             <field name="parcel_destination" readonly="0"/>
                             <field name="label_size" readonly="0"/>

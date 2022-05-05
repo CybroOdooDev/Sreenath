@@ -35,8 +35,8 @@
                         <group>
                             <field name="tracking_number"/>
                             <field name="tracking_url" string="Track the shipment" widget="url"/>
-                            <field name="cpan_pdf" widget="many2many_binary" />
-                            <field name="cpan_zpl" widget="many2many_binary" />
+                            <field name="cpan_pdf" string="CPAN PDF" widget="many2many_binary" />
+                            <field name="cpan_zpl" string="CPAN ZPL" widget="many2many_binary" />
                             <field name="shipment_id"/>
                             <field name="is_cpan"/>
                         </group>
@@ -180,8 +180,8 @@
                         <group>
                             <field name="tracking_number"/>
                             <field name="tracking_url" string="Track the shipment" widget="url"/>
-                            <field name="cpan_pdf" widget="many2many_binary" />
-                            <field name="cpan_zpl" widget="many2many_binary" />
+                            <field name="cpan_pdf" string="CPAN PDF" widget="many2many_binary" />
+                            <field name="cpan_zpl" string="CPAN ZPL" widget="many2many_binary" />
                             <field name="shipment_id"/>
                             <field name="is_cpan"/>
                         </group>
