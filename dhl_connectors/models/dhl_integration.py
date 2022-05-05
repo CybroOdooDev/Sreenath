@@ -104,6 +104,10 @@ class SaleOrder(models.Model):
             for rec in order.picking_ids:
                 sequence_id = self.env['ir.sequence'].next_by_code('dhl.integration')
                 dhl_cred = self.env['dhl.integration'].search([], limit=1)
+                if order.partner_id.country_id.intrastat:
+                    parcel_product = 'ParcelEurope.parcelconnect'
+                else:
+                    parcel_product = 'ParcelEurope.parcelinternational'
                 if dhl_cred:
                     if dhl_cred.customer_identification_no:
                         if dhl_cred.street:
@@ -118,7 +122,87 @@ class SaleOrder(models.Model):
                                                     "general": {
                                                         "parcelIdentifier": sequence_id,
                                                         "timestamp": "2016-11-06T10:30:28Z",
-                                                        "product": "ParcelEurope.parcelconnect",
+                                                        "product": parcel_product,
+                                                        "routingCode": "2LHR10090+70000000"
+                                                    },
+                                                    "cPAN": {
+                                                        "addresses": {
+                                                            "sender": {
+                                                                "type": "default",
+                                                                "firstName": order.company_id.name,
+                                                                "name": order.company_id.name,
+                                                                "street1": dhl_cred.street,
+                                                                "street1Nr": dhl_cred.street2,
+                                                                "postcode": dhl_cred.zip,
+                                                                "city": dhl_cred.city,
+                                                                "country": dhl_cred.sender_address.country_id.code,
+                                                                "referenceNr": "REF45678901234567890123456789012345",
+                                                                "customerIdentification": dhl_cred.customer_identification_no,
+                                                                "customerAccountNr1": "Test5012345678",
+                                                                "hs_code": order.order_line[0].product_id.code
+                                                            },
+                                                            "recipient": {
+                                                                "type": "parcelshops",
+                                                                "firstName": order.partner_id.name,
+                                                                "name": order.partner_id.name,
+                                                                "additionalName": order.partner_id.name,
+                                                                "mobileNr": order.partner_id.phone,
+                                                                "email": order.partner_id.email,
+                                                                "street1": order.partner_id.street_name,
+                                                                "street1Nr": order.partner_id.street_number,
+                                                                "postcode": order.partner_id.zip,
+                                                                "city": order.partner_id.city,
+                                                                "country": order.partner_id.country_id.code,
+                                                                "customerIdentification": "6199546008"
+                                                            }
+                                                        },
+                                                        "features": {
+                                                            "physical": {
+                                                                "grossWeight": rec.weight
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                            return payload
+                                        else:
+                                            raise ValidationError(
+                                                _("Please check wheather the country is given in the sender address "))
+                                    else:
+                                        raise ValidationError(
+                                            _("Please check wheather the city is given in the sender address "))
+                                else:
+                                    raise ValidationError(
+                                        _("Please check wheather the zip is given in the sender address "))
+                            else:
+                                raise ValidationError(
+                                    _("Please check wheather the street2 is given in the sender address "))
+                        else:
+                            raise ValidationError(_("Please check wheather the street is given in the sender address "))
+                    else:
+                        raise ValidationError(
+                            _("Please check wheather the Customer Identification No is given in the sender address "))
+
+    def load_return_cpan_payload(self):
+        for order in self:
+            for rec in order.picking_ids:
+                sequence_id = self.env['ir.sequence'].next_by_code('dhl.integration')
+                dhl_cred = self.env['dhl.integration'].search([], limit=1)
+                if dhl_cred:
+                    if dhl_cred.customer_identification_no:
+                        if dhl_cred.street:
+                            if dhl_cred.street2:
+                                if dhl_cred.zip:
+                                    if dhl_cred.city:
+                                        if dhl_cred.country_id:
+                                            payload = {
+                                                "dataElement": {
+                                                    "parcelOriginOrganization": dhl_cred.sender_address.country_id.code,
+                                                    "parcelDestinationOrganization": order.partner_id.country_id.code,
+                                                    "general": {
+                                                        "parcelIdentifier": sequence_id,
+                                                        "timestamp": "2016-11-06T10:30:28Z",
+                                                        "product": 'parceleurope.return.network',
                                                         "routingCode": "2LHR10090+70000000"
                                                     },
                                                     "cPAN": {
@@ -203,6 +287,12 @@ class SaleOrder(models.Model):
                 # if invoice_id:
                 #     invoices = self.env['account.move'].search([('id', '=', invoice_id)])
                 if dhl_cred:
+                    if order.partner_id.country_id.intrastat:
+                        parcel_product = 'ParcelEurope.parcelconnect'
+                    else:
+                        parcel_product = 'ParcelEurope.parcelinternational'
+                    print('ParcelEurope.parcelconnect', parcel_product)
+
                     payload = {
                         "dataElement": {
                             "version": "0200",
@@ -211,10 +301,11 @@ class SaleOrder(models.Model):
                             "general": {
                                 "parcelIdentifier": sequence_id,
                                 "timestamp": "2020-05-22T11:15:15",
-                                "product": "ParcelEurope.parcelconnect",
+                                "product": parcel_product,
                                 "routingCode": "2LHR10090+70000001",
-                                "customerIdentification": "6199546008"
+                                "customerIdentification": dhl_cred.customer_identification_no
                             },
+
                             "cCustoms": {
                                 "CustomsIDs": {
                                     "sender": [
@@ -283,46 +374,32 @@ class SaleOrder(models.Model):
                     return parcel_items
 
     def request_wrapper(self, status_code):
-        for order in self:
-            for rec in order.picking_ids:
-                urls = "https://api-sandbox.dhl.com/ccc/v1/auth/accesstoken"
-                dhl_credentials = self.env['dhl.integration'].search([], limit=1)
-                response = requests.request("GET", urls, auth=(
+        for rec in self:
+            urls = "https://api-sandbox.dhl.com/ccc/v1/auth/accesstoken"
+            dhl_credentials = self.env['dhl.integration'].search([], limit=1)
+            response = requests.request("GET", urls, auth=(
+                str(dhl_credentials.client_id), str(dhl_credentials.client_secret_id)))
+            if status_code == 401:
+                api_response = requests.request("GET", urls, auth=(
                     str(dhl_credentials.client_id), str(dhl_credentials.client_secret_id)))
-                if status_code == 401:
-                    api_response = requests.request("GET", urls, auth=(
-                        str(dhl_credentials.client_id), str(dhl_credentials.client_secret_id)))
-                    api_tokens = response.json()
-                    if api_response.status_code == 200:
-                        rec.bearer_token = api_tokens['access_token']
-                        return rec.bearer_token
+                api_tokens = response.json()
+                if api_response.status_code == 200:
+                    dhl_credentials.bearer_token = api_tokens['access_token']
+                    return dhl_credentials.bearer_token
 
     def action_confirm(self):
         res = super(SaleOrder, self).action_confirm()
         for order in self:
+            print('order.partner_id.read()', order.partner_id.read())
             for rec in order.picking_ids:
                 if rec != 0:
                     if rec.delivery_type == 'dhl':
                         dhl_credentials = self.env['dhl.integration'].search([], limit=1)
 
-                        if dhl_credentials.client_id and dhl_credentials.client_secret_id:
-                            now = datetime.now()
-                            current_time = now.strftime("%H:%M:%S")
-                            expiry = now + timedelta(seconds=0)
-                            expiry_time = expiry.strftime("%H:%M:%S")
-
-                            if current_time == expiry_time:
-                                urls = "https://api-sandbox.dhl.com/ccc/v1/auth/accesstoken"
-                                response = requests.request("GET", urls,
-                                                            auth=(str(dhl_credentials.client_id),
-                                                                  str(dhl_credentials.client_secret_id)))
-                                tokens = response.json()
-                                dhl_credentials.bearer_token = tokens['access_token']
-                                dhl_credentials.write({'bearer_token': tokens['access_token']})
-
                         bearer_token = dhl_credentials.bearer_token
 
                         cpan_url = "https://api-sandbox.dhl.com/ccc/send-cpan"
+                        ccustom_url = "https://api-sandbox.dhl.com/ccc/send-cCustoms"
 
                         querystring_pdf = {"generateLabel": "true", "labelFormat": "pdf",
                                            'labelSize': order.carrier_id.label_size}
@@ -336,18 +413,98 @@ class SaleOrder(models.Model):
                         }
 
                         cpan_payload = order.load_cpan_payload()
+                        print('cccccccccc', cpan_payload['dataElement']['general']['parcelIdentifier'])
 
-                        ccustoms_payload = order.load_cpan_payload()
+                        ccustoms_payload = order.load_ccustom_payload()
+                        print('cccccccccc', ccustoms_payload['dataElement']['general']['parcelIdentifier'])
+
 
                         cpan_responses_pdf = requests.request("POST", cpan_url, json=cpan_payload, headers=headerss,
                                                               params=querystring_pdf)
                         cpan_responses_zpl = requests.request("POST", cpan_url, json=cpan_payload, headers=headerss,
                                                               params=querystring_zpl)
 
+                        if order.partner_id.country_id.intrastat:
+                            parcel_product = 'ParcelEurope.parcelconnect'
+                        else:
+                            parcel_product = 'ParcelEurope.parcelinternational'
+                        print('ParcelEurope.parcelconnect', parcel_product)
+
+                        c_custom_payload = {
+                            "dataElement": {
+                                "version": "0200",
+                                "parcelOriginOrganization": dhl_credentials.sender_address.country_id.code,
+                                "parcelDestinationOrganization": order.partner_id.country_id.code,
+                                "general": {
+                                    "parcelIdentifier": cpan_payload['dataElement']['general']['parcelIdentifier'],
+                                    "timestamp": "2020-05-22T11:15:15",
+                                    "product": 'ParcelEurope.parcelinternational',
+                                    "routingCode": "2LHR10090+70000001",
+                                    "customerIdentification": dhl_credentials.customer_identification_no
+                                },
+
+                                "cCustoms": {
+                                    "CustomsIDs": {
+                                        "sender": [
+                                            {
+                                                "idType": "VAT",
+                                                "identifier": dhl_credentials.sender_address.vat
+                                            },
+                                            {
+                                                "idType": "EORI",
+                                                "identifier": dhl_credentials.sender_address.eori_no
+                                            }
+                                        ],
+                                        "recipient": [
+                                            {
+                                                "idType": "VAT",
+                                                "identifier": order.partner_id.vat
+                                            },
+                                            {
+                                                "idType": "EORI",
+                                                "identifier": order.partner_id.eori_no
+                                            }
+                                        ]
+                                    },
+                                    "shippingFee": {
+                                        "currency": order.currency_id.name,
+                                        "value": "5.50"
+                                    },
+                                    "goodsDescription": {
+                                        "general": {
+                                            "goodsClassification": "Other",
+                                            "currency": order.currency_id.name,
+                                        },
+                                        "item": self.load_ccustom_items()
+                                    },
+                                    "customsDocuments": {
+                                        "document": [
+                                            {
+                                                "docType": "Invoice",
+                                                "identifier": order.name
+                                            },
+                                            {
+                                                "docType": "license",
+                                                "identifier": "123"
+                                            }
+                                        ]
+                                    },
+                                    "comment": order.note
+                                }
+                            }
+                        }
+
+                        ccustom_responses_pdf = requests.request("POST", ccustom_url, json=c_custom_payload, headers=headerss)
+
+                        print('ccustom_responses_pdf', ccustom_responses_pdf)
+                        print('status_code', ccustom_responses_pdf.status_code)
+                        print('content', ccustom_responses_pdf.content)
+
                         if cpan_responses_pdf.status_code == 401:
                             bearer_tokens = self.request_wrapper(cpan_responses_pdf.status_code)
 
                         if cpan_responses_pdf.status_code == 200:
+                            print('rrrrrrreeeeeeeeessssssssssspppppp', cpan_responses_pdf.content)
                             dhl_parcel = self.env['dhl.parcel']
                             parcels = {
                                 'partner_name': rec.sale_id.partner_shipping_id.name,
@@ -385,6 +542,8 @@ class SaleOrder(models.Model):
                             sequence_id = self.env['ir.sequence'].next_by_code('dhl.integration')
 
                             parcel = dhl_parcel.create(parcels)
+                            language = self.env['res.lang'].search([('code', '=', order.partner_id.lang)])
+                            parcel.tracking_url = "https://www.dhl.com/" + order.partner_id.country_id.code + "-" + language.url_code + "/home/tracking/tracking-global-forwarding.html?submit=1&tracking-id=" + 'JJD14999029999959750'
                             report = self.env['ir.attachment'].sudo().create({
                                 'name': sequence_id + '.pdf',
                                 'type': 'binary',
@@ -400,6 +559,14 @@ class SaleOrder(models.Model):
                             pick.is_cpan = True
                             pick.dhl_ids = parcel.id
                             pick.dhl_ids.cpan_pdf = report.ids
+                            import PyPDF2
+
+                            pdfFileObj = open('/home/cybrosys/PycharmProjects/odoo14/odoo/fruvi_dev/dhl_connectors/static/description/CPAN0000000003-3.pdf', 'rb')
+                            pdfReader = PyPDF2.PdfFileReader(pdfFileObj)
+                            print(pdfReader.numPages)
+                            pageObj = pdfReader.getPage(0)
+                            print('***************************************', pageObj.extractText())
+                            pdfFileObj.close()
 
                         if cpan_responses_zpl.status_code == 200:
                             reports = self.env['ir.attachment'].sudo().create({
@@ -410,7 +577,7 @@ class SaleOrder(models.Model):
                             })
                             pick.dhl_ids.cpan_zpl = reports.ids
 
-                        return parcel, res
+                        return res
 
 
 class ResCompany(models.Model):

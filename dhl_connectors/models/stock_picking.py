@@ -172,7 +172,7 @@ class ReturnPicking(models.TransientModel):
                     "Authorization": "Bearer" + ' ' + bearer_token
                 }
 
-                cpan_payload = order.load_cpan_payload()
+                cpan_payload = order.load_return_cpan_payload()
                 ccustoms_payload = order.load_cpan_payload()
 
                 cpan_responses_pdf = requests.request("POST", cpan_url, json=cpan_payload, headers=headerss,

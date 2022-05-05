@@ -34,16 +34,36 @@ class DeliveryCarrier(models.Model):
                                               selection=[
                                                   ('ddu', 'DDU'),
                                                   ('ddp', 'DDP'),
-                                              ])
+                                              ], default='ddu')
 
     label_size = fields.Selection(string='Label SIze',
-                                              selection=[
-                                                  ('15', '10*15'),
-                                                  ('21', '10*21'),
-                                              ])
+                                  selection=[
+                                      ('15', '10*15'),
+                                      ('21', '10*21'),
+                                  ])
 
     resolution = fields.Selection(string='Resolution',
-                                              selection=[
-                                                  ('200', '200'),
-                                                  ('300', '300'),
-                                              ])
+                                  selection=[
+                                      ('200', '200'),
+                                      ('300', '300'),
+                                  ])
+
+
+class ChooseDeliveryCarrier(models.TransientModel):
+    _inherit = 'choose.delivery.carrier'
+
+    def _get_shipment_rate(self):
+        vals = self.carrier_id.rate_shipment(self.order_id)
+        if vals:
+            if vals.get('success'):
+                self.delivery_message = vals.get('warning_message', False)
+                self.delivery_price = vals['price']
+                self.display_price = vals['carrier_price']
+                return {}
+        else:
+            if self.carrier_id.delivery_type == 'dhl':
+                self.delivery_price = float(self.carrier_id.dhl_price) * (1.0 + (self.carrier_id.margin / 100.0))
+                self.display_price = self.delivery_price
+            else:
+                return {'error_message': vals['error_message']}
+            return {}
