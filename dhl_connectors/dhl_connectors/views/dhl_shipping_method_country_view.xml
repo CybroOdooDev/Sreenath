@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <record id="view_dhl_shipping_method_country_forms" model="ir.ui.view">
+        <field name="model">dhl.shipping.method.country</field>
+        <field name="arch" type="xml">
+            <form create="false" edit="false">
+                <header/>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="country_id" />
+                            <field name="delivery_carriers" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="price" string="Price"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_dhl_shipping_method_country_tree" model="ir.ui.view">
+        <field name="model">dhl.shipping.method.country</field>
+        <field name="arch" type="xml">
+            <tree create="false">
+                <field name="country_id"/>
+                <field name="price"/>
+            </tree>
+        </field>
+    </record>
+
+</odoo>
