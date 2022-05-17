@@ -52,7 +52,6 @@ class ProductTemplate(models.Model):
             three_month_ago = (datetime.datetime.now() - relativedelta(months=3)).month
             last_year = datetime.datetime.now().year - 1
             this_year = datetime.datetime.now().year
-            print('pppppppppppppppppppp')
 
             self._cr.execute('''select product.id, product.name, sum(product_uom_qty) as quantity from
                                 sale_order_line, product_template as product, sale_order where
@@ -67,6 +66,7 @@ class ProductTemplate(models.Model):
             for last_one_mo in last_year_one_month_result:
                 if prods.id == last_one_mo['id']:
                     prods.write({'last_year_one_month': last_one_mo['quantity']})
+                    prods.update({'last_year_one_month': last_one_mo['quantity']})
 
             self._cr.execute('''
                                select product.id, product.name, sum(product_uom_qty) as quantity from sale_order,
@@ -83,6 +83,7 @@ class ProductTemplate(models.Model):
             for last_two_mo in last_year_two_month_result:
                 if prods.id == last_two_mo['id']:
                     prods.write({'last_year_two_months': last_two_mo['quantity']})
+                    prods.update({'last_year_two_months': last_two_mo['quantity']})
 
             self._cr.execute('''
                                select product.id, product.name, sum(product_uom_qty) as quantity from sale_order,
@@ -99,48 +100,53 @@ class ProductTemplate(models.Model):
             for last_three_mo in last_year_three_month_result:
                 if prods.id == last_three_mo['id']:
                     prods.write({'last_year_three_months': last_three_mo['quantity']})
+                    prods.update({'last_year_three_months': last_three_mo['quantity']})
 
             # ----------------------------------------------------------------------------------------------------------------------
 
             self._cr.execute('''
                                select product.id, product.name, sum(product_uom_qty) as quantity,
-                               (sale_order_line.price_total - sale_order_line.purchase_price) as diff_sale,
-                               sale_order_line.price_total as price from sale_order,
-                               sale_order_line, product_template as product where
+                                sum(sale_order_line.price_total - sale_order_line.purchase_price) as diff_sale,
+                                sum(sale_order_line.price_total)as price from sale_order,
+                                sale_order_line, product_template as product where
                                sale_order_line.product_id = product.id AND
                                Extract(month FROM sale_order.date_order) = ''' + str(one_month_ago) + ''' AND
                                Extract(year FROM sale_order.date_order) = ''' + str(last_year) + ''' AND
                                sale_order_line.order_id = sale_order.id AND
                                sale_order.state = 'sale'
-                               group by product.name , product.id, price, diff_sale
+                               group by product.name , product.id
                                order by product.name
                             ''')
 
             last_year_one_unit_solds = self._cr.dictfetchall()
-            print('last_year_one_unit_solds', last_year_one_unit_solds)
             for last_year_one_uni in last_year_one_unit_solds:
                 if prods.id == last_year_one_uni['id']:
+                    # print('-------------------------------------------------', last_year_one_uni)
                     prods.write({'last_year_one_unit_sold': last_year_one_uni['quantity'],
                                  'last_year_one_sum_of_sales': last_year_one_uni['price'],
                                  'last_year_one_diif_sales_cost': last_year_one_uni['diff_sale'],
                                  })
 
+                    prods.update({'last_year_one_unit_sold': last_year_one_uni['quantity'],
+                                  'last_year_one_sum_of_sales': last_year_one_uni['price'],
+                                  'last_year_one_diif_sales_cost': last_year_one_uni['diff_sale'],
+                                  })
+
             self._cr.execute('''
                                 select product.id, product.name, sum(product_uom_qty) as quantity,
-                                (sale_order_line.price_total - sale_order_line.purchase_price) as diff_sale,
-                                sale_order_line.price_total as price from sale_order,
+                                sum(sale_order_line.price_total - sale_order_line.purchase_price) as diff_sale,
+                                sum(sale_order_line.price_total)as price from sale_order,
                                 sale_order_line, product_template as product where
                                 sale_order_line.product_id = product.id AND
                                 Extract(month FROM sale_order.date_order) = ''' + str(one_month_ago) + ''' AND
                                 Extract(year FROM sale_order.date_order) = ''' + str(last_year) + ''' AND
                                 sale_order_line.order_id = sale_order.id AND
                                 sale_order.state = 'sale'
-                                group by product.name , product.id, price, diff_sale
+                                group by product.name , product.id
                                 order by product.name
                             ''')
 
             last_year_two_unit_solds = self._cr.dictfetchall()
-            print('last_year_two_unit_solds', last_year_two_unit_solds)
 
             for last_year_two_uni in last_year_two_unit_solds:
                 if prods.id == last_year_two_uni['id']:
@@ -148,23 +154,26 @@ class ProductTemplate(models.Model):
                                  'last_year_two_sum_of_sales': last_year_two_uni['price'],
                                  'last_year_two_diif_sales_cost': last_year_two_uni['diff_sale'], })
 
+                    prods.update({'last_year_two_unit_sold': last_year_two_uni['quantity'],
+                                  'last_year_two_sum_of_sales': last_year_two_uni['price'],
+                                  'last_year_two_diif_sales_cost': last_year_two_uni['diff_sale'], })
+
             self._cr.execute('''
                                select product.id, product.name, sum(product_uom_qty) as quantity,
-                               (sale_order_line.price_total - sale_order_line.purchase_price) as diff_sale,
-                               sale_order_line.price_total as price from sale_order,
-                               sale_order_line, product_template as product where
+                                sum(sale_order_line.price_total - sale_order_line.purchase_price) as diff_sale,
+                                sum(sale_order_line.price_total)as price from sale_order,
+                                sale_order_line, product_template as product where
                                sale_order_line.product_id = product.id AND
                                Extract(month FROM sale_order.date_order) = ''' + str(three_month_ago) + ''' AND
                                Extract(year FROM sale_order.date_order) = ''' + str(last_year) + ''' AND
                                sale_order_line.order_id = sale_order.id AND
                                sale_order.state = 'sale'
-                               group by product.name , product.id, price, diff_sale
+                               group by product.name , product.id
                                order by product.name
                             ''')
 
-
             last_year_three_unit_solds = self._cr.dictfetchall()
-            print('last_year_three_unit_solds', last_year_three_unit_solds)
+            # print('last_year_three_unit_solds', last_year_three_unit_solds)
 
             for last_year_three_uni in last_year_three_unit_solds:
                 if prods.id == last_year_three_uni['id']:
@@ -172,6 +181,11 @@ class ProductTemplate(models.Model):
                                  'last_year_three_sum_of_sales': last_year_three_uni['price'],
                                  'last_year_three_diif_sales_cost': last_year_three_uni['diff_sale'],
                                  })
+
+                    prods.update({'last_year_three_unit_sold': last_year_three_uni['quantity'],
+                                  'last_year_three_sum_of_sales': last_year_three_uni['price'],
+                                  'last_year_three_diif_sales_cost': last_year_three_uni['diff_sale'],
+                                  })
 
         return self.env.ref('purchase_kpi.last_year_view_product_template_form_inherited').id
 
@@ -183,7 +197,7 @@ class ProductTemplate(models.Model):
             three_month_ago = (datetime.datetime.now() - relativedelta(months=3)).month
             last_year = datetime.datetime.now().year - 1
             this_year = datetime.datetime.now().year
-            print('this_year', this_year)
+            # print('this_year', this_year)
 
             self._cr.execute('''select product.id, product.name, sum(product_uom_qty) as quantity from
                                 sale_order_line, product_template as product, sale_order where
@@ -198,6 +212,7 @@ class ProductTemplate(models.Model):
             for one_mo in one_month_result:
                 if prods.id == one_mo['id']:
                     prods.write({'one_month': one_mo['quantity']})
+                    prods.update({'one_month': one_mo['quantity']})
 
             self._cr.execute('''
                                select product.id, product.name, sum(product_uom_qty) as quantity from sale_order,
@@ -213,6 +228,7 @@ class ProductTemplate(models.Model):
             for two_mo in two_month_result:
                 if prods.id == two_mo['id']:
                     prods.write({'two_months': two_mo['quantity']})
+                    prods.update({'two_months': two_mo['quantity']})
 
             self._cr.execute('''
                                select product.id, product.name, sum(product_uom_qty) as quantity from sale_order,
@@ -228,21 +244,21 @@ class ProductTemplate(models.Model):
             for three_mo in three_month_result:
                 if prods.id == three_mo['id']:
                     prods.write({'three_months': three_mo['quantity']})
-
+                    prods.update({'three_months': three_mo['quantity']})
 
             # ----------------------------------------------------------------------------------------------------------------------
 
             self._cr.execute('''
-                               select product.id, product.name, sum(product_uom_qty) as quantity, 
-                               (sale_order_line.price_total - sale_order_line.purchase_price) as diff_sale,
-                               sale_order_line.price_total as price from sale_order,
-                               sale_order_line, product_template as product where
+                              select product.id, product.name, sum(product_uom_qty) as quantity,
+                                sum(sale_order_line.price_total - sale_order_line.purchase_price) as diff_sale,
+                                sum(sale_order_line.price_total)as price from sale_order,
+                                sale_order_line, product_template as product where
                                sale_order_line.product_id = product.id AND
                                Extract(month FROM sale_order.date_order) = ''' + str(one_month_ago) + ''' AND
                                Extract(year FROM sale_order.date_order) = ''' + str(this_year) + ''' AND
                                sale_order_line.order_id = sale_order.id AND
                                sale_order.state = 'sale' 
-                               group by product.name , product.id, price, diff_sale
+                               group by product.name , product.id
                                order by product.name
                             ''')
 
@@ -254,17 +270,22 @@ class ProductTemplate(models.Model):
                                  'one_diif_sales_cost': one_uni['diff_sale'],
                                  })
 
+                    prods.update({'one_unit_sold': one_uni['quantity'],
+                                  'one_sum_of_sales': one_uni['price'],
+                                  'one_diif_sales_cost': one_uni['diff_sale'],
+                                  })
+
             self._cr.execute('''
-                                select product.id, product.name, sum(product_uom_qty) as quantity, 
-                                (sale_order_line.price_total - sale_order_line.purchase_price) as diff_sale,
-                                sale_order_line.price_total as price from sale_order,
+                                select product.id, product.name, sum(product_uom_qty) as quantity,
+                                sum(sale_order_line.price_total - sale_order_line.purchase_price) as diff_sale,
+                                sum(sale_order_line.price_total)as price from sale_order,
                                 sale_order_line, product_template as product where
                                 sale_order_line.product_id = product.id AND
                                 Extract(month FROM sale_order.date_order) = ''' + str(two_month_ago) + ''' AND
                                 Extract(year FROM sale_order.date_order) = ''' + str(this_year) + ''' AND
                                 sale_order_line.order_id = sale_order.id AND
                                 sale_order.state = 'sale' 
-                                group by product.name , product.id, price, diff_sale
+                                group by product.name , product.id
                                 order by product.name
                             ''')
 
@@ -275,17 +296,21 @@ class ProductTemplate(models.Model):
                                  'two_sum_of_sales': two_uni['price'],
                                  'two_diif_sales_cost': two_uni['diff_sale'], })
 
+                    prods.update({'two_unit_sold': two_uni['quantity'],
+                                  'two_sum_of_sales': two_uni['price'],
+                                  'two_diif_sales_cost': two_uni['diff_sale'], })
+
             self._cr.execute('''
-                               select product.id, product.name, sum(product_uom_qty) as quantity, 
-                               (sale_order_line.price_total - sale_order_line.purchase_price) as diff_sale,
-                               sale_order_line.price_total as price from sale_order,
-                               sale_order_line, product_template as product where
+                               select product.id, product.name, sum(product_uom_qty) as quantity,
+                                sum(sale_order_line.price_total - sale_order_line.purchase_price) as diff_sale,
+                                sum(sale_order_line.price_total)as price from sale_order,
+                                sale_order_line, product_template as product where
                                sale_order_line.product_id = product.id AND
                                Extract(month FROM sale_order.date_order) = ''' + str(three_month_ago) + ''' AND
                                Extract(year FROM sale_order.date_order) = ''' + str(this_year) + ''' AND
                                sale_order_line.order_id = sale_order.id AND
                                sale_order.state = 'sale' 
-                               group by product.name , product.id, price, diff_sale
+                               group by product.name , product.id
                                order by product.name
                             ''')
 
@@ -296,6 +321,11 @@ class ProductTemplate(models.Model):
                                  'three_sum_of_sales': three_uni['price'],
                                  'three_diif_sales_cost': three_uni['diff_sale'],
                                  })
+
+                    prods.update({'three_unit_sold': three_uni['quantity'],
+                                  'three_sum_of_sales': three_uni['price'],
+                                  'three_diif_sales_cost': three_uni['diff_sale'],
+                                  })
+
+
             self.get_values(self.env.user, self.env.uid)
-
-
