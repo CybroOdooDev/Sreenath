@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="odoo_kpi_team_view" model="ir.ui.view">
+        <field name="name">odoo.kpi.team.tree</field>
+        <field name="model">kpi.team</field>
+        <field name="arch" type="xml">
+            <tree editable="top">
+                <field name="name"/>
+                <field name="age"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_kpi_team" model="ir.actions.act_window">
+        <field name="name">KPI Team</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">kpi.team</field>
+        <field name="view_mode">tree,form,kanban</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new record
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="kpi_scorecard" name="KPI Scorecard" parent="crm.crm_menu_root" sequence="10"/>
+
+    <menuitem id="scorecard"
+              name="Scorecard"
+              parent="cybro_scorecard_kpi.kpi_scorecard"
+              action="action_kpi_team"
+              sequence="1"/>
+
+</odoo>
