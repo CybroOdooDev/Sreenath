@@ -1,0 +1,87 @@
+.dr_media_card {
+    cursor: pointer;
+    transition: all 0.3s ease 0s;
+    &:hover {
+        border-color: theme-color('primary') !important;
+    }
+}
+
+.dr_media_pill {
+    display: inline-block;
+    background: white;
+    padding-right: 7px;
+    border-radius: 4px;
+    bottom: 0;
+    font-weight: 500;
+    .dr_media_icon {
+        max-width: 25px;
+        margin-right: -1px;
+        padding: 3px;
+        border-radius: 6px;
+    }
+}
+.dr_status {
+    position: absolute;
+    min-height: 29px;
+    width: 75px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: rotate(45deg);
+    top: -3px;
+    right: -26px;
+    padding-top: 3px;
+    .fa {
+        transform: rotate(-45deg);
+    }
+}
+
+// timer fix
+.o_survey_nav .col-10{
+    flex: 0 0 100%;
+    max-width: 100%;
+}
+
+.dr_thankyou {
+    .progress {
+        max-width: 770px;
+        margin: auto;
+        height: 2rem;
+    }
+}
+
+
+
+@if o-website-value('header-template')=='default' {
+    .navbar-nav {
+        .nav-link {
+            color: theme-color('primary') !important;
+            font-size: 18px;
+        }
+    }
+    @include media-breakpoint-up(md) {
+        .navbar {
+            padding: 20px;
+        }
+    }
+}
+
+.o_survey_wrap {
+    .dr_logo {
+        max-width: 250px;
+    }
+    .dr-onboard-poster {
+        max-width: 400px;
+    }
+}
+
+.btn-primarys {
+  color: #fff;
+  background-color: rgb(0, 211, 161);
+  border-color: rgb(0, 211, 161);
+}
+
+
+.bg-primarys {
+  background-color: rgb(0, 211, 161) !important;
+}
