@@ -3,7 +3,8 @@
 
     <template id="survey_fill_header" name="Survey" inherit_id="survey.survey_fill_header">
         <xpath expr="//h1[hasclass('o_survey_main_title')]" position="replace">
-            <br/><br/>
+            <br/>
+            <br/>
             <div class="text-left">
                 <img src="/dr_social_website/static/src/img/onyx-logo.png" class="img dr_logo img-fluid mb-2"
                      style="border-left-width: 0px; border-left-style: solid; margin-left: -26px;border-top-width: -0px;border-top-style: solid;padding-top: 0px;margin-top: -30px;"/>
@@ -13,31 +14,54 @@
 
     <template id="survey_fill_form_start" name="Survey" inherit_id="survey.survey_fill_form_start">
         <xpath expr="//div[hasclass('mb32')]" position="replace">
-            <div class="container mt-5" style="font-family: sans-serif; margin-top: 26px; padding-top: 30px; padding-bottom: 20px; outline: none; background-color: rgb(255, 255, 255);">
+            <div class="container mt-5"
+                 style="font-family: sans-serif; margin-top: 26px; padding-top: 30px; padding-bottom: 20px; outline: none; background-color: rgb(255, 255, 255);">
                 <div class="row">
                     <div class="col-md-6">
-                        <img class="img img-fluid dr-onboard-poster mx-auto" src="/dr_social_website/static/src/img/OnyxMedia.png"/>
+                        <img class="img img-fluid dr-onboard-poster mx-auto"
+                             src="/dr_social_website/static/src/img/OnyxMedia.png"/>
                     </div>
                     <div class="col-md-6">
-                        <h1  class=" mb-3" style="font-family: sans-serif; font-weight: 500; line-height: 1em; font-size: 38px !important;
+                        <h1 class=" mb-3" style="font-family: sans-serif; font-weight: 500; line-height: 1em; font-size: 38px !important;
                                                 text-align: left; font-size: 36px !important; font-weight: bold;">
-                                                <span style="color: rgb(0, 211, 161);">Welcome</span>
-                                                <span style="color: rgb(71, 71, 71)">To OnyxMedia!</span>
+                            <span style="color: rgb(0, 211, 161);">Welcome</span>
+                            <span style="color: rgb(71, 71, 71)">To OnyxMedia!</span>
                         </h1>
                         <div style="line-height: 1.8; font-family: Helvetica, sans-serif !important">
-                            <p class="mb-4" style="line-height: 1.8; text-align: left; font-size: 14px; color: rgb(136, 136, 136);">You successfully started your 7-day free trial!</p>
+                            <p class="mb-4"
+                               style="line-height: 1.8; text-align: left; font-size: 14px; color: rgb(136, 136, 136);">
+                                You successfully started your 7-day free trial!
+                            </p>
                             <p class="text-muted small mb-4" style="font-size: 13.5px; line-height: 1.8; padding-right: 0px; border-right-width: 0px; border-right-style: solid;margin-right: -10px;
-                            text-align: left; color: rgb(96, 96, 96);">You will get billed in 7 days and your first post will get published 1 day after the payment went through. We will send your first batch of posts a few days after you onboarded.
-                            <br/><br/> You can cancel, downgrade and upgrade your subscription at any time with 24 hours <br/> notice.</p>
+                            text-align: left; color: rgb(96, 96, 96);">You will get billed in 7 days and your first post
+                                will get published 1 day after the payment went through. We will send your first batch
+                                of posts a few days after you onboarded.
+                                <br/>
+                                <br/>
+                                You can cancel, downgrade and upgrade your subscription at any time with 24 hours
+                                <br/>
+                                notice.
+                            </p>
                         </div>
                         <br/>
                         <div></div>
-                        <div style="color: rgb(71, 71, 71); font-size: 15px;" class="mb-4 font-weight-bold">Time to get you on-boarded...</div>
-                        <div style="color: rgb(71, 71, 71); font-size: 15px;"  class="mb-4">There are 2 steps in this onboarding system, please finish both steps so we can get started on your social media posts. </div>
-                        <div style="color: rgb(71, 71, 71); font-size: 15px;"  class="mb-4">You'll receive an email with your first batch of posts within 3 days after you onboarded.</div>
-                        <div style="color: rgb(71, 71, 71); font-size: 15px;"  class="mb-4">The on-boarding process takes around 5-10 minutes, please leave adequate time for this.</div>
+                        <div style="color: rgb(71, 71, 71); font-size: 15px;" class="mb-4 font-weight-bold">Time to get
+                            you on-boarded...
+                        </div>
+                        <div style="color: rgb(71, 71, 71); font-size: 15px;" class="mb-4">There are 2 steps in this
+                            onboarding system, please finish both steps so we can get started on your social media
+                            posts.
+                        </div>
+                        <div style="color: rgb(71, 71, 71); font-size: 15px;" class="mb-4">You'll receive an email with
+                            your first batch of posts within 3 days after you onboarded.
+                        </div>
+                        <div style="color: rgb(71, 71, 71); font-size: 15px;" class="mb-4">The on-boarding process takes
+                            around 5-10 minutes, please leave adequate time for this.
+                        </div>
                         <div>
-                            <button type="submit" value="start" class="btn btn-primarys btn-lg shadow-lg"><strong style="font-family: sans-serif; ">Start Onboarding</strong></button>
+                            <button type="submit" value="start" class="btn btn-primarys btn-lg shadow-lg">
+                                <strong style="font-family: sans-serif; ">Start Onboarding</strong>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -55,141 +79,228 @@
 
     <template id="survey_fill_form_done" name="Survey Layout" inherit_id="survey.survey_fill_form_done">
         <xpath expr="//div[hasclass('o_survey_finished')]" position="replace">
-<!--            <t t-call="website.layout">-->
-                <div t-attf-class="h-100 dr_website_social #{'dr-onboarding-mode' if isOnbording else ' '}">
-                    <div class="container pb-2"> </div>  <!-- clear fix -->
+            <!--            <t t-call="website.layout">-->
+            <div t-attf-class="h-100 dr_website_social #{'dr-onboarding-mode' if isOnbording else ' '}">
+                <div class="container pb-2"></div>  <!-- clear fix -->
 
-                    <div class="container" style="font-family: Helvetica, sans-serif !important;">
+                <div class="container" style="font-family: Helvetica, sans-serif !important;">
 
-                        <!-- HEADER -->
-                        <div class="d-flex bg-white rounded justify-content-between border mt-4 p-3">
-                            <div>
-                                <h4 class="mb-0" style="font-family: Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;"> Your social accounts </h4>
-                            </div>
-                            <div class="pr-2">
-                                <button type="button" class="dr_social_link btn btn-primarys h-100 py-0 float-right shadow-sm text-white">
-                                    <span class="fa fa-plus" style="font-size: 13px;padding-right: 3px;"></span>
-                                        <b style="font-family: Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;"> LINK NEW ACCOUNT </b>
-                                </button>
-                            </div>
+                    <!-- HEADER -->
+                    <div class="d-flex bg-white rounded justify-content-between border mt-4 p-3">
+                        <div>
+                            <h4 class="mb-0"
+                                style="font-family: Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;">
+                                Your social accounts
+                            </h4>
                         </div>
+                        <div class="pr-2">
+                            <button type="button"
+                                    class="dr_social_link btn btn-primarys h-100 py-0 float-right shadow-sm text-white">
+                                <span class="fa fa-plus" style="font-size: 13px;padding-right: 3px;"></span>
+                                <b style="font-family: Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;">
+                                    LINK NEW ACCOUNT
+                                </b>
+                            </button>
+                        </div>
+                    </div>
 
-                        <!-- Linked Account LIST -->
-                        <div class="row mt-4" t-if="linked_accounts">
-                            <t t-foreach="linked_accounts" t-as="account">
-                                <div class="col-md-4">
-                                    <div class="card mb-3" style="max-width: 540px;">
-                                        <t t-set="media_sudo" t-value="account.media_id.sudo()"/>
-                                        <div class="row no-gutters">
-                                            <div class="col-md-4 border-right">
-                                                <img class="img img-fluid w-100" t-attf-src="/web/image/social.account/#{account.id}/image"/>
-                                            </div>
-                                            <div class="col-md-8">
-                                                <div class="card-body p-3">
-                                                    <h5 class="card-title mb-1" t-esc="account.name"/>
-                                                    <small class="dr_media_pill border">
-                                                        <img class="dr_media_icon" t-attf-src="/dr_social_website/static/src/img/#{media_sudo.media_type}.svg"/>
-                                                        <t t-esc="media_sudo.name"/>
-                                                    </small>
-                                                    <div class="dr_status bg-danger" t-if="account.is_media_disconnected">
-                                                        <i class="fa fa-chain-broken" />
-                                                    </div>
-                                                    <div class="dr_status bg-success" t-else="">
-                                                        <i class="fa fa-check" />
-                                                    </div>
-                                                    <div t-if="account.is_media_disconnected" class="mt-1">
-                                                        <small class="text-danger"> Disconncted </small>
-                                                        <button class="btn bg-danger btn-sm dr_relink_btn" t-att-data-media-id="media_sudo.id"> <i class="fa fa-link"></i> Relink </button>
-                                                    </div>
+                    <!-- Linked Account LIST -->
+                    <div class="row mt-4" t-if="linked_accounts">
+                        <t t-foreach="linked_accounts" t-as="account">
+                            <div class="col-md-4">
+                                <div class="card mb-3" style="max-width: 540px;">
+                                    <t t-set="media_sudo" t-value="account.media_id.sudo()"/>
+                                    <div class="row no-gutters">
+                                        <div class="col-md-4 border-right">
+                                            <img class="img img-fluid w-100"
+                                                 t-attf-src="/web/image/social.account/#{account.id}/image"/>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="card-body p-3">
+                                                <h5 class="card-title mb-1" t-esc="account.name"/>
+                                                <small class="dr_media_pill border">
+                                                    <img class="dr_media_icon"
+                                                         t-attf-src="/dr_social_website/static/src/img/#{media_sudo.media_type}.svg"/>
+                                                    <t t-esc="media_sudo.name"/>
+                                                </small>
+                                                <div class="dr_status bg-danger" t-if="account.is_media_disconnected">
+                                                    <i class="fa fa-chain-broken"/>
+                                                </div>
+                                                <div class="dr_status bg-success" t-else="">
+                                                    <i class="fa fa-check"/>
+                                                </div>
+                                                <div t-if="account.is_media_disconnected" class="mt-1">
+                                                    <small class="text-danger">Disconncted</small>
+                                                    <button class="btn bg-danger btn-sm dr_relink_btn"
+                                                            t-att-data-media-id="media_sudo.id">
+                                                        <i class="fa fa-link"></i>
+                                                        Relink
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </t>
-<!--                            <t>-->
-<!--                                <div class="col-12 d-flex justify-content-center">-->
-<!--                                    <a role="button" class="btn btn-primarys btn-lg m-3" href="/social/thank_you">-->
-<!--                                    <span style="font-family: Helvetica, sans-serif !important;">Finish</span>-->
-<!--                                    </a>-->
-<!--                                </div>-->
-<!--                            </t>-->
-                        </div>
+                            </div>
+                        </t>
+                        <!--                            <t>-->
+                        <!--                                <div class="col-12 d-flex justify-content-center">-->
+                        <!--                                    <a role="button" class="btn btn-primarys btn-lg m-3" href="/social/thank_you">-->
+                        <!--                                    <span style="font-family: Helvetica, sans-serif !important;">Finish</span>-->
+                        <!--                                    </a>-->
+                        <!--                                </div>-->
+                        <!--                            </t>-->
+                    </div>
 
-                        <div class="row" t-else="">
-                            <div class="col-12">
-                                <div class="bg-100 rounded my-4 py-5 text-center" style="box-shadow: 0px 0px 19px rgba(0, 0, 0, 0.05) inset; ">
-                                    <h4 class="mb-0 text-muted" style="font-family: Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;"> You havn't linked any account. </h4>
-                                    <small class="mb-0 text-muted" style="font-family: Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;"> Please link your social account with given button. </small>
-                                    <div>
-                                        <button type="button" class="dr_social_link btn text-muted rounded-circle  text-muted mt-2 border" style="border: 1px solid #b1b1b1 !important;">
-                                            <span class="fa fa-plus-circle" style="font-size: 14px;padding-right: 3px;"></span>
-                                                <b style="font-family: Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;"> LINK NEW ACCOUNT </b>
-                                        </button>
-                                    </div>
+                    <div class="row" t-else="">
+                        <div class="col-12">
+                            <div class="bg-100 rounded my-4 py-5 text-center"
+                                 style="box-shadow: 0px 0px 19px rgba(0, 0, 0, 0.05) inset; ">
+                                <h4 class="mb-0 text-muted"
+                                    style="font-family: Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;">
+                                    You havn't linked any account.
+                                </h4>
+                                <small class="mb-0 text-muted"
+                                       style="font-family: Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;">
+                                    Please link your social account with given button.
+                                </small>
+                                <div>
+                                    <button type="button"
+                                            class="dr_social_link btn text-muted rounded-circle  text-muted mt-2 border"
+                                            style="border: 1px solid #b1b1b1 !important;">
+                                        <span class="fa fa-plus-circle"
+                                              style="font-size: 14px;padding-right: 3px;"></span>
+                                        <b style="font-family: Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;">
+                                            LINK NEW ACCOUNT
+                                        </b>
+                                    </button>
                                 </div>
+                            </div>
                             <t>
-                            <div class="col-12 d-flex justify-content-center">
-                                <a role="button" class="btn d-none d-md-inline-block" href="/social/thank_you">
-                                <p style="font-family: Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+                                <div class="col-12 d-flex justify-content-center">
+                                    <a role="button" class="btn d-none d-md-inline-block" href="/social/thank_you">
+                                        <p style="font-family: Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
                                  box-sizing: border-box; text-align: center;cursor: auto !important; word-wrap: break-word;
                                  border-radius: 5px; color: rgb(255, 255, 255); font-weight: 600; background-color: rgb(0, 211, 161);
-                                 font-size: 20px; padding-top: 5px; padding-bottom: 5px; padding-right: 15px; padding-left: 15px;">Finish!</p>
-                                </a>
-                            </div>
+                                 font-size: 20px; padding-top: 5px; padding-bottom: 5px; padding-right: 15px; padding-left: 15px;">
+                                            Finish!
+                                        </p>
+                                    </a>
+                                </div>
                             </t>
-                            </div>
                         </div>
                     </div>
+<!--                    <t t-foreach="posts" t-as="val">-->
+<!--                                    <span>hhhhhhhhhhhhhhhhhhhhhhhhhhhhh</span>-->
+<!--                    <div class="col">-->
+<!--                        <div class="row">-->
+<!--                            <div class="bg-100 roundest-border my-4 py-5 text-center"-->
+<!--                                 style="box-shadow: 0px 0px 19px rgba(0, 0, 0, 0.05) inset;margin-left: 7px; /*! height: 192px !important; */ border-right-width: 0px;border-right-style: solid;/*! padding-right: 260px; */width: 70%;"-->
+<!--                           >-->
+<!--                                <h4 class="mb-0 text-muted"-->
+<!--                                    style="font-family: Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;">-->
+<!--                                    Table 1-->
+<!--                                    <span>llllllllllllllllllllllllllllllllll</span>-->
+<!--                                    <t t-esc="feedback"/>-->
+
+<!--                                </h4>-->
+
+<!--                                    <t t-esc="val.message"/>-->
+
+<!--&lt;!&ndash;                                </t>&ndash;&gt;-->
+<!--                                <small class="mb-0 text-muted"-->
+<!--                                       style="font-family: Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;">-->
+<!--                                </small>-->
+<!--                                <div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+
+<!--                            <div class="bg-100 roundest-border my-4 py-5 text-center"-->
+<!--                                 style="box-shadow: 0px 0px 19px rgba(0, 0, 0, 0.05) inset; margin-left: 7px; height: 192px !important;width: 27%;">-->
+<!--                                <h4 class="mb-0 text-muted"-->
+<!--                                    style="font-family: Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;">-->
+<!--                                    Table 2-->
+<!--                                </h4>-->
+<!--                                <small class="mb-0 text-muted"-->
+<!--                                       style="font-family: Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;">-->
+<!--                                </small>-->
+<!--                                </div>-->
+
+
+
+<!--                        </div>-->
+<!--                    </div>-->
+<!--    </t>-->
                 </div>
-<!--            </t>-->
+            </div>
+            <!--            </t>-->
         </xpath>
     </template>
 
-    <template id="survey_fill_form_in_progress" name="Survey: form with questions" inherit_id="survey.survey_fill_form_in_progress">
-<!--        <xpath expr="//t-attf-class[@t-set='minimized_display']" position="replace">-->
+    <template id="survey_fill_form_in_progress" name="Survey: form with questions"
+              inherit_id="survey.survey_fill_form_in_progress">
+        <!--        <xpath expr="//t-attf-class[@t-set='minimized_display']" position="replace">-->
         <xpath expr="//div[contains(@t-attf-class, 'o_survey_page_per_question')]" position="replace">
-        <div t-if="survey.questions_layout == 'page_per_question'"
-            t-attf-class="o_survey_page_per_question o_survey_#{question.question_type} #{'o_survey_minimized_display' if minimized_display else ''}"
-            style="font-weight: unset; font-size: 24px; line-height: 32px; color: rgb(0, 211, 161); font-family: sans-serif"
-        >
-            <input type="hidden" name="question_id" t-att-value="question.id" />
-            <!-- User has already answered for this session -->
-            <t t-if="answer.is_session_answer and (has_answered or answer.question_time_limit_reached)">
-                <fieldset disabled="disabled">
-                    <t t-set="survey_form_readonly" t-value="True" />
-                    <div class="mt-5" style="font-weight: unset; font-size: 24px; line-height: 32px; color: rgb(0, 211, 161); font-family: sans-serif">
-                        <t t-call="survey.question_container" />
+            <div t-if="survey.questions_layout == 'page_per_question'"
+                 t-attf-class="o_survey_page_per_question o_survey_#{question.question_type} #{'o_survey_minimized_display' if minimized_display else ''}"
+                 style="font-weight: unset; font-size: 24px; line-height: 32px; color: rgb(0, 211, 161); font-family: sans-serif"
+            >
+                <input type="hidden" name="question_id" t-att-value="question.id"/>
+                <!-- User has already answered for this session -->
+                <t t-if="answer.is_session_answer and (has_answered or answer.question_time_limit_reached)">
+                    <fieldset disabled="disabled">
+                        <t t-set="survey_form_readonly" t-value="True"/>
+                        <div class="mt-5"
+                             style="font-weight: unset; font-size: 24px; line-height: 32px; color: rgb(0, 211, 161); font-family: sans-serif">
+                            <t t-call="survey.question_container"/>
+                        </div>
+                    </fieldset>
+                    <div t-if="answer.question_time_limit_reached and not has_answered" class="font-weight-bold">Sorry,
+                        you have
+                        not been fast enough.
                     </div>
-                </fieldset>
-                <div t-if="answer.question_time_limit_reached and not has_answered" class="font-weight-bold">Sorry, you have not been fast enough.</div>
-                <div t-else="" class="font-weight-bold">We have registered your answer! Please wait for the host to go to the next question.</div>
-            </t>
-            <t t-elif="answer.is_session_answer and question.is_page and not is_html_empty(question.description)">
-                <div class="font-weight-bold mt-5">Pay attention to the host screen until the next question.</div>
-            </t>
-            <t t-else="">
-                <div class="mt-5">
-                    <t t-call="survey.question_container"/>
-                </div>
+                    <div t-else="" class="font-weight-bold">We have registered your answer! Please wait for the host to
+                        go to
+                        the next question.
+                    </div>
+                </t>
+                <t t-elif="answer.is_session_answer and question.is_page and not is_html_empty(question.description)">
+                    <div class="font-weight-bold mt-5">Pay attention to the host screen until the next question.</div>
+                </t>
+                <t t-else="">
+                    <div class="mt-5">
+                        <t t-call="survey.question_container"/>
+                    </div>
 
-                <div class="row">
-                    <div class="col-12 text-center mt16">
-                        <button type="submit" t-att-value="'next' if not survey_last else 'finish'" class="btn btn-primarys">
-                            <t t-if="answer.is_session_answer or survey_last"><strong style="font-family: Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; ">Submit</strong></t>
-                            <t t-else=""><strong style="font-family: Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;">Continue</strong></t>
-                        </button>
-                        <span class="font-weight-bold text-muted ml-2 d-none d-md-inline">
-                            <span style="margin: 0px; max-width: 100%; font-weight: 400; font-size: 12px; line-height: 16px; color: rgb(27, 27, 29);
+                    <div class="row">
+                        <div class="col-12 text-center mt16">
+                            <button type="submit" t-att-value="'next' if not survey_last else 'finish'"
+                                    class="btn btn-primarys">
+                                <t t-if="answer.is_session_answer or survey_last">
+                                    <strong style="font-family: Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; ">
+                                        Submit
+                                    </strong>
+                                </t>
+                                <t t-else="">
+                                    <strong style="font-family: Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;">
+                                        Continue
+                                    </strong>
+                                </t>
+                            </button>
+                            <span class="font-weight-bold text-muted ml-2 d-none d-md-inline">
+                                <span style="margin: 0px; max-width: 100%; font-weight: 400; font-size: 12px; line-height: 16px; color: rgb(27, 27, 29);
                             font-family: Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;"
-                                  t-if="question.question_type == 'text_box'">or press CTRL+Enter</span>
-                            <span style="margin: 0px; max-width: 100%; font-weight: 400; font-size: 12px; line-height: 16px; color: rgb(27, 27, 29);
-                            font-family: Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;" t-else="">or press Enter</span>
-                        </span>
+                                      t-if="question.question_type == 'text_box'">or press CTRL+Enter
+                                </span>
+                                <span style="margin: 0px; max-width: 100%; font-weight: 400; font-size: 12px; line-height: 16px; color: rgb(27, 27, 29);
+                            font-family: Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;"
+                                      t-else="">or press Enter
+                                </span>
+                            </span>
+                        </div>
                     </div>
-                </div>
-            </t>
-        </div>
+                </t>
+            </div>
         </xpath>
     </template>
 
@@ -198,51 +309,73 @@
         <xpath expr="//div[contains(@t-att-class, 'js_question')]" position="replace">
             <div t-att-class="'js_question-wrapper pb-4 %s %s' % ('d-none' if
             not display_question else '', 'mr-2' if extra_right_margin else '')"
-             t-att-id="question.id" t-att-data-required="question.constr_mandatory"
-             t-att-data-constr-error-msg="question.constr_error_msg"
-             t-att-data-validation-error-msg="question.validation_error_msg">
-            <div class="mb-4">
-                <h3 t-if="not hide_question_title">
-                    <span style="font-weight: unset; font-size: 24px; line-height: 1.2; color: rgb(0, 211, 161) !important; overflow-wrap: break-word; text-align: left;
+                 t-att-id="question.id" t-att-data-required="question.constr_mandatory"
+                 t-att-data-constr-error-msg="question.constr_error_msg"
+                 t-att-data-validation-error-msg="question.validation_error_msg">
+                <div class="mb-4">
+                    <h3 t-if="not hide_question_title">
+                        <span style="font-weight: unset; font-size: 24px; line-height: 1.2; color: rgb(0, 211, 161) !important; overflow-wrap: break-word; text-align: left;
                                 font-family: Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;"
-                          t-field='question.title'/>
-                    <span t-if="question.constr_mandatory" class="text-danger">*</span>
-                </h3>
-                <div style="font-weight: unset; font-size: 20px; line-height: 28px; color: rgba(0, 211, 161, 0.7) important; text-align: left;
+                              t-field='question.title'/>
+                        <span t-if="question.constr_mandatory" class="text-danger">*</span>
+                    </h3>
+                    <div style="font-weight: unset; font-size: 20px; line-height: 28px; color: rgba(0, 211, 161, 0.7) important; text-align: left;
                                 font-family: Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;"
-                        t-if="not is_html_empty(question.description)" t-field='question.description' class="text-muteds text-muted oe_no_empty mt-1"/>
+                         t-if="not is_html_empty(question.description)" t-field='question.description'
+                         class="text-muteds text-muted oe_no_empty mt-1"/>
+                </div>
+                <t t-if="question.question_type == 'text_box'">
+                    <t t-call="survey.question_text_box"/>
+                </t>
+                <t t-if="question.question_type == 'char_box'">
+                    <t t-call="survey.question_char_box"/>
+                </t>
+                <t t-if="question.question_type == 'numerical_box'">
+                    <t t-call="survey.question_numerical_box"/>
+                </t>
+                <t t-if="question.question_type == 'date'">
+                    <t t-call="survey.question_date"/>
+                </t>
+                <t t-if="question.question_type == 'datetime'">
+                    <t t-call="survey.question_datetime"/>
+                </t>
+                <t t-if="question.question_type == 'simple_choice'">
+                    <t t-call="survey.question_simple_choice"/>
+                </t>
+                <t t-if="question.question_type == 'multiple_choice'">
+                    <t t-call="survey.question_multiple_choice"/>
+                </t>
+                <t t-if="question.question_type == 'matrix'">
+                    <t t-call="survey.question_matrix"/>
+                </t>
+                <div class="o_survey_question_error overflow-hidden border-0 py-0 px-3 alert alert-danger"
+                     role="alert"></div>
             </div>
-            <t t-if="question.question_type == 'text_box'"><t t-call="survey.question_text_box"/></t>
-            <t t-if="question.question_type == 'char_box'"><t t-call="survey.question_char_box"/></t>
-            <t t-if="question.question_type == 'numerical_box'"><t t-call="survey.question_numerical_box"/></t>
-            <t t-if="question.question_type == 'date'"><t t-call="survey.question_date"/></t>
-            <t t-if="question.question_type == 'datetime'"><t t-call="survey.question_datetime"/></t>
-            <t t-if="question.question_type == 'simple_choice'"><t t-call="survey.question_simple_choice"/></t>
-            <t t-if="question.question_type == 'multiple_choice'"><t t-call="survey.question_multiple_choice"/></t>
-            <t t-if="question.question_type == 'matrix'"><t t-call="survey.question_matrix"/></t>
-            <div class="o_survey_question_error overflow-hidden border-0 py-0 px-3 alert alert-danger" role="alert"></div>
-        </div>
         </xpath>
     </template>
 
-     <template id="question_multiple_choice" name="Survey:  multiple choicer" inherit_id="survey.question_multiple_choice">
-         <xpath expr="//div[hasclass('o_survey_question_multiple_choice')]" position="replace">
+    <template id="question_multiple_choice" name="Survey:  multiple choicer"
+              inherit_id="survey.question_multiple_choice">
+        <xpath expr="//div[hasclass('o_survey_question_multiple_choice')]" position="replace">
             <div class="row o_survey_form_choice o_survey_question_multiple_choice"
                  t-att-data-name="question.id"
                  t-att-data-question-type="question.question_type">
                 <t t-set="item_idx" t-value="0"/>
-                <div class="d-flex flex-wrap col-lg-12" >
-                    <t t-set="has_correct_answer" t-value="scoring_display_correction and any(label.is_correct for label in question.suggested_answer_ids)"/>
+                <div class="d-flex flex-wrap col-lg-12">
+                    <t t-set="has_correct_answer"
+                       t-value="scoring_display_correction and any(label.is_correct for label in question.suggested_answer_ids)"/>
                     <t t-foreach='question.suggested_answer_ids' t-as='label'>
                         <t t-set="item_idx" t-value="label_index"/>
-                        <t t-set="answer_line" t-value="answer_lines.filtered(lambda line: line.suggested_answer_id == label)"/>
-                        <t t-set="answer_selected" t-value="answer_line and answer_line.suggested_answer_id.id == label.id"/>
+                        <t t-set="answer_line"
+                           t-value="answer_lines.filtered(lambda line: line.suggested_answer_id == label)"/>
+                        <t t-set="answer_selected"
+                           t-value="answer_line and answer_line.suggested_answer_id.id == label.id"/>
                         <t t-set="is_correct" t-value="label.answer_score > 0.0"/>
 
                         <!--Used for print mode with corrections -->
-                        <t t-set="answer_class" t-if="not has_correct_answer" t-value="''" />
-                        <t t-set="answer_class" t-elif="is_correct" t-value="'bg-success'" />
-                        <t t-set="answer_class" t-elif="not is_correct" t-value="'bg-danger'" />
+                        <t t-set="answer_class" t-if="not has_correct_answer" t-value="''"/>
+                        <t t-set="answer_class" t-elif="is_correct" t-value="'bg-success'"/>
+                        <t t-set="answer_class" t-elif="not is_correct" t-value="'bg-danger'"/>
 
                         <label style="cursor: pointer; background-color: rgb(231, 231, 232);
                         box-shadow: #050709 0px 0px 0px 1px;font-size: 20px; line-height: 32px;
@@ -251,7 +384,8 @@
                             <t t-call="survey.survey_selection_key">
                                 <t t-set="selection_key_class" t-value="'position-relative float-left d-flex'"/>
                             </t>
-                            <input type="checkbox" t-att-value='label.id' class="o_survey_form_choice_item invisible position-absolute"
+                            <input type="checkbox" t-att-value='label.id'
+                                   class="o_survey_form_choice_item invisible position-absolute"
                                    t-att-name="question.id"
                                    t-att-checked="'checked' if answer_line else None"
                                    t-att-data-selection-key="letters[item_idx] if useKeySelection else ''"/>
@@ -262,108 +396,135 @@
                         </label>
                     </t>
                 </div>
-                <div t-if='question.comments_allowed and question.comment_count_as_answer' class="js_ck_comments col-lg-12" >
+                <div t-if='question.comments_allowed and question.comment_count_as_answer'
+                     class="js_ck_comments col-lg-12">
                     <div class="d-flex flex-wrap">
                         <label t-att-class="'o_survey_choice_btn mr-2 py-1 px-3 rounded %s' % ('o_survey_selected' if comment_line else '')">
                             <t t-set="item_idx" t-value="item_idx + 1"/>
                             <t t-call="survey.survey_selection_key">
                                 <t t-set="selection_key_class" t-value="'position-relative float-left d-flex'"/>
                             </t>
-                            <input type="checkbox" class="o_survey_form_choice_item o_survey_js_form_other_comment invisible position-absolute" value="-1"
+                            <input type="checkbox"
+                                   class="o_survey_form_choice_item o_survey_js_form_other_comment invisible position-absolute"
+                                   value="-1"
                                    t-att-name="question.id"
                                    t-att-checked="comment_line and 'checked' or None"
                                    t-att-data-selection-key="letters[item_idx] if useKeySelection else ''"/>
-                            <span class="ml-2" t-field="question.comments_message" />
+                            <span class="ml-2" t-field="question.comments_message"/>
                             <i class="fa fa-check-square float-right mt-1 position-relative"></i>
                             <i class="fa fa-square-o float-right mt-1 position-relative"></i>
                         </label>
                     </div>
                     <div t-attf-class="o_survey_comment_container mt-3 py-0 px-1 #{'d-none' if not comment_line else ''}">
-                        <textarea type="text" class="form-control o_survey_question_text_box bg-transparent text-dark rounded-0 p-0"
-                                  t-att-disabled="None if comment_line else 'disabled'"><t t-esc="comment_line.value_char_box if comment_line else ''"/></textarea>
+                        <textarea type="text"
+                                  class="form-control o_survey_question_text_box bg-transparent text-dark rounded-0 p-0"
+                                  t-att-disabled="None if comment_line else 'disabled'">
+                            <t t-esc="comment_line.value_char_box if comment_line else ''"/>
+                        </textarea>
                     </div>
                 </div>
-                <div t-if='question.comments_allowed and not question.comment_count_as_answer' class="col-lg-12 o_survey_comment_container mx-1 mt-3 py-0 pl-3 pr-4">
-                    <textarea type="text" class="form-control o_survey_comment o_survey_question_text_box bg-transparent text-dark rounded-0 p-0"
-                              t-att-placeholder="question.comments_message if not survey_form_readonly else ''"><t t-esc="comment_line.value_char_box if comment_line else ''"/></textarea>
+                <div t-if='question.comments_allowed and not question.comment_count_as_answer'
+                     class="col-lg-12 o_survey_comment_container mx-1 mt-3 py-0 pl-3 pr-4">
+                    <textarea type="text"
+                              class="form-control o_survey_comment o_survey_question_text_box bg-transparent text-dark rounded-0 p-0"
+                              t-att-placeholder="question.comments_message if not survey_form_readonly else ''">
+                        <t t-esc="comment_line.value_char_box if comment_line else ''"/>
+                    </textarea>
                 </div>
             </div>
-         </xpath>
-     </template>
+        </xpath>
+    </template>
 
-     <template id="question_simple_choice" name="Survey:  simple choicer" inherit_id="survey.question_simple_choice">
-          <xpath expr="//div[hasclass('row')]" position="replace">
+    <template id="question_simple_choice" name="Survey:  simple choicer" inherit_id="survey.question_simple_choice">
+        <xpath expr="//div[hasclass('row')]" position="replace">
             <div class="row o_survey_form_choice"
-                     t-att-data-name="question.id"
-                     data-question-type="simple_choice_radio">
-                    <t t-set="item_idx" t-value="0"/>
-                    <div t-attf-class="col-lg-12 d-flex flex-wrap">
-                        <t t-set="has_correct_answer" t-value="scoring_display_correction and any(label.is_correct for label in question.suggested_answer_ids)"/>
-                        <t t-foreach='question.suggested_answer_ids' t-as='label'>
-                            <t t-set="item_idx" t-value="label_index"/>
-                            <t t-set="answer_selected" t-value="answer_line and answer_line.suggested_answer_id.id == label.id"/>
-                            <t t-set="is_correct" t-value="label.answer_score > 0.0"/>
+                 t-att-data-name="question.id"
+                 data-question-type="simple_choice_radio">
+                <t t-set="item_idx" t-value="0"/>
+                <div t-attf-class="col-lg-12 d-flex flex-wrap">
+                    <t t-set="has_correct_answer"
+                       t-value="scoring_display_correction and any(label.is_correct for label in question.suggested_answer_ids)"/>
+                    <t t-foreach='question.suggested_answer_ids' t-as='label'>
+                        <t t-set="item_idx" t-value="label_index"/>
+                        <t t-set="answer_selected"
+                           t-value="answer_line and answer_line.suggested_answer_id.id == label.id"/>
+                        <t t-set="is_correct" t-value="label.answer_score > 0.0"/>
 
-                            <!--Used for print mode with corrections -->
-                            <t t-set="answer_class" t-if="not has_correct_answer" t-value="''" />
-                            <t t-set="answer_class" t-elif="is_correct" t-value="'bg-success'" />
-                            <t t-set="answer_class" t-elif="not is_correct" t-value="'bg-danger'" />
+                        <!--Used for print mode with corrections -->
+                        <t t-set="answer_class" t-if="not has_correct_answer" t-value="''"/>
+                        <t t-set="answer_class" t-elif="is_correct" t-value="'bg-success'"/>
+                        <t t-set="answer_class" t-elif="not is_correct" t-value="'bg-danger'"/>
 
-                            <label style="cursor: pointer; background-color: rgb(231, 231, 232);
+                        <label style="cursor: pointer; background-color: rgb(231, 231, 232);
                             box-shadow: #050709 0px 0px 0px 1px;font-size: 20px; line-height: 32px;
                             color: #000; font-weight: unset; font-family: Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;"
-                                    t-att-for="str(question.id) + '_' + str(label.id)"
-                                   t-att-class="'o_survey_choice_btn mr-2 mb-2 py-1 px-3 rounded %s %s' % (answer_class, 'o_survey_selected' if answer_selected else '')">
-                                <t t-call="survey.survey_selection_key">
-                                    <t t-set="selection_key_class" t-value="'position-relative o_survey_radio_btn float-left d-flex'"/>
-                                </t>
-                                <span class="ml-2" t-field='label.value'/>
-                                <input t-att-id="str(question.id) + '_' + str(label.id)" type="radio" t-att-value='label.id' class="o_survey_form_choice_item invisible position-absolute"
-                                       t-att-name='question.id'
-                                       t-att-checked="answer_line and answer_line.suggested_answer_id.id == label.id and 'checked' or None"
-                                       t-att-data-selection-key="letters[item_idx] if useKeySelection else ''"/>
-                                <i class="fa fa-check-circle float-right mt-1 position-relative"></i>
-                                <i class="fa fa-circle-thin float-right mt-1 position-relative"></i>
-                                <t t-call="survey.question_suggested_value_image"/>
-                            </label>
-                        </t>
+                               t-att-for="str(question.id) + '_' + str(label.id)"
+                               t-att-class="'o_survey_choice_btn mr-2 mb-2 py-1 px-3 rounded %s %s' % (answer_class, 'o_survey_selected' if answer_selected else '')">
+                            <t t-call="survey.survey_selection_key">
+                                <t t-set="selection_key_class"
+                                   t-value="'position-relative o_survey_radio_btn float-left d-flex'"/>
+                            </t>
+                            <span class="ml-2" t-field='label.value'/>
+                            <input t-att-id="str(question.id) + '_' + str(label.id)" type="radio" t-att-value='label.id'
+                                   class="o_survey_form_choice_item invisible position-absolute"
+                                   t-att-name='question.id'
+                                   t-att-checked="answer_line and answer_line.suggested_answer_id.id == label.id and 'checked' or None"
+                                   t-att-data-selection-key="letters[item_idx] if useKeySelection else ''"/>
+                            <i class="fa fa-check-circle float-right mt-1 position-relative"></i>
+                            <i class="fa fa-circle-thin float-right mt-1 position-relative"></i>
+                            <t t-call="survey.question_suggested_value_image"/>
+                        </label>
+                    </t>
+                </div>
+                <div t-if='question.comments_allowed and question.comment_count_as_answer'
+                     class="js_comments col-lg-12">
+                    <div class="d-flex flex-wrap">
+                        <label t-att-class="'o_survey_choice_btn mr-2 py-1 px-3 rounded %s' % ('o_survey_selected' if comment_line else '')">
+                            <t t-set="item_idx" t-value="item_idx + 1"/>
+                            <t t-call="survey.survey_selection_key">
+                                <t t-set="selection_key_class"
+                                   t-value="'position-relative o_survey_radio_btn float-left d-flex'"/>
+                            </t>
+                            <input type="radio"
+                                   class="o_survey_form_choice_item o_survey_js_form_other_comment invisible position-absolute"
+                                   value="-1"
+                                   t-att-name='question.id'
+                                   t-att-checked="comment_line and 'checked' or None"
+                                   t-att-data-selection-key="letters[item_idx] if useKeySelection else ''"/>
+                            <span class="ml-2" t-field="question.comments_message"/>
+                            <i class="fa fa-check-circle float-right mt-1 position-relative"></i>
+                            <i class="fa fa-circle-thin float-right mt-1 position-relative"></i>
+                        </label>
                     </div>
-                    <div t-if='question.comments_allowed and question.comment_count_as_answer' class="js_comments col-lg-12" >
-                        <div class="d-flex flex-wrap">
-                            <label t-att-class="'o_survey_choice_btn mr-2 py-1 px-3 rounded %s' % ('o_survey_selected' if comment_line else '')">
-                                <t t-set="item_idx" t-value="item_idx + 1"/>
-                                <t t-call="survey.survey_selection_key">
-                                    <t t-set="selection_key_class" t-value="'position-relative o_survey_radio_btn float-left d-flex'"/>
-                                </t>
-                                <input type="radio" class="o_survey_form_choice_item o_survey_js_form_other_comment invisible position-absolute" value="-1"
-                                       t-att-name='question.id'
-                                       t-att-checked="comment_line and 'checked' or None"
-                                       t-att-data-selection-key="letters[item_idx] if useKeySelection else ''"/>
-                                <span class="ml-2" t-field="question.comments_message" />
-                                <i class="fa fa-check-circle float-right mt-1 position-relative"></i>
-                                <i class="fa fa-circle-thin float-right mt-1 position-relative"></i>
-                            </label>
-                        </div>
-                        <div t-attf-class="o_survey_comment_container mt-3 py-0 px-1  #{'d-none' if not comment_line else ''}">
-                            <textarea type="text" class="form-control o_survey_question_text_box bg-transparent text-dark rounded-0 p-0"
-                                      t-att-disabled="None if comment_line else 'disabled'"><t t-esc="comment_line.value_char_box if comment_line else ''"/></textarea>
-                        </div>
-                    </div>
-                    <div t-if='question.comments_allowed and not question.comment_count_as_answer' class="col-lg-12 o_survey_comment_container mx-1 mt-3 pl-3 pr-4">
-                        <textarea type="text" class="form-control o_survey_comment o_survey_question_text_box bg-transparent text-dark rounded-0 p-0"
-                                  t-att-placeholder="question.comments_message if not survey_form_readonly else ''"><t t-esc="comment_line.value_char_box if comment_line else ''"/></textarea>
+                    <div t-attf-class="o_survey_comment_container mt-3 py-0 px-1  #{'d-none' if not comment_line else ''}">
+                        <textarea type="text"
+                                  class="form-control o_survey_question_text_box bg-transparent text-dark rounded-0 p-0"
+                                  t-att-disabled="None if comment_line else 'disabled'">
+                            <t t-esc="comment_line.value_char_box if comment_line else ''"/>
+                        </textarea>
                     </div>
                 </div>
-          </xpath>
-     </template>
+                <div t-if='question.comments_allowed and not question.comment_count_as_answer'
+                     class="col-lg-12 o_survey_comment_container mx-1 mt-3 pl-3 pr-4">
+                    <textarea type="text"
+                              class="form-control o_survey_comment o_survey_question_text_box bg-transparent text-dark rounded-0 p-0"
+                              t-att-placeholder="question.comments_message if not survey_form_readonly else ''">
+                        <t t-esc="comment_line.value_char_box if comment_line else ''"/>
+                    </textarea>
+                </div>
+            </div>
+        </xpath>
+    </template>
 
-        <template id="survey_selection_key" inherit_id="survey.survey_selection_key">
-            <xpath expr="//div[contains(@t-att-class, 'o_survey_choice_key')]" position="replace">
-                <div t-if="useKeySelection" t-att-class="'o_survey_choice_key bg-white rounded %s' % selection_key_class">
-                     <span class="o_survey_key text-center position-absolute bg-white rounded-left py-0 pl-2"><span class="text-primary text-center text-center w-100 position-relative">Key</span></span>
-                     <span class="text-primarys text-center w-100 position-relative" t-esc="letters[item_idx]"/>
-                </div>
-            </xpath>
+    <template id="survey_selection_key" inherit_id="survey.survey_selection_key">
+        <xpath expr="//div[contains(@t-att-class, 'o_survey_choice_key')]" position="replace">
+            <div t-if="useKeySelection" t-att-class="'o_survey_choice_key bg-white rounded %s' % selection_key_class">
+                <span class="o_survey_key text-center position-absolute bg-white rounded-left py-0 pl-2">
+                    <span class="text-primary text-center text-center w-100 position-relative">Key</span>
+                </span>
+                <span class="text-primarys text-center w-100 position-relative" t-esc="letters[item_idx]"/>
+            </div>
+        </xpath>
     </template>
 
 

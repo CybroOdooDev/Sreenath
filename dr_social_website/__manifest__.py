@@ -7,6 +7,8 @@
     'author': 'Droggol Infotech Private Limited',
     'license': 'OPL-1',
     'depends': [
+        'web',
+        'base',
         'website',
         'social_facebook',
         'social_instagram',
@@ -24,12 +26,29 @@
         'views/survey_templates.xml',
         'views/snippets.xml',
         'views/footer.xml',
+        'views/content_calendar.xml',
+        'views/revision_request.xml',
+        'views/revision_request_2.xml',
     ],
     'assets': {
         'web.assets_frontend': [
+
+            'dr_social_website/static/src/scss/social.scss',
+            'dr_social_website/static/src/scss/materialize.scss',
+            'dr_social_website/static/src/scss/materialize_icons.scss',
+            # 'dr_social_website/static/src/scss/font.scss',
             'dr_social_website/static/src/js/social_dialog.js',
             'dr_social_website/static/src/js/portal.js',
-            'dr_social_website/static/src/scss/social.scss',
-        ]
+            'dr_social_website/static/src/js/calendar.js',
+            'dr_social_website/static/src/js/popper_min.js',
+            'dr_social_website/static/src/js/bootstrap_min.js',
+            'dr_social_website/static/src/js/materialize_min.js',
+            # 'dr_social_website/static/src/scss/calendar.scss',
+        ],
+        'web.assets_qweb': [
+            'dr_social_website/static/src/xml/calendar.xml',
+            # 'dr_social_website/static/src/xml/revision_calendar.xml',
+
+        ],
     },
 }

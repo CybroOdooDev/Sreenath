@@ -1,0 +1,28 @@
+<odoo>
+    <template id="revision_request" name="Revision Request">
+        <t t-name="SocialCalendar">
+            <t t-call="website.layout">
+                <div class="col-10 o_wsale_products_main_row" style="display:flex;">
+                    <t t-foreach="posts" t-as="val">
+                        <div class="col-md-12 dashboard-table">
+                            <div class="col-md-8 bg-100 roundest-border table-1 py-5 text-center dashboard-table"
+                                style="box-shadow: 0px 0px 19px rgba(0, 0, 0, 0.05) inset;/*! margin-left: -25px;
+                                 *//*! height: 140px !important; */ /*! border-right-width: 0px; /*! padding-right: 100px;
+                               *//*! width: 70%; */margin-right: 100px;padding-bottom: -3rem;margin-bottom: 81px;">
+                                <div class="sub-table-1">
+                                    <t t-esc="val.message"/>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                    <div style="margin-right: 22px;margin-left: -60px;" id="calendar">
+<!--                        <div id="calendar"/>-->
+                </div>
+                </div>
+            </t>
+        </t>
+
+    </template>
+
+
+</odoo>
