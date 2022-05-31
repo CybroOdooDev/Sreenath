@@ -12,6 +12,9 @@ class SocialMain(http.Controller):
         linked_accounts = request.env['social.account'].search([('dr_account_user_id', '=', request.env.uid)])
         if not linked_accounts:
             request.session['isOnbording'] = True
+        else:
+            request.session['isOnbording'] = True
+
         return request.render('dr_social_website.home', {
             'linked_accounts': linked_accounts,
             'isOnbording': request.session['isOnbording']
