@@ -11,7 +11,7 @@ class RevisionRequest(http.Controller):
     def get_revision_request(self, **kw):
         print('-*-******--*-*-------------*-*-********************')
 
-        post = request.env['social.post'].search([('state', '=', 'posted')], limit=1)
+        post = request.env['social.post'].search([('state', '=', 'posted')], order='id asc', limit=5)
         print(post)
         # lines = total_products.item_ids
         # product_count = len(lines)

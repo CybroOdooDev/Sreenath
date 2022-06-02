@@ -163,6 +163,7 @@ element {
     width: 60%;
 }
 
+
 .sub-table-2 {
     margin: 25px;
     width: 20%;
@@ -192,11 +193,17 @@ element {
 .ui-datepicker tr,
 .ui-datepicker td,
 .ui-datepicker th {
+
     margin: 0;
     padding: 0;
+    padding: 4px !important;
+    padding-top: 4px;
+    padding-bottom: 4px;
     border: none;
-    border-spacing: 0;
+    border-spacing: 0 !important;
     margin-left: -27px !important;
+    padding-top: 4px !important;
+    padding-bottom: 4px !important;
 
 }
 .ui-datepicker {
@@ -207,7 +214,7 @@ element {
     margin-left: -27px !important;
     text-transform: uppercase;
     font-family: Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-    font-size: 12px;
+    font-size: 22px;
     color: #000 !important;
     background: #fff;
     border: 0px solid #c5c5c5 !important;
@@ -281,14 +288,38 @@ element {
     padding-right: 0;
 }
 
-.ui-datepicker-prev span,
-.ui-datepicker-next span{
-    display: block;
-    width: 5px;
-    height: 10px;
-    text-indent: -9999px;
+// .ui-datepicker-prev span,
+// .ui-datepicker-next span{
+//     display: block;
+//     width: 5px;
+//     height: 10px;
+//     text-indent: -9999px;
+//
+//     background-image: url("dr_social_website/static/src/img/arrows.png");
+// }
 
-    background-image: url(../img/arrows.png);
+.ui-datepicker-prev span{
+background-position: -98px -15px;
+width: 10px;
+text-align: center;
+display: flex;
+height: 20px;
+
+}
+
+
+
+.ui-datepicker-next span {
+  display: block;
+  width: 5px;
+  height: 10px;
+  text-indent: -9999px;
+  background-image: url("dr_social_website/static/src/img/arrows.png");
+}
+.ui-datepicker-next span {
+  background-position: -32px -13px !important;
+  width: 16px !important;
+  height: 20px !important;;
 }
 
 .ui-datepicker-prev span { background-position: 0px 0px; }
@@ -317,20 +348,88 @@ element {
 }
 
 .ui-datepicker-calendar .ui-state-default {
-    display: block;
-    width: 26px;
-    outline: none;
-    color: #060606 !important;
-    text-decoration: none;
-    color: #a8a8a8;
-
-    border: 1px solid transparent;
+      display: block;
+      width: 38px;
+      outline: none;
+      color: #060606 !important;
+      text-decoration: none;
+      color: #a8a8a8;
+      border: 1px solid transparent;
+      text-align: center;
 }
 .ui-datepicker-calendar .ui-state-active {
-    color: #060606 !important;
-    background: #ca9b419e !important;
-    border-radius: 50% !important;
-    border: 1px solid #6a9113;
+    color: #fffcfc !important;
+    background: #ffa801 !important;
+    border-radius: 93px !important;
+    border: 1px solid #f7f7f7;
+    text-align: center;
+
 }
 
 .ui-datepicker-other-month .ui-state-default { color: #565656; }
+
+a:not([href]):not([tabindex]):hover, a:not([href]):not([tabindex]):focus {
+  color: inherit;
+  text-decoration: none;
+  background-color: #00d3a1;
+  border: none;
+  margin-right: 20px;
+}
+
+a:not([href]):not([tabindex]) {
+  color: inherit;
+  text-decoration: none;
+  margin-right: 20px;
+}
+
+.feedback-table-1 {
+margin: 0px;
+text-align: justify;
+width: 100%;
+font-size: 14px !important;
+margin-top: -40px;
+// display: initial !important;
+
+}
+
+
+ul.checkmark li {
+  font-size: 24px !important; // this determines the size of the list text and therefore checkmark size
+  list-style-type: none; // remove default list style
+  margin-bottom: 1em; // lists need to be able to breathe
+  padding: 0.25em 0 0 2.5em; // make room for the circle
+  position: relative; // because we want to position the circle in an absolute fashion
+  padding-left: 70px !important;
+}
+
+ul.checkmark li:before {
+  content: " "; // the circle itself is empty
+  display: block;
+  border: solid 0.8em #ffa801 !important; // create a colored area...
+  border-radius: .8em; // ... and turn it into a circle
+  height: 0;
+  width: 0;
+  position: absolute; // the circle is then put into place
+  left: 0.5em;
+  top: 40%;
+  margin-top: -0.5em;
+}
+
+
+.three-dots {
+ content: '\2807';
+ font-size: 3em;
+ color: #2e2e2e
+}
+
+.image-hovers{
+  width: 200px;
+  height: 100px;
+  background: #FFB6C1;
+  transition: background-color 2s ease-out 100ms
+}
+
+image-hovers:hover {
+  background-color: #FF1493;
+}
+
