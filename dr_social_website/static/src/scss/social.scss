@@ -304,6 +304,7 @@ width: 10px;
 text-align: center;
 display: flex;
 height: 20px;
+background-image: url("/dr_social_website/static/src/img/left-arrow.png") !important;
 
 }
 
@@ -314,12 +315,13 @@ height: 20px;
   width: 5px;
   height: 10px;
   text-indent: -9999px;
-  background-image: url("dr_social_website/static/src/img/arrows.png");
+  background-image: url("/dr_social_website/static/src/img/right-arrow.png") !important;
 }
 .ui-datepicker-next span {
   background-position: -32px -13px !important;
   width: 16px !important;
   height: 20px !important;;
+
 }
 
 .ui-datepicker-prev span { background-position: 0px 0px; }
@@ -374,12 +376,26 @@ a:not([href]):not([tabindex]):hover, a:not([href]):not([tabindex]):focus {
   background-color: #00d3a1;
   border: none;
   margin-right: 20px;
+  margin-left: 27px;
+}
+
+a:not([href]):not([tabindex]):hover, a:not([href]):not([tabindex]):focus {
+  text-decoration: none;
+  background-color: #00d3a1;
+  border: none;
+  margin-left: 20px !important;
 }
 
 a:not([href]):not([tabindex]) {
   color: inherit;
   text-decoration: none;
   margin-right: 20px;
+}
+a:not([href]):not([tabindex]) {
+  color: inherit;
+  text-decoration: none;
+  margin-right: 20px;
+
 }
 
 .feedback-table-1 {
@@ -433,3 +449,405 @@ image-hovers:hover {
   background-color: #FF1493;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		   body {
+   font-family: 'Roboto', sans-serif;
+   font-weight: 400;
+}
+
+h3,h4,h5 {
+   font-weight: 300 !important;
+}
+
+.calendar-wrapper {
+   height: auto;
+   max-width: 730px;
+   margin: 0 auto;
+}
+
+.calendar-header {
+//     background-color: rgba(18, 15, 25, 0.25);
+    height: 100%;
+    padding: 20px;
+    color: #fff;
+    font-weight: 300;
+    position: relative;
+    cursor: default !important; text-transform: uppercase !important;
+    font-family: Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif !important;
+}
+
+.header-title {
+   padding-left: 15%;
+}
+
+.header-background {
+    height: 100px;
+    border-radius: 50px !important;
+    background-color: #00d3a1;
+
+}
+
+.calendar-content {
+//    background-color: #fff;
+   padding: 20px;
+   padding-left: 15%;
+   padding-right: 15%;
+   overflow: hidden;
+   background-color: #f3fcf2a6;
+border-radius: 20% !important;
+margin-top: 10px !important;
+}
+
+.event-mark {
+   width: 5px;
+   height: 5px;
+   background-color: teal;
+   border-radius: 100px;
+   position: absolute;
+   left: 46%;
+   top: 70%;
+}
+
+.calendar-footer {
+   height: 200px;
+   font-family: 'Roboto', sans-serif;
+   font-weight: 300;
+   text-align: center;
+   background-color: #4b6289 !important;
+   position: relative;
+   overflow: hidden;
+}
+
+.addForm {
+   position: absolute;
+   top: 100%;
+   width: 100%;
+   height: 100%;
+   background-color: #4b5889 !important;
+   transition: top 0.5s cubic-bezier(1, 0, 0, 1);
+   padding: 0 5px 0 5px;
+}
+
+.addForm input {
+   color: #fff;
+}
+
+.addForm .row {
+   padding-left: 0.75rem;
+   padding-right: 0.75rem;
+   margin-bottom: 0;
+}
+
+.addForm h4 {
+   color: #fff;
+   margin-bottom: 1rem;
+}
+
+.addEventButtons {
+   text-align: right;
+   padding: 0 0.75rem 0 0.75rem;
+}
+
+.addEventButtons a {
+   color: black;
+   font-weight: 300;
+}
+
+.emptyForm {
+   padding: 20px;
+   padding-left: 15%;
+   padding-right: 15%;
+}
+
+.emptyForm h4 {
+   color: #fff;
+   margin-bottom: 2rem;
+}
+
+.sidebar-wrapper {
+    color: #fff;
+    background-color: #00d3a1 !important;   padding-top: 0;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    padding-left: 0;
+    padding-right: 0;
+    margin-right: -457px;
+    transform: translateX(-100%);
+    margin-left: 729px !important;
+    width: 100% !important;
+    transform: translateX(-100%) !important;
+    padding-bottom: 32px;
+    margin-bottom: 15px;
+    border-radius: 36px !important;
+    position: unset;
+}
+
+.sidebar-title {
+padding: 0;
+display: none;
+}
+
+.sidebar-title h4 {
+   margin-top: 0;
+      color: black;
+
+
+}
+
+.sidebar-events {
+   overflow-x: hidden;
+   overflow-y: hidden;
+   margin-bottom: 70px;
+   margin-left: 74px;
+   color: black;
+}
+
+.empty-message {
+   font-size: 1.2rem;
+   padding: 15px 6% 15px 12%;
+}
+
+.eventCard {
+   background-color: unset;
+   color: #fff !important;
+   padding: 12px 24px 12px 24px;
+   border-bottom: 0px solid #E5E5E5 !important;
+   white-space: nowrap;
+   position: relative;
+   animation: slideInDown 0.5s;
+   margin-top: 42px;
+   padding-right: 29px;
+   margin-right: 54px;
+}
+
+.eventCard-header {
+   font-weight: bold;
+}
+
+.eventCard-description {
+   color: grey;
+   display: none !important;
+}
+
+.eventCard-mark-wrapper {
+   position: absolute;
+   right: 0;
+   top: 0;
+   height: 100%;
+   width: 60px;
+   background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 25%, rgba(255, 255, 255, 1) 100%);
+   display: none !important;
+}
+
+.eventCard-mark {
+   width: 8px;
+   height: 8px;
+   background-color: #b39ddb;
+   border-radius: 100px;
+   position: absolute;
+   left: 50%;
+   top: 45%;
+}
+
+.day-mark {
+   width: 7px;
+   height: 7px;
+   background-color: #b39ddb;
+   border-radius: 100px;
+   position: absolute;
+   left: 47%;
+   top: 67%;
+}
+
+.content-wrapper {
+   padding-top: 50px;
+   padding-bottom: 50px;
+   margin-left: 0px !important;
+}
+
+#table-body .col:hover {
+   cursor: pointer;
+   /*border: 1px solid grey;*/
+   background-color: #E0E0E0;
+}
+
+.empty-day:hover {
+   cursor: default !important;
+   background-color: #fff !important;
+}
+
+#table-body .row .col {
+   padding: .75rem;
+}
+
+#table-body .col {
+   border: 1px solid transparent;
+}
+
+#table-body {}
+
+#table-body .row {
+   margin-bottom: 0;
+}
+
+#table-body .col {
+   padding-top: 1.3rem !important;
+   padding-bottom: 1.3rem !important;
+}
+
+#calendar-table {
+   text-align: center;
+}
+
+.prev-button {
+   position: absolute;
+   cursor: pointer;
+   left: 0%;
+   top: 35%;
+   color: #fff !important;
+}
+
+.prev-button i {
+   font-size: 4em;
+}
+
+.next-button {
+   position: absolute;
+   cursor: pointer;
+   right: 0%;
+   top: 35%;
+   color: #fff !important;
+}
+
+.next-button i {
+   font-size: 4em;
+}
+
+.addEvent {
+   box-shadow: 0 5px 15px rgb(57, 168, 228);
+   background-color: #39a8e4;
+   padding: 10px;
+   padding-left: 3em;
+   padding-right: 3em;
+   cursor: pointer;
+   border-radius: 25px;
+   color: #fff !important;
+   background-image: linear-gradient(135deg, #8d8dd4, #45ced4);
+}
+
+.addEvent:hover {
+   transition: box-shadow 0.5s;
+   box-shadow: 0 4px 25px rgb(57, 168, 228);
+}
+
+.mobile-header {
+   padding: 0;
+   display: none;
+   padding-top: 20px;
+   padding-bottom: 20px;
+   position: fixed;
+   z-index: 99;
+   width: 100%;
+   background-color: #5a649c !important;
+}
+
+.mobile-header a i {
+   color: #fff;
+   font-size: 38px;
+}
+
+.mobile-header h4 {
+   color: #fff;
+}
+
+.mobile-header .row {
+   margin-bottom: 0;
+}
+
+.mobile-header h4 {
+   margin: 0;
+   font-family: 'Roboto', sans-serif;
+   font-weight: 300;
+}
+
+@media (max-width:992px) {
+   .content-wrapper {
+      margin-left: 0;
+   }
+   .mobile-header {
+      display: block;
+   }
+   .calendar-wrapper {
+      margin-top: 80px;
+   }
+   .sidebar-wrapper {
+      background-color: #EEEEEE !important;
+
+
+   }
+   .sidebar-title {
+      background-color: #5A649C !important;
+   }
+   .empty-message {
+      color: black;
+   }
+}
+
+@media (max-width:767px) {
+   .content-wrapper .container {
+      width: auto;
+   }
+   .calendar-content {
+      padding-left: 5%;
+      padding-right: 5%;
+   }
+   body .row {
+      margin-bottom: 0;
+   }
+}
+
+@media (max-width:450px) {
+   .content-wrapper {
+      padding-left: 0;
+      padding-right: 0;
+   }
+   .content-wrapper .container {
+      padding-left: 0;
+      padding-right: 0;
+   }
+}
+
+
+
+.blue.lighten-3 {
+  border-radius: 50px !important;
+  width: 75px !important;
+  height: 75px !important;
+  color: #fff !important;
+  font-size: 25px !important;
+  font-weight: 700 !important;
+background-color: #FFA801 !important;}

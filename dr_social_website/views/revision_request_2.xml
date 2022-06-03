@@ -3,115 +3,639 @@
         <t t-name="SocialCalendar">
             <t t-call="website.layout">
                 <div class="row container-fluid">
-                    <div class="col container-fluid o_wsale_products_main_row" style="display:flex;">
-                        <div class="row">
-                            <div class="col-md-12 dashboard-table" style="display: inherit;">
-                                <div class="col-md-8"
-                                     style="float: left; width: 100% !important; overflow-y: auto; height: 1000px; left: -144px !important;">
-
-<!--    <a href="#myModal" class="btn btn-lg btn-primary" data-toggle="modal">Launch Demo Modal</a>-->
-
-<!--                                    <td>-->
-<!--                                        <input type="text" id="cash_narrat" placeholder="Enter here"-->
-<!--                                               class="form-control narate" pattern="[a-zA-Z0-9-_.]{1,20}"-->
-<!--                                               name="cash_narrat" data-toggle="modal" data-target="#narratModal"/>-->
-<!--                                    </td>-->
-<!--                                    <div class="modal fade" id="narratModal" tabindex="-1" role="dialog"-->
-<!--                                         aria-labelledby="narratModalLabel"-->
-<!--                                         aria-hidden="true">-->
-<!--                                        <div class="modal-dialog">-->
-<!--                                            <div class="modal-content">-->
-<!--                                                <div class="modal-header">-->
-<!--                                                    <h4 class="modal-title modal_head" id="narratModalLabel">Narration-->
-<!--                                                    </h4>-->
-<!--                                                    <button type="button" class="close cash-dismiss"-->
-<!--                                                            data-dismiss="modal" aria-label="Close">-->
-<!--                                                        <span aria-hidden="true">&amp;times;</span>-->
-<!--                                                    </button>-->
-<!--                                                </div>-->
-<!--                                                <div class="modal-body">-->
-<!--                                                    <label class="modal_note">Input</label>-->
-<!--                                                    <input class="myInput form-control form-control-sm"/>-->
-<!--                                                </div>-->
-<!--                                                <div class="modal-footer narr_footer">-->
-<!--                                                    <button type="button" class="btn btn-primary cashmodal_btn"-->
-<!--                                                            id="narrat_ok"-->
-<!--                                                            data-dismiss="modal">OK-->
-<!--                                                    </button>-->
-<!--                                                </div>-->
-<!--                                            </div>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-
-
-<!--                                    <div class="bs-example" >-->
-<!--    &lt;!&ndash; Button HTML (to Trigger Modal) &ndash;&gt;-->
-
-<!--    &lt;!&ndash; Modal HTML &ndash;&gt;-->
-<!--    <div id="myModal" class="modal fade">-->
-<!--        <div class="modal-dialog">-->
-<!--            <div class="modal-content">-->
-<!--                <div class="modal-header">-->
-<!--                    <h5 class="modal-title">Your Feedback</h5>-->
-<!--                    <button type="button" class="close" data-dismiss="modal">&amp;times;</button>-->
-<!--                </div>-->
-<!--                <div class="modal-body">-->
-<!--                    <form>-->
-<!--                        <div class="form-group">-->
-<!--                            <label for="inputName">Name</label>-->
-<!--                            <input type="text" class="form-control" id="inputName"/>-->
-<!--                        </div>-->
-<!--                        <div class="form-group">-->
-<!--                            <label for="inputComment">Comments</label>-->
-<!--                            <textarea class="form-control" id="inputComment" rows="4"></textarea>-->
-<!--                        </div>-->
-<!--                    </form>-->
-<!--                </div>-->
-<!--                <div class="modal-footer">-->
-<!--                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>-->
-<!--                    <button type="button" class="btn btn-primary">Send</button>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
-
-
-                                    <t t-foreach="posts" t-as="val">
-                                        <div class="col-md-12 bg-100 roundest-border table-1 py-5 text-center"
-                                             style="box-shadow: 0px 0px 19px rgba(0, 0, 0, 0.05) inset;
+                    <div class="col-md-12 " style="display: inherit;">
+                        <div class="col-md-10"
+                             style="float: left; width: 100% !important; overflow-y: auto; height: 1000px; left: -324px !important;">
+                            <t t-foreach="posts" t-as="val">
+                                <div class="col-md-10 bg-100 roundest-border table-1 py-5 text-center"
+                                     style="box-shadow: 0px 0px 19px rgba(0, 0, 0, 0.05) inset;
                                              height: 174px !important; text-align: start !important;
                                              border-radius: 141px;padding: 20px;/*! width: 200px; */">
-                                            <div>
-                                                <ul class="checkmark">
-                                                    <li>
-                                                        <div class="feedback-table-1"
-                                                             style="font-size: 14px !important;" t-esc="val.message"/>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <ul>
+                                    <div>
+                                        <ul class="checkmark">
                                             <li>
-                                                <div class="img-hovers">
-                                                    <!--                                                    <button>-->
-                                                    <img style="width:2% !important; margin-top: 0px !important; margin-left: 70px !important; cursor: pointer !important;"
-                                                         src="https://cdn-icons-png.flaticon.com/512/512/512222.png"/>
-                                                    <!--                                                    </button>-->
+                                                <div class="feedback-table-1"
+                                                     style="font-size: 14px !important;">
+                                                    <strong class="text-muted">Feedback provided by
+                                                        <t t-esc="val.create_uid.name"/>
+                                                    </strong>
                                                 </div>
                                             </li>
                                         </ul>
-
-                                    </t>
+                                    </div>
                                 </div>
-                                <div id="calendar"/>
+                                <ul>
+                                    <li>
+                                        <div class="img-hovers">
+                                            <!--                                                    <button>-->
+                                            <img style="width:2% !important; margin-top: 0px !important; margin-left: 70px !important; cursor: pointer !important;"
+                                                 src="https://cdn-icons-png.flaticon.com/512/512/512222.png"/>
+                                            <!--                                                    </button>-->
+                                        </div>
+                                    </li>
+                                </ul>
 
+                            </t>
+                        </div>
+                        <!--                                <div id="calendar"/>-->
+                        <head>
+                            <meta charset="utf-8"/>
+                            <meta name="viewport"
+                                  content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+                            <link rel="stylesheet"
+                                  href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css"/>
+                            <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500"
+                                  rel="stylesheet"/>
+                            <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+                                  rel="stylesheet"/>
+                            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+                        </head>
+
+                        <body>
+
+                            <div class="mobile-header z-depth-1">
+
+                                <div class="row">
+                                    <div class="col-2">
+                                        <a href="#" data-activates="sidebar" class="button-collapse"
+                                           style="">
+                                            <i class="material-icons">menu</i>
+                                        </a>
+                                    </div>
+                                    <div class="col">
+                                        <h4>Events</h4>
+                                    </div>
+                                </div>
 
                             </div>
-                        </div>
+
+                            <div class="main-wrapper col-10">
+
+
+                                <div class="content-wrapper">
+                                    <div class="container">
+
+                                        <div class="calendar-wrapper">
+
+                                            <div class="header-background">
+                                                <div class="calendar-header">
+
+                                                    <a style="margin-top: -14px !important;"
+                                                       class="prev-button" id="prev">
+                                                        <i
+                                                                class="material-icons">keyboard_arrow_left
+                                                        </i>
+                                                    </a>
+                                                    <a style="margin-top: -14px !important;" class="next-button"
+                                                       id="next">
+                                                        <i class="material-icons">keyboard_arrow_right</i>
+                                                    </a>
+
+                                                    <div class="row header-title">
+
+                                                        <div class="header-text">
+                                                            <h3 style="cursor: default !important; text-transform: uppercase !important;
+                                                                        font-family: Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif !important;
+                                                                         font-size: 37px !important; margin-left: 160px !important; margin-top: -0.54rem !important; font-weight: bold !important;"
+                                                                id="month-name">February
+                                                            </h3>
+                                                            <h5 style="cursor: default !important; text-transform: uppercase !important;
+                                                                         font-family: Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif !important;
+                                                                         font-size: 14px !important; margin-left: 160px; font-weight: bold !important;"
+                                                                id="todayDayName">Today is Friday 7 Feb
+                                                            </h5>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="calendar-content">
+                                                <div id="calendar-table" class="calendar-cells">
+
+                                                    <div id="table-header">
+                                                        <div class="row text-muted" style="text-transform: uppercase !important; font-weight: lighter !important;
+                                                                                            font-family: Oxygen, Ubuntu, Cantarell, 'Fira Sans',
+                                                                                            'Droid Sans', 'Helvetica Neue', sans-serif !important;">
+                                                            <div class="col">Mon</div>
+                                                            <div class="col">Tue</div>
+                                                            <div class="col">Wed</div>
+                                                            <div class="col">Thu</div>
+                                                            <div class="col">Fri</div>
+                                                            <div class="col">Sat</div>
+                                                            <div class="col">Sun</div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div id="table-body" class=""
+                                                         style="font-family: Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;">
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                            <div class="sidebar-wrapper" id="sidebar"
+                                                 style="color: black !imoirtant;">
+                                                <div class="sidebar-title">
+                                                    <h5 id="eventDayName"></h5>
+                                                </div>
+                                                <div class="sidebar-events" id="sidebarEvents"
+                                                     style="font-family: Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-weight: bolder! important;
+                                                             margin-left: -61px !important; padding-left: 13% !important; color: #fff !important">
+                                                    <div class="empty-message">Sorry, no clients to selected
+                                                        date
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+
+                                            <div class="calendar-footer">
+                                                <div class="emptyForm" id="emptyForm">
+                                                    <h4 id="emptyFormTitle">No clients assigned now</h4>
+                                                    <a class="addEvent" id="changeFormButton">Add new</a>
+                                                </div>
+                                                <div class="addForm" id="addForm">
+                                                    <h4>Add Client</h4>
+
+                                                    <div class="row">
+                                                        <div class="input-field col s6">
+                                                            <input id="eventTitleInput" type="text"
+                                                                   class="validate"/>
+                                                            <label for="eventTitleInput">Client Name</label>
+                                                        </div>
+                                                        <div class="input-field col s6">
+                                                            <input style="display: none !important;"
+                                                                   id="eventDescInput" type="text"
+                                                                   class="validate"/>
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="addEventButtons">
+                                                        <a class="waves-effect waves-light btn blue lighten-2"
+                                                           id="addEventButton">Add
+                                                        </a>
+                                                        <a class="waves-effect waves-light btn grey lighten-2"
+                                                           id="cancelAdd">Cancel
+                                                        </a>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
+                                    integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+                                    crossorigin="anonymous"></script>
+                            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"
+                                    integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+                                    crossorigin="anonymous"></script>
+                            <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+                            <script>
+                                $(".button-collapse").sideNav();
+                            </script>
+                        </body>
+
                     </div>
+
                 </div>
+
+                <!--                <div class="row container-fluid">-->
+                <!--                    <div class="col-8 container-fluid o_wsale_products_main_row" style="display:flex;">-->
+                <!--                        <div class="row">-->
+                <!--                            <div class="col-md-12 " style="display: inherit;">-->
+                <!--                                <div class="col-md-10"-->
+                <!--                                     style="float: left; width: 100% !important; overflow-y: auto; height: 1000px; left: -324px !important;">-->
+
+                <!--                                    <t t-foreach="posts" t-as="val">-->
+                <!--                                        <div class="col-md-10 bg-100 roundest-border table-1 py-5 text-center"-->
+                <!--                                             style="box-shadow: 0px 0px 19px rgba(0, 0, 0, 0.05) inset;-->
+                <!--                                             height: 174px !important; text-align: start !important;-->
+                <!--                                             border-radius: 141px;padding: 20px;/*! width: 200px; */">-->
+                <!--                                            <div>-->
+                <!--                                                <ul class="checkmark">-->
+                <!--                                                    <li>-->
+                <!--                                                        <div class="feedback-table-1"-->
+                <!--                                                             style="font-size: 14px !important;" >-->
+                <!--                                                            <strong class="text-muted">Feedback provided by <t t-esc="val.create_uid.name"/></strong>-->
+                <!--                                                        </div>-->
+                <!--                                                    </li>-->
+                <!--                                                </ul>-->
+                <!--                                            </div>-->
+                <!--                                        </div>-->
+                <!--                                        <ul>-->
+                <!--                                            <li>-->
+                <!--                                                <div class="img-hovers">-->
+                <!--                                                    &lt;!&ndash;                                                    <button>&ndash;&gt;-->
+                <!--                                                    <img style="width:2% !important; margin-top: 0px !important; margin-left: 70px !important; cursor: pointer !important;"-->
+                <!--                                                         src="https://cdn-icons-png.flaticon.com/512/512/512222.png"/>-->
+                <!--                                                    &lt;!&ndash;                                                    </button>&ndash;&gt;-->
+                <!--                                                </div>-->
+                <!--                                            </li>-->
+                <!--                                        </ul>-->
+
+                <!--                                    </t>-->
+                <!--                                </div>-->
+                <!--                                &lt;!&ndash;                                <div id="calendar"/>&ndash;&gt;-->
+                <!--                                <head>-->
+                <!--                                    <meta charset="utf-8"/>-->
+                <!--                                    <meta name="viewport"-->
+                <!--                                          content="width=device-width, initial-scale=1, shrink-to-fit=no"/>-->
+                <!--                                    <link rel="stylesheet"-->
+                <!--                                          href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css"/>-->
+                <!--                                    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500"-->
+                <!--                                          rel="stylesheet"/>-->
+                <!--                                    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"-->
+                <!--                                          rel="stylesheet"/>-->
+                <!--                                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>-->
+                <!--                                </head>-->
+
+                <!--                                <body>-->
+
+                <!--                                    <div class="mobile-header z-depth-1">-->
+
+                <!--                                        <div class="row">-->
+                <!--                                            <div class="col-2">-->
+                <!--                                                <a href="#" data-activates="sidebar" class="button-collapse"-->
+                <!--                                                   style="">-->
+                <!--                                                    <i class="material-icons">menu</i>-->
+                <!--                                                </a>-->
+                <!--                                            </div>-->
+                <!--                                            <div class="col">-->
+                <!--                                                <h4>Events</h4>-->
+                <!--                                            </div>-->
+                <!--                                        </div>-->
+
+                <!--                                    </div>-->
+
+                <!--                                    <div class="main-wrapper col-10" >-->
+
+
+                <!--                                        <div class="content-wrapper">-->
+                <!--                                            <div class="container">-->
+
+                <!--                                                <div class="calendar-wrapper">-->
+
+                <!--                                                    <div class="header-background">-->
+                <!--                                                        <div class="calendar-header">-->
+
+                <!--                                                            <a style="margin-top: -14px !important;"-->
+                <!--                                                               class="prev-button" id="prev">-->
+                <!--                                                                <i-->
+                <!--                                                                        class="material-icons">keyboard_arrow_left-->
+                <!--                                                                </i>-->
+                <!--                                                            </a>-->
+                <!--                                                            <a style="margin-top: -14px !important;" class="next-button"-->
+                <!--                                                               id="next">-->
+                <!--                                                                <i class="material-icons">keyboard_arrow_right</i>-->
+                <!--                                                            </a>-->
+
+                <!--                                                            <div class="row header-title">-->
+
+                <!--                                                                <div class="header-text">-->
+                <!--                                                                    <h3 style="cursor: default !important; text-transform: uppercase !important;-->
+                <!--                                                                        font-family: Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif !important;-->
+                <!--                                                                         font-size: 37px !important; margin-left: 160px !important; margin-top: -0.54rem !important; font-weight: bold !important;"-->
+                <!--                                                                        id="month-name">February-->
+                <!--                                                                    </h3>-->
+                <!--                                                                    <h5 style="cursor: default !important; text-transform: uppercase !important;-->
+                <!--                                                                         font-family: Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif !important;-->
+                <!--                                                                         font-size: 14px !important; margin-left: 160px; font-weight: bold !important;"-->
+                <!--                                                                        id="todayDayName">Today is Friday 7 Feb-->
+                <!--                                                                    </h5>-->
+                <!--                                                                </div>-->
+
+                <!--                                                            </div>-->
+                <!--                                                        </div>-->
+                <!--                                                    </div>-->
+
+                <!--                                                    <div class="calendar-content">-->
+                <!--                                                        <div id="calendar-table" class="calendar-cells">-->
+
+                <!--                                                            <div id="table-header">-->
+                <!--                                                                <div class="row text-muted" style="text-transform: uppercase !important; font-weight: lighter !important;-->
+                <!--                                                                                            font-family: Oxygen, Ubuntu, Cantarell, 'Fira Sans',-->
+                <!--                                                                                            'Droid Sans', 'Helvetica Neue', sans-serif !important;">-->
+                <!--                                                                    <div class="col">Mon</div>-->
+                <!--                                                                    <div class="col">Tue</div>-->
+                <!--                                                                    <div class="col">Wed</div>-->
+                <!--                                                                    <div class="col">Thu</div>-->
+                <!--                                                                    <div class="col">Fri</div>-->
+                <!--                                                                    <div class="col">Sat</div>-->
+                <!--                                                                    <div class="col">Sun</div>-->
+                <!--                                                                </div>-->
+                <!--                                                            </div>-->
+
+                <!--                                                            <div id="table-body" class=""-->
+                <!--                                                                 style="font-family: Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;">-->
+
+                <!--                                                            </div>-->
+
+                <!--                                                        </div>-->
+                <!--                                                    </div>-->
+
+                <!--                                                    <div class="sidebar-wrapper" id="sidebar"-->
+                <!--                                                         style="color: black !imoirtant;">-->
+                <!--                                                        <div class="sidebar-title">-->
+                <!--                                                            <h5 id="eventDayName"></h5>-->
+                <!--                                                        </div>-->
+                <!--                                                        <div class="sidebar-events" id="sidebarEvents"-->
+                <!--                                                             style="font-family: Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-weight: bolder! important;-->
+                <!--                                                             margin-left: -61px !important; padding-left: 13% !important; color: #fff !important">-->
+                <!--                                                            <div class="empty-message">Sorry, no clients to selected-->
+                <!--                                                                date-->
+                <!--                                                            </div>-->
+                <!--                                                        </div>-->
+
+                <!--                                                    </div>-->
+
+
+                <!--                                                    <div class="calendar-footer">-->
+                <!--                                                        <div class="emptyForm" id="emptyForm">-->
+                <!--                                                            <h4 id="emptyFormTitle">No clients assigned now</h4>-->
+                <!--                                                            <a class="addEvent" id="changeFormButton">Add new</a>-->
+                <!--                                                        </div>-->
+                <!--                                                        <div class="addForm" id="addForm">-->
+                <!--                                                            <h4>Add Client</h4>-->
+
+                <!--                                                            <div class="row">-->
+                <!--                                                                <div class="input-field col s6">-->
+                <!--                                                                    <input id="eventTitleInput" type="text"-->
+                <!--                                                                           class="validate"/>-->
+                <!--                                                                    <label for="eventTitleInput">Client Name</label>-->
+                <!--                                                                </div>-->
+                <!--                                                                <div class="input-field col s6">-->
+                <!--                                                                    <input style="display: none !important;"-->
+                <!--                                                                           id="eventDescInput" type="text"-->
+                <!--                                                                           class="validate"/>-->
+                <!--                                                                </div>-->
+
+                <!--                                                            </div>-->
+
+                <!--                                                            <div class="addEventButtons">-->
+                <!--                                                                <a class="waves-effect waves-light btn blue lighten-2"-->
+                <!--                                                                   id="addEventButton">Add-->
+                <!--                                                                </a>-->
+                <!--                                                                <a class="waves-effect waves-light btn grey lighten-2"-->
+                <!--                                                                   id="cancelAdd">Cancel-->
+                <!--                                                                </a>-->
+                <!--                                                            </div>-->
+
+                <!--                                                        </div>-->
+                <!--                                                    </div>-->
+
+
+                <!--                                                </div>-->
+
+                <!--                                            </div>-->
+                <!--                                        </div>-->
+
+                <!--                                    </div>-->
+
+                <!--                                    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"-->
+                <!--                                            integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"-->
+                <!--                                            crossorigin="anonymous"></script>-->
+                <!--                                    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"-->
+                <!--                                            integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"-->
+                <!--                                            crossorigin="anonymous"></script>-->
+                <!--                                    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>-->
+                <!--                                    <script>-->
+                <!--                                        $(".button-collapse").sideNav();-->
+                <!--                                    </script>-->
+                <!--                                </body>-->
+
+                <!--                            </div>-->
+                <!--                        </div>-->
+                <!--                    </div>-->
+                <!--                </div>-->
             </t>
         </t>
     </template>
 </odoo>
+
+
+        <!--<odoo>-->
+        <!--    <template id="revision_request" name="Revision Request">-->
+        <!--        <t t-name="SocialCalendar">-->
+        <!--            <t t-call="website.layout">-->
+        <!--                <div class="row container-fluid">-->
+        <!--                    <div class="col-8 container-fluid o_wsale_products_main_row" style="display:flex;">-->
+        <!--                        <div class="row">-->
+        <!--                            <div class="col-md-12 " style="display: inherit;">-->
+        <!--                                <div class="col-md-10"-->
+        <!--                                     style="float: left; width: 100% !important; overflow-y: auto; height: 1000px; left: -324px !important;">-->
+
+        <!--                                    <t t-foreach="posts" t-as="val">-->
+        <!--                                        <div class="col-md-10 bg-100 roundest-border table-1 py-5 text-center"-->
+        <!--                                             style="box-shadow: 0px 0px 19px rgba(0, 0, 0, 0.05) inset;-->
+        <!--                                             height: 174px !important; text-align: start !important;-->
+        <!--                                             border-radius: 141px;padding: 20px;/*! width: 200px; */">-->
+        <!--                                            <div>-->
+        <!--                                                <ul class="checkmark">-->
+        <!--                                                    <li>-->
+        <!--                                                        <div class="feedback-table-1"-->
+        <!--                                                             style="font-size: 14px !important;" >-->
+        <!--                                                            <strong class="text-muted">Feedback provided by <t t-esc="val.create_uid.name"/></strong>-->
+        <!--                                                        </div>-->
+        <!--                                                    </li>-->
+        <!--                                                </ul>-->
+        <!--                                            </div>-->
+        <!--                                        </div>-->
+        <!--                                        <ul>-->
+        <!--                                            <li>-->
+        <!--                                                <div class="img-hovers">-->
+        <!--                                                    &lt;!&ndash;                                                    <button>&ndash;&gt;-->
+        <!--                                                    <img style="width:2% !important; margin-top: 0px !important; margin-left: 70px !important; cursor: pointer !important;"-->
+        <!--                                                         src="https://cdn-icons-png.flaticon.com/512/512/512222.png"/>-->
+        <!--                                                    &lt;!&ndash;                                                    </button>&ndash;&gt;-->
+        <!--                                                </div>-->
+        <!--                                            </li>-->
+        <!--                                        </ul>-->
+
+        <!--                                    </t>-->
+        <!--                                </div>-->
+        <!--                                &lt;!&ndash;                                <div id="calendar"/>&ndash;&gt;-->
+        <!--                                <head>-->
+        <!--                                    <meta charset="utf-8"/>-->
+        <!--                                    <meta name="viewport"-->
+        <!--                                          content="width=device-width, initial-scale=1, shrink-to-fit=no"/>-->
+        <!--                                    <link rel="stylesheet"-->
+        <!--                                          href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css"/>-->
+        <!--                                    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500"-->
+        <!--                                          rel="stylesheet"/>-->
+        <!--                                    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"-->
+        <!--                                          rel="stylesheet"/>-->
+        <!--                                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>-->
+        <!--                                </head>-->
+
+        <!--                                <body>-->
+
+        <!--                                    <div class="mobile-header z-depth-1">-->
+
+        <!--                                        <div class="row">-->
+        <!--                                            <div class="col-2">-->
+        <!--                                                <a href="#" data-activates="sidebar" class="button-collapse"-->
+        <!--                                                   style="">-->
+        <!--                                                    <i class="material-icons">menu</i>-->
+        <!--                                                </a>-->
+        <!--                                            </div>-->
+        <!--                                            <div class="col">-->
+        <!--                                                <h4>Events</h4>-->
+        <!--                                            </div>-->
+        <!--                                        </div>-->
+
+        <!--                                    </div>-->
+
+        <!--                                    <div class="main-wrapper col-10" >-->
+
+
+        <!--                                        <div class="content-wrapper">-->
+        <!--                                            <div class="container">-->
+
+        <!--                                                <div class="calendar-wrapper">-->
+
+        <!--                                                    <div class="header-background">-->
+        <!--                                                        <div class="calendar-header">-->
+
+        <!--                                                            <a style="margin-top: -14px !important;"-->
+        <!--                                                               class="prev-button" id="prev">-->
+        <!--                                                                <i-->
+        <!--                                                                        class="material-icons">keyboard_arrow_left-->
+        <!--                                                                </i>-->
+        <!--                                                            </a>-->
+        <!--                                                            <a style="margin-top: -14px !important;" class="next-button"-->
+        <!--                                                               id="next">-->
+        <!--                                                                <i class="material-icons">keyboard_arrow_right</i>-->
+        <!--                                                            </a>-->
+
+        <!--                                                            <div class="row header-title">-->
+
+        <!--                                                                <div class="header-text">-->
+        <!--                                                                    <h3 style="cursor: default !important; text-transform: uppercase !important;-->
+        <!--                                                                        font-family: Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif !important;-->
+        <!--                                                                         font-size: 37px !important; margin-left: 160px !important; margin-top: -0.54rem !important; font-weight: bold !important;"-->
+        <!--                                                                        id="month-name">February-->
+        <!--                                                                    </h3>-->
+        <!--                                                                    <h5 style="cursor: default !important; text-transform: uppercase !important;-->
+        <!--                                                                         font-family: Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif !important;-->
+        <!--                                                                         font-size: 14px !important; margin-left: 160px; font-weight: bold !important;"-->
+        <!--                                                                        id="todayDayName">Today is Friday 7 Feb-->
+        <!--                                                                    </h5>-->
+        <!--                                                                </div>-->
+
+        <!--                                                            </div>-->
+        <!--                                                        </div>-->
+        <!--                                                    </div>-->
+
+        <!--                                                    <div class="calendar-content">-->
+        <!--                                                        <div id="calendar-table" class="calendar-cells">-->
+
+        <!--                                                            <div id="table-header">-->
+        <!--                                                                <div class="row text-muted" style="text-transform: uppercase !important; font-weight: lighter !important;-->
+        <!--                                                                                            font-family: Oxygen, Ubuntu, Cantarell, 'Fira Sans',-->
+        <!--                                                                                            'Droid Sans', 'Helvetica Neue', sans-serif !important;">-->
+        <!--                                                                    <div class="col">Mon</div>-->
+        <!--                                                                    <div class="col">Tue</div>-->
+        <!--                                                                    <div class="col">Wed</div>-->
+        <!--                                                                    <div class="col">Thu</div>-->
+        <!--                                                                    <div class="col">Fri</div>-->
+        <!--                                                                    <div class="col">Sat</div>-->
+        <!--                                                                    <div class="col">Sun</div>-->
+        <!--                                                                </div>-->
+        <!--                                                            </div>-->
+
+        <!--                                                            <div id="table-body" class=""-->
+        <!--                                                                 style="font-family: Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;">-->
+
+        <!--                                                            </div>-->
+
+        <!--                                                        </div>-->
+        <!--                                                    </div>-->
+
+        <!--                                                    <div class="sidebar-wrapper" id="sidebar"-->
+        <!--                                                         style="color: black !imoirtant;">-->
+        <!--                                                        <div class="sidebar-title">-->
+        <!--                                                            <h5 id="eventDayName"></h5>-->
+        <!--                                                        </div>-->
+        <!--                                                        <div class="sidebar-events" id="sidebarEvents"-->
+        <!--                                                             style="font-family: Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-weight: bolder! important;-->
+        <!--                                                             margin-left: -61px !important; padding-left: 13% !important; color: #fff !important">-->
+        <!--                                                            <div class="empty-message">Sorry, no clients to selected-->
+        <!--                                                                date-->
+        <!--                                                            </div>-->
+        <!--                                                        </div>-->
+
+        <!--                                                    </div>-->
+
+
+        <!--                                                    <div class="calendar-footer">-->
+        <!--                                                        <div class="emptyForm" id="emptyForm">-->
+        <!--                                                            <h4 id="emptyFormTitle">No clients assigned now</h4>-->
+        <!--                                                            <a class="addEvent" id="changeFormButton">Add new</a>-->
+        <!--                                                        </div>-->
+        <!--                                                        <div class="addForm" id="addForm">-->
+        <!--                                                            <h4>Add Client</h4>-->
+
+        <!--                                                            <div class="row">-->
+        <!--                                                                <div class="input-field col s6">-->
+        <!--                                                                    <input id="eventTitleInput" type="text"-->
+        <!--                                                                           class="validate"/>-->
+        <!--                                                                    <label for="eventTitleInput">Client Name</label>-->
+        <!--                                                                </div>-->
+        <!--                                                                <div class="input-field col s6">-->
+        <!--                                                                    <input style="display: none !important;"-->
+        <!--                                                                           id="eventDescInput" type="text"-->
+        <!--                                                                           class="validate"/>-->
+        <!--                                                                </div>-->
+
+        <!--                                                            </div>-->
+
+        <!--                                                            <div class="addEventButtons">-->
+        <!--                                                                <a class="waves-effect waves-light btn blue lighten-2"-->
+        <!--                                                                   id="addEventButton">Add-->
+        <!--                                                                </a>-->
+        <!--                                                                <a class="waves-effect waves-light btn grey lighten-2"-->
+        <!--                                                                   id="cancelAdd">Cancel-->
+        <!--                                                                </a>-->
+        <!--                                                            </div>-->
+
+        <!--                                                        </div>-->
+        <!--                                                    </div>-->
+
+
+        <!--                                                </div>-->
+
+        <!--                                            </div>-->
+        <!--                                        </div>-->
+
+        <!--                                    </div>-->
+
+        <!--                                    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"-->
+        <!--                                            integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"-->
+        <!--                                            crossorigin="anonymous"></script>-->
+        <!--                                    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"-->
+        <!--                                            integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"-->
+        <!--                                            crossorigin="anonymous"></script>-->
+        <!--                                    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>-->
+        <!--                                    <script>-->
+        <!--                                        $(".button-collapse").sideNav();-->
+        <!--                                    </script>-->
+        <!--                                </body>-->
+
+        <!--                            </div>-->
+        <!--                        </div>-->
+        <!--                    </div>-->
+        <!--                </div>-->
+        <!--            </t>-->
+        <!--        </t>-->
+        <!--    </template>-->
+        <!--</odoo>-->
