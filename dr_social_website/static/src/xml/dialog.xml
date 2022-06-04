@@ -12,6 +12,10 @@
                                 <img class="img img-fluid" t-attf-src="/dr_social_website/static/src/img/#{media.media_type}.svg"/>
                                 <b class="mt-1 d-block" t-esc="media.name"> </b>
                             </div>
+                            <div class="card-body">
+                                <img class="img img-fluid" t-attf-src="/dr_social_website/static/src/img/#{media.media_type}.svg"/>
+                                <b class="mt-1 d-block" t-esc="media.name"> </b>
+                            </div>
                         </div>
                     </div>
                 </t>

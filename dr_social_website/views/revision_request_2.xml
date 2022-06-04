@@ -2,43 +2,50 @@
     <template id="revision_request" name="Revision Request">
         <t t-name="SocialCalendar">
             <t t-call="website.layout">
-                <div class="row container-fluid">
-                    <div class="col-md-12 " style="display: inherit;">
-                        <div class="col-md-10"
-                             style="float: left; width: 100% !important; overflow-y: auto; height: 1000px; left: -324px !important;">
-                            <t t-foreach="posts" t-as="val">
-                                <div class="col-md-10 bg-100 roundest-border table-1 py-5 text-center"
-                                     style="box-shadow: 0px 0px 19px rgba(0, 0, 0, 0.05) inset;
-                                             height: 174px !important; text-align: start !important;
-                                             border-radius: 141px;padding: 20px;/*! width: 200px; */">
-                                    <div>
+                <div class="row container">
+                    <div class="container-fluid" style="display: inherit;">
+                        <div class="col-md-8"
+                             style="float: left; width: 100% !important; height: 1000px; left: -324px !important;margin-left: 120px;">
+
+
+                            <div class="col-md-10 bg-100 roundest-border table-1 py-5 text-center"
+                                 style="box-shadow: 0px 0px 19px rgba(0, 0.05, 0.05, 0.12) inset;
+                                   height: 174px !important; text-align: start !important; overflow-y: auto;
+                                   border-radius: 45px; padding: 20px; width: 100% !important; height: 50% !important;
+                                    margin-top: 50px;">
+                            <div class="text-center">
+                            <strong style="font-weight: bolder !important; font-size: 36px !important;
+                                           font-family: Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif !important;"
+                                    class="text-muted">REVISION REQUESTS</strong>
+                            </div>
+
+                                <t t-foreach="posts" t-as="val">
+                                    <div class="row" style="margin-top: 46px;">
                                         <ul class="checkmark">
+                                             <div class="circles">1</div>
+                                        </ul>
+                                        <ul class="checkmarks" >
                                             <li>
-                                                <div class="feedback-table-1"
-                                                     style="font-size: 14px !important;">
-                                                    <strong class="text-muted">Feedback provided by
-                                                        <t t-esc="val.create_uid.name"/>
-                                                    </strong>
+                                                <div class="col-12">
+                                                    <div class="feedback-table-1"
+                                                         style="font-size: 20px !important;">
+                                                        <t t-esc="val.create_uid.name"/>&amp;nbsp;<strong class="text-muted">provided Feedback! &amp;nbsp;
+                                                        <a href="/content_calendar">View Feedback</a>
+
+                                                        </strong>
+                                                    </div>
                                                 </div>
                                             </li>
                                         </ul>
                                     </div>
-                                </div>
-                                <ul>
-                                    <li>
-                                        <div class="img-hovers">
-                                            <!--                                                    <button>-->
-                                            <img style="width:2% !important; margin-top: 0px !important; margin-left: 70px !important; cursor: pointer !important;"
-                                                 src="https://cdn-icons-png.flaticon.com/512/512/512222.png"/>
-                                            <!--                                                    </button>-->
-                                        </div>
-                                    </li>
-                                </ul>
+                                </t>
+                            </div>
 
-                            </t>
-                        </div>
+                </div>
+
                         <!--                                <div id="calendar"/>-->
                         <head>
+
                             <meta charset="utf-8"/>
                             <meta name="viewport"
                                   content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
@@ -53,8 +60,7 @@
 
                         <body>
 
-                            <div class="mobile-header z-depth-1">
-
+                            <div class="mobile-header">
                                 <div class="row">
                                     <div class="col-2">
                                         <a href="#" data-activates="sidebar" class="button-collapse"
@@ -69,13 +75,9 @@
 
                             </div>
 
-                            <div class="main-wrapper col-10">
+                            <div class="col-8" style="margin-top: 45px;margin-left: -140px;">
+                                <div class="col-8">
 
-
-                                <div class="content-wrapper">
-                                    <div class="container">
-
-                                        <div class="calendar-wrapper">
 
                                             <div class="header-background">
                                                 <div class="calendar-header">
@@ -135,8 +137,8 @@
                                                 </div>
                                             </div>
 
-                                            <div class="sidebar-wrapper" id="sidebar"
-                                                 style="color: black !imoirtant;">
+                                            <div id="sidebar" class="calendar-footer"
+                                                 style="color: black !important; transform: translateX(0%) !important;">
                                                 <div class="sidebar-title">
                                                     <h5 id="eventDayName"></h5>
                                                 </div>
@@ -186,12 +188,11 @@
                                             </div>
 
 
-                                        </div>
 
-                                    </div>
-                                </div>
 
                             </div>
+                            </div>
+
 
                             <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
                                     integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
@@ -206,6 +207,7 @@
                         </body>
 
                     </div>
+
 
                 </div>
 
@@ -274,17 +276,11 @@
                 <!--                                                <h4>Events</h4>-->
                 <!--                                            </div>-->
                 <!--                                        </div>-->
-
                 <!--                                    </div>-->
-
                 <!--                                    <div class="main-wrapper col-10" >-->
-
-
                 <!--                                        <div class="content-wrapper">-->
                 <!--                                            <div class="container">-->
-
                 <!--                                                <div class="calendar-wrapper">-->
-
                 <!--                                                    <div class="header-background">-->
                 <!--                                                        <div class="calendar-header">-->
 
