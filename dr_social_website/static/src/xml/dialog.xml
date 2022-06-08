@@ -12,13 +12,18 @@
                                 <img class="img img-fluid" t-attf-src="/dr_social_website/static/src/img/#{media.media_type}.svg"/>
                                 <b class="mt-1 d-block" t-esc="media.name"> </b>
                             </div>
-                            <div class="card-body">
-                                <img class="img img-fluid" t-attf-src="/dr_social_website/static/src/img/#{media.media_type}.svg"/>
-                                <b class="mt-1 d-block" t-esc="media.name"> </b>
-                            </div>
                         </div>
+
                     </div>
                 </t>
+                <div class="col-md-3">
+                    <div class="dr_media_card card p-2 border rounded" t-att-data-media-id="3">
+                        <div class="card-body">
+                            <img class="img dr_img-fluid" t-attf-src="/dr_social_website/static/src/img/linkedin.svg"/>
+                            <b class="mt-1 d-block"> LinkedIn Personal Profile </b>
+                        </div>
+                    </div>
+                </div>
             </div>
 
         </div>

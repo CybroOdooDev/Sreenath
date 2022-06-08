@@ -290,3 +290,29 @@ addEventButton.onclick = function (e) {
    }
 
 }
+
+
+
+
+
+
+
+
+var list = $(".list");
+var fullHeight = list[0].scrollHeight+20+'px';
+if (list.height() > 100) {
+	list.addClass("expand closed");
+  list.height(100);
+}
+$(".more-less").on("click", function() {
+  if(list.hasClass("closed")) {
+    list.animate({
+      height: fullHeight
+    }, 200);
+  } else if (list.hasClass("open")) {
+    list.animate({
+      height: "100px"
+    }, 200);
+  }
+  list.toggleClass("open closed");
+});

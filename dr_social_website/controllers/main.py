@@ -14,7 +14,7 @@ class SocialMain(http.Controller):
             request.session['isOnbording'] = True
         return request.render('dr_social_website.home', {
             'linked_accounts': linked_accounts,
-            'isOnbording': request.session['isOnbording']
+            # 'isOnbording': request.session['isOnbording']
         })
 
     @http.route(['/social/get_media'], type='json', auth='user_sudo')
@@ -23,7 +23,9 @@ class SocialMain(http.Controller):
 
     @http.route(['/social/add_media_account/<int:media_id>'], type='json', auth='user_sudo')
     def social_add_media_account(self, media_id, **kw):
+        print('media', media_id)
         media = request.env['social.media'].browse(media_id)
+        print('media', media.read())
         return media._action_add_account()
 
     @http.route(['/social/thank_you'], type='http', auth='user', sitemap=False, website=True)

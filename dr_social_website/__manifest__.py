@@ -34,16 +34,10 @@
         'web.assets_frontend': [
 
             'dr_social_website/static/src/scss/social.scss',
-            'dr_social_website/static/src/scss/materialize.scss',
-            'dr_social_website/static/src/scss/materialize_icons.scss',
-            # 'dr_social_website/static/src/scss/font.scss',
             'dr_social_website/static/src/js/social_dialog.js',
             'dr_social_website/static/src/js/portal.js',
             'dr_social_website/static/src/js/calendar.js',
-            'dr_social_website/static/src/js/popper_min.js',
             'dr_social_website/static/src/js/bootstrap_min.js',
-            'dr_social_website/static/src/js/materialize_min.js',
-            # 'dr_social_website/static/src/scss/calendar.scss',
         ],
         'web.assets_qweb': [
             'dr_social_website/static/src/xml/calendar.xml',
