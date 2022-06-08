@@ -16,20 +16,12 @@ publicWidget.registry.Calendar = publicWidget.Widget.extend({
 
     events: {},
     start: function () {
-        console.log('Im INnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn')
         this._loadCalendar();
         return this._super.apply(this, arguments);
 
     },
     _loadCalendar: function (ev) {
-        console.log('In Load Calendarrrrrrrrrrrrrrr', this)
-        console.log('In Load do show', this.$el[0].innerHTML)
-        console.log('ooooooooooooooooooooooooo', this.$('#tested'))
-        console.log('evevevevevevevevevevev', ev)
-//        console.log(this.$('#tested').append('<span>@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@</span>'))
         this.$('.tested').append(QWeb.render('SocialCalendar', {widget: ev}));
-
-
     },
 });
 

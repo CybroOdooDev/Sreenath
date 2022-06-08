@@ -31,7 +31,6 @@ var SocialLinkDialog = Dialog.extend({
             params: {}
         }).then((result) => {
             this.media = result;
-            console.log(this.media);
         });
         return Promise.all([
             this._super.apply(this, arguments),

@@ -9,27 +9,13 @@ class RevisionRequest(http.Controller):
 
     @http.route(['/revision_requests'], type='http', auth="public", website=True)
     def get_revision_request(self, **kw):
-        print('-*-******--*-*-------------*-*-********************')
 
-        post = request.env['social.post'].search([('state', '=', 'posted')], order='id asc', limit=5)
-        print(post)
-        # lines = total_products.item_ids
-        # product_count = len(lines)
-        # per_page = 9
-        # print(lines)
-        # pager = request.website.pager(url='/offer_zone', total=product_count, page=page,
-        #                               step=per_page, url_args=None)
-        # offset = pager['offset']
-        # print(offset)
-        # pricelists = lines[offset: offset + 9]
-        # print(pricelists)
+        query = '''select rs.name, count(sc.id) from social_post as sc, res_users as ru, res_partner as rs where
+        ru.id = sc.create_uid and rs.id = ru.partner_id group by sc.create_uid, ru.login, rs.name'''
+        request._cr.execute(query)
+
+        records = request._cr.dictfetchall()
         values = {
-            # 'date': post.calendar_date,
-            # 'message': post.message,
-            # 'image': post.image_ids,
-            # 'feedback': 'All is Well',
-            'posts': post
-
+            'posts': records,
         }
-        # print(values)
         return request.render("dr_social_website.revision_request", values)

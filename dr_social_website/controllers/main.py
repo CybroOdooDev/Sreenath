@@ -23,9 +23,7 @@ class SocialMain(http.Controller):
 
     @http.route(['/social/add_media_account/<int:media_id>'], type='json', auth='user_sudo')
     def social_add_media_account(self, media_id, **kw):
-        print('media', media_id)
         media = request.env['social.media'].browse(media_id)
-        print('media', media.read())
         return media._action_add_account()
 
     @http.route(['/social/thank_you'], type='http', auth='user', sitemap=False, website=True)

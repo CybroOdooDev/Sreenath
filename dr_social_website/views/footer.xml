@@ -4,8 +4,7 @@
     <template id="template_footer_style_11" inherit_id="website.layout" name="Footer Style - 11" active="True">
         <xpath expr="//div[@id='footer']" position="replace">
         <div id="footer" class="oe_structure oe_structure_solo" t-ignore="true" t-if="not no_footer">
-            <section style="background-color: rgb(0, 211, 161) !important;"
-                     class="s_text_block pt40 pb16 bg-primarys"  data-snippet="s_text_block" data-name="Text">
+            <section class="s_text_block pt40 pb16 bg-primarys"  data-snippet="s_text_block" data-name="Text">
                 <div class="container" >
                     <div class="row" style="text-align: center; font-size: 18px; color: rgb(255, 255, 255); text-transform: uppercase; font-family: sans-serif; line-height: 1.8;">
                         <div class="col-lg-12 pt24 pb24 justify-content-center text-center">

@@ -23,7 +23,7 @@ publicWidget.registry.SocialLinkBtn = publicWidget.Widget.extend({
     },
     _openDialog: function () {
         var dialog = new SocialLinkDialog(this, {
-            title: _t('Link Social Accountsss'),
+            title: _t('Link Social Account'),
             size: 'medium',
             renderFooter: false
         });

@@ -13,7 +13,6 @@
                                 <b class="mt-1 d-block" t-esc="media.name"> </b>
                             </div>
                         </div>
-
                     </div>
                 </t>
                 <div class="col-md-3">
