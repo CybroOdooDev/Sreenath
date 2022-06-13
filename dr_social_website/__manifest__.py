@@ -39,6 +39,7 @@
             'dr_social_website/static/src/js/social_dialog.js',
             'dr_social_website/static/src/js/portal.js',
             'dr_social_website/static/src/js/calendar.js',
+            'dr_social_website/static/src/js/calendar.js',
             'dr_social_website/static/src/js/bootstrap_min.js',
         ],
         'web.assets_qweb': [

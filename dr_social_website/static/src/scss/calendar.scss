@@ -224,30 +224,30 @@ h3,h4,h5 {
 #calendar-table {
    text-align: center;
 }
+//
+// .prev-button {
+//    position: absolute;
+//    cursor: pointer;
+//    left: 0%;
+//    top: 35%;
+//    color: #ffff !important;
+// }
 
-.prev-button {
-   position: absolute;
-   cursor: pointer;
-   left: 0%;
-   top: 35%;
-   color: grey !important;
-}
+// .prev-button i {
+//    font-size: 4em;
+// }
 
-.prev-button i {
-   font-size: 4em;
-}
+// .next-button {
+//    position: absolute;
+//    cursor: pointer;
+//    right: 0%;
+//    top: 35%;
+//    color: white !important;
+// }
 
-.next-button {
-   position: absolute;
-   cursor: pointer;
-   right: 0%;
-   top: 35%;
-   color: grey !important;
-}
-
-.next-button i {
-   font-size: 4em;
-}
+// .next-button i {
+//    font-size: 4em;
+// }
 
 .addEvent {
    box-shadow: 0 5px 15px rgb(57, 168, 228);

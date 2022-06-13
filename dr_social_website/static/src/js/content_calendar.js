@@ -128,5 +128,35 @@ publicWidget.registry.websiteEventSearchSponsor = publicWidget.Widget.extend({
 
 
 
-})
+});
+
+
+publicWidget.registry.websiteEventSearchSponsorss = publicWidget.Widget.extend({
+
+ selector:'.form-groups',
+ events: {
+        'change .form-groups': '_load_feedback',
+
+    },
+    _load_feedback:function(ev){
+        ev.stopPropagation();
+        console.log('oppopopopopopoopoopopoopopopopo')
+//        var id = $(ev.target).data('id');
+//        var text = $(ev.target).val();
+//        var revision_button = $('.grey')
+//        var revision_text = $('.revision')
+//        var value = 'revision_'+ id;
+        $('#'+ value).hide();
+        revision_button.css('background-color', '#625454');
+//        this._rpc({
+//                model: 'social.post',
+//                method: 'write',
+//                args: [[parseInt(id)], {feedback:text}],
+//
+//            }).then(function(result){
+//            });
+    },
+});
+
+
 });
