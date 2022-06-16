@@ -33,6 +33,8 @@
     ],
     'assets': {
         'web.assets_frontend': [
+            'dr_social_website/static/src/scss/datepicker.scss',
+            'dr_social_website/static/src/scss/style.scss',
             'dr_social_website/static/src/scss/social.scss',
             'dr_social_website/static/src/scss/social_content.scss',
             'dr_social_website/static/src/js/content_calendar.js',
@@ -40,6 +42,7 @@
             'dr_social_website/static/src/js/portal.js',
             'dr_social_website/static/src/js/calendar.js',
             'dr_social_website/static/src/js/calendar.js',
+            'dr_social_website/static/src/js/datepicker_full.js',
             'dr_social_website/static/src/js/bootstrap_min.js',
         ],
         'web.assets_qweb': [

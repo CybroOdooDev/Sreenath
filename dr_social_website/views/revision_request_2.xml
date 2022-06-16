@@ -2,203 +2,171 @@
     <template id="revision_request" name="Revision Request">
         <t t-name="SocialCalendar">
             <t t-call="website.layout">
-                <div class="row container">
-                    <div class="container-fluid" style="display: inherit;">
-                        <div class="col-md-8"
-                             style="float: left; width: 100% !important; height: 1000px; left: -324px !important;margin-left: 7px;">
-                            <div class="col-md-12  left_box py-5 text-center" style="
-                                   height: auto !important; text-align: start !important; overflow-y: auto;
-                                   border-radius: 45px; padding: 20px; width: 100% !important;
-                                    margin-top: 50px;">
+                <!--                <div class="row ">-->
+                <!--                    <div class="container-fluid" style="display: inherit;">-->
+                <head>
+                    <meta charset="UTF-8"/>
+                    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+                    <title>Dashboard</title>
+                    <link rel="stylesheet"
+                          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"
+                          integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg=="
+                          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+                    <link rel="stylesheet"
+                          href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+                          integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn"
+                          crossorigin="anonymous"/>
+                    <link rel="stylesheet" href="./datepicker.css"/>
+                    <link rel="stylesheet" href="style.css"/>
+                </head>
+                <body>
+                    <div class="db-wrapper">
+                        <div class="db-sidebar-container">
+                            <!-- Sidebar -->
+                            <div class="db-sidebar">
+                                <div class="dropdown">
+                                    <a href="#" class="db-sidebar__item" id="dropdownMenuLink" data-toggle="dropdown"
+                                       aria-expanded="false">
+                                        <i class="fa fa-user" aria-hidden="true"></i>
+                                    </a>
 
-
-                                <!--  <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">-->
-                                <!--    Button with data-bs-target-->
-                                <!--  </button>-->
-
-                                <!--<div class="collapse" id="collapseExample">-->
-                                <!--  <div class="card card-body">-->
-                                <!--    Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.-->
-                                <!--  </div>-->
-                                <!--</div>-->
-
-
-                                <div class="text-center">
-                                    <i style="color: #00d3a1 !important; font-size:75px !important"
-                                       class='fa fa-bell'></i>
-                                    <br/>
-                                    <br/>
-                                    <strong style="font-weight: bolder !important; font-size: 36px !important;
-                                           font-family: Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans',
-                                           'Helvetica Neue', sans-serif !important;" class="text-muted">REVISION
-                                        REQUESTS
-                                    </strong>
+                                    <div class="dropdown-menu db-sidebar__dropdown-menu"
+                                         aria-labelledby="dropdownMenuLink">
+                                        <a class="dropdown-item" href="#">Action</a>
+                                        <a class="dropdown-item" href="#">Another action</a>
+                                        <a class="dropdown-item" href="#">Something else here</a>
+                                    </div>
                                 </div>
-                                <t t-foreach="posts" t-as="val">
-                                    <div class="row left_bottom">
-                                        <ul class="checkmark">
-                                            <div class="circles">
-                                                <t t-esc="val['count']"/>
+
+                                <a href="#" class="db-sidebar__item">
+                                    <i class="fa fa-bell" aria-hidden="true"></i>
+                                </a>
+                                <a href="#" class="db-sidebar__item">
+                                    <i class="fa fa-search" aria-hidden="true"></i>
+                                </a>
+                            </div>
+                            <!-- End of Sidebar -->
+                        </div>
+                        <div class="db-container">
+                            <div class="row">
+                                <div class="col-sm-12 col-md-5 col-lg-5">
+                                    <div class="db-revision-container db-shadow">
+                                        <div class="db-revision-container__header">
+                                            <i class="fa fa-bell db-revision-container__header-icon"
+                                               style="font-size:87px !important;margin-top: 23px;"></i>
+                                            <h1 class="db-revisoin-container__title">Revision Requests:</h1>
+                                        </div>
+                                        <t t-foreach="posts" t-as="val">
+                                            <div class="db-revision-container__body">
+                                                <ul class="db-revision-lists">
+                                                    <li class="db-revision-list">
+                                                        <div class="db-revision-list__item">
+                                                            <div class="db-revision-list__count mr-3">
+                                                                <t t-esc="val['count']"/>
+                                                            </div>
+                                                            <t t-esc="val['name']"/>&amp;nbsp;
+                                                            <strong class="text-muted">provided Feedback! &amp;nbsp;
+                                                                <a href="/content_calendar">View Feedback</a>
+                                                            </strong>
+                                                        </div>
+                                                    </li>
+                                                </ul>
                                             </div>
-                                        </ul>
-                                        <ul class="checkmarks">
-                                            <li>
-                                                <div class="col-12">
-                                                    <div class="feedback-table-1" style="font-size: 20px !important;">
-                                                        <t t-esc="val['name']"/>&amp;nbsp;
-                                                        <strong class="text-muted">provided Feedback! &amp;nbsp;
-                                                            <a href="/content_calendar">View Feedback</a>
-                                                        </strong>
-                                                    </div>
-                                                </div>
+                                        </t>
+                                        <div class="db-revision-container__footer">
+                                            <a href="#" class="db-revision-link--grey">Expand...</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-7 col-lg-7">
+                                    <div class="db-schedule-container">
+                                        <div id="dbDatepickerInline" data-date="01/25/2020"></div>
+                                    </div>
+                                    <div class="db-schedule-input-container">
+                                        <ul class="db-schedule-input-container__list mb-4">
+                                            <li class="db-schedule-input-container__item">
+                                                <div class="db-schedule-input-container__bullet mr-3"></div>
+                                                <input class="db-schedule-input-container__input"
+                                                       id="scheduleListInput"/>
                                             </li>
                                         </ul>
+                                        <button class="db-button db-button--long db-button--primary-dark"
+                                                id="scheduleListButton">Add Item
+                                        </button>
+                                        <span class="db-error"></span>
                                     </div>
-                                </t>
-
-                                <div class="btn_wrapper">
-                                    <a class="btn-primaries" data-toggle="collapse" href="#collapseExample"
-                                       role="button" aria-expanded="false" aria-controls="collapseExample">
-                                        Expand
-                                    </a>
                                 </div>
-
-
                             </div>
                         </div>
-                        <head>
-                            <meta charset="utf-8"/>
-                            <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-                            <!--              <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css" />-->
-                            <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet"/>
-                            <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
-                            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-                            <link rel='stylesheet'
-                                  href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'/>
-                        </head>
-                        <body>
-                            <div class="mobile-header">
-                                <div class="row">
-                                    <div class="col-2">
-                                        <a href="#" data-activates="sidebar" class="button-collapse" style="">
-                                            <i class="material-icons">menu</i>
-                                        </a>
-                                    </div>
-                                    <div class="col">
-                                        <h4>Events</h4>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-10" style="margin-top: 45px;margin-left: -140px;padding-right: 114px;">
-                                <div class="col-10">
-                                    <div class="header-background">
-                                        <div class="calendar-header">
-                                            <a style="margin-top: -14px !important;" class="prev-button" id="prev">
-                                                <i class="material-icons">keyboard_arrow_left</i>
-                                            </a>
-                                            <a style="margin-top: -14px !important;" class="next-button" id="next">
-                                                <i class="material-icons">keyboard_arrow_right</i>
-                                            </a>
-                                            <div class="row header-title">
-                                                <div class="header-text">
-                                                    <h3 style="cursor: default !important; text-transform: uppercase !important;
-                                                                        font-family: Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif !important;
-                                                                         font-size: 37px !important; margin-left: 160px !important; margin-top: -0.54rem !important; font-weight: bold !important;"
-                                                        id="month-name">February
-                                                    </h3>
-<!--                                                    <h5 style="cursor: default !important; text-transform: uppercase !important;-->
-<!--                                                                         font-family: Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif !important;-->
-<!--                                                                         font-size: 14px !important; margin-left: 160px; font-weight: bold !important;"-->
-<!--                                                        id="todayDayName">Today is Friday 7 Feb-->
-<!--                                                    </h5>-->
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="calendar-content text-muted"
-                                         style="padding-right: 8%;padding-left: 6%; font-size: 26px !important;">
-                                        <div id="calendar-table" class="calendar-cells">
-                                            <div id="table-header">
-                                                <div class="row  week" style="text-transform: uppercase !important; font-weight: lighter !important;
-                                                                                            font-family: Oxygen, Ubuntu, Cantarell, 'Fira Sans',
-                                                                                            'Droid Sans', 'Helvetica Neue', sans-serif !important;">
-                                                    <div class="col days active">Mon</div>
-                                                    <div class="col days">Tue</div>
-                                                    <div class="col days">Wed</div>
-                                                    <div class="col days">Thu</div>
-                                                    <div class="col days ">Fri</div>
-                                                    <div class="col days ">Sat</div>
-                                                    <div class="col days">Sun</div>
-                                                </div>
-                                            </div>
-                                            <div id="table-body" class=""
-                                                 style="font-family: Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;"></div>
-                                        </div>
-                                    </div>
-
-                                    <div class="wrapper_b">
-
-                                        <div class="sidebar-wrapper" id="sidebar" style="color: black !important;">
-                                            <div class="sidebar-title">
-                                                <h5 id="eventDayName"></h5>
-                                            </div>
-
-                                            <div class="sidebar-events" id="sidebarEvents"
-                                                 style="font-family: Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-weight: bolder! important;
-                                                    margin-left: -61px !important; padding-left: 13% !important; ">
-                                                <div class="empty-message">
-                                                   <form>
-                                                       <div class="form-groups">
-                                                           <input type="text"
-                                                                  class="form-controls"
-                                                                  id="exampleInputEmail1"
-                                                                  aria-describedby="emailHelp"
-                                                                  placeholder="Client name"></input>
-                                                       </div>
-                                                       <div class="form-groups">
-                                                           <input type="text"
-                                                                  class="form-controls"
-                                                                  id="exampleInputEmail1"
-                                                                  aria-describedby="emailHelp"
-                                                                  placeholder="Client name"></input>
-                                                       </div>
-                                                   </form>
-<!--                                                    <form>-->
-<!--                                                        <table>-->
-<!--                                                            <tr>-->
-<!--                                                                <td>-->
-<!--                                                                <div class="form-group">-->
-<!--                                                                    <input name="data1" type="text" class="form-controls"-->
-<!--                                                                    id="exampleInputEmail1" aria-describedby="emailHelp"-->
-<!--                                                                    placeholder="Client name 1"></input>-->
-<!--                                                                </div>-->
-<!--                                                                </td>-->
-<!--                                                                <td>-->
-<!--                                                                    <button type="button" onClick="addRow(this)">Add-->
-<!--                                                                    </button>-->
-<!--                                                                </td>-->
-<!--                                                            </tr>-->
-<!--                                                        </table>-->
-<!--                                                    </form>-->
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
-                                    integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
-                                    crossorigin="anonymous"></script>
-                            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"
-                                    integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
-                                    crossorigin="anonymous"></script>
-                            <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
-                            <script>
-                                $(".button-collapse").sideNav();
-                            </script>
-                        </body>
                     </div>
-                </div>
+
+
+                    <!-- Scripts -->
+                    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+                            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+                            crossorigin="anonymous"></script>
+                    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
+                            integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
+                            crossorigin="anonymous"></script>
+                    <script src="/dr_social_website/static/src/js/datepicker_full.js"></script>
+                    <script>
+                        const elem = document.getElementById('dbDatepickerInline');
+                        const datepicker = new Datepicker(elem, {});
+                    </script>
+                    <!--                <script>-->
+                    <!--                    /**-->
+                    <!--                    * Schedule List-->
+                    <!--                    */-->
+
+                    <!--                    /// Selectors-->
+                    <!--                    let inputEl = $('#scheduleListInput');-->
+                    <!--                    let scheduleBtn = $('#scheduleListButton');-->
+                    <!--                    let scheduleListEl = $('.db-schedule-input-container__list');-->
+                    <!--                    let errorEl = $('.db-error');-->
+
+                    <!--                    /// Add New Items-->
+
+                    <!--                    // Listen for submit button click.-->
+                    <!--                    scheduleBtn.on('click', function (e) {-->
+                    <!--                    // Clear Errors.-->
+                    <!--                    errorEl.html('');-->
+                    <!--                    // Get Selected Date.-->
+                    <!--                    let selectedDate = $('.datepicker-cell.selected');-->
+                    <!--                    let selectedDateDotContainer = $('.datepicker-cell.selected .db-schedule-dot-container');-->
+                    <!--                    // Get Input Value.-->
+                    <!--                    let enteredValue = inputEl.val();-->
+                    <!--                    // Check if the entered value is empty.-->
+                    <!--                    if ($.trim(enteredValue).length == 0) {-->
+                    <!--                    errorEl.html('Please enter a value.')-->
+                    <!--                    } else {-->
+                    <!--                    // Clear input element.-->
+                    <!--                    inputEl.val('');-->
+                    <!--                    // Create a new schedule list element if entered value is not empty.-->
+                    <!--                    $(scheduleListEl).append(`-->
+                    <!--                    <li class="db-schedule-input-container__item">-->
+                    <!--                        <div class="db-schedule-input-container__bullet mr-3"></div>-->
+                    <!--                        ${enteredValue}-->
+                    <!--                    </li>-->
+                    <!--                    `);-->
+                    <!--                    // Check if the selected date already has events scheduled.-->
+                    <!--                    if (!$(selectedDate).find('.db-schedule-dot-container').length == 1) {-->
+                    <!--                    // If not add a new dot for the first time.-->
+                    <!--                    $(selectedDate).append("-->
+                    <!--                    <div class='db-schedule-dot-container'>-->
+                    <!--                        <span class='db-schedule-dot'></span>-->
+                    <!--                    </div>-->
+                    <!--                    ");-->
+                    <!--                    } else {-->
+                    <!--                    // Else add dot along with existing ones.-->
+                    <!--&lt;!&ndash;                    $(selectedDateDotContainer).append("<span class='db-schedule-dot'></span>");&ndash;&gt;-->
+                    <!--                    }-->
+                    <!--                    }-->
+                    <!--                    });-->
+                    <!--                </script>-->
+                </body>
+                <!--                    </div>-->
+                <!--                </div>-->
             </t>
         </t>
     </template>
