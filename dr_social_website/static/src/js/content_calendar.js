@@ -321,7 +321,72 @@ publicWidget.registry.websiteEventSearchSponsor = publicWidget.Widget.extend({
 //        }
 
 
-})
+});
+publicWidget.registry.websiteEventSearchSponsorss = publicWidget.Widget.extend({
+
+ selector:'.db-wrapper',
+ events: {
+//        'click #scheduleListButton': '_load_feedback',
+        'click .selected': '_load_client_name',
+    },
+
+    init: function(parent, context) {
+        this.action_id = context['id'];
+        this._super(parent, context);
+
+    },
+
+
+
+    _load_client_name:function(ev){
+        console.log('ooooooooooooooooooooooooooooooooooooooo')
+        var id = $('.db-schedule-input-container__bullet');
+        var day = $('.focused');
+        var month = $('.view-switch');
+
+        self.client_name = []
+        var date_day = day[0].textContent
+        var date_month = month[0].innerHTML
+        var date_object =  date_day + ' ' +date_month
+
+        for (var i = 0 ; i < id.length ; i++) {
+            self.client_name = id[i].parentElement.outerText
+        }
+
+         this._rpc({
+             model: 'revision.request.client',
+                    method: 'client_name',
+                    args: [self.client_name,date_day,date_month],
+        }).then(function(result){
+            console.log("result!!!!!!!!!11",result);
+            console.log("result!!!!!!!!!11",result[0]);
+            console.log("***************",$('.db-schedule-input-container__bullet'));
+//            $('.db-schedule-input-container').hide()
+//            $('.db-schedule-input-container').append('div').addClass('db-schedule-input-container').append('ul').addClass('db-schedule-input-container__list mb-4').append('li').addClass('db-schedule-input-container__item').append('<div class="db-schedule-input-container__bullet mr-3">' + result[0] + '</div>')
+//            $('.db-schedule-input-container').show()
+
+
+        });
+
+    },
+//        _load_client_name:function(ev){
+//            this._rpc({
+//             model: 'revision.request.client',
+//                    method: 'client_name',
+//                    args: [self.client_name,date_day,date_month],
+//        }).then(function(result){
+//            console.log("result!!!!!!!!!11",result);
+//            console.log("result!!!!!!!!!11",result[0]);
+//            $('.db-schedule-input-container__bullet mr-3').empty()
+//            $('.db-schedule-input-container__item').append('<div class="db-schedule-input-container__bullet mr-3">'+ result[0] +'</div>')
+//
+//
+//
+//        });
+//    },
+});
+
+
 });
 
 

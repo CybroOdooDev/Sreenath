@@ -9,6 +9,502 @@
   --db-dark: #6a6a6a;
   --db-black: #000000;
   --db-light-dark: #bababa;
+  --db-disabled: #e0e0e0;
+  --db-danger: #da4348;
+  --db-pink: #ff718c;
+  --db-info: #007bff;
+  --db-warning: #ffbf00;
+  --db-brown: #684c00;
+  --db-white: #ffffff;
+  --db-border: #f0f0f0;
+}
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+.db-wrapper {
+  display: flex;
+}
+.db-sidebar-container {
+  width: 80px;
+  position: relative;
+}
+.db-sidebar__dropdown-menu {
+  box-shadow: rgba(0, 0, 0, 0.18) 0px 2px 4px;
+  border: none;
+}
+.db-sidebar__dropdown-menu::before {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  bottom: 100%;
+  left: 1.5em;
+  border: 0.75rem solid transparent;
+  border-top: none;
+  border-bottom-color: #fff;
+  filter: drop-shadow(0 -0.0625rem 0.0625rem rgba(0, 0, 0, 0.1));
+}
+.db-sidebar__dropdown-menu .dropdown-item:hover {
+  background-color: transparent;
+  color: var(--db-primary);
+}
+.db-container {
+  width: calc(100% - 80px);
+  padding: 25px;
+}
+.db-sidebar {
+  position: fixed;
+  background-color: var(--db-primary);
+  color: var(--db-white);
+  width: inherit;
+  height: 100%;
+  z-index: 99;
+}
+.db-sidebar__item {
+  color: var(--db-white);
+  text-decoration: none;
+  font-size: 32px;
+  text-decoration: center;
+  display: block;
+  width: 100%;
+  height: 65px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.db-sidebar__item:hover {
+  color: var(--db-border);
+  text-decoration: none;
+  transition: all 200ms ease-in-out;
+}
+.db-card {
+  background-color: var(--db-white);
+  width: 100%;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
+    rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+  padding: 25px;
+  border-radius: 2rem;
+  display: flex;
+  justify-content: stretch;
+  align-items: center;
+  flex-wrap: wrap;
+  font-size: 14px;
+  position: relative;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+.db-shadow {
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
+    rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+}
+.db-card--active {
+  border: 2px solid var(--db-danger);
+}
+.db-button {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.db-button--primary {
+  background-color: var(--db-primary);
+  color: var(--db-white);
+}
+.db-button--dark {
+  background-color: var(--db-dark);
+  color: var(--db-white);
+}
+.db-button--primary-dark {
+  background-color: var(--db-primary-dark);
+  font-weight: bold;
+  border-radius: 25px;
+  border: none;
+  padding: 10px;
+  color: white;
+}
+.db-button--primary-dark:hover {
+  filter: contrast(80%);
+}
+.db-button--actions {
+  width: 30px;
+  height: 30px;
+}
+.db-button--round {
+  border-radius: 50%;
+}
+.db-button--long {
+  width: 100%;
+}
+.db-error {
+  color: var(--db-danger);
+  display: block;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.db-form-control {
+  border: 1px solid var(--db-border);
+  border-radius: 5rem;
+  padding: 0.15rem 0.25rem;
+  text-align: center;
+}
+.db-card__image {
+  height: 130px;
+  width: 150px;
+  background-color: var(--db-dark);
+}
+.db-card__image-thumbnail {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+.db-card__textarea-container {
+  flex-grow: 2;
+}
+.db-form-control--textarea {
+  border-radius: 0px;
+  border: none;
+  text-align: left;
+  height: 130px;
+  resize: none;
+}
+.db-calendar {
+  width: 125px;
+}
+.db-form-control:focus,
+.db-form-control:focus-visible,
+.db-form-control--textarea:focus,
+.db-form-control--textarea:focus-visible {
+  outline: none;
+}
+.db-card__status {
+  display: flex;
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+}
+.db-card__status-text {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+/* Overlay */
+.db-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+}
+.db-dialog {
+  position: absolute;
+  top: calc(100vh - 95%);
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  width: 30%;
+  background: white;
+  z-index: 1000;
+}
+@media (max-width: 767.98px) {
+  .db-dialog {
+    width: 90%;
+    min-height: auto;
+  }
+}
+.db-dialog__image-container {
+  width: 100%;
+  height: 80%;
+}
+.db-dialog__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.db-dialog__body {
+  padding: 20px;
+}
+.db-dialog__title {
+  font-size: 20px;
+  font-weight: bold;
+}
+.db-dialog__description {
+  font-size: 14px;
+  color: #454545;
+}
+.db-dialog__close {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  font-size: 24px;
+  font-weight: 500;
+  color: black;
+  background: white;
+  border-radius: 50%;
+  padding-bottom: 0.25rem;
+  top: 20px;
+  right: 15px;
+}
+.db-dialog__close:hover {
+  text-decoration: none;
+}
+.db-dialog__header {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  padding: 15px 20px;
+}
+.db-dialog__user-image-container {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 0.5rem;
+}
+.db-dialog__user-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 50%;
+}
+.db-dialog__name {
+  line-height: 18px;
+}
+.db-dialog__username {
+  color: #8e8e8e;
+  font-size: 14px;
+}
+.db-overlay__button {
+  font-size: 1.5rem;
+  color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.db-overlay__button:hover {
+  text-decoration: none;
+}
+.db-revision-link--blue {
+  color: var(--db-info);
+}
+.db-revision-link--blue:hover {
+  color: var(--db-info);
+  filter: brightness(95%);
+  text-decoration: none;
+}
+.db-revision-link--grey {
+  color: var(--db-dark);
+}
+/* Calendar Page */
+.db-revision-container {
+  border-radius: 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.db-revision-container__header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.db-revision-container__header-icon {
+  font-size: 2.5rem;
+  color: var(--db-primary);
+}
+.db-revisoin-container__title {
+  font-size: 25px;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: var(--db-dark);
+  margin-top: 1.5rem;
+}
+.db-revision-lists {
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.db-revision-lists {
+  padding-left: 0;
+}
+.db-revision-list__item {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+.db-revision-list__count {
+  color: var(--db-brown);
+  background-color: var(--db-warning);
+  font-size: 1.5rem;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+.db-revision-container__footer {
+  padding: 20px;
+}
+/* Calendar Page -- Calendar */
+.db-schedule-container .datepicker-picker,
+.db-schedule-input-container {
+  width: 80%;
+  max-width: 550px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.db-schedule-container .datepicker {
+  display: flex;
+  justify-content: center;
+}
+.db-schedule-container .days,
+.db-schedule-container .datepicker-grid {
+  width: 100%;
+}
+.db-schedule-container .datepicker-cell.selected,
+.datepicker-cell.selected:hover {
+  color: white;
+  background-color: var(--db-warning);
+}
+.db-schedule-container .datepicker-cell {
+  width: 40px;
+  height: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  font-weight: bold;
+  color: var(--db-light-dark);
+  position: relative;
+}
+.db-schedule-container .datepicker-cell.prev,
+.db-schedule-container .datepicker-cell.next {
+  color: var(--db-disabled);
+}
+.db-schedule-dot-container {
+  display: flex;
+  position: absolute;
+  bottom: 2px;
+}
+.db-schedule-dot {
+  width: 8px;
+  height: 8px;
+  background-color: var(--db-pink);
+  border-radius: 50%;
+  margin-left: 1px;
+  margin-right: 1px;
+}
+.db-schedule-container .datepicker-controls > * {
+  background-color: var(--db-primary);
+  border-radius: 0px;
+  padding-top: 25px;
+  padding-bottom: 25px;
+  color: var(--db-white);
+  font-size: 22px;
+}
+.db-schedule-container .datepicker-header .datepicker-controls .button:active,
+.db-schedule-container .datepicker-header .datepicker-controls .button:hover {
+  background-color: var(--db-primary);
+  color: var(--db-white);
+}
+.db-schedule-container .days-of-week {
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+.db-schedule-container .datepicker-view .dow {
+  text-transform: uppercase;
+}
+.db-schedule-container .datepicker-controls > .prev-btn {
+  border-radius: 100% 0 0 100%;
+  width: 60px;
+}
+.db-schedule-container .datepicker-controls > .next-btn {
+  border-radius: 0 100% 100% 0;
+  width: 60px;
+}
+.db-schedule-input-container {
+  margin-top: 2rem;
+  background-color: var(--db-primary);
+  border-radius: 30px;
+  width: 100%;
+  min-height: 200px;
+  padding: 20px 30px;
+}
+.db-schedule-container .dow {
+  color: var(--db-disabled);
+}
+.db-schedule-container .dow.selected {
+  position: relative;
+  color: var(--db-black);
+}
+.db-schedule-container .dow.selected::after {
+  content: "";
+  position: absolute;
+  width: 30px;
+  height: 4px;
+  bottom: -5px;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: var(--db-warning);
+}
+.db-schedule-input-container__list {
+  list-style-type: none;
+  padding-left: 0;
+}
+.db-schedule-input-container__bullet {
+  width: 20px;
+  height: 20px;
+  background-color: var(--db-white);
+  border-radius: 50%;
+}
+.db-schedule-input-container__item {
+  display: flex;
+  align-items: center;
+}
+.db-schedule-input-container__item {
+  height: 50px;
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+}
+.db-schedule-input-container__input {
+  background-color: transparent;
+  border: none;
+  border-radius: 0.25rem;
+  width: 100%;
+  height: 30px;
+  border-bottom: 2px solid var(--db-black);
+}
+.db-schedule-input-container__input:focus {
+  outline: none;
+}
+
+*,
+:root {
+  margin: 0;
+  box-sizing: border-box;
+}
+:root {
+  --db-primary: #43dbb6;
+  --db-primary-dark: #1f7b64;
+  --db-dark: #6a6a6a;
+  --db-black: #000000;
+  --db-light-dark: #bababa;
   --db-danger: #da4348;
   --db-pink: #ff718c;
   --db-info: #007bff;
@@ -384,7 +880,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 24px;
+  font-size: 21px;
   font-weight: bold;
   color: var(--db-light-dark);
   position: relative;
@@ -449,6 +945,8 @@ body {
 .db-schedule-input-container__item {
   display: flex;
   align-items: center;
+  color: #fff;
+  font-weight: bold;
 }
 .db-schedule-input-container__item {
   height: 50px;
@@ -459,7 +957,9 @@ body {
   border-radius: 0.25rem;
   width: 100%;
   height: 30px;
-  border-bottom: 2px solid var(--db-black);
+  border-bottom: 2px solid var(--db-white);
+  color: #fff;
+  font-weight: bold;
 }
 .db-schedule-input-container__input:focus {
   outline: none;

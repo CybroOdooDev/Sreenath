@@ -21,7 +21,7 @@ publicWidget.registry.Calendar = publicWidget.Widget.extend({
 
     },
     _loadCalendar: function (ev) {
-        this.$('.tested').append(QWeb.render('SocialCalendar', {widget: ev}));
+//        this.$('.tested').append(QWeb.render('SocialCalendar', {widget: ev}));
     },
 });
 

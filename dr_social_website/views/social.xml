@@ -13,5 +13,46 @@
                 </xpath>
             </field>
         </record>
+
+        <record id="revision_request_client_view_form" model="ir.ui.view">
+            <field name="name">revision.request.client.form</field>
+            <field name="model">revision.request.client</field>
+            <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="date_day"/>
+                        <field name="date_month"/>
+                    </group>
+                </sheet>
+            </form>
+            </field>
+        </record>
+        <record id="revision_request_client_view_tree" model="ir.ui.view">
+            <field name="name">revision.request.client.tree</field>
+            <field name="model">revision.request.client</field>
+            <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="date_day"/>
+                <field name="date_month"/>
+            </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_view_revision_request_client">
+            <field name="name">Revision Request Client</field>
+            <field name="res_model">revision.request.client</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="revision_request_client_menu" name="Client Name" parent="social.menu_social_configuration"
+                  action="action_view_revision_request_client"/>
+
     </data>
 </odoo>

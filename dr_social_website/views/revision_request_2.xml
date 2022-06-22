@@ -2,8 +2,6 @@
     <template id="revision_request" name="Revision Request">
         <t t-name="SocialCalendar">
             <t t-call="website.layout">
-                <!--                <div class="row ">-->
-                <!--                    <div class="container-fluid" style="display: inherit;">-->
                 <head>
                     <meta charset="UTF-8"/>
                     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -28,13 +26,22 @@
                                 <div class="dropdown">
                                     <a href="#" class="db-sidebar__item" id="dropdownMenuLink" data-toggle="dropdown"
                                        aria-expanded="false">
-                                        <i class="fa fa-user" aria-hidden="true"></i>
+                                        <i class="fa fa-user" aria-hidden=""></i>
                                     </a>
+                                    <a href="#" class="db-sidebar__item" id="dropdownMenuLink" data-toggle="dropdown"
+                                       aria-expanded="false">
+                                        <i class="fa fa-bell" aria-hidden=""></i>
+                                    </a>
+                                    <a href="#" class="db-sidebar__item" id="dropdownMenuLink" data-toggle="dropdown"
+                                       aria-expanded="false">
+                                        <i class="fa fa-search" aria-hidden=""></i>
+                                    </a>
+
 
                                     <div class="dropdown-menu db-sidebar__dropdown-menu"
                                          aria-labelledby="dropdownMenuLink">
-                                        <a class="dropdown-item" href="#">Action</a>
-                                        <a class="dropdown-item" href="#">Another action</a>
+                                        <a class="dropdown-item" href="#"><i class="fa fa-home" style="font-size:36px"></i>Action</a>
+                                        <a class="dropdown-item" href="#"><i class="fa fa-home" style="font-size:36px"></i>Another action</a>
                                         <a class="dropdown-item" href="#">Something else here</a>
                                     </div>
                                 </div>
@@ -81,7 +88,7 @@
                                 </div>
                                 <div class="col-sm-12 col-md-7 col-lg-7">
                                     <div class="db-schedule-container">
-                                        <div id="dbDatepickerInline" data-date="01/25/2020"></div>
+                                        <div id="dbDatepickerInline"></div>
                                     </div>
                                     <div class="db-schedule-input-container">
                                         <ul class="db-schedule-input-container__list mb-4">
@@ -92,7 +99,7 @@
                                             </li>
                                         </ul>
                                         <button class="db-button db-button--long db-button--primary-dark"
-                                                id="scheduleListButton">Add Item
+                                                id="scheduleListButton">Add Client
                                         </button>
                                         <span class="db-error"></span>
                                     </div>
@@ -100,8 +107,6 @@
                             </div>
                         </div>
                     </div>
-
-
                     <!-- Scripts -->
                     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
                             integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
@@ -114,59 +119,7 @@
                         const elem = document.getElementById('dbDatepickerInline');
                         const datepicker = new Datepicker(elem, {});
                     </script>
-                    <!--                <script>-->
-                    <!--                    /**-->
-                    <!--                    * Schedule List-->
-                    <!--                    */-->
-
-                    <!--                    /// Selectors-->
-                    <!--                    let inputEl = $('#scheduleListInput');-->
-                    <!--                    let scheduleBtn = $('#scheduleListButton');-->
-                    <!--                    let scheduleListEl = $('.db-schedule-input-container__list');-->
-                    <!--                    let errorEl = $('.db-error');-->
-
-                    <!--                    /// Add New Items-->
-
-                    <!--                    // Listen for submit button click.-->
-                    <!--                    scheduleBtn.on('click', function (e) {-->
-                    <!--                    // Clear Errors.-->
-                    <!--                    errorEl.html('');-->
-                    <!--                    // Get Selected Date.-->
-                    <!--                    let selectedDate = $('.datepicker-cell.selected');-->
-                    <!--                    let selectedDateDotContainer = $('.datepicker-cell.selected .db-schedule-dot-container');-->
-                    <!--                    // Get Input Value.-->
-                    <!--                    let enteredValue = inputEl.val();-->
-                    <!--                    // Check if the entered value is empty.-->
-                    <!--                    if ($.trim(enteredValue).length == 0) {-->
-                    <!--                    errorEl.html('Please enter a value.')-->
-                    <!--                    } else {-->
-                    <!--                    // Clear input element.-->
-                    <!--                    inputEl.val('');-->
-                    <!--                    // Create a new schedule list element if entered value is not empty.-->
-                    <!--                    $(scheduleListEl).append(`-->
-                    <!--                    <li class="db-schedule-input-container__item">-->
-                    <!--                        <div class="db-schedule-input-container__bullet mr-3"></div>-->
-                    <!--                        ${enteredValue}-->
-                    <!--                    </li>-->
-                    <!--                    `);-->
-                    <!--                    // Check if the selected date already has events scheduled.-->
-                    <!--                    if (!$(selectedDate).find('.db-schedule-dot-container').length == 1) {-->
-                    <!--                    // If not add a new dot for the first time.-->
-                    <!--                    $(selectedDate).append("-->
-                    <!--                    <div class='db-schedule-dot-container'>-->
-                    <!--                        <span class='db-schedule-dot'></span>-->
-                    <!--                    </div>-->
-                    <!--                    ");-->
-                    <!--                    } else {-->
-                    <!--                    // Else add dot along with existing ones.-->
-                    <!--&lt;!&ndash;                    $(selectedDateDotContainer).append("<span class='db-schedule-dot'></span>");&ndash;&gt;-->
-                    <!--                    }-->
-                    <!--                    }-->
-                    <!--                    });-->
-                    <!--                </script>-->
                 </body>
-                <!--                    </div>-->
-                <!--                </div>-->
             </t>
         </t>
     </template>
