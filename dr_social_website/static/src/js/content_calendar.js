@@ -330,19 +330,27 @@ publicWidget.registry.websiteEventSearchSponsorss = publicWidget.Widget.extend({
         'click .selected': '_load_client_name',
     },
 
+    willStart: function () {
+        $('.o_header_standard').addClass('header_hide')
+        $('.o_footer').addClass('header_hide')
+
+    },
+
     init: function(parent, context) {
         this.action_id = context['id'];
         this._super(parent, context);
+
 
     },
 
 
 
     _load_client_name:function(ev){
-        console.log('ooooooooooooooooooooooooooooooooooooooo')
+        console.log('ooooooooooooooooooooooooooooooooooooooo', $('.o_header_standard'))
         var id = $('.db-schedule-input-container__bullet');
         var day = $('.focused');
         var month = $('.view-switch');
+
 
         self.client_name = []
         var date_day = day[0].textContent
