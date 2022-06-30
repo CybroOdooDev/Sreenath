@@ -8,8 +8,9 @@
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='scheduled_date']" position="after">
                     <field name="feedback"/>
-                    <field name="date"/>
-                    <field name="time"/>
+                    <field name="date" invisible="1"/>
+                    <field name="time" invisible="1"/>
+                    <field name="revision_button" invisible="1"/>
                 </xpath>
             </field>
         </record>

@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # Copyright (c) 2019-Present Droggol Infotech Private Limited. (<https://www.droggol.com/>)
+
 {
     'name': 'Droggol Social Extension',
     'description': 'Droggol Social Extension',
@@ -19,6 +20,8 @@
     'data': [
         'security/ir.model.access.csv',
         'security/rules.xml',
+        'security/security.xml',
+        'data/client_approval.xml',
         'views/templates.xml',
         'views/views.xml',
         'views/res_partner.xml',
@@ -33,14 +36,15 @@
     ],
     'assets': {
         'web.assets_frontend': [
+            'dr_social_website/static/src/scss/content.scss',
             'dr_social_website/static/src/scss/datepicker.scss',
-            'dr_social_website/static/src/scss/style.scss',
             'dr_social_website/static/src/scss/social.scss',
+            'dr_social_website/static/src/scss/style.scss',
             'dr_social_website/static/src/scss/social_content.scss',
             'dr_social_website/static/src/js/content_calendar.js',
             'dr_social_website/static/src/js/social_dialog.js',
             'dr_social_website/static/src/js/portal.js',
-            'dr_social_website/static/src/js/calendar.js',
+            'dr_social_website/static/src/js/calender.js',
             'dr_social_website/static/src/js/calendar.js',
             'dr_social_website/static/src/js/datepicker_full.js',
             'dr_social_website/static/src/js/bootstrap_min.js',
@@ -52,4 +56,3 @@
         ],
     },
 }
-

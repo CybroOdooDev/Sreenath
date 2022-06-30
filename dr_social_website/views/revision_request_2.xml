@@ -20,23 +20,28 @@
                 </head>
                 <body>
                     <div class="db-wrapper">
-                        <div class="db-sidebar-container">
-                            <!-- Sidebar -->
-                            <div class="db-sidebar">
-                                <div class="dropdown">
-                                    <a href="/my/home" class="db-sidebar__item">
-                                        <i class="fa fa-user" aria-hidden=""></i>
-                                    </a>
-                                    <a href="/my/home" class="db-sidebar__item">
-                                        <i class="fa fa-bell" aria-hidden=""></i>
-                                    </a>
-                                    <a href="#" class="db-sidebar__item" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false">
-                                        <i class="fa fa-search" aria-hidden=""></i>
-                                    </a>
+                    <div class="db-sidebar-container">
+                        <!-- Sidebar -->
+                        <div class="db-sidebar">
+                            <div class="dropdown">
+                                <a href="#" class="db-sidebar__item" id="dropdownMenuLink" data-toggle="dropdown"
+                                   aria-expanded="false">
+                                    <i class="fa fa-user"></i>
+                                </a>
+
+                                <div class="dropdown-menu db-sidebar__dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                    <a class="dropdown-item" href="#">Action</a>
+                                    <a class="dropdown-item" href="#">Another action</a>
+                                    <a class="dropdown-item" href="#">Something else here</a>
                                 </div>
                             </div>
-                            <!-- End of Sidebar -->
+
+                            <a href="#" class="db-sidebar__item">
+                                <i class="fa fa-search" id="searchToggle"></i>
+                            </a>
                         </div>
+                        <!-- End of Sidebar -->
+                    </div>
                         <div class="db-container" style="padding-top: 50px !important;">
                             <div class="row">
                                 <div class="col-sm-12 col-md-5 col-lg-5">

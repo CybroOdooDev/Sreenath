@@ -25,117 +25,13 @@ body {
 .db-wrapper {
   display: flex;
 }
-.db-sidebar-container {
-  width: 80px;
-  position: relative;
-}
-.db-sidebar__dropdown-menu {
-  box-shadow: rgba(0, 0, 0, 0.18) 0px 2px 4px;
-  border: none;
-}
-.db-sidebar__dropdown-menu::before {
-  content: "";
-  position: absolute;
-  width: 0;
-  height: 0;
-  bottom: 100%;
-  left: 1.5em;
-  border: 0.75rem solid transparent;
-  border-top: none;
-  border-bottom-color: #fff;
-  filter: drop-shadow(0 -0.0625rem 0.0625rem rgba(0, 0, 0, 0.1));
-}
-.db-sidebar__dropdown-menu .dropdown-item:hover {
-  background-color: transparent;
-  color: var(--db-primary);
-}
-.db-container {
-  width: calc(100% - 80px);
-  padding: 25px;
-}
-.db-sidebar {
-  position: fixed;
-  background-color: var(--db-primary);
-  color: var(--db-white);
-  width: inherit;
-  height: 100%;
-  z-index: 99;
-}
-.db-sidebar__item {
-  color: var(--db-white);
-  text-decoration: none;
-  font-size: 32px;
-  text-decoration: center;
-  display: block;
-  width: 100%;
-  height: 65px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.db-sidebar__item:hover {
-  color: var(--db-border);
-  text-decoration: none;
-  transition: all 200ms ease-in-out;
-}
-.db-card {
-  background-color: var(--db-white);
-  width: 100%;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
-    rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
-  padding: 25px;
-  border-radius: 2rem;
-  display: flex;
-  justify-content: stretch;
-  align-items: center;
-  flex-wrap: wrap;
-  font-size: 14px;
-  position: relative;
-  margin-top: 15px;
-  margin-bottom: 15px;
-}
+
+
 .db-shadow {
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
     rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
 }
-.db-card--active {
-  border: 2px solid var(--db-danger);
-}
-.db-button {
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.db-button--primary {
-  background-color: var(--db-primary);
-  color: var(--db-white);
-}
-.db-button--dark {
-  background-color: var(--db-dark);
-  color: var(--db-white);
-}
-.db-button--primary-dark {
-  background-color: var(--db-primary-dark);
-  font-weight: bold;
-  border-radius: 25px;
-  border: none;
-  padding: 10px;
-  color: white;
-}
-.db-button--primary-dark:hover {
-  filter: contrast(80%);
-}
-.db-button--actions {
-  width: 30px;
-  height: 30px;
-}
-.db-button--round {
-  border-radius: 50%;
-}
-.db-button--long {
-  width: 100%;
-}
+
 .db-error {
   color: var(--db-danger);
   display: block;
@@ -148,20 +44,8 @@ body {
   padding: 0.15rem 0.25rem;
   text-align: center;
 }
-.db-card__image {
-  height: 130px;
-  width: 150px;
-  background-color: var(--db-dark);
-}
-.db-card__image-thumbnail {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-}
-.db-card__textarea-container {
-  flex-grow: 2;
-}
+
+
 .db-form-control--textarea {
   border-radius: 0px;
   border: none;
@@ -178,16 +62,7 @@ body {
 .db-form-control--textarea:focus-visible {
   outline: none;
 }
-.db-card__status {
-  display: flex;
-  position: absolute;
-  right: 10px;
-  bottom: 10px;
-}
-.db-card__status-text {
-  font-weight: bold;
-  font-size: 16px;
-}
+
 
 /* Overlay */
 .db-overlay {
@@ -520,117 +395,14 @@ body {
 .db-wrapper {
   display: flex;
 }
-.db-sidebar-container {
-  width: 80px;
-  position: relative;
-}
-.db-sidebar__dropdown-menu {
-  box-shadow: rgba(0, 0, 0, 0.18) 0px 2px 4px;
-  border: none;
-}
-.db-sidebar__dropdown-menu::before {
-  content: "";
-  position: absolute;
-  width: 0;
-  height: 0;
-  bottom: 100%;
-  left: 1.5em;
-  border: 0.75rem solid transparent;
-  border-top: none;
-  border-bottom-color: #fff;
-  filter: drop-shadow(0 -0.0625rem 0.0625rem rgba(0, 0, 0, 0.1));
-}
-.db-sidebar__dropdown-menu .dropdown-item:hover {
-  background-color: transparent;
-  color: var(--db-primary);
-}
-.db-container {
-  width: calc(100% - 80px);
-  padding: 25px;
-}
-.db-sidebar {
-  position: fixed;
-  background-color: var(--db-primary);
-  color: var(--db-white);
-  width: inherit;
-  height: 100%;
-  z-index: 99;
-}
-.db-sidebar__item {
-  color: var(--db-white);
-  text-decoration: none;
-  font-size: 32px;
-  text-decoration: center;
-  display: block;
-  width: 100%;
-  height: 65px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.db-sidebar__item:hover {
-  color: var(--db-border);
-  text-decoration: none;
-  transition: all 200ms ease-in-out;
-}
-.db-card {
-  background-color: var(--db-white);
-  width: 100%;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
-    rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
-  padding: 25px;
-  border-radius: 2rem;
-  display: flex;
-  justify-content: stretch;
-  align-items: center;
-  flex-wrap: wrap;
-  font-size: 14px;
-  position: relative;
-  margin-top: 15px;
-  margin-bottom: 15px;
-}
+
+
 .db-shadow {
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
     rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
 }
-.db-card--active {
-  border: 2px solid var(--db-danger);
-}
-.db-button {
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.db-button--primary {
-  background-color: var(--db-primary);
-  color: var(--db-white);
-}
-.db-button--dark {
-  background-color: var(--db-dark);
-  color: var(--db-white);
-}
-.db-button--primary-dark {
-  background-color: var(--db-primary-dark);
-  font-weight: bold;
-  border-radius: 25px;
-  border: none;
-  padding: 10px;
-  color: white;
-}
-.db-button--primary-dark:hover {
-  filter: contrast(80%);
-}
-.db-button--actions {
-  width: 30px;
-  height: 30px;
-}
-.db-button--round {
-  border-radius: 50%;
-}
-.db-button {
-  width: 100%;
-}
+
+
 .db-error {
   color: var(--db-danger);
   display: block;
@@ -643,20 +415,7 @@ body {
   padding: 0.15rem 0.25rem;
   text-align: center;
 }
-.db-card__image {
-  height: 130px;
-  width: 150px;
-  background-color: var(--db-dark);
-}
-.db-card__image-thumbnail {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-}
-.db-card__textarea-container {
-  flex-grow: 2;
-}
+
 .db-form-control--textarea {
   border-radius: 0px;
   border: none;
@@ -673,16 +432,8 @@ body {
 .db-form-control--textarea:focus-visible {
   outline: none;
 }
-.db-card__status {
-  display: flex;
-  position: absolute;
-  right: 10px;
-  bottom: 10px;
-}
-.db-card__status-text {
-  font-weight: bold;
-  font-size: 16px;
-}
+
+
 
 /* Overlay */
 .db-overlay {
@@ -965,7 +716,3 @@ body {
   outline: none;
 }
 
-.header_hide{
-    display: none;
-
-    }

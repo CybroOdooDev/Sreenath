@@ -110,7 +110,7 @@
                                 <span class="dr_done text-center">Done!</span>
                             </div>
                         </div>
-                        <p class="text-muted">You will receive an email fromyour account manager in next 24 hours. this is a greatetime to get to know your<br/>
+                        <p class="text-muted">You will receive an email from your account manager in next 24 hours. this is a greatetime to get to know your<br/>
                         account manager and  send over any questions you may still have.</p>
                         <p class="my-3 text-muted">Your account manager will send over your first 7 posts sortly after that!</p>
                         <img src="/dr_social_website/static/src/img/thankyou.png" class="img mt-4 img-fluid w-100" style="max-width: 500px;"/>

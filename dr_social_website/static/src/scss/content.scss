@@ -1,0 +1,175 @@
+.ui.input input {
+  margin: 0;
+  max-width: 100%;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1 0 auto;
+  -ms-flex: 1 0 auto;
+  flex: 1 0 auto;
+  outline: 0;
+  -webkit-tap-highlight-color: rgba(255,255,255,0);
+  text-align: left;
+  line-height: 1.2142em;
+  font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+  padding: .67861429em 1em;
+  background: #FFF;
+  border: 1px solid rgba(34,36,38,.15);
+  color: #625454 !important;
+  border-radius: .28571429rem;
+  -webkit-transition: box-shadow .1s ease,border-color .1s ease;
+  transition: box-shadow .1s ease,border-color .1s ease;
+  box-shadow: none;
+}
+.ui.calendar .ui.table tr td {
+  padding-left: .1em;
+  padding-right: .1em;
+  color: #625454;
+  }
+
+// .text-overflow {
+//   width:250px;
+//   height:120px;
+//   display:block;
+//   overflow:hidden;
+//   word-break: break-word;
+//   word-wrap: break-word;
+// }
+.header_hide{
+    display: none;
+    }
+//
+// .btn-overflow {
+// display: none;
+// text-decoration: none;
+// }
+
+.db-modal-input{
+  border-radius: 15px;
+  padding: 15px;
+  background-color: var(--db-primary);
+  border: none;
+  width: 100%;
+}
+.db-modal-input:focus{
+  outline: none;
+}
+.db-modal-input::placeholder{
+  color: var(--db-primary-light);
+}
+/**
+* Search Modal
+*/
+.db-search-modal{
+margin-top: 46px;
+  position: fixed;
+  z-index: 100;
+  left: 100px;
+  top: 40px;
+  background: white;
+  width: 350px;
+  padding: 20px;
+  border-radius: 15px;
+  top: 81px;
+}
+.db-search-modal__list{
+  padding-left: 0px;
+  list-style-type: none;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+.db-search-modal__item{
+  font-size: 18px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  color: var(--db-dark);
+  border-bottom: 1px solid var(--db-light-dark);
+}
+.db-search-modal__link{
+  color: var(--db-dark);
+}
+.db-search-modal__link:hover{
+  color: var(--db-dark);
+  text-decoration: none;
+}
+.db-search-modal__item:last-child{
+  border-bottom: none;
+  padding-bottom: 0px;
+}
+
+/**
+* Approval Modal
+*/
+.db-approval-modal__header{
+  font-size: 26px;
+  font-weight: bold;
+  color: var(--db-dark);
+}
+.db-approval-modal{
+  position: fixed;
+  z-index: 101;
+  left: 480px;
+  top: 40px;
+  background: white;
+  width: 450px;
+  padding: 20px;
+  border-radius: 15px;
+}
+.db-approval-modal__input-group{
+  position: relative;
+}
+.db-approval-modal__button{
+  position: absolute;
+  background-color: white;
+  border-radius: 10px;
+  color: black;
+  border: none;
+  padding: 8px 10px;
+  right: 10px;
+  top: 5px;
+}
+.db-shadow {
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
+    rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+}
+.approval {
+top: 133px;
+}
+
+/* Top Navigation Bar */
+#top_menu_container{
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+    max-width: 100% !important;
+}
+#top{
+    margin-top: 1rem;
+}
+
+header .navbar-brand, header .navbar-brand.logo {
+  padding-top: 0;
+  padding-bottom: 0;
+  margin-left: -35px;
+  }
+
+header .navbar-brand.logo img {
+  object-fit: contain;
+  display: block;
+  width: auto;
+  height: 2.5rem;
+  width: 70px;
+  height: 70px;
+}
+
+.delete_button{
+  cursor: pointer;
+  margin-bottom: 129px;
+  margin-right: 11px;
+  margin-left: -32px;
+}
+.green{
+ background-color: #21d297;
+ border: 1px solid #21d297;
+ color: white;
+}

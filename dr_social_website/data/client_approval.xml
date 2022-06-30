@@ -1,0 +1,29 @@
+<odoo>
+    <data noupdate="1">
+        <record id="mail_template_client_approval" model="mail.template">
+            <field name="name">Client Approval</field>
+            <field name="model_id" ref="dr_social_website.model_social_post"/>
+            <field name="email_from">{{ object.company_id.email }}</field>
+            <field name="email_to">hridhya153@gmail.com</field>
+            <field name="subject">Client Approval</field>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px; font-size: 13px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                        Hi {client name}!
+
+                                Your new batch of posts is ready for your approval!
+
+                                You can access your content calendar via this link: {link to login page}
+
+                                Don’t hesitate to reach out if you have any questions!
+
+                                Best regards,
+
+                                OnyxMedia Team
+                                Refer a friend and get one month for FREE!ww
+                    </p>
+                </div>
+            </field>
+        </record>
+    </data>
+</odoo>

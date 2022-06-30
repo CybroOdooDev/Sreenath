@@ -28,6 +28,7 @@
                             integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
                             crossorigin="anonymous"></script>
                     <meta charset="utf-8"/>
+                    <script src="./dr_social_website/static/src/js/datepicker-full.min.js"></script>
                     <!--                    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>-->
                     <!--                    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>-->
                     <!--                <script type="text/javascript" src="/dr_social_website/static/src/js/calender.js"></script>-->
@@ -40,7 +41,7 @@
                             <div class="dropdown">
                                 <a href="#" class="db-sidebar__item" id="dropdownMenuLink" data-toggle="dropdown"
                                    aria-expanded="false">
-                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                    <i class="fa fa-user"></i>
                                 </a>
 
                                 <div class="dropdown-menu db-sidebar__dropdown-menu" aria-labelledby="dropdownMenuLink">
@@ -51,15 +52,12 @@
                             </div>
 
                             <a href="#" class="db-sidebar__item">
-                                <i class="fa fa-bell" aria-hidden="true"></i>
-                            </a>
-                            <a href="#" class="db-sidebar__item">
-                                <i class="fa fa-search" aria-hidden="true"></i>
+                                <i class="fa fa-search" id="searchToggle"></i>
                             </a>
                         </div>
                         <!-- End of Sidebar -->
                     </div>
-                    <div class="col-10">
+                    <div class="col-11 mx-auto">
                         <div class="row">
                             <t t-if="posts.filtered(lambda tx: tx.state in 'draft')">
                                 <div class="top-text-org">
@@ -70,25 +68,27 @@
                                 </div>
                             </t>
                             <t t-foreach="posts" t-as="val">
-                                <div class="col-sm-12 col md-12 dashboard-table" t-att-data-id="val.id" t-att-value="val.state">
-<!--                                    <t t-if="val.state=='draft'">-->
-<!--                                    </t>-->
+                                <div class="col-sm-12 col md-12 dashboard-table" t-att-data-id="val.id"
+                                     t-att-value="val.state">
+                                    <!--                                    <t t-if="val.state=='draft'">-->
+                                    <!--                                    </t>-->
 
                                     <div class="col-md-8 red-border">
                                         <div class="db-card" t-att-data-id="val.id" t-att-value="val.state">
                                             <div class="d-flex justify-content-center align-items-center px-4 my-2">
-                                                <button class="red approve_button db-button db-button--actions db-button--round mr-2"
-                                                        t-att-data-id="val.id"
-                                                        t-value="val.state">
-                                                    <i t-att-data-id="val.state" class="fa fa-check"/>
+                                                <button class="red approve_button approve_text db-button db-button--actions db-button--round mr-2"
+                                                        t-att-data-id="val.id">
+                                                    <!--                                                        t-value="val.state">-->
+                                                    <i class="fa fa-check"/>
                                                 </button>
-                                                <button class="black not_approved_button db-button db-button--actions db-button--round "
-                                                        t-att-data-id="val.id"
-                                                        t-value="val.state">
-                                                    <i t-att-data-id="val.state" class="fa fa-times db-button__icons"></i>
+                                                <button class="black not_approved_button not_approve_onchange db-button db-button--actions db-button--round "
+                                                        t-att-data-id="val.id">
+                                                    <!--                                                        t-value="val.state">-->
+                                                    <i class="fa fa-times db-button__icons"></i>
                                                 </button>
                                                 <script>
                                                     $('.black').on('click', function(e){
+                                                    <!--                                                    console.log('approve',e)-->
                                                     e.preventDefault();
                                                     $(this.offsetParent).css('border', '2px solid red');
                                                     $(this).css('background-color', 'red');
@@ -98,6 +98,11 @@
                                                 <script>
                                                     $('.red').on('click', function(e){
                                                     e.preventDefault();
+                                                    <!--                                                    console.log('kkkkkkkkkkkkkkkkkkkkkkkk',this)-->
+                                                    <!--                                                    console.log('reddddd',e,e.currentTarget.firstElementChild.parentElement.nextElementSibling.style['background-color'])-->
+                                                    e.currentTarget.firstElementChild.parentElement.nextElementSibling.style['background-color']
+                                                    = '#625454'
+                                                    $(this.offsetParent).css('border', 'none');
                                                     $(this).css('background-color', '#21d297');
                                                     });
                                                 </script>
@@ -106,7 +111,7 @@
                                                 <div class="time_field width_time">
                                                     <div class="ui input left ">
                                                         <t t-if="val.time">
-                                                           <input type="text" placeholder="Time" t-att-data-id="val.id"
+                                                            <input type="text" placeholder="Time" t-att-data-id="val.id"
                                                                    t-att-value="val.time" class="value_time"/>
                                                         </t>
                                                         <t t-else="">
@@ -119,12 +124,12 @@
                                                 <div class="date_field width_date">
                                                     <div class="ui input left">
                                                         <t t-if="val.date">
-                                                            <input type="date" placeholder="Date"
+                                                            <input type="text" placeholder="Date"
                                                                    class="date_input1 date_default db-calendar"
                                                                    t-att-value="val.date" t-att-data-id="val.id"/>
                                                         </t>
                                                         <t t-else="">
-                                                            <input type="date" placeholder="Date"
+                                                            <input type="text" placeholder="Date"
                                                                    class="date_input1 date_default db-calendar"
                                                                    t-att-data-id="val.id"/>
                                                         </t>
@@ -140,96 +145,129 @@
                                                     <!--                                                document.getElementById("date_id").value="2022-06-15"-->
                                                 </script>
                                             </div>
-                                            <div class="image-table add_image sub-table-2 my-2" t-att-data-id="val.id">
-                                                <t t-if="val.image_ids.id">
-                                                      <a href="#" class="db-card__image-link"
-                                                        data-db-user-image="/dr_social_website/static/src/img/user.png" t-att-data-db-target="'/web/image/ir.attachment/'+str(val.image_ids.id)+'/datas'"
-                                                        t-att-data-db-description="val.message">
-                                                          <img t-att-src="'/web/image/ir.attachment/'+str(val.image_ids.id)+'/datas'"
-                                                         class="image-table" t-att-data-id="val.id" alt="background"/>
-<!--                                                        <img src="/image/bkg-2.jpg" class="db-card__image-thumbnail" alt="background"/>-->
-                                                      </a><!--                                                    <img t-att-src="'/web/image/ir.attachment/'+str(val.image_ids.id)+'/datas'"-->
-<!--                                                         class="image-table" t-att-data-id="val.id"/>-->
-                                                </t>
-                                                <t t-else="">
-                                                    <div class="form-input">
-                                                        <div class="preview">
-                                                             <a href="#" class="db-card__image-link"
-                                                                data-db-user-image="/dr_social_website/static/src/img/user.png"
-                                                                t-att-data-db-target="'/web/image/ir.attachment/'+'preview_' + str(val.id)+'/datas'"
-                                                                t-att-data-db-description="val.message">
 
-                                                            <img t-att-id="'preview_' + str(val.id)"/>
-                                                        </a>
+                                            <div class="image-table add_image sub-table-2 my-2" t-att-data-id="val.id" t-att-value="val.image_ids.ids">
+
+<!--                                                <span t-att-class="'test_preview_' + str(val.id)">-->
+                                                    <t t-if="val.image_ids.ids">
+                                                        <t t-set="image"
+                                                           t-value="val.image_ids.filtered(lambda self: self.ids)"/>
+                                                        <!--                                                        <t t-esc="image[0].id"/>-->
+                                                        <a href="#" class="db-card__image-link image_zoom"
+                                                           t-att-data-db-id="val.id"
+                                                           data-db-user-image="/dr_social_website/static/src/img/user.png"
+                                                           t-att-data-db-target="'/web/image/ir.attachment/'+str(image[0].id)+'/datas'"
+                                                           t-att-data-db-description="val.id">
+                                                            <img t-att-src="'/web/image/ir.attachment/'+str(image[0].id)+'/datas'"
+                                                                 class="image-table image_view" t-att-id="'image_id_' + str(val.id)"
+                                                                 alt="background"/>
+                                                            <!--                                                        <img src="/image/bkg-2.jpg" class="db-card__image-thumbnail" alt="background"/>-->
+                                                        </a><!--                                                    <img t-att-src="'/web/image/ir.attachment/'+str(val.image_ids.id)+'/datas'"-->
+                                                        <!--                                                         class="image-table" t-att-data-id="val.id"/>-->
+                                                    </t>
+
+<!--                                                    <t t-else="">-->
+                                                        <div class="form-input">
+                                                            <div class="preview">
+                                                                <a href="#" class="db-card__image-link image_zoom"
+                                                                   data-db-user-image="/dr_social_website/static/src/img/user.png"
+                                                                   t-att-data-db-id="'preview_' + str(val.id)"
+                                                                   t-att-data-db-description="val.message">
+
+                                                                    <img t-att-id="'preview_' + str(val.id)"/>
+                                                                </a>
+                                                            </div>
+                                                            <div class="upload_view d-none" t-att-id="'upload_id_' + str(val.id)">
+                                                            <label t-att-for="val.id">Upload Image</label>
+
+                                                            <input type="file" t-att-id="val.id" accept="image/*"
+                                                                   class="post_uploded_image" t-att-data-id="val.id"/>
+                                                            </div>
                                                         </div>
-
-                                                        <label t-att-for="val.id">Upload Image</label>
-
-                                                        <input type="file" t-att-id="val.id" accept="image/*"
-                                                               class="post_uploded_image" t-att-data-id="val.id"/>
-                                                    </div>
-                                                </t>
+<!--                                                    </t>-->
+<!--                                                </span>-->
                                             </div>
+                                            <i class="delete_image delete_button fa fa-trash" t-att-id="'delete_'+str(val.id)"></i>
+                                            <i class="delete_upload delete_button fa fa-trash d-none" t-att-id="'delete_upload_'+str(val.id)"></i>
                                             <div class="ml-4 db-card__textarea-container my-2">
                                                 <!--                                            <div id="chartdiv"-->
                                                 <!--                                                 style="width: 100%; height: 50px; background-color:#E8EDF2">-->
 
 
-                                                <textarea class="db-form-control db-form-control--textarea w-100 post_message_textarea"
+                                                <textarea
+                                                        class="db-form-control db-form-control--textarea w-100 post_message_textarea text-overflow"
                                                         t-att-id="'chartdiv_'+str(val.id)"
-                                                        t-att-data-id="val.id" name="message" style="overflow:hidden"><t t-esc="val.message"/></textarea>
+                                                        name="message" style="overflow:hidden"></textarea>
+                                                <a href="#" class="toggle-view text-secondary seeMore more-text" t-att-id="'more_'+str(val.id)">
+                                                    more...
+                                                </a>
+                                                <a href="#" class="toggle-view text-secondary d-none seeLess more-text">
+                                                    less...
+                                                </a>
                                                 <!--                                            </div>-->
-    <!--                                            <t t-set="char" t-value="'chartdiv_' + str(val.id)"/>-->
-    <!--                                            <t t-esc="char"/>-->
-                                                <div class="show_more more-text" t-att-data-id="val.id">
-    <!--                                                    onClick="document.getElementById('chartdiv_'+String(val.id)).style.height = '300px';">-->
-                                                    ...more
-                                                    <!--                                                <img src="images/down.png" class="arrow">-->
-                                                </div>
-                                                <div class="show_less more-text" t-att-data-id="val.id">
-    <!--                                                    onClick="document.getElementById('char').style.height = '150px';">-->
-                                                    ...less
-                                                    <!--                                                <img src="images/up.png" class="arrow">-->
-                                                </div>
+                                                <!--                                            <t t-set="char" t-value="'chartdiv_' + str(val.id)"/>-->
+                                                <!--                                            <t t-esc="char"/>-->
+                                                <!--                                                <div class="show_more more-text" t-att-id="'more_'+ str(val.id)">-->
+                                                <!--                                                    &lt;!&ndash;                                                    onClick="document.getElementById('chartdiv_'+String(val.id)).style.height = '300px';">&ndash;&gt;-->
+                                                <!--                                                    ...more-->
+                                                <!--                                                    &lt;!&ndash;                                                <img src="images/down.png" class="arrow">&ndash;&gt;-->
+                                                <!--                                                </div>-->
+                                                <!--                                                <div class="show_less more-text" t-att-id="'less_'+ str(val.id)">-->
+                                                <!--                                                    &lt;!&ndash;                                                    onClick="document.getElementById('char').style.height = '150px';">&ndash;&gt;-->
+                                                <!--                                                    ...less-->
+                                                <!--                                                    &lt;!&ndash;                                                <img src="images/up.png" class="arrow">&ndash;&gt;-->
+                                                <!--                                                </div>-->
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-sm-12 col md-12 col-lg-4" style="margin-top: 20px;">
                                         <div class="db-card2">
-                                            <div class="ml-3 db-card__textarea-container my-2">
+                                            <div class="ml-3 db-card__textarea-container my-2 feedback_green" t-att-value="val.revision_button">
 
-                                                <t t-if="val.feedback">
-                                                    <textarea id="feedback" t-att-data-id="val.id"
-                                                              class="db-form-control db-form-control--textarea w-100 post_feedback_textarea feedback_revision"
-                                                              name="feedback"><t t-esc="val.feedback"/></textarea>
-                                                </t>
-                                                <t t-else="">
-                                                    <textarea id="feedback" placeholder="FEEDBACK..."
-                                                              t-att-data-id="val.id"
-                                                              class="db-form-control db-form-control--textarea w-100 post_feedback_textarea feedback_revision"
-                                                              name="feedback"/>
-                                                </t>
-                                                <div class="db-card__status">
+                                                <!--                                                <t t-if="val.feedback">-->
+                                                <textarea t-att-id="val.id" t-att-data-id="val.id" placeholder="FEEDBACK..."
+                                                          class="db-form-control db-form-control--textarea w-100 post_feedback_textarea feedback_revision"
+                                                          name="feedback"><t t-esc="val.feedback"/></textarea>
+                                                <!--                                                </t>-->
+                                                <!--                                                <t t-else="">-->
+                                                <!--                                                    <textarea id="feedback" placeholder="FEEDBACK..."-->
+                                                <!--                                                              t-att-data-id="val.id"-->
+                                                <!--                                                              class="db-form-control db-form-control&#45;&#45;textarea w-100 post_feedback_textarea feedback_revision"-->
+                                                <!--                                                              name="feedback"/>-->
+                                                <!--                                                </t>-->
+                                                <div class="db-card__status" groups="social.group_social_manager">
                                                     <div class="revision db-card__status-text mr-2"
                                                          t-att-id="'revision_'+str(val.id)">
-                                                        Revision Done
+                                                         Revision Done
                                                     </div>
 
-                                                    <button class="grey db-button db-button--actions db-button--round mr-2"
-                                                            id="val.id">
-                                                        <i t-att-id="val.id" class="fa fa-check"/>
+                                                    <button class="grey db-button db-button--actions db-button--round mr-2" t-att-data-id="val.id" t-att-id="'grey_'+str(val.id)" groups="social.group_social_manager">
+                                                        <i class="fa fa-check"/>
+                                                    </button>
+                                                    <button class="green db-button db-button--actions db-button--round mr-2" t-att-id="'green_'+str(val.id)">
+                                                        <i class="fa fa-check"/>
                                                     </button>
                                                 </div>
                                             </div>
                                         </div>
-                                        <script>
-                                            $('.grey').on('click', function(e){
-                                            e.preventDefault();
-                                            $(this).css('background-color', '#21d297');
-                                            var value = 'revision_'+ String(e.target.id);
-                                            $('#'+ value).show();
-                                            });
-                                        </script>
+<!--                                        <script>-->
+<!--                                            $('.grey').on('click', function(e){-->
+<!--                                            e.preventDefault();-->
+<!--                                            var green = 'green_' + String(e.currentTarget.dataset.id);-->
+<!--                                            var grey = 'grey_' + String(e.currentTarget.dataset.id);-->
+<!--                                            $('#'+ green).show();-->
+<!--                                            $('#'+grey).hide();-->
+<!--&lt;!&ndash;                                            $(this).css('background-color', '#21d297');&ndash;&gt;-->
+<!--                                            var value = 'revision_'+ String(e.currentTarget.dataset.id);-->
+<!--                                            $('#'+ value).show();-->
+<!--                                            rpc.query({-->
+<!--                                                model: 'social.post',-->
+<!--                                                method: 'write',-->
+<!--                                                args: [[parseInt(e.currentTarget.dataset.id)], {revision_button:True}],-->
+
+<!--                                            }).then(function(result){})-->
+<!--                                            });-->
+<!--                                        </script>-->
                                     </div>
                                 </div>
                             </t>
@@ -255,6 +293,7 @@
                                     <div class="col-sm-12 col-md-12 col-lg-12 d-flex align-items-start">
                                         <a href="#" class="db-overlay__button mr-2">
                                             <i class="fa fa-heart-o"></i>
+                                            <!--                                            <img src="/dr_social_website/static/src/img/heart.png"/>-->
                                         </a>
                                         <a href="#" class="db-overlay__button mx-2">
                                             <i class="fa fa-comment-o"></i>
@@ -263,98 +302,172 @@
                                             <i class="fa fa-paper-plane-o"></i>
                                         </a>
                                     </div>
-                                    <div class="col-sm-12 col-md-12 col-lg-12 mt-3">
+                                    <div class="col-sm-12 col-md-12 col-lg-12 mt-3 description_message">
                                         <p class="db-dialog__description"></p>
+
                                     </div>
                                 </div>
 
                             </div>
                         </div>
                     </div>
-<!--                    -->
-<!--                    -->
-<!--                    <div class="db-overlay d-none"></div>-->
-<!--  <div class="db-dialog d-none">-->
-<!--    <div class="db-dialog__header">-->
-<!--      <div class="db-dialog__user-image-container">-->
-<!--        <img src="/dr_social_website/static/src/img/user.png" class="db-dialog__user-image"/>-->
-<!--      </div>-->
-<!--        <div class="grey_line"/><br/>-->
-<!--        <div class="grey_line2"/>-->
-<!--&lt;!&ndash;      <div class="db-dialog__user">&ndash;&gt;-->
-<!--&lt;!&ndash;        <div class="db-dialog__name">Username</div>&ndash;&gt;-->
-<!--&lt;!&ndash;        <div class="db-dialog__username">@username</div>&ndash;&gt;-->
-<!--&lt;!&ndash;      </div>&ndash;&gt;-->
-<!--    </div>-->
-<!--    <div class="db-dialog__image-container">-->
-<!--      <a href="#" class="db-dialog__close" id="dialogClose">x</a>-->
-<!--      <img src="" class="db-dialog__image"/>-->
-<!--    </div>-->
-<!--    <div class="db-dialog__body">-->
-<!--      <div class="row">-->
-<!--        <div class="col-sm-12 col-md-12 col-lg-12 d-flex align-items-start">-->
-<!--          <a href="#" class="db-overlay__button mr-2">-->
-<!--            <i class="fa fa-heart-o"></i></a>-->
-<!--          <a href="#" class="db-overlay__button mx-2">-->
-<!--            <i class="fa fa-comment-o"></i></a>-->
-<!--          <a href="#" class="db-overlay__button mx-2">-->
-<!--            <i class="fa fa-paper-plane-o"></i></a>-->
-<!--        </div>-->
-<!--        <div class="col-sm-12 col-md-12 col-lg-12 mt-3">-->
-<!--          <p class="db-dialog__description"></p>-->
-<!--        </div>-->
-<!--      </div>-->
+                    <div class="db-search-modal db-shadow d-none" groups="social.group_social_manager">
+                        <div class="db-search-modal__header">
+                            <input class="db-modal-input" type="text" placeholder="Search..."/>
+                        </div>
+                        <div class="db-search-modal__body">
+                            <ul class="db-search-modal__list">
+                                <li class="db-search-modal__item">
+                                    <a href="#" class="db-search-modal__link">Client name</a>
+                                </li>
+                                <li class="db-search-modal__item">
+                                    <a href="#" class="db-search-modal__link">Client name</a>
+                                </li>
+                                <li class="db-search-modal__item">
+                                    <a href="#" class="db-search-modal__link">Client name</a>
+                                </li>
+                                <li class="db-search-modal__item">
+                                    <a href="#" class="db-search-modal__link">Client name</a>
+                                </li>
+                                <li class="db-search-modal__item">
+                                    <a href="#" class="db-search-modal__link">Client name</a>
+                                </li>
+                                <li class="db-search-modal__item">
+                                    <a href="#" class="db-search-modal__link">Client name</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- End of Search Modal -->
 
-<!--    </div>-->
-<!--  </div>-->
+                    <!-- Approval Modal -->
+                    <div class="db-approval-modal db-shadow approval d-none" groups="social.group_social_manager">
+                        <h1 class="db-approval-modal__header text-center">Ready for client approval?</h1>
+                        <div class="db-approval-modal__input-group">
+                            <form action="/client_approval" method="POST">
+                                <input class="db-modal-input" type="text" placeholder="Submit for client approval"/>
+                                <button type="submit" class="db-approval-modal__button db-shadow">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- End of Approval Modal -->
+
                     <script>
-    // Overlay JS
-                            $('.db-card__image-link').on('click', function (e) {
-      e.preventDefault();
-      const target = $(this).data('db-target');
-      const description = $(this).data('db-description');
-      const userImage = $(this).data('db-user-image');
-<!--      const username = '@' + $(this).data('db-username');-->
-<!--      const user = $(this).data('db-user');-->
-      $('.db-dialog__image').attr('src', target);
-      $('.db-dialog__user-image').attr('src', userImage);
-      $('.db-dialog__description').html(description);
-<!--      $('.db-dialog__name').html(user);-->
-<!--      $('.db-dialog__username').html(username);-->
+                        // Overlay JS
+                        <!--                        $('.db-card__image-link').on('click', function (e) {-->
+                        <!--                        var id = 'preview_' + String(e.target.id);-->
+                        <!--                        &lt;!&ndash;                        $("#" + id).load(location.href + " #"+id);&ndash;&gt;-->
 
-      $('.db-overlay, .db-dialog').toggleClass('d-none');
-      $('body').css('overflow-y', 'hidden');
-    });
-    // Close Overlay
-    $('#dialogClose').on('click', function (e) {
-      e.preventDefault();
-      $('.db-overlay, .db-dialog').addClass('d-none');
-      $('body').css('overflow-y', 'auto');
-    });
+                        <!--                        console.log('eeeeeeeeeeeeeeeeeee',e,e.target.id)-->
+                        <!--                        e.preventDefault();-->
 
-<!--    $('.db-card__image-link').on('click', function (e) {-->
-<!--      e.preventDefault();-->
-<!--      const target = $(this).data('db-target');-->
-<!--      const description = $(this).data('db-description');-->
-<!--      const userImage = $(this).data('db-user-image');-->
-<!--&lt;!&ndash;      const username = '@' + $(this).data('db-username');&ndash;&gt;-->
-<!--&lt;!&ndash;      const user = $(this).data('db-user');&ndash;&gt;-->
-<!--      $('.db-dialog__image').attr('src', target);-->
-<!--      $('.db-dialog__user-image').attr('src', userImage);-->
-<!--      $('.db-dialog__description').html(description);-->
-<!--&lt;!&ndash;      $('.db-dialog__name').html(user);&ndash;&gt;-->
-<!--&lt;!&ndash;      $('.db-dialog__username').html(username);&ndash;&gt;-->
+                        <!--                        const target_src = $(this).data('db-target');-->
+                        <!--                        const target_id = $(this).data('db-id');-->
+                        <!--                        const description = $(this).data('db-description');-->
+                        <!--                        const userImage = $(this).data('db-user-image');-->
+                        <!--                        &lt;!&ndash;                                        var id = 'preview_' + String(e.target.id);&ndash;&gt;-->
+                        <!--                        &lt;!&ndash;        console.log("Preview: ", id);&ndash;&gt;-->
+                        <!--                        &lt;!&ndash;        if(e.target.files.length > 0){&ndash;&gt;-->
+                        <!--                        &lt;!&ndash;        var src = URL.createObjectURL(e.target.files[0]);&ndash;&gt;-->
+                        <!--                        &lt;!&ndash;        var preview = document.getElementById(id);&ndash;&gt;-->
+                        <!--                        &lt;!&ndash;        preview.src = src;&ndash;&gt;-->
+                        <!--                        &lt;!&ndash;                        e.target.style.display = "block !important";&ndash;&gt;-->
+                        <!--                        &lt;!&ndash;        }&ndash;&gt;-->
+                        <!--                        &lt;!&ndash;      const username = '@' + $(this).data('db-username');&ndash;&gt;-->
+                        <!--                        &lt;!&ndash;      const user = $(this).data('db-user');&ndash;&gt;-->
+                        <!--                        console.log("Target src: ", target_src);-->
+                        <!--                        $('.db-dialog__image').attr('src', target_src);-->
+                        <!--                        &lt;!&ndash;                        $('.db-dialog__image').attr('id', target_id);&ndash;&gt;-->
+                        <!--                        $('.db-dialog__user-image').attr('src', userImage);-->
+                        <!--                        $('.db-dialog__description').html(description);-->
+                        <!--                        &lt;!&ndash;      $('.db-dialog__name').html(user);&ndash;&gt;-->
+                        <!--                        &lt;!&ndash;      $('.db-dialog__username').html(username);&ndash;&gt;-->
 
-<!--      $('.db-overlay, .db-dialog').toggleClass('d-none');-->
-<!--&lt;!&ndash;      $('body').css('overflow-y', 'hidden');&ndash;&gt;-->
-<!--    });-->
-<!--    // Close Overlay-->
-<!--    $('#dialogClose').on('click', function (e) {-->
-<!--      e.preventDefault();-->
-<!--      $('.db-overlay, .db-dialog').addClass('d-none');-->
-<!--      $('body').css('overflow-y', 'auto');-->
-<!--    });-->
-  </script>
+                        <!--                        $('.db-overlay, .db-dialog').toggleClass('d-none');-->
+                        <!--                        $('body').css('overflow-y', 'hidden');-->
+                        <!--                        });-->
+                        <!--                        // Close Overlay-->
+                        $('#dialogClose').on('click', function (e) {
+                        e.preventDefault();
+                        $('.db-overlay, .db-dialog').addClass('d-none');
+                        $('body').css('overflow-y', 'auto');
+                        });
+
+                        <!--    $('.db-card__image-link').on('click', function (e) {-->
+                        <!--      e.preventDefault();-->
+                        <!--      const target = $(this).data('db-target');-->
+                        <!--      const description = $(this).data('db-description');-->
+                        <!--      const userImage = $(this).data('db-user-image');-->
+                        <!--&lt;!&ndash;      const username = '@' + $(this).data('db-username');&ndash;&gt;-->
+                        <!--&lt;!&ndash;      const user = $(this).data('db-user');&ndash;&gt;-->
+                        <!--      $('.db-dialog__image').attr('src', target);-->
+                        <!--      $('.db-dialog__user-image').attr('src', userImage);-->
+                        <!--      $('.db-dialog__description').html(description);-->
+                        <!--&lt;!&ndash;      $('.db-dialog__name').html(user);&ndash;&gt;-->
+                        <!--&lt;!&ndash;      $('.db-dialog__username').html(username);&ndash;&gt;-->
+
+                        <!--      $('.db-overlay, .db-dialog').toggleClass('d-none');-->
+                        <!--&lt;!&ndash;      $('body').css('overflow-y', 'hidden');&ndash;&gt;-->
+                        <!--    });-->
+                        <!--    // Close Overlay-->
+                        <!--    $('#dialogClose').on('click', function (e) {-->
+                        <!--      e.preventDefault();-->
+                        <!--      $('.db-overlay, .db-dialog').addClass('d-none');-->
+                        <!--      $('body').css('overflow-y', 'auto');-->
+                        <!--    });-->
+                    </script>
+                    <script>
+                        const elems = document.querySelectorAll('.db-calendar');
+                        elems.forEach(function (elem) {
+                        const datepicker = new Datepicker(elem, {
+                        autohide: true
+                        });
+                        })
+                    </script>
+
+                    <script>
+                        // Toggle Textarea height
+                        $('.toggle-view').on('click', function (e) {
+                        e.preventDefault();
+
+                        let targetTextArea = e.target.parentElement.children[0];
+                        let seeMore = e.target.parentElement.children[1];
+                        let seeLess = e.target.parentElement.children[2];
+
+                        if (e.target.classList.contains('seeMore')) {
+                        // Select target textarea
+                        // Set height according to the content size
+                        targetTextArea.style.height = targetTextArea.scrollHeight + "px";
+                        // Hide more label
+                        e.target.classList.add('d-none');
+                        // Show less label
+                        seeLess.classList.remove('d-none');
+                        } else {
+                        targetTextArea.style.height = "130px";
+                        // Hide less label
+                        e.target.classList.add('d-none');
+                        // Show more label
+                        seeMore.classList.remove('d-none');
+                        }
+
+                        });
+                    </script>
+                    <script>
+                        // Toggle Search Modal
+                        $('#searchToggle').on('click', function(e){
+                          e.preventDefault();
+                          $('.db-search-modal').toggleClass('d-none');
+                        });
+                        // Client Approval Modal
+                        $('.db-search-modal__link').on('click', function (e) {
+                          e.preventDefault();
+                          let currEl = e.target;
+                          let topPosition = e.target.offsetTop;
+                          let confirmModal = $('.db-approval-modal');
+                          confirmModal.css('top', topPosition);
+                          confirmModal.toggleClass('d-none');
+                        });
+                    </script>
                 </div>
             </div>
         </t>
