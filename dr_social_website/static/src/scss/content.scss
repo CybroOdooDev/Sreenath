@@ -61,7 +61,7 @@
 .db-search-modal{
 margin-top: 46px;
   position: fixed;
-  z-index: 100;
+  z-index: 2000;
   left: 100px;
   top: 40px;
   background: white;
@@ -105,7 +105,7 @@ margin-top: 46px;
 }
 .db-approval-modal{
   position: fixed;
-  z-index: 101;
+  z-index: 2000;
   left: 480px;
   top: 40px;
   background: white;
@@ -162,14 +162,198 @@ header .navbar-brand.logo img {
   height: 70px;
 }
 
-.delete_button{
-  cursor: pointer;
-  margin-bottom: 129px;
-  margin-right: 11px;
-  margin-left: -32px;
-}
 .green{
- background-color: #21d297;
- border: 1px solid #21d297;
- color: white;
+ color: #0EFDDB;
+ border: 2px solid #0EFDDB !important;
+ background-color: white;
+}
+.green_button{
+ color: #0EFDDB;
+ border: 2px solid #0EFDDB !important;
+ background-color: white;
+}
+
+.db-select, .db-datepicker {
+  border-radius: 50px;
+  border: none;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 8px;
+  box-shadow: rgba(17, 17, 26, 0.05) 0px 4px 16px,
+    rgba(17, 17, 26, 0.05) 0px 8px 32px;
+}
+.bootstrap-datetimepicker-widget .datepicker{
+  display: block !important;
+}
+.db-datepicker-group{
+  position: relative;
+}
+.db-datepicker {
+  padding: 8px 15px;
+  box-shadow: rgba(17, 17, 26, 0.05) 0px 4px 16px,
+    rgba(17, 17, 26, 0.05) 0px 8px 32px;
+  width: 200px;
+  margin-left: -47px;
+}
+.db-datepicker-group__icon
+{
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  font-size: -52px;
+  left: 132.833px;
+  pointer-events:none;
+}
+/*=========================================
+*             Custom Dropdown
+*=========================================*/
+.db-custom-select {
+  position: relative;
+  font-family: Arial;
+  box-shadow: rgba(17, 17, 26, 0.05) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px;
+}
+
+.db-custom-select select {
+  display: none; /*hide original SELECT element: */
+}
+
+.select-selected {
+  background-color: var(--db-white);
+}
+
+// /* Style the arrow inside the select element: */
+// .select-selected:after {
+//   position: absolute;
+//   content: "\f078";
+//   font-family: "FontAwesome";
+//   top: 8px;
+//   right: 30px;
+//   font-size: 12px;
+//   width: 0;
+//   height: 0;
+// }
+// .select-items {
+//   border-radius: 10px;
+// }
+// .select-items div {
+//   border-bottom: 1px solid var(--db-border) !important;
+// }
+// .select-items div:last-child {
+//   border-radius: 0 0 10px 10px;
+// }
+// /* Point the arrow upwards when the select box is open (active): */
+// .select-selected.select-arrow-active:after {
+//   content: "\f077";
+// }
+//
+// /* style the items (options), including the selected item: */
+// .select-items div,
+// .select-selected {
+//   color: var(--db-main-text-dark);
+//   padding: 8px 16px;
+//   border-color: transparent;
+//   cursor: pointer;
+// }
+// .select-items {
+//   box-shadow: rgba(17, 17, 26, 0.5) 0px 4px 16px, rgba(17, 17, 26, 0.5) 0px 8px 32px;
+// }
+//
+// /* Style items (options): */
+// .select-items {
+//   position: absolute;
+//   background-color: var(--db-white);
+//   top: 100%;
+//   left: 0;
+//   right: 0;
+//   z-index: 99;
+// }
+// .select-items:last-child {
+//   border-radius: 0 0 10px 10px;
+// }
+// /* Hide the items when the select box is closed: */
+// .select-hide {
+//   display: none;
+// }
+//
+// .select-items div:hover,
+// .same-as-selected {
+//   background-color: rgba(0, 0, 0, 0.1);
+// }
+
+
+.db-button-add {
+  cursor: pointer;
+  text-align: center;
+  border-radius: 25px;
+  border: none;
+  padding: 10px;
+  transition: all 0.3s ease-in-out;
+}
+
+.db-button-add:hover {
+  text-decoration: none;
+  transition: all 0.3s ease-in-out;
+}
+
+.db-button--sm {
+  padding: 5px;
+  font-size: 12px;
+}
+
+.db-button--border-sm {
+  border-radius: 5px;
+}
+
+.db-button--primary-add {
+  background-color: var(--db-primary);
+  color: white !important;
+font-weight: bold !important;
+}
+
+.db-button--primary-add:hover {
+  filter: brightness(98%);
+  color: var(--db-white);
+}
+.db-button--light {
+  background-color: var(--db-white);
+  color: var(--db-main-text-dark);
+  border: 1px solid var(--db-border);
+}
+.db-button--light:hover {
+  background-color: var(--db-border);
+  color: var(--db-primary);
+}
+.db-button--dark {
+  background-color: var(--db-dark);
+  color: var(--db-white);
+}
+
+.db-button--muted {
+  color: var(--db-dark);
+  background-color: var(--db-border);
+}
+
+.db-button--primary-dark {
+  background-color: var(--db-primary-dark);
+  color: white;
+}
+
+.db-button--primary-dark:hover {
+  filter: contrast(80%);
+}
+
+// .db-button--actions {
+//   width: 30px;
+//   height: 30px;
+// }
+
+// .db-button--round {
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   border-radius: 50%;
+// }
+
+.db-button--long {
+  width: 100%;
 }

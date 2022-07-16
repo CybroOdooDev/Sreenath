@@ -1,78 +1,72 @@
 odoo.define('dr_social_website.content_calendar', function (require) {
 "use strict";
-//console.log('lllllllllllllll')
 const publicWidget = require('web.public.widget');
 var rpc = require('web.rpc');
+var id =  parseInt($('.dashboard-table')[0].dataset.id);
+var ajax = require('web.ajax');
 
-
-
- $(document).ready(function (ev) {
-// console.log('lllllllllllllllllllllllllllllllllllllllllllllllllll', ev)
+$(document).ready(function (ev) {
+console.log('ssssssssssssssssssssssssssssssssss')
+//    $('select').selectize({
+//          sortField: 'text'
+//      });
+//   $("select").select2();
+//    $('.client_selection').select2();
     $(".revision").hide();
+    $('.o_footer').addClass('header_hide')
+    $('.navbar').addClass('d-none')
+
+
+    $(".delete_upload").hide();
+    $(".search_upload").hide();
+    $(".revision_progress").hide();
     $(".show_less").hide();
     $(".green").hide();
-//    $(".grey").hide();
-//    $(".seeMore").hide();
     $('.o_footer').addClass('header_hide')
-//    $('.o_header_standard').addClass('header_hide')
-
     var posts = $('.dashboard-table')
     var table_1 = $('.db-card')
     var image_upload = $('.add_image')
     var text = $('.text-overflow');
     var feedback = $('.feedback_green');
- for (let i = 0; i < text.length; i++) {
-//    var id = text[i].offsetParent.dataset.id
-//       console.log(id,'kssssssssssssssssssssssssssss')
-//       var chartdiv = 'chartdiv_' + String(post_id)
+    var progress_revision = $('.revision_progress');
+     $('nav a[href^="/' + location.pathname.split("/")[1] + '"]').addClass('active');
+//    var more_zoom_id = $('.more_show')
 
-            rpc.query({
-                model: 'social.post',
-                method: 'message_content',
-                args: [,parseInt(text[i].offsetParent.dataset.id)],
+//    console.log(progress,'progress')
+    for (let i = 0; i < text.length; i++) {
+        rpc.query({
+            model: 'social.post',
+            method: 'message_content',
+            args: [,parseInt(text[i].offsetParent.dataset.id)],
 
-            }).then(function(result){
-//            text.innerHtml = result
-        var chartdiv = 'chartdiv_' + String(text[i].offsetParent.dataset.id)
-        var description = document.getElementById(chartdiv);
+        }).then(function(result){
+            var chartdiv = 'chartdiv_' + String(text[i].offsetParent.dataset.id)
+            var description = document.getElementById(chartdiv);
+            description.innerHTML = result;
+            if (!(text[i].scrollHeight > 130)) {
+                var more_id = 'more_'+ String(text[i].offsetParent.dataset.id);
+                $('#'+more_id).hide()
+            }
+//            console.log('billo',$('.show_more'))
+////            var more_zoom_id = 'more_zoom_' + String(text[i].offsetParent.dataset.id);
+//                console.log('more_zoom_id',more_zoom_id)
 
-        description.innerHTML = result;
-//         console.log('rrrrrrrrrr',description,chartdiv)
-          if (!(text[i].scrollHeight > 130)) {
-          var more_id = 'more_'+ String(text[i].offsetParent.dataset.id);
-//        console.log(more_id,text[i].scrollHeight)
-           $('#'+more_id).hide()
-        }
 
-            });
-
-}
-
-//    console.log(posts,'lllllllllllll',$('.red'))
-//    console.log(posts.value,'hhhhhhhhhhh')
+        });
+    }
     for (let i = 0; i < posts.length; i++) {
-//    console.log($('.red')[i].style.background-color,'ooooooooo')
         if (posts[i].attributes.value.value === 'posted') {
-//        console.log(posts[i].style.border = 'red','posts[i].style')
             posts[i].style.pointerEvents = 'none';
-            posts[i].style.color = '#bdbfb7';
-//           console.log($('.red'),red)
-//            posts[i].style.border = '2px solid red';#bdbfb7;
-            $('.red')[i].style['background-color']='#bdbfb7';
-            $('.black')[i].style['background-color']='#bdbfb7';
-            $('.value_time')[i].style['color']='#bdbfb7';
-            $('.date_default')[i].style['color']='#bdbfb7';
-            $('.grey')[i].style['background-color']='#bdbfb7';
-            $('.seeMore')[i].style['color']='#bdbfb7';
-//            console.log(i,'lllllllllllllllllllllllllllllllll')
-            $('.add_image')[i].style['opacity']='0.3';
-//            $('.form-input').style['background-color']='#bdbfb7';
-//            $('.form-input').css('background-color', '#bdbfb7');
-//            $('.value_time').css('color', '#bdbfb7');
-
+//            posts[i].style.color = '#bdbfb7';
+//            $('.red')[i].style['background-color']='#bdbfb7';
+//            $('.black')[i].style['background-color']='#bdbfb7';
+//            $('.value_time')[i].style['color']='#bdbfb7';
+//            $('.date_default')[i].style['color']='#bdbfb7';
+//            $('.grey')[i].style['background-color']='#bdbfb7';
+//            $('.seeMore')[i].style['color']='#bdbfb7';
+//            $('.add_image')[i].style['opacity']='0.3';
+            $('.db-card')[i].style['opacity']='0.4';
         }
-            console.log(feedback,'feeeeeeed',feedback[i].attributes.value)
-
         if (feedback[i].attributes.value){
             var revision = 'revision_' +String(feedback[i].firstElementChild.id)
             var grey = 'grey_' +String(feedback[i].firstElementChild.id)
@@ -80,168 +74,371 @@ var rpc = require('web.rpc');
             $("#"+green).show();
             $("#"+revision).show();
             $("#"+grey).hide();
-            console.log('hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh',feedback[i].firstElementChild.id)
+        }
+      if (progress_revision == true){
+        if (progress_revision[i].attributes.value){
+//            var revision = 'revision_' +String(feedback[i].firstElementChild.id)
+//            var grey = 'grey_' +String(feedback[i].firstElementChild.id)
+            var progress = 'progress_' +String(feedback[i].firstElementChild.id)
+            $("#"+progress).show();
+//            $("#"+revision).show();
+//            $("#"+grey).hide();
         }
         }
-        for (let i = 0; i < table_1.length; i++) {
-//    console.log(table_1[i].attributes.value.value,'ppppppppppppppp')
+    }
+    for (let i = 0; i < table_1.length; i++) {
         if (table_1[i].attributes.value.value === 'draft') {
             table_1[i].style.border = '2px solid #ffb914';
-
         }
         if (table_1[i].attributes.value.value === 'not_approved') {
             table_1[i].style.border = '2px solid red';
             $('.black')[i].style['background-color']='red';
-
         }
         if (table_1[i].attributes.value.value === 'scheduled') {
-            $('.red')[i].style['background-color']='rgb(33, 210, 151)';
-
+            $('.red')[i].style['background-color']='#00F5BE';
         }
-//         if (posts[i].attributes.value.value === 'draft') {
-////        console.log(posts[i].style.border = 'red','posts[i].style')
-//            posts[i].style.border = '2px solid red';
-////            posts[i].style.border = '2px solid red';
-//
-//        }
     }
     for (let i = 0; i < image_upload.length; i++) {
-//        console.log('ppppppppppppppp',image_upload[i],image_upload[i].attributes)
         if (!('value' in image_upload[i].attributes)) {
-         var id = image_upload[i].dataset.id
-         var upload_id = 'upload_id_' + String(id)
-//            table_1[i].style.border = '2px solid #ffb914';
-//              console.log('kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk')
-              var upload = document.getElementById(upload_id);
-//              console.log(upload_id,upload,'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii')
-
-                upload.classList.toggle("d-none");
-                var delete_image = 'delete_' + String(id)
-                $('#' + delete_image).hide();
-
+            var id = image_upload[i].dataset.id
+            var upload_id = 'upload_id_' + String(id)
+            var upload = document.getElementById(upload_id);
+            upload.classList.toggle("d-none");
+            var delete_image = 'delete_' + String(id)
+            $('#' + delete_image).hide();
+            var search_image = 'search_' + String(id)
+            $('#' + search_image).hide();
         }
-}
- })
+    }
+//     for (let i = 0; i < more_zoom_id.length; i++) {
+//        if (!(more_zoom_id[i].scrollHeight > 130)) {
+//        console.log('jfdasfjksdhf')
+//                var more_zoom = more_zoom_id[i].id;
+//                $('#'+more_zoom).hide()
+//            }
+//    }
+//    var name_def = $('#name_value')[0].innerHTML;
+//    console.log(name_def,'name_def')
+//    if (name_def !=' '){
+//    console.log('hhhhhhhhhhhhhhhhh',$("#default_value"))
+//       $("#default_value").show();
+//}
 
-
-
-//    console.log(document.getElementsByClassName("def_date").value,'lllllllllllllll')
-//    document.getE("date_input1").value = "2022-06-15";
-
-
-
-
-//$(document).on("focusout", ".value_time", function(event){
-//        console.log('ooooooooooooooooooooooooooooooooooooooooo',event.target.value)
-//        var id = $(event.target).data('id');
-//        var time = $(event.target).val()
-////        console.log(date);
-//        this._rpc({
-//                model: 'social.post',
-//                method: 'write',
-//                args: [[parseInt(id)], {post_method:'scheduled', scheduled_date:time}],
-//
-//            }).then(function(result){
-//                console.log("result",result);
-//            });
-//})
-//$(document).on("focusout", ".date_input", function(event){
-//        console.log('ooooooooooooooooooooooooooooooooooooooooo',event.target.value)
-//        var id = $(event.target).data('id');
-//        var date = $(event.target).val()
-////        console.log(date);
-//        this._rpc({
-//                model: 'social.post',
-//                method: 'write',
-//                args: [[parseInt(id)], {post_method:'scheduled', scheduled_date:date}],
-//
-//            }).then(function(result){
-//                console.log("result",result);
-//            });
-//})
-//$(document).ready(function() {
-//console.log("Date fields: ", document.getElementsByClassName("date"));
-//console.log("Date fields: ", $(".date"));
-//        $('.date').on('click', function() {
-//            console.log("Date field clicked....");
-//            $('.date').calendar({
-//            type: 'date'
-//            });
-////            $('#time').calendar({
-////            type: 'time'
-////            });
-//        });
-//
-//        $('#test').on('click', function() {
-//            console.log("Date field clicked....");
-//            $('#test').calendar({
-//            type: 'date'
-//            });
-////            $('#time').calendar({
-////            type: 'time'
-////            });
-//        });
-//
-//         });
+})
 
 publicWidget.registry.websiteEventSearchSponsor = publicWidget.Widget.extend({
 
- selector:'.dashboard-table',
- events: {
-        'click .grey': '_grey',
-        'change .post_feedback_textarea': '_load_feedback',
-        'change .post_message_textarea': '_load_message',
-        'change .post_uploded_image': '_load_uploaded_image',
-//        'change .approve_text': '_approve_text',
-        'click .approve_button': '_approve_button',
+start: function () {
 
-        'click .feedback_revision': '_feedback_revision',
+//<!--                        var post_id = 'preview_' + String(id);-->
+                    var val =    $('.dateTimePicker').datetimepicker({
+                        format: 'h:mm A D MMMM YYYY',
+//<!--                        defaultDate: new Date()-->
+                        });
+                        console.log(val,'lll')
+//   var mmm =    $('.dateTimePicker_button').datetimepicker({
+//                        format: 'h:mm A D MMMM YYYY',
+////<!--                        defaultDate: new Date()-->
+//                        });
+//                        console.log(mmm,'mmm')
+},
+
+
+ selector:'.content_calendar',
+ events: {
+        'click .new_post': '_new_post',
+        'change .client_selection': '_client_selection',
+        'click .grey': '_grey',
+        'click .grey_button': '_grey_button',
+        'click .toggle-view': '_toggle_view',
+        'change .post_feedback_textarea': '_load_feedback',
+        'change .post_feedback_textarea_button': '_load_feedback_button',
+        'change .post_message_textarea': '_load_message',
+        'change .post_message_textarea_button': '_load_message_button',
+        'change .post_uploded_image': '_load_uploaded_image',
+        'change .post_uploded_image_button': '_load_uploaded_image_button',
+        'click .approve_button': '_approve_button',
+        'keydown .feedback_revision': '_feedback_revision',
+        'keydown .feedback_revision_button': '_feedback_revision_button',
         'click .not_approved_button': '_not_approved_button',
+        'click .red_button': '_red_button',
+        'click .black_button': '_black_button',
         'click .delete_image': '_delete_image',
+//        'click .delete_image_button': '_delete_image_button',
         'click .delete_upload': '_delete_upload',
-//        'click .show_less': '_show_less',
+        'click .delete_upload_button': '_delete_upload_button',
         'click .image_zoom': '_image_zoom',
-//        'click #dialogClose': '_dialogClose',
-        'blur .date_input1': '_date_input',
-        'blur .value_time': '_value_time',
+        'click .image_zoom_button': '_image_zoom_button',
+        'blur .date_button': '_date_input',
+        'blur .value_date_time': '_value_date_time',
+    },
+    _new_post:function(e){
+        e.preventDefault();
+//        console.log('aaaaaaaaaaa',e)
+//        var last_id = localStorage.setItem("last_id",last);
+        id++
+        console.log( id,'lllllllllll')
+        var upload_id = 'upload_button_' + id
+        var chartdiv_id = 'chartdiv_button_' + id
+        var green_id = 'green_button_' + id
+        var grey_id = 'grey_button_' + id
+        var more_id = 'more_id_' + id
+        console.log(grey_id)
+        var revision_id = 'revision_button_' + id
+        var preview_id = 'preview_button_' + id
+        var red_id = 'red_button_' + id
+        var black_id = 'black_button_' + id
+        var delete_upload_id = 'delete_upload_button_' + id
+        var delete_image_id = 'delete_image_button_' + id
+        var search_upload_id = 'search_upload_button_' + id
+        var description_id = 'description_button_' + id
+        var image_id = 'image_button_' + id
+        var progress_id = 'progress_button_' + id
+//        var more_zoom = 'more_zoom_'+id
+
+        $('.dashboard-table')[0].insertAdjacentHTML('beforebegin',
+            `<div class="col-sm-12 col md-12 dashboard-table">
+            <div class="col-md-12 red-border" id="new_row">
+                    <div class="db-card new_post_border" id="${id}">
+                        <div class="d-flex justify-content-center align-items-center px-4 my-2">
+                            <button class="red_button db-button db-button--actions db-button--round mr-2"
+                                    id="${red_id}">
+                                <i class="fa fa-check"></i>
+                            </button>
+                            <button class="black_button db-button db-button--actions db-button--round"
+                                    id="${black_id}">
+                                <i class="fa fa-times db-button__icons"></i>
+                            </button>
+
+                        </div>
+                        <div class="add_image sub-table-2 my-2">
+                            <div class="form-input">
+                                <div class="preview">
+                                    <a href="#" class="db-card__image-link image_zoom_button"
+                                       data-db-user-image="/dr_social_website/static/src/img/user.png"
+                                       data-db-description="${description_id}">
+
+                                        <img id="${preview_id}"/>
+                                    </a>
+                                </div>
+                                <div class="upload_view"
+                                     id="${upload_id}">
+                                    <label for="${image_id}">
+                                        <i class="fa fa-upload upload_button"></i>
+                                    </label>
+
+                                    <input type="file" id="${image_id}" accept="image/*"
+                                           class="post_uploded_image_button"/>
+                                </div>
+                            </div>
+                            <i class="delete_image_button delete_button_post fa fa-trash"
+                                                   id="${delete_image_id}"></i>
+                            <i class="delete_upload_button delete_button_post fa fa-trash"
+                                                   id="${delete_upload_id}"></i>
+                            <i class="search_upload_button search_button_post fa fa-search"
+                                           id="${search_upload_id}"></i>
+                        </div>
+
+                        <div class="ml-4 db-card__textarea-container my-2">
+                            <textarea class="db-form-control db-form-control--textarea post_message_textarea_button text-overflow"
+                                    id="${chartdiv_id}" placeholder="MESSAGE..."
+                                    name="message" style="overflow:hidden"></textarea>
+                            <a href="#" class="toggle-view seeMore more-text"
+                               id="${more_id}">
+                                more...
+                            </a>
+                            <a href="#" class="toggle-view d-none seeLess more-text">
+                                less...
+                            </a>
+                        </div>
+                        <div class="container justify-content-center align-items-center px-4 my-2">
+                            <div class="row my-5">
+                                <div class="col-4 mx-auto">
+                                    <div class="db-datepicker-group">
+                                        <input type="text"
+                                               class="db-datepicker dateTimePicker_button date_button"/>
+                                        <i class="fa fa-chevron-down db-datepicker-group__icon"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ml-3 db-card__textarea-container my-2 feedback_green">
+                            <textarea id="${id}"
+                                      placeholder="FEEDBACK..."
+                                      class="db-form-control db-form-control--textarea post_feedback_textarea_button feedback_revision_button"
+                                      name="feedback"></textarea>
+                            <div class="db-card__status">
+                                <button class="grey_button db-button db-button--actions db-button--round mr-2"
+                                        t-att-data-id="${id}" id="${grey_id}"
+                                        groups="social.group_social_manager">
+                                    <i class="fa fa-check"></i>
+                                </button>
+                                <button class="green_button db-button db-button--actions db-button--round mr-2"
+                                        id="${green_id}">
+                                    <i class="fa fa-check"></i>
+                                </button>
+                                <div class="revision_button db-card__status-text mr-2"
+                                     id="${revision_id}">
+                                    Revision Done
+                                </div>
+                                <div class="revision_progress_button db-card__status mr-2" groups="!social.group_social_manager"
+                                     id="${progress_id}">
+                                    Revision in progress
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                </div>
+
+
+                  `);
+                $("#"+revision_id).hide();
+                    $(".revision_progress_button").hide();
+                    $(".search_upload_button").hide();
+                    $(".delete_upload_button").hide();
+
+//                $(".show_less").hide();
+                $('#'+green_id).hide();
+                $('#'+more_id).hide()
+//                $('#'+more_zoom).hide()
+                 $('#' + delete_image_id).hide();
+                  var table_1 = $('#'+ id)
+                 console.log('target',table_1)
+                 table_1[0].style.border = '2px solid #ffb914';
+                 $('.top-text-org').show()
+                 $('.dateTimePicker_button').datetimepicker({
+                        format: 'h:mm A D MMMM YYYY',
+//<!--                        defaultDate: new Date()-->
+                        });
+            this._rpc({
+            model: 'social.post',
+            method: 'create',
+            args: [{res_model: this.res_model}],
+        }).then(function(result){})
+    },
+    _client_selection:function(e){
+        e.preventDefault();
+        console.log('kksdkdskkafuyyrjjey',e,e.target.value)
+        var client_name = e.target.value
+        $('.client_form').submit()
+//        ajax.jsonRpc('/client_name', 'call', {
+//        'client_name': client_name,
+//    }).then(function(result){
+////       console.log('result',result,'result')
+////         $('.div_client').html(result);
+//        })
+//        this._rpc({
+//            model: 'social.post',
+//            method: 'write',
+//            args: [[parseInt(id)], {revision_button: true, revision_progress:false}],
+//        }).then(function(result){})
     },
     _grey:function(e){
         e.preventDefault();
+        console.log('kksdkdskkafuyyrjjey',e)
         var id = e.currentTarget.dataset.id
         var green = 'green_' + String(id);
         var grey = 'grey_' + String(id);
+        var progress = 'progress_' + String(id);
         $('#'+ green).show();
         $('#'+grey).hide();
-//<!--                                            $(this).css('background-color', '#21d297');-->
+        $('#'+progress).hide();
         var value = 'revision_'+ String(e.currentTarget.dataset.id);
         $('#'+ value).show();
-                console.log(e,'dddddddddddddddddddddddddd',id)
+        this._rpc({
+            model: 'social.post',
+            method: 'write',
+            args: [[parseInt(id)], {revision_button: true, revision_progress:false}],
+        }).then(function(result){})
+    },
+    _grey_button:function(e){
+        e.preventDefault();
+        var id = e.currentTarget.attributes[1].nodeValue
+        var green = 'green_button_' + String(id);
+        var progress = 'progress_button_' + String(id);
+        var grey = 'grey_button_' + String(id);
+        $('#'+ green).show();
+        $('#'+grey).hide();
+        $('#'+progress).hide();
+        var revision = 'revision_button_'+ String(id);
+        $('#'+ revision).show();
+                        console.log('kksdkdskkafuyyrjjey',e.currentTarget.attributes[1].nodeValue,green,grey,revision)
 
         this._rpc({
             model: 'social.post',
             method: 'write',
-            args: [[parseInt(id)], {revision_button: true}],
-
-                }).then(function(result){})
+            args: [[parseInt(id)], {revision_button: true, revision_progress:false}],
+        }).then(function(result){})
     },
-        _load_feedback:function(ev){
+    _toggle_view:function(e){
+        e.preventDefault();
+        let targetTextArea = e.target.parentElement.children[0];
+        let seeMore = e.target.parentElement.children[1];
+        let seeLess = e.target.parentElement.children[2];
+        if (e.target.classList.contains('seeMore')) {
+            // Select target textarea
+            // Set height according to the content size
+            targetTextArea.style.height = targetTextArea.scrollHeight + "px";
+            // Hide more label
+            e.target.classList.add('d-none');
+            // Show less label
+            seeLess.classList.remove('d-none');
+        } else {
+            targetTextArea.style.height = "130px";
+            // Hide less label
+            e.target.classList.add('d-none');
+            // Show more label
+            seeMore.classList.remove('d-none');
+        }
+    },
+    _load_feedback:function(ev){
         ev.stopPropagation();
         var id = $(ev.target).data('id');
         var text = $(ev.target).val();
-        console.log(id,'oooooooooooooooo')
-//        var revision_button = $('.grey')
-//        var revision_text = $('.revision')
-//        var value = 'revision_'+ id;
-//        $('#'+ value).hide();
-//        revision_button.css('background-color', '#625454');
-////        console.log(text,this,revision_text);
+        var session = require('web.session');
+        var user = session.user_id
+        console.log('rrrrrr',session)
+        var progress = 'progress_' + String(id);
+//        var revision_button = 'grey_' + String(id);
+        console.log('eeeee',document.getElementById(progress))
+        setTimeout(function () {
+                        $('#'+progress).show();
+                    }, 3600000);
+//        $('#'+revision_button).hide()
         this._rpc({
                 model: 'social.post',
-                method: 'write',
-                args: [[parseInt(id)], {feedback:text}],
+                method: 'load_feedback',
+                args: [,parseInt(id), text, user],
 
             }).then(function(result){
-            });
+        });
+//        this._rpc({
+//                model: 'social.post',
+//                method: 'write',
+//                args: [[parseInt(id)], {feedback:text, client_id:user, revision_progress:true}],
+//
+//            }).then(function(result){
+//        });
+    },
+    _load_feedback_button:function(ev){
+        ev.stopPropagation();
+        var id = ev.target.id;
+        var text = $(ev.target).val();
+        var session = require('web.session');
+        var user = session.user_id
+        var progress = 'progress_button_' + String(id);
+        setTimeout(function () {
+                        $('#'+progress).show();
+                    }, 3600000);
+       this._rpc({
+                model: 'social.post',
+                method: 'load_feedback',
+                args: [,parseInt(id), text, user],
+
+            }).then(function(result){
+        });
     },
     _feedback_revision:function(ev){
         ev.stopPropagation();
@@ -254,19 +451,38 @@ publicWidget.registry.websiteEventSearchSponsor = publicWidget.Widget.extend({
         $('#'+ green).hide();
          var grey = 'grey_' + String(id);
         $('#'+grey).show();
+//        var progress = 'progress_' + String(id);
+//        console.log('hkkk',document.getElementById(progress))
+//        setTimeout(function () {
+//                        document.getElementById(progress).classList.toggle('d-none');
+//                    }, 3600);
          this._rpc({
             model: 'social.post',
             method: 'write',
             args: [[parseInt(id)], {revision_button: false}],
 
-                }).then(function(result){})
+         }).then(function(result){})
     },
-//        revision_button.css('background-color', '#625454');
-//        console.log(text,this,revision_text);
+    _feedback_revision_button:function(ev){
+        ev.stopPropagation();
+        var id = ev.target.id;
+        var revision_button = $('.grey_button')
+        var revision_text = $('.revision_button')
+        var value = 'revision_button_'+ id;
+        $('#'+ value).hide();
+        var green = 'green_button_'+ String(id);
+        $('#'+ green).hide();
+         var grey = 'grey_button_' + String(id);
+        $('#'+grey).show();
+         this._rpc({
+            model: 'social.post',
+            method: 'write',
+            args: [[parseInt(id)], {revision_button: false}],
 
+         }).then(function(result){})
+    },
 
     _load_message:function(ev){
-        console.log(ev,'messsssssssss')
         var id = ev.target.offsetParent.dataset.id;
         var message = $(ev.target).val();
         this._rpc({
@@ -278,36 +494,53 @@ publicWidget.registry.websiteEventSearchSponsor = publicWidget.Widget.extend({
                 console.log("result",result);
                     var more_id = 'more_'+ String(id);
                     if (ev.target.scrollHeight > 130) {
-//                    console.log(post_id,more_id,text[i].scrollHeight)
                        $('#'+more_id).show()
                     }
             });
     },
-     _load_uploaded_image:function(ev){
+
+    _load_message_button:function(ev){
+        var id = ev.currentTarget.offsetParent.id;
+            console.log('jjj',ev,'hh',id)
+
+        var message = $(ev.target).val();
+        this._rpc({
+                model: 'social.post',
+                method: 'write',
+                args: [[parseInt(id)], {message:message}],
+
+            }).then(function(result){
+                console.log("result",result);
+                    var more_id = 'more_id_'+ String(id);
+                    if (ev.target.scrollHeight > 130) {
+                       $('#'+more_id).show()
+                    }
+            });
+    },
+    _load_uploaded_image:function(ev){
         ev.stopPropagation();
         var post_id = 'preview_' + String(ev.target.id);
         var image_id = ev.target.id;
         if(ev.target.files.length > 0){
-        var src = URL.createObjectURL(ev.target.files[0]);
-        var preview = document.getElementById(post_id);
-        preview.src = src;
-        preview.style.display = "block";
-        var delete_upload = 'delete_upload_' + String(ev.target.id);
-         var upload = document.getElementById(delete_upload);
-//         console.log(upload,delete_upload,'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii')
-
-         upload.classList.toggle("d-none");
-//        $('#' + delete_upload).toggle('d-none');
+            var src = URL.createObjectURL(ev.target.files[0]);
+            var preview = document.getElementById(post_id);
+            preview.src = src;
+            preview.style.display = "block";
+            var delete_upload = 'delete_upload_' + String(ev.target.id);
+             $('#'+delete_upload).show()
+             var search_upload = 'search_upload_' + String(image_id);
+            $('#'+search_upload).show()
         }
 
        var self = this
        var id = $(ev.target).data('id');
        var image = ev.target.files;
+       console.log('pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp',id,image)
        for (let i = 0; i < image.length; i++) {
-          image = image[i]
-          var name = image.name
-          var reader = new FileReader();
-//           console.log(image,name,ev.target.result)
+           image = image[i]
+           console.log(image,';;;;;;;;;;;;;;;;;;;;;')
+           var name = image.name
+           var reader = new FileReader();
            reader.readAsDataURL(image);
            reader.onload = function(ev) {
            self._rpc({
@@ -316,167 +549,135 @@ publicWidget.registry.websiteEventSearchSponsor = publicWidget.Widget.extend({
                 args: [ ,parseInt(id),name,ev.target.result],
 
             }).then(function(result){
-//                var post_id = '.test_preview_' + String(image_id);
-//                console.log("add_image",post_id);
-//                $(post_id).load(window.location.href + " "+post_id);
-
             });
-        }
-//        $(".db-card").load(window.location.href + " .db-card");
-        }
-//                $('#'+ post_id).load(window.location.href + ' #'+ post_id);
-
-//        $("#image_reload").load(location.href + " #image_reload");
-//        location.reload()
-
-//        $('.preview').load(window.location.href + ".preview" );
-//        this.reload();
-//        const img_val= (image) =>
-//    image.replace('data:', '').replace(/^.+,/, '');
-//        console.log(typeof image,'image')
-
-//        console.log('kkkkkkkkkkk',document.getElementById('attachments'))
-//        var attachment1 = document.getElementById('attachments').files[0];
-//        if (attachment1){
-//        console.log('iiiiiiiiiiiii')
-//            var reader = new FileReader();
-//            reader.readAsDataURL(attachment1);
-//            reader.onload = function(ev)
-//    {
-//        this._rpc({
-////            'w_submission': w_submission,
-////            'project_summary_three_phase': project_summary_validation.project_summary_2,
-////            'project_summary_single_phase': project_summary_validation.project_summary_1,
-//            'attachment': ev.target.result,
-////            'attachment_name': attachment1.name,
-////            'user_id': session.user_id
-//        }).then(function(data){
-//            window.location.href = data;
-//        });
-//    }
-//}
-
-
+            }
+       }
     },
-//      _show_more:function(ev){
-//          var text = $('.text-overflow');
-//           console.log('h',ev.delegateTarget.dataset.id)
-//          var post_id = ev.delegateTarget.dataset.id
-//          var id = 'chartdiv_'+ String(post_id);
-//          for (let i = 0; i < text.length; i++) {
-//               if (ev.delegateTarget.dataset.id == post_id) {
-//                   var h = text[i].scrollHeight;
-//
-//                   var value = String(h) + 'px'
-//                   document.getElementById(id).style.height = value;
-//                   $("#less_"+post_id).show();
-//                   $("#more_"+post_id).hide();
-//}
-//}
-//    },
-     _delete_image:function(ev){
-     console.log('lllllllllllllllllllllllllllllllllllllllllllllllllll',ev,ev.target.parentElement.children[1].firstElementChild.dataset.dbTarget,ev.currentTarget.nextElementSibling.dataset.dbTarget)
-     var id = ev.delegateTarget.dataset.id
-      var image_id = 'image_id_' + String(id)
-      var upload_id = 'upload_id_' + String(id)
-     var image = $('#'+ image_id)[0].src
-//     var image = ev.currentTarget.nextElementSibling.dataset.dbTarget
-     this._rpc({
+    _load_uploaded_image_button:function(ev){
+        ev.stopPropagation();
+        var id = ev.target.parentNode.offsetParent.id
+        var post_id = 'preview_button_' + String(id);
+            console.log(ev,'dddddddddddd',post_id,document.getElementById(post_id))
+
+//        var image_id = ev.target.id;
+        if(ev.target.files.length > 0){
+            var src = URL.createObjectURL(ev.target.files[0]);
+            var preview = document.getElementById(post_id);
+            preview.src = src;
+            preview.style.display = "block";
+            var delete_upload = 'delete_upload_button_' + String(id);
+            $('#' + delete_upload).show();
+//            var upload = document.getElementById(delete_upload);
+//            upload.classList.toggle("d-none");
+            var search_upload = 'search_upload_button_' + String(id);
+            $('#' + search_upload).show();
+//            var search_icon = document.getElementById(search_upload);
+//            search_icon.classList.toggle("d-none");
+        }
+
+       var self = this
+//       var id = ev.target.id;
+       var image = ev.target.files;
+       for (let i = 0; i < image.length; i++) {
+           image = image[i]
+           var name = image.name
+           var reader = new FileReader();
+           reader.readAsDataURL(image);
+           reader.onload = function(ev) {
+           self._rpc({
                 model: 'social.post',
-                method: 'delete_image',
-                args: [ ,parseInt(id),image],
+                method: 'image_path',
+                args: [ ,parseInt(id),name,ev.target.result],
 
             }).then(function(result){
-//            var image_class = $('.image_view')
-//              if (result == '') {
+            });
+            }
+       }
+    },
+
+    _delete_image:function(ev){
+        console.log(ev,'delete_image',ev, ev.currentTarget.offsetParent.dataset.id)
+        var id = ev.currentTarget.offsetParent.dataset.id;
+        var image_id = 'image_id_' + String(id)
+        var upload_id = 'upload_id_' + String(id)
+        var image = $('#'+ image_id)[0].src
+        this._rpc({
+            model: 'social.post',
+            method: 'delete_image',
+            args: [ ,parseInt(id),image],
+
+        }).then(function(result){
               var element = document.getElementById(image_id);
-
               element.classList.add('d-none');
-              console.log(upload_id,'llllllllllllllllllllllllllllllllllllllljjjjjjjjjj',document)
               var upload = document.getElementById(upload_id);
-              console.log(upload_id,upload,'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii')
-
               upload.classList.toggle("d-none");
               var delete_image = 'delete_' + String(id)
               $('#' + delete_image).hide();
-//             }
-//              else{
-//                   var element = document.getElementById(image_id);
-//                   element.classList.add('d-none');
-//                   var target_id = '/web/image/ir.attachment/'+String(result[0])+'/datas'
-//                   console.log("resultttttttttttttttttttt",result,target_id);
-//                   $('#'+image_id).attr('src', target_id);
-//              }
-            });
+              var search_image = 'search_' + String(id)
+              $('#' + search_image).hide();
+        });
     },
-     _delete_upload:function(ev){
-     var image = $('.post_uploded_image')
-     console.log('gggggggggggggggggggggggggggg',ev,'pp',image)
+    _delete_upload:function(ev){
+         var image = $('.post_uploded_image')
+//         console.log('delete_upl,oad',ev.currentTarget.offsetParent, 'eeee', ev, ev.parentElement.attributes[1].nodeValue)
+         var id = ev.currentTarget.offsetParent.dataset.id;
+         var post_id = 'preview_' + String(id);
+         for (let i = 0; i < image.length; i++) {
+            if(image[i].files.length > 0){
+                var src = URL.createObjectURL(image[i].files[0]);
+                var preview = document.getElementById(post_id);
+                preview.src = src;
+                preview.style.display = "none"
+                var delete_upload = 'delete_upload_' + String(id)
+                var search_upload = 'search_upload_' + String(id)
+                $('#' + delete_upload).hide();
+                $('#' + search_upload).hide();
+                this._rpc({
+                model: 'social.post',
+                method: 'delete_upload',
+                args: [ ,parseInt(id)],
 
-     var id = ev.delegateTarget.dataset.id
-     var post_id = 'preview_' + String(id);
-     for (let i = 0; i < image.length; i++) {
-        if(image[i].files.length > 0){
-        var src = URL.createObjectURL(image[i].files[0]);
-        var preview = document.getElementById(post_id);
-        preview.src = src;
-        preview.style.display = "none"
-        var delete_upload = 'delete_upload_' + String(id)
-        $('#' + delete_upload).hide();
-        this._rpc({
-        model: 'social.post',
-        method: 'delete_upload',
-        args: [ ,parseInt(id)],
-
-         }).then(function(result){
-         });
+                 }).then(function(result){
+                 });
+            }
          }
-        }
-        },
-//     var post_id = 'preview_' + String(id);
-////      var image_id = 'image_id_' + String(id)
-//      var upload_id = 'upload_id_' + String(id)
-//      console.log('post_id',$('#'+post_id),'upload_id',$('#'+upload_id))
-//     var image = $('#'+ image_id)[0].src
-//     console.log(image[0].src,'pppppppppppppppppppppp')
-////     var image = ev.currentTarget.nextElementSibling.dataset.dbTarget
-//     this._rpc({
-//                model: 'social.post',
-//                method: 'delete_upload',
-//                args: [ ,parseInt(id),image],
-//
-//            }).then(function(result){
-////            var image_class = $('.image_view')
-//              if (result == '') {
-//              var element = document.getElementById(image_id);
-//
-//              element.classList.add('d-none');
-//              console.log(upload_id,'llllllllllllllllllllllllllllllllllllllljjjjjjjjjj',document)
-//              var upload = document.getElementById(upload_id);
-//              console.log(upload_id,upload,'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii')
-//
-//              upload.classList.toggle("d-none");
-//              var delete_image = 'delete_' + String(id)
-//              $('#' + delete_image).hide();
-//             }
-//              else{
-//                   var element = document.getElementById(image_id);
-//                   element.classList.add('d-none');
-//                   var target_id = '/web/image/ir.attachment/'+String(result[0])+'/datas'
-//                   console.log("resultttttttttttttttttttt",result,target_id);
-//                   $('#'+image_id).attr('src', target_id);
-//              }
-//            });
+    },
+    _delete_upload_button:function(ev){
+    console.log(ev,'delete')
+         var image = $('.post_uploded_image_button')
+         var id = ev.currentTarget.offsetParent.attributes[1].nodeValue;
+         var post_id = 'preview_button_' + String(id);
+         for (let i = 0; i < image.length; i++) {
+            if(image[i].files.length > 0){
+                var src = URL.createObjectURL(image[i].files[0]);
+                var preview = document.getElementById(post_id);
+                preview.src = src;
+                preview.style.display = "none"
+                var delete_upload = 'delete_upload_button_' + String(id)
+                var search_upload = 'search_upload_button_' + String(id)
+                $('#' + delete_upload).hide();
+                $('#' + search_upload).hide();
+                this._rpc({
+                model: 'social.post',
+                method: 'delete_upload',
+                args: [ ,parseInt(id)],
 
+                 }).then(function(result){
+                 });
+            }
+         }
+    },
+//
    _date_input:function(ev){
-    var id = $(ev.target).data('id');
-    var date = $(ev.target).val()
-    console.log(date,'ddddddddddddddddddddddddddddd',id);
-    this._rpc({
+   console.log('zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz',ev,'lll',ev.target.offsetParent.offsetParent.offsetParent.id)
+        var id = ev.target.offsetParent.offsetParent.offsetParent.id;
+        var input_date_time = $(ev.target).val()
+        console.log(id,'idddddddddddddd')
+//        var date = ev.target.date
+        this._rpc({
             model: 'social.post',
-            method: 'input_date',
-//                 method: 'search_read',
-            args: [ ,parseInt(id), date],
+            method: 'date_time_change',
+            args: [,parseInt(id),input_date_time],
 
         }).then(function(result){
             console.log("result",result);
@@ -484,18 +685,14 @@ publicWidget.registry.websiteEventSearchSponsor = publicWidget.Widget.extend({
     },
 
     _image_zoom:function(e){
-        var post_id = e.delegateTarget.dataset.id;
-        var id = 'preview_' + String(e.target.id);
-//        console.log('eeeeeeeeeeeeeeeeeee',e,e.delegateTarget.dataset.id,e.currentTarget.dataset.dbDescription,e.currentTarget.dataset.dbUserImage,e.currentTarget.dataset.dbTarget)
+    console.log(e,'lllllllllllll')
+        var post_id = e.currentTarget.offsetParent.dataset.id;
+
+        var id = 'preview_' + String(post_id);
         e.preventDefault();
-        console.log('ooooooooooooo',e)
         const target_src = e.currentTarget.dataset.dbTarget;
         const message = $('#chartdiv_'+post_id).val();
         const userImage = e.currentTarget.dataset.dbUserImage;
-        console.log("Target src: ", message);
-
-//        $('.db-dialog__description').html(description);
-
         $('.db-dialog__image').attr('src', target_src);
         $('.db-dialog__user-image').attr('src', userImage);
         $('.db-overlay, .db-dialog').toggleClass('d-none');
@@ -503,139 +700,269 @@ publicWidget.registry.websiteEventSearchSponsor = publicWidget.Widget.extend({
         var description = document.getElementsByClassName('description_message');
         description[0].innerText = message;
         console.log('$(.db-dialog__description)',description)
+//        var more_id = 'more_zoom_'+ String(post_id)
+
         this._rpc({
                 model: 'social.post',
                 method: 'zoom_image',
-//                 method: 'search_read',
                 args: [, parseInt(post_id)],
 
-            }).then(function(result){
-//                console.log(result,'image',result[0].id)
-                var target_id = '/web/image/ir.attachment/'+String(result[0][0])+'/datas'
-                console.log("result",result,target_id);
-                $('.db-dialog__image').attr('src', target_id);
+        }).then(function(result){
+            var target_id = '/web/image/ir.attachment/'+String(result[0][0])+'/datas'
+            console.log("result",result,target_id);
+            $('.db-dialog__image').attr('src', target_id);
+//             if(description[0].scrollHeight < 130) {
+//        console.log('//////////////////////////////////',more_id,'kkk',description[0].scrollHeight,'ll',$('#'+more_id))
+//              $('#'+more_id).hide()
+//        }
+        });
+    },
 
-            });
-//            const target_id = $(this).data('db-id');
+    _image_zoom_button:function(e){
+    console.log(e,'lllllllllllllllllllll',e.currentTarget.offsetParent.attributes[1].nodeValue)
+        var post_id = e.currentTarget.offsetParent.attributes[1].nodeValue;
+        var id = 'preview_button_' + String(post_id);
+        var chartdiv = 'chartdiv_button_' + String(post_id);
+        console.log('chartdiv',chartdiv)
+        e.preventDefault();
+        const target_src = e.currentTarget.dataset.dbTarget;
+        const message = $('#'+ chartdiv).val();
+         console.log('message',message)
+        const userImage = e.currentTarget.dataset.dbUserImage;
+        $('.db-dialog__image').attr('src', target_src);
+        $('.db-dialog__user-image').attr('src', userImage);
+        $('.db-overlay, .db-dialog').toggleClass('d-none');
+        $('body').css('overflow-y', 'hidden');
+        var description = document.getElementsByClassName('description_message');
+        description[0].innerText = message;
+//        console.log('$(.db-dialog__description)',description)
+        this._rpc({
+                model: 'social.post',
+                method: 'zoom_image',
+                args: [, parseInt(post_id)],
 
-        },
+        }).then(function(result){
+            var target_id = '/web/image/ir.attachment/'+String(result[0][0])+'/datas'
+            console.log("result",result,target_id);
+            $('.db-dialog__image').attr('src', target_id);
 
-//    _dialogClose:function(e){
-//      console.log('kkkkaaaaa',e)
-//        e.preventDefault();
-//            $('.db-overlay, .db-dialog').addClass('d-none');
-//            $('body').css('overflow-y', 'auto');
-//    },
-    _value_time:function(ev){
-    ev.stopPropagation();
-//      console.log('jjjjjjjj',ev)
-        var id = $(ev.target).data('id');
-        var input_time = $(ev.target).val()
-        var date = ev.target.date
-//        if (input_time = ' '){
-//            console.log('ddddddddddddd')
-//            }else {
-                this._rpc({
-                    model: 'social.post',
-                    method: 'time_change',
-                    args: [,parseInt(id),input_time],
+        });
+    },
 
-                }).then(function(result){
-                    console.log("result",result);
-                });
-//            }
+    _value_date_time:function(ev){
+        ev.stopPropagation();
+        console.log(ev,'daaaaaaaaaaaaaaa')
+        var id = ev.target.id;
+        var input_date_time = $(ev.target).val()
+        console.log(id,'idddddddddddddd')
+//        var date = ev.target.date
+        this._rpc({
+            model: 'social.post',
+            method: 'date_time_change',
+            args: [,parseInt(id),input_date_time],
+
+        }).then(function(result){
+            console.log("result",result);
+        });
     },
 
     _approve_button: function (ev) {
-    ev.stopPropagation();
-//    var posts = $('.dashboard-table')
-    var id = ev.currentTarget.offsetParent.dataset.id
-//    console.log('approveeeeeeeeeee',posts)
-//     this._rpc({
-//        model: 'social.post',
-//        method: 'write',
-//        args: [[parseInt(id)], {state:'scheduled'}],
-//
-//    }).then(function(result){
-//        console.log("result",result);
-//    });
-    this._rpc({
-        model: 'social.post',
-        method: 'approve_text',
-        args: [ ,parseInt(id)],
+        ev.stopPropagation();
+        var id = ev.currentTarget.offsetParent.dataset.id
+        this._rpc({
+            model: 'social.post',
+            method: 'approve_text',
+            args: [ ,parseInt(id)],
 
-    }).then(function(result){
-        console.log("result",result);
-        if (result == 'Hide text'){
-            $(".top-text-org").hide();
-        }
-    });
+        }).then(function(result){
+            console.log("result",result);
+            if (result == 'Hide text'){
+                $(".top-text-org").hide();
+            }
+        });
     },
-//
-//     _approve_text:function(ev){
-//     console.log('fffffffffffffffffffffffffffffffffffffffffffffffffff')
-//        ev.stopPropagation();
-////      console.log('jjjjjjjj',ev)
-//        var id = ev.currentTarget.offsetParent.dataset.id;
-////        if (input_time = ' '){
-////            console.log('ddddddddddddd')
-////            }else {
-//                this._rpc({
-//                    model: 'social.post',
-//                    method: 'approve_text',
-//                    args: [,parseInt(id)],
-//
-//                }).then(function(result){
-//                    console.log("result",result);
-//                });
-////            }
-//    },
 
      _not_approved_button: function (ev) {
-     var posts = $('.dashboard-table')
-     var id = ev.currentTarget.offsetParent.dataset.id
-          console.log('not approveeeeeeee',id)
+        var posts = $('.dashboard-table')
+        var id = ev.currentTarget.offsetParent.dataset.id
+        this._rpc({
+            model: 'social.post',
+            method: 'not_approve_text',
+            args: [ ,parseInt(id)],
 
-//     this._rpc({
-//                model: 'social.post',
-//                method: 'write',
-//                args: [[parseInt(id)], {state:'not_approved'}],
-//
-//            }).then(function(result){
-//                console.log("result",result);
-//            });
-         this._rpc({
-                model: 'social.post',
-                method: 'not_approve_text',
-                args: [ ,parseInt(id)],
+        }).then(function(result){
+            console.log("result",result);
+            if (result == 'Hide text'){
+                 $(".top-text-org").hide();
+            }
+        });
+    },
+    _red_button: function (ev) {
+    console.log(ev,'rrrrrrrrrrrrrrrrrrrrrrrr',ev.currentTarget.offsetParent.id)
+        var id = ev.currentTarget.offsetParent.id
+        ev.currentTarget.nextElementSibling.style['background-color']= '#AAA7A9'
+        ev.currentTarget.offsetParent.style.border = 'none';
+        ev.currentTarget.style['background-color'] = '#00F5BE';
+        this._rpc({
+            model: 'social.post',
+            method: 'approve_text',
+            args: [ ,parseInt(id)],
 
-            }).then(function(result){
-                console.log("result",result);
-                if (result == 'Hide text'){
-                     $(".top-text-org").hide();
-                }
-            });
-
+        }).then(function(result){
+            console.log("result",result);
+            if (result == 'Hide text'){
+                $(".top-text-org").hide();
+            }
+        });
     },
 
 
-//    _image_preview: function (ev) {
-//         var id = $(ev.target).data('id')
-////         this._rpc({
-////                    model: 'social.post',
-////                    method: 'write',
-////                    args: [[parseInt(id)], {image_ids:'not_approved'}],
-////
-////                }).then(function(result){
-////                    console.log("result",result);
-////                });
-//        },
-//        _add_image: function (ev) {
-//        console.log('image',$(ev.target).data())
-//        }
+    _black_button: function (ev) {
+        var posts = $('.dashboard-table')
+        console.log(ev,'bbbbbbbbbbbbbbbbbbbbb',ev.currentTarget.offsetParent.id)
+        var id = ev.currentTarget.offsetParent.id
+        ev.currentTarget.offsetParent.style.border = '2px solid red'
+        ev.currentTarget.style['background-color']='red';
+        ev.currentTarget.previousElementSibling.style['background-color']= '#AAA7A9';
+        this._rpc({
+            model: 'social.post',
+            method: 'not_approve_text',
+            args: [ ,parseInt(id)],
 
+        }).then(function(result){
+            console.log("result",result);
+            if (result == 'Hide text'){
+                 $(".top-text-org").hide();
+            }
+        });
+    },
 
 })
+//publicWidget.registry.websiteImageZoom = publicWidget.Widget.extend({
+//    selector:'.image_insta',
+////    xmlDependencies: ['/dr_social_website/static/src/xml/search.xml'],
+//    events: {
+//        'input .search_value': '_onInput',
+//        'focusout': '_onFocusOut',
+//        'keydown .search-query': '_onKeydown',
+//        'search .search-query': '_onSearch',
+//    },
+//    async _fetch() {
+//        const res = await this._rpc({
+//            route: '/content_calendar',
+//            params: {
+////                'search_type': this.searchType,
+//                'term': this.$input.val(),
+////                'order': this.order,
+////                'limit': this.limit,
+////                'max_nb_chars': Math.round(Math.max(this.autocompleteMinWidth, parseInt(this.$el.width())) * 0.22),
+////                'options': this.options,
+//            },
+//        });
+////        const fieldNames = [
+////            'name',
+////            'description',
+////            'extra_link',
+////            'detail',
+////            'detail_strike',
+////            'detail_extra',
+////        ];
+////        res.results.forEach(record => {
+////            for (const fieldName of fieldNames) {
+////                if (record[fieldName]) {
+////                    if (typeof record[fieldName] === "object") {
+////                        for (const fieldKey of Object.keys(record[fieldName])) {
+////                            record[fieldName][fieldKey] = Markup(record[fieldName][fieldKey]);
+////                        }
+////                    } else {
+////                        record[fieldName] = Markup(record[fieldName]);
+////                    }
+////                }
+////            }
+////        });
+//        return res;
+//    },
+//
+//    _onInput: function () {
+//        if (!this.limit) {
+//            return;
+//        }
+//        if (this.searchType === 'all' && !this.$input.val().trim().length) {
+//            this._render();
+//        } else {
+//            this._dp.add(this._fetch()).then(this._render.bind(this));
+//        }
+//    },
+//    /**
+//     * @private
+//     */
+//    _onFocusOut: function () {
+//        if (!this.$el.has(document.activeElement).length) {
+//            this._render();
+//        }
+//    },
+//    /**
+//     * @private
+//     */
+//    _onKeydown: function (ev) {
+//        switch (ev.which) {
+//            case $.ui.keyCode.ESCAPE:
+//                this._render();
+//                break;
+//            case $.ui.keyCode.UP:
+//            case $.ui.keyCode.DOWN:
+//                ev.preventDefault();
+//                if (this.$menu) {
+//                    let $element = ev.which === $.ui.keyCode.UP ? this.$menu.children().last() : this.$menu.children().first();
+//                    $element.focus();
+//                }
+//                break;
+//            case $.ui.keyCode.ENTER:
+//                this.limit = 0; // prevent autocomplete
+//                break;
+//        }
+//    },
+//    /**
+//     * @private
+//     */
+//    _onSearch: function (ev) {
+//        if (this.$input[0].value) { // actual search
+//            this.limit = 0; // prevent autocomplete
+//        } else { // clear button clicked
+//            this._render(); // remove existing suggestions
+//            ev.preventDefault();
+//            if (!this.wasEmpty) {
+//                this.limit = 0; // prevent autocomplete
+//                const form = this.$('.o_search_order_by').parents('form');
+//                form.submit();
+//            }
+//        }
+//    },
+//
+//
+////         _toggle_view_zoom:function(e){
+////        e.preventDefault();
+////        console.log('................................................',e)
+////        let targetTextArea = e.target.parentElement.children[1];
+////        let seeMore = e.target.parentElement.children[2];
+////        let seeLess = e.target.parentElement.children[3];
+////        if (e.target.classList.contains('seeMore')) {
+////            // Select target textarea
+////            // Set height according to the content size
+////            targetTextArea.style.height = targetTextArea.scrollHeight + "px";
+////            // Hide more label
+////            e.target.classList.add('d-none');
+////            // Show less label
+////            seeLess.classList.remove('d-none');
+////        } else {
+////            targetTextArea.style.height = "100px";
+////            // Hide less label
+////            e.target.classList.add('d-none');
+////            // Show more label
+////            seeMore.classList.remove('d-none');
+////        }
+////    },
+//})
 publicWidget.registry.websiteEventSearchSponsorss = publicWidget.Widget.extend({
 
  selector:'.db-wrapper',
@@ -647,7 +974,6 @@ publicWidget.registry.websiteEventSearchSponsorss = publicWidget.Widget.extend({
 
     willStart: function () {
 //        $('.o_header_standard').addClass('header_hide')
-//        $('.o_footer').addClass('header_hide')
     let locals_datas = []
     console.log('locals_datas', locals_datas)
 
@@ -841,9 +1167,6 @@ publicWidget.registry.websiteEventSearchSponsorss = publicWidget.Widget.extend({
     },
 
     _load_client_name:function(ev){
-        console.log('ooooooooooooooooooooooooooooooooooooooo', $('.o_header_standard'))
-//                console.log('pppppppppppppppppooooooooooooopppppppppppppppp', locals_datas)
-
         var id = $('.db-schedule-input-container__bullet');
         var day = $('.focused');
         var month = $('.view-switch');
@@ -856,37 +1179,9 @@ publicWidget.registry.websiteEventSearchSponsorss = publicWidget.Widget.extend({
         for (var i = 0 ; i < id.length ; i++) {
             self.client_name = id[i].parentElement.outerText
         }
-
-//         this._rpc({
-//             model: 'revision.request.client',
-//                    method: 'client_name',
-//                    args: [self.client_name,date_day,date_month],
-//        }).then(function(result){
-//            console.log("result!!!!!!!!!11",result);
-//            console.log("result!!!!!!!!!11",result[0]);
-//            console.log("***************",$('.db-schedule-input-container__bullet'));
-//
-//        });
-
     },
-//        _load_client_name:function(ev){
-//            this._rpc({
-//             model: 'revision.request.client',
-//                    method: 'client_name',
-//                    args: [self.client_name,date_day,date_month],
-//        }).then(function(result){
-//            console.log("result!!!!!!!!!11",result);
-//            console.log("result!!!!!!!!!11",result[0]);
-//            $('.db-schedule-input-container__bullet mr-3').empty()
-//            $('.db-schedule-input-container__item').append('<div class="db-schedule-input-container__bullet mr-3">'+ result[0] +'</div>')
-//
-//
-//
-//        });
-//    },
+
 });
-
-
 });
 
 
@@ -894,27 +1189,3 @@ publicWidget.registry.websiteEventSearchSponsorss = publicWidget.Widget.extend({
 
 
 
-
-//var AbstractAction = require('web.AbstractAction');
-//var ajax = require('web.ajax');
-//var core = require('web.core');
-//var rpc = require('web.rpc');
-//var session = require('web.session');
-//var web_client = require('web.web_client');
-//var _t = core._t;
-//var QWeb = core.qweb;
-//
-//
-//var ContentCalendar = AbstractAction.extend({
-//    template: 'content_calendar',
-//
-//    hasControlPanel: true,
-//    loadControlPanel: true, // default: false
-//
-//    init: function(parent, context) {
-//    this.action_id = context['id'];
-//    this._super(parent, context);
-//    this.content_blocks = [1,2,3]
-//    },
-//
-//});

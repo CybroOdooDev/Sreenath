@@ -4,91 +4,143 @@
     <template id="home" name="Social Home">
         <t t-call="website.layout">
             <div t-attf-class="h-100 dr_website_social #{'dr-onboarding-mode' if isOnbording else ' '}">
-                <div class="container pb-2"> </div>  <!-- clear fix -->
+                    <div class="db-container container py-5">
+      <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+          <strong class="db-text--main">Almost Done!</strong>
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-12">
+          <div class="progress db-progress mt-2">
+            <div class="db-progress__label db-shadow" style="left: 90%;">90%</div>
+            <div class="progress-bar db-progress_bar db-progress_bar--primary" role="progressbar" aria-valuenow="0"
+              aria-valuemin="0" aria-valuemax="100" style="width: 90%;"></div>
+          </div>
+        </div>
+        <div class="col-sm-12 col md-12 col-lg-12">
+          <div class="db-shadow db-rounded d-flex justify-content-between align-items-center mt-5 mb-3 p-3">
+            <strong class="db-text--main">Your Social Media Pages</strong>
+                  <button type="button" class="dr_social_link  db-button db-button--border-sm db-button--primary">
+              Connect New social Media Pages
+                    </button>
+          </div>
+          <div class="db-shadow p-5 my-5 position-relative">
+            <a href="#" class="db-text--main" style="position: absolute; right: 20px; top: 20px;"><i
+                class="fa fa-times"></i></a>
+            <div class="d-flex flex-column align-items-center" style="min-height: 180px;">
+              <h2 class="w-75 text-center db-text--h3 mb-4"><strong>Click on the icon to connect your page</strong></h2>
+              <div class="row d-flex justify-content-center flex-wrap">
+              <div class="col-sm-12 col-md-6 col-lg-6 d-flex flex-column align-items-center">
+                    <t t-foreach="linked_accounts" t-as="account">
+                        <t t-set="media_sudo" t-value="account.media_id.sudo()"/>
+                            <img class="img img-fluid w-100"
+                                 t-attf-src="/web/image/social.account/#{account.id}/image"/>
+                                          <strong class="text-center mt-2"><t t-esc="media_sudo.name"/></strong>
 
-                <div class="container">
-
-                    <!-- HEADER -->
-                    <div class="d-flex bg-white rounded justify-content-between border mt-4 p-3">
-                        <div>
-                            <h4 class="mb-0"> Your social accounts </h4>
-                        </div>
-                        <div class="pr-2">
-                            <button type="button" class="dr_social_link btn btn-fill-primary h-100 py-0 float-right shadow-sm text-white">
-                                <span class="fa fa-plus" style="font-size: 13px;padding-right: 3px;"></span>
-                                    <b> LINK NEW ACCOUNT </b>
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Linked Account LIST -->
-                    <div class="row mt-4" t-if="linked_accounts">
-                        <t t-foreach="linked_accounts" t-as="account">
-                            <div class="col-md-4">
-                                <div class="card mb-3" style="max-width: 540px;">
-                                    <t t-set="media_sudo" t-value="account.media_id.sudo()"/>
-                                    <div class="row no-gutters">
-                                        <div class="col-md-4 border-right">
-                                            <img class="img img-fluid w-100" t-attf-src="/web/image/social.account/#{account.id}/image"/>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <div class="card-body p-3">
-                                                <h5 class="card-title mb-1" t-esc="account.name"/>
-                                                <small class="dr_media_pill border">
-                                                    <img class="dr_media_icon" t-attf-src="/dr_social_website/static/src/img/#{media_sudo.media_type}.svg"/>
-                                                    <t t-esc="media_sudo.name"/>
-                                                </small>
-                                                <div class="dr_status bg-danger" t-if="account.is_media_disconnected">
-                                                    <i class="fa fa-chain-broken" />
-                                                </div>
-                                                <div class="dr_status bg-success" t-else="">
-                                                    <i class="fa fa-check" />
-                                                </div>
-                                                <div t-if="account.is_media_disconnected" class="mt-1">
-                                                    <small class="text-danger"> Disconncted </small>
-                                                    <button class="btn bg-danger btn-sm dr_relink_btn" t-att-data-media-id="media_sudo.id"> <i class="fa fa-link"></i> Relink </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </t>
-                        <t t-if="isOnbording">
-                            <div class="col-12 d-flex justify-content-center">
-                                <a role="button" class="btn btn-primary btn-lg m-3" href="/social/thank_you">
-                                Finish
-                                </a>
-                            </div>
-                        </t>
-                    </div>
-
-                    <div class="row" t-else="">
-                        <div class="col-12">
-                            <div class="bg-100 rounded my-4 py-5 text-center" style="box-shadow: 0px 0px 19px rgba(0, 0, 0, 0.05) inset;">
-                                <h4 class="mb-0 text-muted"> You havn't linked any account. </h4>
-                                <small class="mb-0 text-muted"> Please link your social account with given button. </small>
-                                <div>
-                                    <button type="button" class="dr_social_link btn text-muted rounded-circle  text-muted mt-2 border" style="border: 1px solid #b1b1b1 !important;">
-                                        <span class="fa fa-plus-circle" style="font-size: 14px;padding-right: 3px;"></span>
-                                            <b> LINK NEW ACCOUNT </b>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    </t>
                 </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+<!--                <div class="container pb-2"></div>  &lt;!&ndash; clear fix &ndash;&gt;-->
+
+<!--                <div class="container">-->
+
+<!--                    &lt;!&ndash; HEADER &ndash;&gt;-->
+<!--                    <div class="d-flex bg-white rounded justify-content-between border mt-4 p-3">-->
+<!--                        <div>-->
+<!--                            <h4 class="mb-0">Your social accounts</h4>-->
+<!--                        </div>-->
+<!--                        <div class="pr-2">-->
+<!--                            <button type="button"-->
+<!--                                    class="dr_social_link btn btn-fill-primary h-100 py-0 float-right shadow-sm text-white">-->
+<!--                                <span class="fa fa-plus" style="font-size: 13px;padding-right: 3px;"></span>-->
+<!--                                <b>LINK NEW ACCOUNT</b>-->
+<!--                            </button>-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+<!--                    &lt;!&ndash; Linked Account LIST &ndash;&gt;-->
+<!--                    <div class="row mt-4" t-if="linked_accounts">-->
+<!--                        <t t-foreach="linked_accounts" t-as="account">-->
+<!--                            <div class="col-md-4">-->
+<!--                                <div class="card mb-3" style="max-width: 540px;">-->
+<!--                                    <t t-set="media_sudo" t-value="account.media_id.sudo()"/>-->
+<!--                                    <div class="row no-gutters">-->
+<!--                                        <div class="col-md-4 border-right">-->
+<!--                                            <img class="img img-fluid w-100"-->
+<!--                                                 t-attf-src="/web/image/social.account/#{account.id}/image"/>-->
+<!--                                        </div>-->
+<!--                                        <div class="col-md-8">-->
+<!--                                            <div class="card-body p-3">-->
+<!--                                                <h5 class="card-title mb-1" t-esc="account.name"/>-->
+<!--                                                <small class="dr_media_pill border">-->
+<!--                                                    <img class="dr_media_icon"-->
+<!--                                                         t-attf-src="/dr_social_website/static/src/img/#{media_sudo.media_type}.svg"/>-->
+<!--                                                    <t t-esc="media_sudo.name"/>-->
+<!--                                                </small>-->
+<!--                                                <div class="dr_status bg-danger" t-if="account.is_media_disconnected">-->
+<!--                                                    <i class="fa fa-chain-broken"/>-->
+<!--                                                </div>-->
+<!--                                                <div class="dr_status bg-success" t-else="">-->
+<!--                                                    <i class="fa fa-check"/>-->
+<!--                                                </div>-->
+<!--                                                <div t-if="account.is_media_disconnected" class="mt-1">-->
+<!--                                                    <small class="text-danger">Disconncted</small>-->
+<!--                                                    <button class="btn bg-danger btn-sm dr_relink_btn"-->
+<!--                                                            t-att-data-media-id="media_sudo.id">-->
+<!--                                                        <i class="fa fa-link"></i> Relink-->
+<!--                                                    </button>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </t>-->
+<!--                        <t t-if="isOnbording">-->
+<!--                            <div class="col-12 d-flex justify-content-center">-->
+<!--                                <a role="button" class="btn btn-primary btn-lg m-3" href="/social/thank_you">-->
+<!--                                    Finish-->
+<!--                                </a>-->
+<!--                            </div>-->
+<!--                        </t>-->
+<!--                    </div>-->
+
+<!--                    <div class="row" t-else="">-->
+<!--                        <div class="col-12">-->
+<!--                            <div class="bg-100 rounded my-4 py-5 text-center"-->
+<!--                                 style="box-shadow: 0px 0px 19px rgba(0, 0, 0, 0.05) inset;">-->
+<!--                                <h4 class="mb-0 text-muted">You havn't linked any account.</h4>-->
+<!--                                <small class="mb-0 text-muted">Please link your social account with given button.-->
+<!--                                </small>-->
+<!--                                <div>-->
+<!--                                    <button type="button"-->
+<!--                                            class="dr_social_link btn text-muted rounded-circle  text-muted mt-2 border"-->
+<!--                                            style="border: 1px solid #b1b1b1 !important;">-->
+<!--                                        <span class="fa fa-plus-circle"-->
+<!--                                              style="font-size: 14px;padding-right: 3px;"></span>-->
+<!--                                        <b>LINK NEW ACCOUNT</b>-->
+<!--                                    </button>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
             </div>
         </t>
     </template>
 
     <template id="my_social_account_link" name="Link to social portal" inherit_id="portal.user_dropdown">
         <xpath expr="//*[@id='o_logout_divider']" position="before">
-            <a href="/social/home" role="menuitem" class="dropdown-item"> Social Accounts </a>
+            <a href="/social/home" role="menuitem" class="dropdown-item">Social Accounts</a>
         </xpath>
     </template>
 
-    <template id="portal_my_home" name="Show social accounts" customize_show="True" inherit_id="portal.portal_my_home" priority="20">
+    <template id="portal_my_home" name="Show social accounts" customize_show="True" inherit_id="portal.portal_my_home"
+              priority="20">
         <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
             <t t-call="portal.portal_docs_entry">
                 <t t-set="title">Social Accounts</t>
@@ -100,20 +152,32 @@
 
     <template id="dr_thankyou" name="Thank You">
         <t t-call="website.layout">
-            <div class="container dr_thankyou text-center my-3">
-                <div class="row text-center">
-                    <div class="col-12">
-                        <h1 class="font-weight-bold h3 my-3"><span class="pg-primarys">Thanks!</span>
-                            <span style="font-family: Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;"> You're all setup!</span></h1>
-                        <div class="progress my-4">
-                            <div class="progress-bars w-100 progress-bar-striped" role="progressbar" style="width: 100%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">
-                                <span class="dr_done text-center">Done!</span>
-                            </div>
+            <div class="db-container container py-5">
+                <div class="row">
+                    <div class="col-sm-12 col-md-12 col-lg-12">
+                        <strong class="db-text--main">Almost Done!</strong>
+                    </div>
+                    <div class="col-sm-12 col-md-12 col-lg-12">
+                        <div class="progress db-progress mt-2">
+                            <div class="db-progress__label db-shadow" style="left: 95%;">100%</div>
+                            <div class="progress-bar db-progress_bar db-progress_bar--primary" role="progressbar"
+                                 aria-valuenow="0"
+                                 aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
                         </div>
-                        <p class="text-muted">You will receive an email from your account manager in next 24 hours. this is a greatetime to get to know your<br/>
-                        account manager and  send over any questions you may still have.</p>
-                        <p class="my-3 text-muted">Your account manager will send over your first 7 posts sortly after that!</p>
-                        <img src="/dr_social_website/static/src/img/thankyou.png" class="img mt-4 img-fluid w-100" style="max-width: 500px;"/>
+                    </div>
+                    <div class="col-sm-12 col-md-12 col-lg-6 py-3 d-flex justify-content-center align-items-center">
+                        <img src="/dr_social_website/static/src/img/Onboarding - Image 2 copy .png" width="450"
+                             height="432" class="db-onboarding__image"
+                             style="width: 90%;"/>
+                    </div>
+                    <div class="col-sm-12 col-md-12 col-lg-6 d-flex flex-column justify-content-center align-items-start">
+                        <h1 class="db-text--main-dark">You&apos;re all setup!</h1>
+
+                        <p class="mt-4 mb-4">You will receive an email from your account manager in the next 24-hours.
+                            This is a great
+                            time to get to know your account manager and send over any questions you may still have.
+                        </p>
+                        <p class="mt-4 mb-5">We will send over your first batch of posts shortly!</p>
                     </div>
                 </div>
             </div>
@@ -121,11 +185,11 @@
     </template>
 
     <template id="dr_sign_in_template" name="Sign in to sign up" inherit_id="portal.user_sign_in">
-        <xpath expr="//li" position="replace">
-            <li groups="base.group_public" t-attf-class="#{_item_class} o_no_autohide_item">
-                <a t-attf-class="#{_link_class}" t-attf-href="/web/signup?{{ keep_query() }}">Sign up</a>
-            </li>
-        </xpath>
-    </template>
+<xpath expr="//li" position="replace">
+    <li groups="base.group_public" t-attf-class="#{_item_class} o_no_autohide_item">
+        <a t-attf-class="#{_link_class}" t-attf-href="/web/signup?{{ keep_query() }}">Sign up</a>
+    </li>
+</xpath>
+</template>
 
-</odoo>
+        </odoo>

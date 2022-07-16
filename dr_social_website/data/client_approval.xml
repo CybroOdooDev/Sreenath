@@ -9,7 +9,7 @@
             <field name="body_html" type="html">
                 <div style="margin: 0px; padding: 0px; font-size: 13px;">
                     <p style="margin: 0px; padding: 0px; font-size: 13px;">
-                        Hi {client name}!
+                        Hi <t t-out="object.client_name"></t>!
 
                                 Your new batch of posts is ready for your approval!
 
@@ -20,7 +20,7 @@
                                 Best regards,
 
                                 OnyxMedia Team
-                                Refer a friend and get one month for FREE!ww
+                                Refer a friend and get one month for FREE!
                     </p>
                 </div>
             </field>

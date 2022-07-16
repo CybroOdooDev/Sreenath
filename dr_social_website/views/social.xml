@@ -9,8 +9,11 @@
                 <xpath expr="//field[@name='scheduled_date']" position="after">
                     <field name="feedback"/>
                     <field name="date" invisible="1"/>
-                    <field name="time" invisible="1"/>
+                    <field name="revision_progress" invisible="1"/>
                     <field name="revision_button" invisible="1"/>
+                    <field name="client_id"/>
+                    <field name="client_ids"/>
+                    <field name="client_name"/>
                 </xpath>
             </field>
         </record>
@@ -19,26 +22,28 @@
             <field name="name">revision.request.client.form</field>
             <field name="model">revision.request.client</field>
             <field name="arch" type="xml">
-            <form>
-                <sheet>
-                    <group>
-                        <field name="name"/>
-                        <field name="date_day"/>
-                        <field name="date_month"/>
-                    </group>
-                </sheet>
-            </form>
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="date_day"/>
+                            <field name="date_month"/>
+                            <field name="email_id"/>
+
+                        </group>
+                    </sheet>
+                </form>
             </field>
         </record>
         <record id="revision_request_client_view_tree" model="ir.ui.view">
             <field name="name">revision.request.client.tree</field>
             <field name="model">revision.request.client</field>
             <field name="arch" type="xml">
-            <tree>
-                <field name="name"/>
-                <field name="date_day"/>
-                <field name="date_month"/>
-            </tree>
+                <tree>
+                    <field name="name"/>
+                    <field name="date_day"/>
+                    <field name="date_month"/>
+                </tree>
             </field>
         </record>
 

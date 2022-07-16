@@ -8,55 +8,127 @@ from odoo.http import request
 
 class ContentCalendar(http.Controller):
 
-    @http.route(['/content_calendar'], type='http', auth="public", website=True)
-    def content_calendar(self, **kw):
+    @http.route(['/client_name'], type='json', auth="public", website=True)
+    def client_name(self, search='', **kw):
+        print('yyyyyyyyyyyyyyyyyyyyyyyyyyy',kw)
+        name = kw.get('client_name')
+        # post = request.env['social.post'].search([('client_name', '=', name)])
+        # values = {
+        #     'posts': post,
+        #     'name': name
+        # }
+        print(name,'values')
+        self.content_calendar(name)
+        return 'lll'
 
-        post = request.env['social.post'].search([])
-        print(post)
-        # user = request.uid
-        # user_tz = pytz.timezone(request.env.context.get('tz') or request.env.user.tz)
-        # print(user,'user_tz',user_tz)
+        # return request._render_template("dr_social_website.content_calendar", values)
+
+    @http.route(['/content_calendar'], type='http', auth="public", website=True, csrf=False)
+    def content_calendar(self, search='', **kw):
+        user_id = request.uid
+        if not request.env.user.has_group('social.group_social_manager'):
+            post = request.env['social.post'].search([('client_id', '=', user_id)])
+        else:
+            post = request.env['social.post'].search([])
+        client_name = request.env['revision.request.client'].search([])
+        name = ''
+        if kw.get('client_name'):
+            if kw.get('client_name'):
+                name = kw.get('client_name')
+                # if kw.get('client_name') not in post.client_name:
+                #     print('ooooooooo')
+                post = request.env['social.post'].search([('client_name', '=', kw.get('client_name'))])
+            # else:
+            #     post = request.env['social.post'].search([])
+            # values = {
+            #         'posts': post,
+            #
+            #     }
+
+        # domain=''
+        # if search:
+        #     print('kk')
+        #     post = request.env['social.post'].search([('client_name', '=', search)])
+        #     values = {
+        #         'posts': post,
+        #         'name': search
+        #
+        #     }
+        #     response = http.Response(template='dr_social_website.content_calendar', qcontext=values)
+        #     return response.render()
+
+        #     for srch in search.split(" "):
+        #         domain = ([
+        #                    ('name', 'ilike', srch),
+        #
+        #                    ])
         #
         #
-        # # print(post.read(),'images')
-        # # print(post.media_ids,'images')
+        #     client = request.env['revision.request.client'].search(domain)
+        #     # for rec in client:
+        #     post=request.env['social.post'].search([('client_name', '=', client.name)])
+        #     print('ooooooooooooooooooo',post,client.name,client)
+        # # print(client_name,'client_name')
 
+
+        for key, value in kw.items():
+            if value == '':
+                if isinstance(key, int):
+                    post = request.env['social.post'].search([('client_id', '=', key)])
+                    values = {
+                        'posts': post
+                    }
+
+        print(name,'nnnnnnnnnnnnnnnnnnnnnnn')
         values = {
-            'posts': post
+            'posts': post,
+            'docs': [x.client_name for x in post],
+            'name': name
+
         }
+        print(values,'fffffffffffffffff')
         return request.render("dr_social_website.content_calendar", values)
 
     @http.route(['/client_approval'], type='http', auth="public", website=True, csrf=False)
     def client_approval(self, **kw):
-        print('dddddddddddddddddddd')
-        template_id = request.env.ref('dr_social_website.mail_template_client_approval')
-        # template = request.env['mail.template'].browse(template_id)
-        template_id.send_mail(template_id.id, force_send=True)
-            # send_mail(
-            # self.id, force_send=True)
+          print('dddddddddddddddddddd',kw)
+        # template_id = request.env.ref('dr_social_website.mail_template_client_approval')
+        # # print(template_id,'mail_template_client_approval')
+        # # template = request.env['mail.template'].browse(template_id)
+        # # social_post = request.env['social.post'].search()
+        # template_id.send_mail(template_id.id, force_send=True)
+          revision_post = request.env['revision.request.client'].search([])
+          print(revision_post,'revision_post',request.env.company.email_formatted)
 
-    # template_id = request.env.ref(
-    #     'portal_user_join_invitation_website.mail_template_signup_invitation_internal').id
-    # template = request.env['mail.template'].browse(template_id)
-    # new_request_id = request.env.user.invited_user_ids.mapped('id')[-1]
-    # template.send_mail(new_request_id, force_send=True)
+          for rec in revision_post:
+              # body = """Your new batch of posts is ready for your approval!
+              #
+              #                 You can access your content calendar via this link: {link to login page}
+              #
+              #                 Don’t hesitate to reach out if you have any questions!
+              #
+              #                 Best regards,
+              #
+              #                 OnyxMedia Team
+              #                 Refer a friend and get one month for FREE!"""
+              mail_values = {
+                'email_from': request.env.company.email_formatted,
+                'reply_to': rec.email_id,
+                'email_to': rec.email_id,
+                'subject': 'subject',
+                'body_html': '<p> Hi ' + str(rec.name)+'!'
+                             'Your new batch of posts is ready for your approval!'
 
-    # @http.route('/submit', method='post', type='http', auth='public',
-    #             website=True, csrf=False)
-    # def send_request(self, **post):
-    #     print('hhhdjhfhg',post)
-    #     value ={
-    #             'feedback': post['feedback'],
-    #         }
-    #     print(value,'vvvvvvvvvvvvvvvvv')
-        # post= request.env['social.post'].sudo().write(
-        #    value)
-        # post= request.env['social.post'].sudo().update(
-        #    value)
+                                'You can access your content calendar via this link: {link to login page}'
 
-    # @http.route('/approve_button', method='post', type='http', auth='public',
-    #             website=True, csrf=False)
-    # def approve_button(self):
-    #     post = request.env['social.post'].search([])
-    #     print(post)
-    #     print('llllllllllllll'/client_approval)
+                                'Don’t hesitate to reach out if you have any questions!'
+
+                             '   Best regards,'
+
+                                'OnyxMedia Team'
+                                'Refer a friend and get one month for FREE!</p>',
+                'is_notification': True,
+                }
+              mail = request.env['mail.mail'].sudo().create(mail_values)
+              mail.send()
+

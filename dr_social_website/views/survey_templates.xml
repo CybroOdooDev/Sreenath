@@ -9,63 +9,160 @@
                 <img src="/dr_social_website/static/src/img/onyx-logo.png" class="img dr_logo img-fluid mb-2"
                      style="border-left-width: 0px; border-left-style: solid; margin-left: -26px;border-top-width: -0px;border-top-style: solid;padding-top: 0px;margin-top: -30px;"/>
             </div>
+
         </xpath>
     </template>
 
+    <template id="survey.layout" name="Survey Layout" inherit_id="web.frontend_layout" primary="True">
+        <xpath expr="//div[@id='wrapwrap']" position="before">
+            <br/>
+            <br/>
+
+            <div class="db-sidebar-container">
+                <!-- Sidebar -->
+                <nav class="db-sidebar-2 px-4" style="margin-top: 61px;">
+                    <div class="dropdown">
+                        <div class="dropdown-menu db-sidebar__dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <a class="dropdown-item" href="#">Something else here</a>
+                        </div>
+                    </div>
+                    <a href="/content_calendar" class="db-sidebar__item home">
+                        <img src="/dr_social_website/static/src/img/user1.png">Home</img>
+                    </a>
+                    <a href="#" class="db-sidebar__item">
+                        <img src="/dr_social_website/static/src/img/calendar-check-02.png">Content</img>
+                        <!--                                <i class="fa fa-calendar" id="searchToggle">Content</i>-->
+                    </a>
+                    <a href="/revision_requests" class="db-sidebar__item">
+                        <img src="/dr_social_website/static/src/img/intersect-square.png">Pages</img>
+                        <!--                                <i class="fa fa-calendar">Pages</i>-->
+                    </a>
+                    <a href="#" class="db-sidebar__item">
+                        <img src="/dr_social_website/static/src/img/more.png">More</img>
+                        <!--                                <i class="fa fa-calendar">More</i>-->
+                    </a>
+                </nav>
+                <!-- End of Sidebar -->
+            </div>
+
+            <!--TODO DBE Fix me : If one day, there is a survey_livechat bridge module, put this in that module-->
+            <t t-set="no_livechat" t-value="True"/>
+        </xpath>
+        <xpath expr="//div[@id='wrapwrap']" position="attributes">
+            <attribute name="t-att-style" add="(('height: 100%; overflow: auto; background: url(' + '/survey/get_background_image/%s/%s' % (survey.access_token, answer.access_token) + ') no-repeat fixed center; box-shadow: inset 0 0 0 10000px rgba(255,255,255,.7); background-size: cover;') if survey and survey.background_image and answer else 'height: 100%; overflow: auto;')"/>
+        </xpath>
+        <xpath expr="//head/t[@t-call-assets][last()]" position="after">
+            <t t-call-assets="survey.survey_assets" lazy_load="True"/>
+        </xpath>
+        <xpath expr="//header" position="before">
+            <t t-set="no_header" t-value="True"/>
+            <t t-set="no_footer" t-value="True"/>
+        </xpath>
+        <xpath expr="//header" position="after">
+            <div id="wrap" class="oe_structure oe_empty"/>
+        </xpath>
+        <xpath expr="//footer" position="after">
+            <div class="py-3 m-0 p-0 text-right">
+                <div class="o_survey_progress_wrapper d-inline-block pr-5 text-left">
+                    <t t-call="survey.survey_progression"
+                        t-if="survey and survey.questions_layout != 'one_page' and answer and answer.state == 'in_progress' and (not question or not question.is_page) and not survey_form_readonly">
+                        <t t-if="survey.questions_layout == 'page_per_section'">
+                            <t t-set="page_ids" t-value="survey.page_ids.ids"/>
+                            <t t-set="page_number" t-value="page_ids.index(page.id) + (1 if survey.progression_mode == 'number' else 0)"/>
+                        </t>
+                        <t t-else="">
+                            <t t-set="page_ids" t-value="survey.question_ids.ids"/>
+                            <t t-set="page_number" t-value="page_ids.index(question.id)"/>
+                        </t>
+                    </t>
+                </div>
+                <div class="o_survey_brand_message float-right rounded mr-3 border">
+                    <div class="px-2 py-2 d-inline-block" t-call="web.brand_promotion_message">
+                        <t t-set="_message"></t>
+                        <t t-set="_utm_medium" t-valuef="survey"/>
+                    </div>
+                    <div class="o_survey_navigation_wrapper d-inline-block" t-call="survey.survey_navigation">
+                    </div>
+                </div>
+            </div>
+        </xpath>
+    </template>
+
+
     <template id="survey_fill_form_start" name="Survey" inherit_id="survey.survey_fill_form_start">
         <xpath expr="//div[hasclass('mb32')]" position="replace">
-            <div class="container mt-5"
-                 style="font-family: sans-serif; margin-top: 26px; padding-top: 30px; padding-bottom: 20px; outline: none; background-color: rgb(255, 255, 255);">
-                <div class="row">
-                    <div class="col-md-6">
-                        <img class="img img-fluid dr-onboard-poster mx-auto"
-                             src="/dr_social_website/static/src/img/OnyxMedia.png"/>
-                    </div>
-                    <div class="col-md-6">
-                        <h1 class=" mb-3" style="font-family: sans-serif; font-weight: 500; line-height: 1em; font-size: 38px !important;
-                                                text-align: left; font-size: 36px !important; font-weight: bold;">
-                            <span style="color: rgb(0, 211, 161);">Welcome</span>
-                            <span style="color: rgb(71, 71, 71)">To OnyxMedia!</span>
-                        </h1>
-                        <div style="line-height: 1.8; font-family: Helvetica, sans-serif !important">
-                            <p class="mb-4"
-                               style="line-height: 1.8; text-align: left; font-size: 14px; color: rgb(136, 136, 136);">
-                                You successfully started your 7-day free trial!
+            <div class="db-wrapper">
+<!--                <div class="db-sidebar-container">-->
+<!--                    &lt;!&ndash; Sidebar &ndash;&gt;-->
+<!--                    <div class="db-sidebar px-4">-->
+<!--                        <div class="dropdown">-->
+<!--                            <a href="#" class="db-sidebar__item" id="dropdownMenuLink" data-toggle="dropdown"-->
+<!--                               aria-expanded="false">-->
+<!--                                <i class="fa fa-user" aria-hidden="true"></i>-->
+<!--                                <span>Home</span>-->
+<!--                            </a>-->
+
+<!--                            <div class="dropdown-menu db-sidebar__dropdown-menu" aria-labelledby="dropdownMenuLink">-->
+<!--                                <a class="dropdown-item" href="#">Action</a>-->
+<!--                                <a class="dropdown-item" href="#">Another action</a>-->
+<!--                                <a class="dropdown-item" href="#">Something else here</a>-->
+<!--                            </div>-->
+<!--                        </div>-->
+
+<!--                        <a href="#" class="db-sidebar__item">-->
+<!--                            <i class="fa fa-calendar-check-o" aria-hidden="true"></i>-->
+<!--                            <span>Content</span>-->
+<!--                        </a>-->
+<!--                        <a href="#" class="db-sidebar__item active">-->
+<!--                            <i class="fa fa-copy" aria-hidden="true"></i>-->
+<!--                            <span>Revisions</span>-->
+<!--                        </a>-->
+<!--                    </div>-->
+<!--                    &lt;!&ndash; End of Sidebar &ndash;&gt;-->
+<!--                </div>-->
+                <div class="db-container container py-5">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12 col-lg-4 d-flex justify-content-center align-items-center">
+                            <img src="/dr_social_website/static/src/img/onboarding-1.png" loading="lazy" class="" width="505" height="469"/>
+                        </div>
+                        <div class="col-sm-12 col-md-12 col-lg-8 py-4" style="padding-left: 84px; padding-right: 0px;">
+                            <h1 class="db-text--main-dark" style="font-size: 2.5rem; font-family: sans-serif !important;">Welcome to OnyxMedia!</h1>
+                            <div class="db-shadow db-bg--primary-light p-3 mt-4 mb-5">
+                                <div class="d-flex flex-column" >
+                                    <p class="small db-text--main" style="font-family: sans-serif !important;">You successfully started your 7-day free trail!</p>
+                                    <p class="small db-text--main" style="font-family: sans-serif !important;">You have received a confirmation email with the exact
+                                        time and date you
+                                        will get billed for the paid plan. You can cancel, downgrade and upgrade your
+                                        subscription at anytime
+                                        with 24 hours notice.
+                                    </p>
+                                </div>
+                            </div>
+                            <h3 class="db-text--h3 db-text--main-dark" style="font-size: 24px; font-weight: bold; color: var(--db-main-text-dark) !important;">Please finish the 2 step onboarding system:</h3>
+                            <ul class="db-list db-list--check db-text--main-dark my-4">
+                                <li class="db-list--item"><i class="fa fa-check-circle db-text--primary mr-2"></i>
+                                    Questionnaire (5-10
+                                    minutes)
+                                </li>
+                                <li class="db-list--item"><i class="fa fa-check-circle db-text--primary mr-2"></i>
+                                    Connecting your pages (2-5
+                                    minutes)
+                                </li>
+                            </ul>
+                            <p class="small mb-5" style="font-family: sans-serif !important;">Your on-boarding process takes around 10-15 minutes, please leave
+                                adequate time for
+                                this.
                             </p>
-                            <p class="text-muted small mb-4" style="font-size: 13.5px; line-height: 1.8; padding-right: 0px; border-right-width: 0px; border-right-style: solid;margin-right: -10px;
-                            text-align: left; color: rgb(96, 96, 96);">You will get billed in 7 days and your first post
-                                will get published 1 day after the payment went through. We will send your first batch
-                                of posts a few days after you onboarded.
-                                <br/>
-                                <br/>
-                                You can cancel, downgrade and upgrade your subscription at any time with 24 hours
-                                <br/>
-                                notice.
-                            </p>
-                        </div>
-                        <br/>
-                        <div></div>
-                        <div style="color: rgb(71, 71, 71); font-size: 15px;" class="mb-4 font-weight-bold">Time to get
-                            you on-boarded...
-                        </div>
-                        <div style="color: rgb(71, 71, 71); font-size: 15px;" class="mb-4">There are 2 steps in this
-                            onboarding system, please finish both steps so we can get started on your social media
-                            posts.
-                        </div>
-                        <div style="color: rgb(71, 71, 71); font-size: 15px;" class="mb-4">You'll receive an email with
-                            your first batch of posts within 3 days after you onboarded.
-                        </div>
-                        <div style="color: rgb(71, 71, 71); font-size: 15px;" class="mb-4">The on-boarding process takes
-                            around 5-10 minutes, please leave adequate time for this.
-                        </div>
-                        <div>
-                            <button type="submit" value="start" class="btn btn-primarys btn-lg shadow-lg">
-                                <strong style="font-family: sans-serif; ">Start Onboarding</strong>
+                             <button type="submit" value="start" style=" position: absolute;" class="db-button db-button--border-sm db-button--primary mx-auto mt-3">
+                                <strong style="font-family: sans-serif !important; font-weight: 400; ">Start Onboarding</strong>
                             </button>
                         </div>
                     </div>
                 </div>
             </div>
+
         </xpath>
     </template>
 
@@ -79,168 +176,219 @@
 
     <template id="survey_fill_form_done" name="Survey Layout" inherit_id="survey.survey_fill_form_done">
         <xpath expr="//div[hasclass('o_survey_finished')]" position="replace">
-            <!--            <t t-call="website.layout">-->
-            <div t-attf-class="h-100 dr_website_social #{'dr-onboarding-mode' if isOnbording else ' '}">
-                <div class="container pb-2"></div>  <!-- clear fix -->
+        <div class="col-sm-12 col-md-12 col-lg-12">
+          <strong class="db-text--main" style="font-family: sans-serif !important;">Almost Done!</strong>
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-12">
+          <div class="progress db-progress mt-2">
+            <div class="db-progress__label db-shadow" style="left: 90%;">90%</div>
+            <div class="progress-bar db-progress_bar db-progress_bar--primary" role="progressbar" aria-valuenow="0"
+              aria-valuemin="0" aria-valuemax="100" style="width: 90%;"></div>
+          </div>
+        </div>
 
-                <div class="container" style="font-family: Helvetica, sans-serif !important;">
 
-                    <!-- HEADER -->
-                    <div class="d-flex bg-white rounded justify-content-between border mt-4 p-3">
-                        <div>
-                            <h4 class="mb-0"
-                                style="font-family: Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;">
-                                Your social accounts
-                            </h4>
-                        </div>
-                        <div class="pr-2">
-                            <button type="button"
-                                    class="dr_social_link btn btn-primarys h-100 py-0 float-right shadow-sm text-white">
-                                <span class="fa fa-plus" style="font-size: 13px;padding-right: 3px;"></span>
-                                <b style="font-family: Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;">
-                                    LINK NEW ACCOUNT
-                                </b>
-                            </button>
-                        </div>
-                    </div>
 
-                    <!-- Linked Account LIST -->
-                    <div class="row mt-4" t-if="linked_accounts">
-                        <t t-foreach="linked_accounts" t-as="account">
-                            <div class="col-md-4">
-                                <div class="card mb-3" style="max-width: 540px;">
-                                    <t t-set="media_sudo" t-value="account.media_id.sudo()"/>
-                                    <div class="row no-gutters">
-                                        <div class="col-md-4 border-right">
-                                            <img class="img img-fluid w-100"
-                                                 t-attf-src="/web/image/social.account/#{account.id}/image"/>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <div class="card-body p-3">
-                                                <h5 class="card-title mb-1" t-esc="account.name"/>
-                                                <small class="dr_media_pill border">
-                                                    <img class="dr_media_icon"
-                                                         t-attf-src="/dr_social_website/static/src/img/#{media_sudo.media_type}.svg"/>
-                                                    <t t-esc="media_sudo.name"/>
-                                                </small>
-                                                <div class="dr_status bg-danger" t-if="account.is_media_disconnected">
-                                                    <i class="fa fa-chain-broken"/>
-                                                </div>
-                                                <div class="dr_status bg-success" t-else="">
-                                                    <i class="fa fa-check"/>
-                                                </div>
-                                                <div t-if="account.is_media_disconnected" class="mt-1">
-                                                    <small class="text-danger">Disconncted</small>
-                                                    <button class="btn bg-danger btn-sm dr_relink_btn"
-                                                            t-att-data-media-id="media_sudo.id">
-                                                        <i class="fa fa-link"></i>
-                                                        Relink
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </t>
-                        <!--                            <t>-->
-                        <!--                                <div class="col-12 d-flex justify-content-center">-->
-                        <!--                                    <a role="button" class="btn btn-primarys btn-lg m-3" href="/social/thank_you">-->
-                        <!--                                    <span style="font-family: Helvetica, sans-serif !important;">Finish</span>-->
-                        <!--                                    </a>-->
-                        <!--                                </div>-->
-                        <!--                            </t>-->
-                    </div>
 
-                    <div class="row" t-else="">
-                        <div class="col-12">
-                            <div class="bg-100 rounded my-4 py-5 text-center"
-                                 style="box-shadow: 0px 0px 19px rgba(0, 0, 0, 0.05) inset; ">
-                                <h4 class="mb-0 text-muted"
-                                    style="font-family: Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;">
-                                    You havn't linked any account.
-                                </h4>
-                                <small class="mb-0 text-muted"
-                                       style="font-family: Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;">
-                                    Please link your social account with given button.
-                                </small>
-                                <div>
-                                    <button type="button"
-                                            class="dr_social_link btn text-muted rounded-circle  text-muted mt-2 border"
-                                            style="border: 1px solid #b1b1b1 !important;">
-                                        <span class="fa fa-plus-circle"
-                                              style="font-size: 14px;padding-right: 3px;"></span>
-                                        <b style="font-family: Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;">
-                                            LINK NEW ACCOUNT
-                                        </b>
-                                    </button>
-                                </div>
-                            </div>
-                            <t>
-                                <div class="col-12 d-flex justify-content-center">
-                                    <a role="button" class="btn d-none d-md-inline-block" href="/social/thank_you">
-                                        <p style="font-family: Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-                                 box-sizing: border-box; text-align: center;cursor: auto !important; word-wrap: break-word;
-                                 border-radius: 5px; color: rgb(255, 255, 255); font-weight: 600; background-color: rgb(0, 211, 161);
-                                 font-size: 20px; padding-top: 5px; padding-bottom: 5px; padding-right: 15px; padding-left: 15px;">
-                                            Finish!
-                                        </p>
-                                    </a>
-                                </div>
-                            </t>
-                        </div>
-                    </div>
-<!--                    <t t-foreach="posts" t-as="val">-->
-<!--                                    <span>hhhhhhhhhhhhhhhhhhhhhhhhhhhhh</span>-->
-<!--                    <div class="col">-->
-<!--                        <div class="row">-->
-<!--                            <div class="bg-100 roundest-border my-4 py-5 text-center"-->
-<!--                                 style="box-shadow: 0px 0px 19px rgba(0, 0, 0, 0.05) inset;margin-left: 7px; /*! height: 192px !important; */ border-right-width: 0px;border-right-style: solid;/*! padding-right: 260px; */width: 70%;"-->
-<!--                           >-->
+            <div t-attf-class="h-100 dr_website_social #{'dr-onboarding-mode' if isOnbording else ' '}">            <div class="db-wrapper">
+    <div class="db-sidebar-container dr_website_social">
+      <!-- Sidebar -->
+<!--      <div class="db-sidebar px-4">-->
+<!--        <div class="dropdown">-->
+<!--          <a href="#" class="db-sidebar__item" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false">-->
+<!--            <i class="fa fa-user" aria-hidden="true"></i> <span>Home</span>-->
+<!--          </a>-->
+
+<!--          <div class="dropdown-menu db-sidebar__dropdown-menu" aria-labelledby="dropdownMenuLink">-->
+<!--            <a class="dropdown-item" href="#">Action</a>-->
+<!--            <a class="dropdown-item" href="#">Another action</a>-->
+<!--            <a class="dropdown-item" href="#">Something else here</a>-->
+<!--          </div>-->
+<!--        </div>-->
+
+<!--        <a href="#" class="db-sidebar__item">-->
+<!--          <i class="fa fa-calendar-check-o" aria-hidden="true"></i> <span>Content</span>-->
+<!--        </a>-->
+<!--        <a href="#" class="db-sidebar__item active">-->
+<!--          <i class="fa fa-copy" aria-hidden="true"></i> <span>Revisions</span>-->
+<!--        </a>-->
+<!--      </div>-->
+      <!-- End of Sidebar -->
+    </div>
+
+    <div class="db-container container py-5">
+
+      <div class="row">
+        <div class="col-sm-12 col md-12 col-lg-12">
+          <div class="db-shadow db-rounded d-flex justify-content-between align-items-center mt-5 mb-3 p-3">
+            <strong class="db-text--main">Your Social Media Pages</strong>
+                  <button type="button" class="dr_social_link  db-button db-button--border-sm db-button--primary">
+              Connect New social Media Pages
+                    </button>
+          </div>
+
+          <div class="db-shadow db-bg--primary-light p-5 mb-5">
+            <div class="d-flex flex-column align-items-center" style="min-height: 180px;">
+              <h3 class="w-75 text-center db-text--h2 mb-4" style="font-weight:bold;">You haven&apos;t conected any pages yet...</h3>
+              <p class="w-50 text-center">We won&apos;t be able to publish your posts unitil you have connected your
+                social media pages here</p>
+            </div>
+          </div>
+          <div class="w-100 d-flex justify-content-center">
+            <a role="button"  href="/social/thank_you" class="db-button db-button--border-sm db-button--primary small mx-auto">Finish</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--                        </t>-->
+<!--                        &lt;!&ndash;                            <t>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                <div class="col-12 d-flex justify-content-center">&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                    <a role="button" class="btn btn-primarys btn-lg m-3" href="/social/thank_you">&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                    <span style="font-family: Helvetica, sans-serif !important;">Finish</span>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                    </a>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                </div>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                            </t>&ndash;&gt;-->
+<!--                    </div>-->
+
+<!--                    <div class="row" t-else="">-->
+<!--                        <div class="col-12">-->
+<!--                            <div class="bg-100 rounded my-4 py-5 text-center"-->
+<!--                                 style="box-shadow: 0px 0px 19px rgba(0, 0, 0, 0.05) inset; ">-->
 <!--                                <h4 class="mb-0 text-muted"-->
 <!--                                    style="font-family: Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;">-->
-<!--                                    Table 1-->
-<!--                                    <span>llllllllllllllllllllllllllllllllll</span>-->
-<!--                                    <t t-esc="feedback"/>-->
-
+<!--                                    You havn't linked any account.-->
 <!--                                </h4>-->
-
-<!--                                    <t t-esc="val.message"/>-->
-
-<!--&lt;!&ndash;                                </t>&ndash;&gt;-->
 <!--                                <small class="mb-0 text-muted"-->
 <!--                                       style="font-family: Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;">-->
+<!--                                    Please link your social account with given button.-->
 <!--                                </small>-->
 <!--                                <div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-
-<!--                            <div class="bg-100 roundest-border my-4 py-5 text-center"-->
-<!--                                 style="box-shadow: 0px 0px 19px rgba(0, 0, 0, 0.05) inset; margin-left: 7px; height: 192px !important;width: 27%;">-->
-<!--                                <h4 class="mb-0 text-muted"-->
-<!--                                    style="font-family: Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;">-->
-<!--                                    Table 2-->
-<!--                                </h4>-->
-<!--                                <small class="mb-0 text-muted"-->
-<!--                                       style="font-family: Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;">-->
-<!--                                </small>-->
+<!--                                    <button type="button"-->
+<!--                                            class="dr_social_link btn text-muted rounded-circle  text-muted mt-2 border"-->
+<!--                                            style="border: 1px solid #b1b1b1 !important;">-->
+<!--                                        <span class="fa fa-plus-circle"-->
+<!--                                              style="font-size: 14px;padding-right: 3px;"></span>-->
+<!--                                        <b style="font-family: Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;">-->
+<!--                                            LINK NEW ACCOUNT-->
+<!--                                        </b>-->
+<!--                                    </button>-->
 <!--                                </div>-->
-
-
-
+<!--                            </div>-->
+<!--                            <t>-->
+<!--                                <div class="col-12 d-flex justify-content-center">-->
+<!--                                    <a role="button" class="btn d-none d-md-inline-block" href="/social/thank_you">-->
+<!--                                        <p style="font-family: Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;-->
+<!--                                 box-sizing: border-box; text-align: center;cursor: auto !important; word-wrap: break-word;-->
+<!--                                 border-radius: 5px; color: rgb(255, 255, 255); font-weight: 600; background-color: rgb(0, 211, 161);-->
+<!--                                 font-size: 20px; padding-top: 5px; padding-bottom: 5px; padding-right: 15px; padding-left: 15px;">-->
+<!--                                            Finish!-->
+<!--                                        </p>-->
+<!--                                    </a>-->
+<!--                                </div>-->
+<!--                            </t>-->
 <!--                        </div>-->
 <!--                    </div>-->
-<!--    </t>-->
-                </div>
-            </div>
+<!--&lt;!&ndash;                    <t t-foreach="posts" t-as="val">&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <span>hhhhhhhhhhhhhhhhhhhhhhhhhhhhh</span>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <div class="col">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <div class="row">&ndash;&gt;-->
+<!--&lt;!&ndash;                            <div class="bg-100 roundest-border my-4 py-5 text-center"&ndash;&gt;-->
+<!--&lt;!&ndash;                                 style="box-shadow: 0px 0px 19px rgba(0, 0, 0, 0.05) inset;margin-left: 7px; /*! height: 192px !important; */ border-right-width: 0px;border-right-style: solid;/*! padding-right: 260px; */width: 70%;"&ndash;&gt;-->
+<!--&lt;!&ndash;                           >&ndash;&gt;-->
+<!--&lt;!&ndash;                                <h4 class="mb-0 text-muted"&ndash;&gt;-->
+<!--&lt;!&ndash;                                    style="font-family: Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;">&ndash;&gt;-->
+<!--&lt;!&ndash;                                    Table 1&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <span>llllllllllllllllllllllllllllllllll</span>&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <t t-esc="feedback"/>&ndash;&gt;-->
+
+<!--&lt;!&ndash;                                </h4>&ndash;&gt;-->
+
+<!--&lt;!&ndash;                                    <t t-esc="val.message"/>&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;                                </t>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;                                <small class="mb-0 text-muted"&ndash;&gt;-->
+<!--&lt;!&ndash;                                       style="font-family: Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;">&ndash;&gt;-->
+<!--&lt;!&ndash;                                </small>&ndash;&gt;-->
+<!--&lt;!&ndash;                                <div>&ndash;&gt;-->
+<!--&lt;!&ndash;                            </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                        </div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;                            <div class="bg-100 roundest-border my-4 py-5 text-center"&ndash;&gt;-->
+<!--&lt;!&ndash;                                 style="box-shadow: 0px 0px 19px rgba(0, 0, 0, 0.05) inset; margin-left: 7px; height: 192px !important;width: 27%;">&ndash;&gt;-->
+<!--&lt;!&ndash;                                <h4 class="mb-0 text-muted"&ndash;&gt;-->
+<!--&lt;!&ndash;                                    style="font-family: Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;">&ndash;&gt;-->
+<!--&lt;!&ndash;                                    Table 2&ndash;&gt;-->
+<!--&lt;!&ndash;                                </h4>&ndash;&gt;-->
+<!--&lt;!&ndash;                                <small class="mb-0 text-muted"&ndash;&gt;-->
+<!--&lt;!&ndash;                                       style="font-family: Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;">&ndash;&gt;-->
+<!--&lt;!&ndash;                                </small>&ndash;&gt;-->
+<!--&lt;!&ndash;                                </div>&ndash;&gt;-->
+
+
+
+<!--&lt;!&ndash;                        </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;    </t>&ndash;&gt;-->
+<!--                </div>-->
+<!--            </div>-->
             <!--            </t>-->
         </xpath>
     </template>
+
+        <template id="survey_progressions" name="Survey: Progressions">
+        <t t-if="len(page_ids) > 1 and not survey.has_conditional_questions">
+            <t t-set="percentage" t-value="round(100*(page_number/len(page_ids)))"/>
+            <t t-if="survey.progression_mode == 'percent'">
+                          <div class="progress db-progress mt-2">
+            <div class="db-progress__label db-shadow" style="left: 90%;"><span t-esc="percentage"/></div>
+            <div class="progress-bar db-progress_bar db-progress_bar--primary" role="progressbar" aria-valuenow="0"
+              aria-valuemin="0" aria-valuemax="100" style="width: 90%;"></div>
+          </div>
+
+<!--                <span class="o_survey_progress_percent" t-esc="percentage"/> % completed-->
+            </t>
+            <t t-else="">
+                <span class="o_survey_progress_number" t-esc="page_number"/> of <span t-esc="len(page_ids)"/>
+                <span t-if="survey.questions_layout == 'page_per_question'">answered</span>
+                <span t-else="">pages</span>
+            </t>
+            <div class="o_survey_progress progress flex-grow-1">
+                <div class="progress-bar bg-primary" t-att-style="'width: ' + str(percentage) + '%'"/>
+            </div>
+        </t>
+    </template>
+
 
     <template id="survey_fill_form_in_progress" name="Survey: form with questions"
               inherit_id="survey.survey_fill_form_in_progress">
         <!--        <xpath expr="//t-attf-class[@t-set='minimized_display']" position="replace">-->
         <xpath expr="//div[contains(@t-attf-class, 'o_survey_page_per_question')]" position="replace">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+          <strong class="db-text--main" style="font-family: sans-serif !important;">You're on your way!</strong>
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-12">
+          <div class="progress db-progress mt-2">
+            <div class="db-progress__label db-shadow" style="left: 50%;">50%</div>
+            <div class="progress-bar db-progress_bar db-progress_bar--primary" role="progressbar" aria-valuenow="0"
+              aria-valuemin="0" aria-valuemax="100" style="width: 50%;"></div>
+          </div>
+        </div>
+<!--        <div class="o_survey_progress_wrapper d-inline-block pr-5 text-left">-->
+<!--            <t t-call="dr_social_website.survey_progressions"-->
+<!--                t-if="survey and survey.questions_layout != 'one_page' and answer and answer.state == 'in_progress' and (not question or not question.is_page) and not survey_form_readonly">-->
+<!--                <t t-if="survey.questions_layout == 'page_per_section'">-->
+<!--                    <t t-set="page_ids" t-value="survey.page_ids.ids"/>-->
+<!--                    <t t-set="page_number" t-value="page_ids.index(page.id) + (1 if survey.progression_mode == 'number' else 0)"/>-->
+<!--                </t>-->
+<!--                <t t-else="">-->
+<!--                    <t t-set="page_ids" t-value="survey.question_ids.ids"/>-->
+<!--                    <t t-set="page_number" t-value="page_ids.index(question.id)"/>-->
+<!--                </t>-->
+<!--            </t>-->
+<!--        </div>-->
+
             <div t-if="survey.questions_layout == 'page_per_question'"
                  t-attf-class="o_survey_page_per_question o_survey_#{question.question_type} #{'o_survey_minimized_display' if minimized_display else ''}"
                  style="font-weight: unset; font-size: 24px; line-height: 32px; color: rgb(0, 211, 161); font-family: sans-serif"
