@@ -38,6 +38,8 @@ class ContentCalendar(http.Controller):
                 # if kw.get('client_name') not in post.client_name:
                 #     print('ooooooooo')
                 post = request.env['social.post'].search([('client_name', '=', kw.get('client_name'))])
+                print('jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj',post,kw)
+
             # else:
             #     post = request.env['social.post'].search([])
             # values = {
@@ -70,7 +72,7 @@ class ContentCalendar(http.Controller):
         #     print('ooooooooooooooooooo',post,client.name,client)
         # # print(client_name,'client_name')
 
-
+        users = request.env['res.users'].search([])
         for key, value in kw.items():
             if value == '':
                 if isinstance(key, int):
@@ -79,56 +81,40 @@ class ContentCalendar(http.Controller):
                         'posts': post
                     }
 
-        print(name,'nnnnnnnnnnnnnnnnnnnnnnn')
+        print(name,'nnnnnnnnnnnnnnnnnnnnnnn',request.env['social.post'].search([],limit=1).id)
+        last_id = request.env['social.post'].search([],limit=1).id
         values = {
             'posts': post,
-            'docs': [x.client_name for x in post],
-            'name': name
+            'docs': [x.name for x in users],
+            'name': name,
+            'length':len(post),
+            'last_id':last_id
 
         }
         print(values,'fffffffffffffffff')
         return request.render("dr_social_website.content_calendar", values)
 
-    @http.route(['/client_approval'], type='http', auth="public", website=True, csrf=False)
+    @http.route(['/client_approval'], type='json', auth="public", website=True, csrf=False)
     def client_approval(self, **kw):
-          print('dddddddddddddddddddd',kw)
-        # template_id = request.env.ref('dr_social_website.mail_template_client_approval')
-        # # print(template_id,'mail_template_client_approval')
-        # # template = request.env['mail.template'].browse(template_id)
-        # # social_post = request.env['social.post'].search()
-        # template_id.send_mail(template_id.id, force_send=True)
-          revision_post = request.env['revision.request.client'].search([])
-          print(revision_post,'revision_post',request.env.company.email_formatted)
+          post = request.env['social.post'].search([('client_name', '=', kw.get('client_name'))], limit=1)
+          mail_values = {
+            'email_from': request.env.company.email_formatted,
+            'reply_to': post.client_email,
+            'email_to': post.client_email,
+            'subject': 'subject',
+            'body_html': '<p> Hi ' + str(post.client_name)+'!'
+                         'Your new batch of posts is ready for your approval!'
 
-          for rec in revision_post:
-              # body = """Your new batch of posts is ready for your approval!
-              #
-              #                 You can access your content calendar via this link: {link to login page}
-              #
-              #                 Don’t hesitate to reach out if you have any questions!
-              #
-              #                 Best regards,
-              #
-              #                 OnyxMedia Team
-              #                 Refer a friend and get one month for FREE!"""
-              mail_values = {
-                'email_from': request.env.company.email_formatted,
-                'reply_to': rec.email_id,
-                'email_to': rec.email_id,
-                'subject': 'subject',
-                'body_html': '<p> Hi ' + str(rec.name)+'!'
-                             'Your new batch of posts is ready for your approval!'
+                            'You can access your content calendar via this link: {link to login page}'
 
-                                'You can access your content calendar via this link: {link to login page}'
+                            'Don’t hesitate to reach out if you have any questions!'
 
-                                'Don’t hesitate to reach out if you have any questions!'
+                         '   Best regards,'
 
-                             '   Best regards,'
-
-                                'OnyxMedia Team'
-                                'Refer a friend and get one month for FREE!</p>',
-                'is_notification': True,
-                }
-              mail = request.env['mail.mail'].sudo().create(mail_values)
-              mail.send()
+                            'OnyxMedia Team'
+                            'Refer a friend and get one month for FREE!</p>',
+            'is_notification': True,
+            }
+          mail = request.env['mail.mail'].sudo().create(mail_values)
+          mail.send()
 

@@ -163,13 +163,13 @@ header .navbar-brand.logo img {
 }
 
 .green{
- color: #0EFDDB;
- border: 2px solid #0EFDDB !important;
+ color: #00F5BE;
+ border: 2px solid #00F5BE !important;
  background-color: white;
 }
 .green_button{
- color: #0EFDDB;
- border: 2px solid #0EFDDB !important;
+ color: #00F5BE;
+ border: 2px solid #00F5BE !important;
  background-color: white;
 }
 
@@ -192,16 +192,16 @@ header .navbar-brand.logo img {
   padding: 8px 15px;
   box-shadow: rgba(17, 17, 26, 0.05) 0px 4px 16px,
     rgba(17, 17, 26, 0.05) 0px 8px 32px;
-  width: 200px;
-  margin-left: -47px;
+  width: 225px;
+  margin-left: -80px;
 }
 .db-datepicker-group__icon
 {
   position: absolute;
   top: 8px;
   right: 10px;
-  font-size: -52px;
-  left: 132.833px;
+  font-size: -52px !important;
+  left: 117.833px;
   pointer-events:none;
 }
 /*=========================================
@@ -301,13 +301,13 @@ header .navbar-brand.logo img {
 }
 
 .db-button--border-sm {
-  border-radius: 5px;
+  border-radius: 10px;
 }
 
 .db-button--primary-add {
   background-color: var(--db-primary);
   color: white !important;
-font-weight: bold !important;
+  font-weight: bold !important;
 }
 
 .db-button--primary-add:hover {

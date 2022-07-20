@@ -1,0 +1,46 @@
+<odoo>
+
+    <template id="signups" inherit_id="auth_signup.signup" name="Sign up logins">
+        <xpath expr="//form[hasclass('oe_signup_form')]" position="replace">
+            <form class="oe_signup_form" role="form" method="post" t-if="not message">
+                <form class="oe_signup_form" role="form" method="post" t-if="not message">
+                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                    <div class="db-login-container db-shadow">
+                        <div class="db-login-contianer__header">
+                            <img class="db-login-container__logo" width="64" height="64" style="margin-bottom: 6px;"
+                                 t-attf-src="/web/binary/company_logo"
+                                 alt="Logo"/>
+
+                            <h1 class="db-login-contianer__title">Signup</h1>
+                            <small class="db-login-contianer__lead">Welcome back please enter your details</small>
+                        </div>
+                        <div class="db-login-container__body">
+                            <t t-call="auth_signup.fields">
+                                <t t-set="only_passwords" t-value="bool(token and not invalid_token)"/>
+                            </t>
+                        </div>
+
+                        <p class="alert alert-danger" t-if="error" role="alert">
+                            <t t-esc="error"/>
+                        </p>
+                        <input type="hidden" name="redirect" t-att-value="redirect"/>
+                        <input type="hidden" name="token" t-att-value="token"/>
+                        <div style="background-color: white !important;"
+                             class=" db-button db-button--sm py-2 db-button--long db-button--primarys db-button--semi-round d-block my-2 db-login-container__footer pt-2 text-center oe_login_buttons pt-3">
+                            <button type="submit" style="border-radius: 8px !important; background-color: #43dbb6;"
+                                    class="btn btn-primary btn-block">Sign up
+                            </button>
+                            <a t-attf-href="/web/login?{{ keep_query() }}" class="btn btn-link btn-sm" role="button"
+                               style="border-radius: background-color: #43dbb6;">Already have an account?
+                            </a>
+                            <a href="/web/login?" class="db-link--primary my-2 ml-1" >Sign in</a>
+                            <div class="o_login_auth"/>
+                        </div>
+                    </div>
+                </form>
+            </form>
+        </xpath>
+    </template>
+</odoo>
+
+

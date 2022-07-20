@@ -2,6 +2,39 @@
 <odoo>
 
     <template id="home" name="Social Home">
+        <div class="db-sidebar-container" style="margin-top: 91px;">
+                        <!-- Sidebar -->
+                        <nav class="db-sidebar-2 px-4" style="margin-top: -24px;">
+                            <div class="dropdown">
+                                <!--                                <a href="#" class="db-sidebar__item" id="dropdownMenuLink" data-toggle="dropdown"-->
+                                <!--                                   aria-expanded="false">-->
+                                <!--                                    <i class="fa fa-user"></i>-->
+                                <!--                                </a>-->
+
+                                <div class="dropdown-menu db-sidebar__dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                    <a class="dropdown-item" href="#">Action</a>
+                                    <a class="dropdown-item" href="#">Another action</a>
+                                    <a class="dropdown-item" href="#">Something else here</a>
+                                </div>
+                            </div>
+<!--                            <a href="#" class="db-sidebar__item home">-->
+<!--                                <img src="/dr_social_website/static/src/img/user1.png">Home</img>-->
+<!--                            </a>-->
+                            <a href="/content_calendar" class="db-sidebar__item" style="margin-bottom: 37px; font-weight: bold;">
+                                <img src="/dr_social_website/static/src/img/calendar-check-02.png" style="margin-right: 12px;">Content</img>
+                                <!--                                <i class="fa fa-calendar" id="searchToggle">Content</i>-->
+                            </a>
+                            <a href="/social/home" class="db-sidebar__item">
+                                <img src="/dr_social_website/static/src/img/intersect-square.png" style="margin-right: 12px; filter: brightness(0) invert(1);">Pages</img>
+                                <!--                                <i class="fa fa-calendar">Pages</i>-->
+                            </a>
+<!--                            <a href="#" class="db-sidebar__item">-->
+<!--                                <img src="/dr_social_website/static/src/img/more.png">More</img>-->
+<!--                                &lt;!&ndash;                                <i class="fa fa-calendar">More</i>&ndash;&gt;-->
+<!--                            </a>-->
+                        </nav>
+                        <!-- End of Sidebar -->
+                    </div>
         <t t-call="website.layout">
             <div t-attf-class="h-100 dr_website_social #{'dr-onboarding-mode' if isOnbording else ' '}">
                     <div class="db-container container py-5">
@@ -29,12 +62,17 @@
             <div class="d-flex flex-column align-items-center" style="min-height: 180px;">
               <h2 class="w-75 text-center db-text--h3 mb-4"><strong>Click on the icon to connect your page</strong></h2>
               <div class="row d-flex justify-content-center flex-wrap">
-              <div class="col-sm-12 col-md-6 col-lg-6 d-flex flex-column align-items-center">
+              <div class="col-sm-12 d-flex align-items-center">
                     <t t-foreach="linked_accounts" t-as="account">
                         <t t-set="media_sudo" t-value="account.media_id.sudo()"/>
-                            <img class="img img-fluid w-100"
+                        <div style="margin-right: 27px;">
+
+                            <img class="img img-fluid" style="width: 100px !important;"
                                  t-attf-src="/web/image/social.account/#{account.id}/image"/>
-                                          <strong class="text-center mt-2"><t t-esc="media_sudo.name"/></strong>
+                            <br/>
+                            <strong class="mt-2"><t t-esc="media_sudo.name"/></strong>
+                        </div>
+
 
                     </t>
                 </div>

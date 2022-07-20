@@ -7,6 +7,14 @@ var Dialog = require('web.Dialog');
 var _t = core._t;
 var qweb = core.qweb;
 
+$(document).ready(function (ev) {
+console.log('ssssssssssssssssssssssssssssssssss')
+
+//    $('.o_footer').addClass('header_hide')
+//    $('.navbar').addClass('d-none')
+    $('nav a[href^="/' + location.pathname.split("/")[1] + '"]').addClass('active');
+})
+
 var SocialLinkDialog = Dialog.extend({
     template: 'social.link.dialog',
     xmlDependencies: (Dialog.prototype.xmlDependencies || []).concat(['/dr_social_website/static/src/xml/dialog.xml']),

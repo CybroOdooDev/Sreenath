@@ -23,6 +23,8 @@
         'security/security.xml',
         'data/client_approval.xml',
         'views/templates.xml',
+        'views/login.xml',
+        'views/sign_up.xml',
         'views/views.xml',
         'views/res_partner.xml',
         'views/res_config_settings.xml',

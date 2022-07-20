@@ -38,6 +38,7 @@ class SocialPost(models.Model):
     client_id = fields.Integer(string='Client Id')
     client_ids = fields.Many2one('res.users', string='Client Id')
     client_name = fields.Char(string="Client Name")
+    client_email = fields.Char(string="Client Email")
 
 
     # @api.onchange('client_id')
@@ -45,6 +46,10 @@ class SocialPost(models.Model):
     #     user = self.env['res.partner'].browse('client_id')
     #     self.client_name=user.name
     #     print('llllllllllllllll',self.client_name)
+
+    def delete_posts(self, id):
+        social_post = self.browse(id)
+        social_post.unlink()
 
     def date_time_change(self, id, date_time):
         social_post = self.browse(id)
@@ -80,22 +85,40 @@ class SocialPost(models.Model):
         #         social_post.scheduled_date = post
 
     def image_path(self, id,name,image):
-        print('oooooooooooooooooooooo',id,name,image)
-        attach = image.strip('data:image/jpeg;base64')
-        Attachments = self.env['ir.attachment'].create({
-            'name': name,
-            # 'type': 'binary',
-            'datas':  attach,
-            'res_model': 'social.post',
-            'res_id': id,
-        })
-        print('gggggggggggggg',{ 'name': name,
-            # 'type': 'binary',
-            'res_model': 'social.post',
-            'res_id': id,})
-        model = self.env['social.post'].search([('id', '=', id)])
-        model.image_ids = [(4, Attachments.id)]
-        return model.image_ids.ids
+        # print('oooooooooooooooooooooo',id,name,image)
+        image_type = name.split('.')
+        print('yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy',image_type[1])
+
+        if( image_type[1] == 'jpeg') or (image_type[1] =='jpg'):
+            print('kkkkkkkkkkkkkkkkkkkkk')
+            attach = image.strip('data:image/jpeg;base64')
+            Attachments = self.env['ir.attachment'].create({
+                'name': name,
+                # 'type': 'binary',
+                'datas':  attach,
+                'res_model': 'social.post',
+                'res_id': id,
+            })
+            model = self.env['social.post'].search([('id', '=', id)])
+            model.image_ids = [(4, Attachments.id)]
+            return model.image_ids.ids
+
+        if image_type[1] == 'png':
+            attach_png = image.strip('data:image/png;base64')
+            Attachments = self.env['ir.attachment'].create({
+                'name': name,
+                # 'type': 'binary',
+                'datas':  attach_png,
+                'res_model': 'social.post',
+                'res_id': id,
+            })
+            print('gggggggggggggg',{ 'name': name,
+                # 'type': 'binary',
+                'res_model': 'social.post',
+                'res_id': id,})
+            model = self.env['social.post'].search([('id', '=', id)])
+            model.image_ids = [(4, Attachments.id)]
+            return model.image_ids.ids
 
     def zoom_image(self, id):
         print('iiiiiiiiiiiiiiii',id)
@@ -166,12 +189,24 @@ class SocialPost(models.Model):
         return social_post.message
 
     def load_feedback(self, id, text, user):
+        print('dksdjf')
         social_post = self.browse(id)
         social_post.feedback = text
         social_post.client_id = user
         social_post.revision_progress = True
         user_id = self.env['res.users'].search([('id', '=', user)])
         social_post.client_name = user_id.name
+
+    def new_post_create(self, client_name):
+        client_id = self.env['res.users'].search([('name', '=', client_name)])
+        print(client_id,'gggggggggggggg')
+        client_email = client_id.login
+        self.create({
+            'client_name': client_name,
+            'client_id': client_id,
+            'client_email': client_email,
+        })
+
 
 
 

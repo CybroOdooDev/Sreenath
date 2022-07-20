@@ -189,6 +189,22 @@ margin-right: 48px;
 //     opacity: 0.3;
 //   }
 }
+// .search_button{
+// cursor: pointer;
+// pointer-events:none;
+// margin-left: -70px;
+// font-size: 80px;
+// opacity:0;
+// color: #AAA7A9;
+// z-index: 999;
+//
+// &:hover {
+//   opacity: 1;
+//             }
+// //       &:hover .image-table {
+// //     opacity: 0.3;
+// //   }
+// }
 .search_button{
 cursor: pointer;
 pointer-events: none;
@@ -303,22 +319,25 @@ font-size: 24px !important;
     .search_upload_1{
         opacity: 1;
     }
+//     .upload_button{
+//         opacity: 0.1;
+//     }
 }
 }
 
-.image-table {
-  height: 143px;
-  width: 143px;
-  margin-left: 20px;
-  border-radius: 25px;
-  margin-right: 88px;
-//   &:hover {
-//     opacity: 0.3;
-//     .delete_button{
-//         opacity: 1;
-//     }
+// .image-table {
+//   height: 143px;
+//   width: 143px;
+//   margin-left: 20px;
+//   border-radius: 25px;
+//   margin-right: 88px;
+// //   &:hover {
+// //     opacity: 0.3;
+// //     .delete_button{
+// //         opacity: 1;
+// //     }
+// //   }
 //   }
-  }
 //   &:hover .delete_button {
 //   opacity: 1;
 //             }
@@ -357,36 +376,21 @@ font-size: 24px !important;
 //     }
 // }
 // }
-.search_button{
-cursor: pointer;
-pointer-events:none;
-margin-left: -70px;
-font-size: 80px;
-opacity:0;
-color: #AAA7A9;
-z-index: 999;
 
-&:hover {
-  opacity: 1;
-            }
-//       &:hover .image-table {
-//     opacity: 0.3;
-//   }
-}
 
-.image-table {
-  height: 143px;
-  width: 143px;
-  margin-left: 20px;
-  border-radius: 25px;
-  margin-right: 88px;
-//   &:hover {
-//     opacity: 0.3;
-//     .delete_button{
-//         opacity: 1;
-//     }
+// .image-table {
+//   height: 143px;
+//   width: 143px;
+//   margin-left: 20px;
+//   border-radius: 25px;
+//   margin-right: 88px;
+// //   &:hover {
+// //     opacity: 0.3;
+// //     .delete_button{
+// //         opacity: 1;
+// //     }
+// //   }
 //   }
-  }
 //   &:hover .delete_button {
 //   opacity: 1;
 //             }
@@ -859,6 +863,12 @@ body {
   color: var(--db-primary);
   text-decoration: none;
   transition: all 200ms ease-in-out;
+//   img {
+//  border:2px solid var(--db-primary);
+//    }
+   img:hover{
+ border:2px solid var(--db-primary);
+   }
 }
 .db-sidebar__item.active:hover{
   color: var(--db-white);
@@ -870,10 +880,15 @@ body {
   margin-right: 10px;
 }
 .db-card {
+margin-top: 54px !important;
+-webkit-box-shadow: rgba(0, 0, 0, 0.1) 0px 34px 20px -5px;
+//   -webkit-box-shadow: -1px 0px 44px 0px rgba(0,0,0,0.57);
+// -moz-box-shadow: -1px 0px 44px 0px rgba(0,0,0,0.57);
+// box-shadow: -1px 0px 44px 0px rgba(0,0,0,0.57);
   background-color: var(--db-white);
   width: 100%;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
-    rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+//   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
+//     rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
   padding: 25px;
   border-radius: 2rem;
   display: flex;
@@ -889,8 +904,8 @@ body {
   min-height: 250px;
   font-size: 14px;
   position: relative;
-  margin-top: 15px;
-  margin-bottom: 15px;
+//   margin-top: 15px;
+  margin-bottom: -11px;
 }
 // .db-card2 {
 //
@@ -938,6 +953,16 @@ display: flex;
   border-radius: 50%;
   border: 1px;
 }
+.db-button--round-rev {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  border: 1px;
+  height: 0.3px;
+  width: 0.3px;
+  margin-top: 6px;
+}
 .db-form-control {
   border: 1px solid var(--db-border);
   border-radius: 5rem;
@@ -955,7 +980,18 @@ display: flex;
   height: 130px;
   resize: none;
   font-family: poppins;
-  width:400px !important;
+  width:425px !important;
+  color:#625454
+}
+.db-form-control--textarea-2 {
+  border-radius: 0px;
+  border: none;
+  text-align: left;
+  height: 130px;
+  resize: none;
+  font-family: poppins;
+  width:350px !important;
+  color:#625454
 }
 
 
@@ -1042,9 +1078,9 @@ padding-left:10px;
 }
 .db-card__status-text {
   font-weight: bold;
-  font-size: 16px;
+  font-size: 18px;
   margin-top: 4px;
-  color: #0EFDDB;
+  color: #00F5BE;
 }
 /* Overlay */
 .db-overlay {

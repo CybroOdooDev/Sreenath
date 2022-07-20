@@ -24,11 +24,11 @@
                             <!-- Sidebar -->
                             <div class="db-sidebar px-4">
                                 <div class="dropdown">
-                                    <a href="#" class="db-sidebar__item" id="dropdownMenuLink" data-toggle="dropdown"
-                                       aria-expanded="false">
-                                        <i class="fa fa-user" aria-hidden="true"></i>
-                                        <span>Home</span>
-                                    </a>
+<!--                                    <a href="#" class="db-sidebar__item" id="dropdownMenuLink" data-toggle="dropdown"-->
+<!--                                       aria-expanded="false">-->
+<!--                                        <i class="fa fa-user" aria-hidden="true"></i>-->
+<!--                                        <span>Home</span>-->
+<!--                                    </a>-->
 
                                     <div class="dropdown-menu db-sidebar__dropdown-menu"
                                          aria-labelledby="dropdownMenuLink">
@@ -73,7 +73,7 @@
 
                                 <div class="col-sm-12 col-md-5 col-lg-5">
                                     <div class="db-revision-container db-shadow">
-                                        <div class="db-revision-container__header">
+                                        <div class="db-revision-container__header" style="margin-right: 9px;">
                                             <h1 class="db-revisoin-container__title">Revision Request</h1>
                                             <div class="db-revision-container__select">
                                                 <span class="db-label mr-2">Filter</span>
@@ -106,14 +106,16 @@
                                                             <div class="db-revision-list__profile-details">
                                                                 <span class="db-revision-list__profile-name">
                                                                     <t t-esc="val['name']"/>
+                                                                    <i class="delete_notification  fa fa-trash" style="margin-left: 410px; cursor: pointer;  margin-top: -208px; color: #AAA7A9;"></i>
                                                                 </span>
+
                                                                 <span class="db-revision-list__profile-update">provided
                                                                     Feedback!
-                                                                    <a href="/content_calendar"
-                                                                       class="db-revision-link--blue">View feedback here
-                                                                    </a>
+                                                                      <a t-attf-href="/content_calendar?{{val['client_id']}}" t-att-value="val">View Feedback</a>
                                                                 </span>
+
                                                             </div>
+
                                                             <!--                    <div class="db-revision-list__timestamp">2 min ago</div>-->
                                                         </div>
                                                     </t>

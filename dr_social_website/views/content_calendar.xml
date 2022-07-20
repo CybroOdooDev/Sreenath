@@ -67,27 +67,39 @@
                                     <a class="dropdown-item" href="#">Something else here</a>
                                 </div>
                             </div>
-<!--                            <a href="#" class="db-sidebar__item home">-->
-<!--                                <img src="/dr_social_website/static/src/img/user1.png">Home</img>-->
-<!--                            </a>-->
-                            <a href="/content_calendar" class="db-sidebar__item" style="margin-bottom: 37px;">
-                                <img src="/dr_social_website/static/src/img/calendar-check-02.png" style="margin-right: 12px;">Content</img>
+                            <!--                            <a href="#" class="db-sidebar__item home">-->
+                            <!--                                <img src="/dr_social_website/static/src/img/user1.png">Home</img>-->
+                            <!--                            </a>-->
+                            <a href="/content_calendar" class="db-sidebar__item"
+                               style="margin-bottom: 37px; font-weight: bold;">
+                                <img src="/dr_social_website/static/src/img/calendar-check-02.png"
+                                     style="margin-right: 12px; filter: brightness(0) invert(1);">Content
+                                </img>
                                 <!--                                <i class="fa fa-calendar" id="searchToggle">Content</i>-->
                             </a>
-                            <a href="/social/home" class="db-sidebar__item">
-                                <img src="/dr_social_website/static/src/img/intersect-square.png" style="margin-right: 12px;">Pages</img>
+                            <a href="/social/home" class="db-sidebar__item" groups="!social.group_social_manager">
+                                <img src="/dr_social_website/static/src/img/intersect-square.png"
+                                     style="margin-right: 12px;">Pages
+                                </img>
                                 <!--                                <i class="fa fa-calendar">Pages</i>-->
                             </a>
-<!--                            <a href="#" class="db-sidebar__item">-->
-<!--                                <img src="/dr_social_website/static/src/img/more.png">More</img>-->
-<!--                                &lt;!&ndash;                                <i class="fa fa-calendar">More</i>&ndash;&gt;-->
-<!--                            </a>-->
+                            <a href="/revision_requests" class="db-sidebar__item" groups="social.group_social_manager">
+                                <img src="/dr_social_website/static/src/img/intersect-square.png"
+                                     style="margin-right: 12px;">Revision
+                                </img>
+                                <!--                                <i class="fa fa-calendar">Pages</i>-->
+                            </a>
+                            <!--                            <a href="#" class="db-sidebar__item">-->
+                            <!--                                <img src="/dr_social_website/static/src/img/more.png">More</img>-->
+                            <!--                                &lt;!&ndash;                                <i class="fa fa-calendar">More</i>&ndash;&gt;-->
+                            <!--                            </a>-->
                         </nav>
                         <!-- End of Sidebar -->
                     </div>
                     <div class="col-10 mx-auto content_calendar" style="margin-top: 16px;">
                         <t t-if="posts.filtered(lambda tx: tx.state in 'draft')">
-                            <div class="row my-3" groups="!social.group_social_manager"  style="margin-left: 0px;padding-left: 21px;margin-right: 0px;padding-right: 6px;">
+                            <div class="row my-3" groups="!social.group_social_manager"
+                                 style="margin-left: 0px;padding-left: 21px;margin-right: 0px;padding-right: 6px;">
                                 <div class="db-alert db-shadow">
                                     <div class="db-alert__icon-container">
                                         <i class="fa fa-bell db-alert__icon"></i>
@@ -98,44 +110,93 @@
                                 </div>
                             </div>
                         </t>
-                        <div class="row my-4" >
-                            <div class="col-sm-12 col-md-12 col-lg-12 d-flex justify-content-between align-items-center" style="padding-left: 36px;margin-top: 3px;">
+                        <div class="row my-4">
+                            <div class="col-sm-12 col-md-12 col-lg-12 d-flex justify-content-between align-items-center"
+                                 style="padding-left: 36px;margin-top: 3px;">
                                 <div class="d-flex" style="padding-left: 4px;" groups="social.group_social_manager">
+                                    <t t-if="length > 0">
+                                        <div class="db-custom-select mr-3" style="width:250px;">
+                                            <form action="/content_calendar" class="client_form" method="post"
+                                                  role="form">
+                                                <!--                                                <t t-if="length > 0">-->
+                                                <select id="client" name="client_name" class="client_selection"
+                                                        placeholder="Client Name" t-att-data="name">
 
-                                    <div class="db-custom-select mr-3" style="width:250px;">
-                                        <form action="/content_calendar" class="client_form" method="post" role="form">
-                                            <select id="client" name="client_name" class="client_selection"
-                                                    placeholder="Client Name">
-                                                <t t-if="name">
-                                                    <option>
-                                                        <t t-esc="name"/>
-                                                    </option>
-                                                </t>
-                                                <option></option>
-                                                <t t-foreach="docs" t-as="name1">
-                                                    <option t-esc="name1"/>
-                                                </t>
-                                            </select>
-                                        </form>
-                                    </div>
-                                    <a href="#"
-                                       class="db-button db-button--border-sm db-button--primary text-uppercase small mr-3">
+                                                    <t t-if="name">
+                                                        <option value="id" t-esc="name">
+                                                            <!--                                                        <t t-esc="name"/>-->
+                                                        </option>
+                                                    </t>
+                                                    <option></option>
+                                                    <t t-foreach="docs" t-as="name1">
+                                                        <option t-esc="name1"/>
+                                                    </t>
+                                                </select>
+
+                                            </form>
+                                        </div>
+                                    </t>
+                                    <t t-else="">
+                                        <div class="db-custom-select mr-3" style="width:250px; margin-left: 102px;">
+                                            <form action="/content_calendar" class="client_form" method="post"
+                                                  role="form">
+                                                <select id="client" name="client_name" class="client_selection"
+                                                        placeholder="Client Name" t-att-data="name">
+
+                                                    <t t-if="name">
+                                                        <option value="id" t-esc="name">
+                                                            <!--                                                        <t t-esc="name"/>-->
+                                                        </option>
+                                                    </t>
+                                                    <option></option>
+                                                    <t t-foreach="docs" t-as="name1">
+                                                        <option t-esc="name1"/>
+                                                    </t>
+                                                </select>
+                                            </form>
+                                        </div>
+                                    </t>
+
+                                    <a href="#" style="font-size: 14px; font-weight: bold;"
+                                       class="db-button db-button--border-sm db-button--primary text-uppercase small mr-3 new_post">
                                         <i class="fa fa-plus mr-2"></i>Add New
                                     </a>
-                                    <a href="#"
-                                       class="db-button db-button--border-sm db-button--light text-uppercase small">
+                                    <!--                                    <form action="/client_approval" method="POST">-->
+                                    <!--                                        <t t-set="client" t-value="name"/>-->
+                                    <button
+                                            class="db-button-add db-button--border-sm db-button--light text-uppercase small client_approval">
                                         Send for client approval
-                                    </a>
+                                    </button>
+                                    <!--                                    </form>-->
                                 </div>
                             </div>
-<!--                            <t t-if="posts.filtered(lambda tx: tx.state in 'draft')">-->
-<!--                                <div class="top-text-org">-->
-<!--                                    <span class="top-text">Some posts need your approval! Without your approval they-->
-<!--                                        will not get-->
-<!--                                        published...-->
-<!--                                    </span>-->
-<!--                                </div>-->
-<!--                            </t>-->
+                            <!--                            <t t-if="posts.filtered(lambda tx: tx.state in 'draft')">-->
+                            <!--                                <div class="top-text-org">-->
+                            <!--                                    <span class="top-text">Some posts need your approval! Without your approval they-->
+                            <!--                                        will not get-->
+                            <!--                                        published...-->
+                            <!--                                    </span>-->
+                            <!--                                </div>-->
+                            <!--                            </t>-->
+                            <t t-if="length==0">
+                                <input type="hidden" name="val" class="last_post" t-att-value="last_id"/>
+                                <div>
+                                    <div style="width: 500px; font-size: 45px; font-weight: bold; margin-top: 200px; margin-left: 187px;">
+                                        You don't have any posts yet...
+                                    </div>
+                                    <div style="width: 500px; margin-left: 187px; font-size: 28px; margin-top: 20px;">
+                                        But no worries! We are working on your posts and will notify you <br/> once they are
+                                        available in the dashboard!
+                                    </div>
+                                    <img src="/dr_social_website/static/src/img/nopost.png" loading="lazy" class="" style=" margin-left: 678px;
+  margin-top: -374px;"
+                                         width="505" height="469"/>
+
+                                    <!--                                 <img src="/dr_social_website/static/src/img/image_content.png"/>-->
+                                </div>
+
+                            </t>
+                            <!--                            <span>jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj</span>-->
                             <t t-foreach="posts" t-as="val">
                                 <div class="col-sm-12 col md-12 dashboard-table" t-att-data-id="val.id"
                                      t-att-value="val.state" id="dashboard" style="padding-left: 26px;margin-top: 3px;">
@@ -143,157 +204,163 @@
                                     <!--                                    </t>-->
 
                                     <div class="col-md-12 red-border" id="new_row">
-                                        <div class="db-card" t-att-data-id="val.id" t-att-value="val.state" id="posts">
-                                            <div class="d-flex justify-content-center align-items-center px-4 my-2">
-                                                <button class="red approve_button approve_text db-button db-button--actions db-button--round mr-2"
-                                                        t-att-data-id="val.id">
-                                                    <!--                                                        t-value="val.state">-->
-                                                    <i class="fa fa-check"/>
-                                                </button>
-                                                <button class="black not_approved_button not_approve_onchange db-button db-button--actions db-button--round"
-                                                        t-att-data-id="val.id">
-                                                    <!--                                                        t-value="val.state">-->
-                                                    <i class="fa fa-times db-button__icons"></i>
-                                                </button>
-                                                <!--                                                <script>-->
-                                                <!--                                                -->
-                                                <!--                                                </script>-->
-                                            </div>
-                                            <div class="add_image sub-table-2 my-2" t-att-data-id="val.id"
-                                                 t-att-value="val.image_ids.ids">
-                                                <t t-if="val.image_ids.ids">
-                                                    <t t-set="image"
-                                                       t-value="val.image_ids.filtered(lambda self: self.ids)"/>
-                                                    <!--                                                        <t t-esc="image[0].id"/>-->
-                                                    <a href="#" class="db-card__image-link image_zoom"
-                                                       t-att-data-db-id="val.id"
-                                                       data-db-user-image="/dr_social_website/static/src/img/user.png"
-                                                       t-att-data-db-target="'/web/image/ir.attachment/'+str(image[0].id)+'/datas'"
-                                                       t-att-data-db-description="val.id">
-                                                        <img t-att-src="'/web/image/ir.attachment/'+str(image[0].id)+'/datas'"
-                                                             class="image-table image_view"
-                                                             t-att-id="'image_id_' + str(val.id)"
-                                                             alt="background"/>
-                                                    </a>
-                                                </t>
-                                                <div class="form-input">
-                                                    <div class="preview">
-                                                        <a href="#" class="db-card__image-link image_zoom"
-                                                           data-db-user-image="/dr_social_website/static/src/img/user.png"
-                                                           t-att-data-db-id="'preview_' + str(val.id)"
-                                                           t-att-data-db-description="val.message">
-
-                                                            <img t-att-id="'preview_' + str(val.id)"/>
-                                                        </a>
-                                                    </div>
-
-                                                    <div class="upload_view d-none"
-                                                         t-att-id="'upload_id_' + str(val.id)">
-                                                        <label t-att-for="val.id">
-                                                            <i class="fa fa-upload upload_button"/>
-                                                        </label>
-
-                                                        <input type="file" t-att-id="val.id" accept="image/*"
-                                                               class="post_uploded_image" t-att-data-id="val.id"/>
-                                                    </div>
+                                        <div t-att-id="'post_id_'+ str(val.id)">
+                                            <div class="db-card" t-att-data-id="val.id" t-att-value="val.state"
+                                                 id="posts">
+                                                <div class="d-flex justify-content-center align-items-center px-4 my-2">
+                                                    <button class="red approve_button approve_text db-button db-button--actions db-button--round mr-2"
+                                                            t-att-data-id="val.id">
+                                                        <!--                                                        t-value="val.state">-->
+                                                        <i class="fa fa-check"/>
+                                                    </button>
+                                                    <button class="black not_approved_button not_approve_onchange db-button db-button--actions db-button--round"
+                                                            t-att-data-id="val.id">
+                                                        <!--                                                        t-value="val.state">-->
+                                                        <i class="fa fa-times db-button__icons"></i>
+                                                    </button>
+                                                    <!--                                                <script>-->
+                                                    <!--                                                -->
+                                                    <!--                                                </script>-->
                                                 </div>
-                                                <i class="delete_image delete_button fa fa-trash"
-                                                   t-att-id="'delete_'+str(val.id)"></i>
-                                                <i class="delete_upload delete_upload_1 fa fa-trash"
-                                                   t-att-id="'delete_upload_'+str(val.id)"></i>
-                                                <i class="search search_button fa fa-search"
-                                                   t-att-id="'search_'+str(val.id)"></i>
-                                                <i class="search_upload search_upload_1 fa fa-search"
-                                                   t-att-id="'search_upload_'+str(val.id)"></i>
-                                            </div>
+                                                <div class="add_image sub-table-2 my-2" t-att-data-id="val.id"
+                                                     t-att-value="val.image_ids.ids">
+                                                    <t t-if="val.image_ids.ids">
+                                                        <t t-set="image"
+                                                           t-value="val.image_ids.filtered(lambda self: self.ids)"/>
+                                                        <!--                                                        <t t-esc="image[0].id"/>-->
+                                                        <a href="#" class="db-card__image-link image_zoom"
+                                                           t-att-data-db-id="val.id"
+                                                           data-db-user-image="/dr_social_website/static/src/img/user.png"
+                                                           t-att-data-db-target="'/web/image/ir.attachment/'+str(image[0].id)+'/datas'"
+                                                           t-att-data-db-description="val.id">
+                                                            <img t-att-src="'/web/image/ir.attachment/'+str(image[0].id)+'/datas'"
+                                                                 class="image-table image_view"
+                                                                 t-att-id="'image_id_' + str(val.id)"
+                                                                 alt="background"/>
+                                                        </a>
+                                                    </t>
+                                                    <div class="form-input">
+                                                        <div class="preview">
+                                                            <a href="#" class="db-card__image-link image_zoom"
+                                                               data-db-user-image="/dr_social_website/static/src/img/user.png"
+                                                               t-att-data-db-id="'preview_' + str(val.id)"
+                                                               t-att-data-db-description="val.message">
 
-                                            <div class="ml-4 db-card__textarea-container my-2">
-                                                <textarea
-                                                        class="db-form-control db-form-control--textarea post_message_textarea text-overflow"
-                                                        t-att-id="'chartdiv_'+str(val.id)" placeholder="MESSAGE..."
-                                                        name="message" style="overflow:hidden"></textarea>
-                                                <a href="#" class="toggle-view seeMore more-text"
-                                                   t-att-id="'more_'+str(val.id)">
-                                                    more...
-                                                </a>
-                                                <a href="#" class="toggle-view d-none seeLess more-text">
-                                                    less...
-                                                </a>
-                                            </div>
-                                            <!--                                            <div class="d-flex justify-content-center align-items-center px-4 my-2">-->
-                                            <!--                                                <div class="time_field width_time">-->
-                                            <!--                                                    <div class="ui input left ">-->
-                                            <!--                                                        <t t-if="val.time">-->
-                                            <!--                                                            <input type="text" placeholder="Time" t-att-data-id="val.id"-->
-                                            <!--                                                                   t-att-value="val.time" class="value_time"/>-->
-                                            <!--                                                        </t>-->
-                                            <!--                                                        <t t-else="">-->
+                                                                <img t-att-id="'preview_' + str(val.id)"/>
+                                                            </a>
+                                                        </div>
 
-                                            <!--                                                            <input type="text" placeholder="Time" t-att-data-id="val.id"-->
-                                            <!--                                                                   class="value_time"/>-->
-                                            <!--                                                        </t>-->
-                                            <!--                                                    </div>-->
-                                            <!--                                                </div>-->
-                                            <!--                                                <div class="date_field width_date">-->
-                                            <!--                                                    <div class="ui input left">-->
-                                            <!--                                                        <t t-if="val.date">-->
-                                            <!--                                                            <input type="text" placeholder="Date"-->
-                                            <!--                                                                   class="date_input1 date_default db-calendar"-->
-                                            <!--                                                                   t-att-value="val.date" t-att-data-id="val.id"/>-->
-                                            <!--                                                        </t>-->
-                                            <!--                                                        <t t-else="">-->
-                                            <!--                                                            <input type="text" placeholder="Date"-->
-                                            <!--                                                                   class="date_input1 date_default db-calendar"-->
-                                            <!--                                                                   t-att-data-id="val.id"/>-->
-                                            <!--                                                        </t>-->
+                                                        <div class="upload_view d-none"
+                                                             t-att-id="'upload_id_' + str(val.id)">
+                                                            <label t-att-for="val.id">
+                                                                <i class="fa fa-upload upload_button"/>
+                                                            </label>
 
-                                            <!--                                                    </div>-->
-                                            <!--                                                </div>-->
-                                            <!--                                                <br/>-->
-                                            <div class="container justify-content-center align-items-center px-4 my-2">
-                                                <div class="row my-5">
-                                                    <div class="col-4 mx-auto">
-                                                        <div class="db-datepicker-group">
-                                                            <input type="text" t-att-id="val.id" t-att-value="val.date"
-                                                                   class="db-datepicker dateTimePicker value_date_time"/>
-                                                            <i class="fa fa-chevron-down db-datepicker-group__icon"></i>
+                                                            <input type="file" t-att-id="val.id" accept="image/*"
+                                                                   class="post_uploded_image" t-att-data-id="val.id"/>
+                                                        </div>
+                                                    </div>
+                                                    <i class="delete_image delete_button fa fa-trash"
+                                                       t-att-id="'delete_'+str(val.id)"></i>
+                                                    <i class="delete_upload delete_upload_1 fa fa-trash"
+                                                       t-att-id="'delete_upload_'+str(val.id)"></i>
+                                                    <i class="search search_button fa fa-search"
+                                                       t-att-id="'search_'+str(val.id)"></i>
+                                                    <i class="search_upload search_upload_1 fa fa-search"
+                                                       t-att-id="'search_upload_'+str(val.id)"></i>
+                                                </div>
+
+                                                <div class="ml-4 db-card__textarea-container my-2">
+                                                    <textarea
+                                                            class="db-form-control db-form-control--textarea post_message_textarea text-overflow"
+                                                            t-att-id="'chartdiv_'+str(val.id)" placeholder="MESSAGE..."
+                                                            name="message" style="overflow:hidden"></textarea>
+                                                    <a href="#" class="toggle-view seeMore more-text"
+                                                       t-att-id="'more_'+str(val.id)">
+                                                        more...
+                                                    </a>
+                                                    <a href="#" class="toggle-view d-none seeLess more-text">
+                                                        less...
+                                                    </a>
+                                                </div>
+                                                <!--                                            <div class="d-flex justify-content-center align-items-center px-4 my-2">-->
+                                                <!--                                                <div class="time_field width_time">-->
+                                                <!--                                                    <div class="ui input left ">-->
+                                                <!--                                                        <t t-if="val.time">-->
+                                                <!--                                                            <input type="text" placeholder="Time" t-att-data-id="val.id"-->
+                                                <!--                                                                   t-att-value="val.time" class="value_time"/>-->
+                                                <!--                                                        </t>-->
+                                                <!--                                                        <t t-else="">-->
+
+                                                <!--                                                            <input type="text" placeholder="Time" t-att-data-id="val.id"-->
+                                                <!--                                                                   class="value_time"/>-->
+                                                <!--                                                        </t>-->
+                                                <!--                                                    </div>-->
+                                                <!--                                                </div>-->
+                                                <!--                                                <div class="date_field width_date">-->
+                                                <!--                                                    <div class="ui input left">-->
+                                                <!--                                                        <t t-if="val.date">-->
+                                                <!--                                                            <input type="text" placeholder="Date"-->
+                                                <!--                                                                   class="date_input1 date_default db-calendar"-->
+                                                <!--                                                                   t-att-value="val.date" t-att-data-id="val.id"/>-->
+                                                <!--                                                        </t>-->
+                                                <!--                                                        <t t-else="">-->
+                                                <!--                                                            <input type="text" placeholder="Date"-->
+                                                <!--                                                                   class="date_input1 date_default db-calendar"-->
+                                                <!--                                                                   t-att-data-id="val.id"/>-->
+                                                <!--                                                        </t>-->
+
+                                                <!--                                                    </div>-->
+                                                <!--                                                </div>-->
+                                                <!--                                                <br/>-->
+                                                <div class="container justify-content-center align-items-center px-4 my-2">
+                                                    <div class="row my-5">
+                                                        <div class="col-4 mx-auto">
+                                                            <div class="db-datepicker-group">
+                                                                <input type="text" t-att-id="val.id"
+                                                                       t-att-value="val.date"
+                                                                       class="db-datepicker dateTimePicker value_date_time"/>
+                                                                <i class="fa fa-chevron-down db-datepicker-group__icon"></i>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
 
-                                            <!--                                            </div>-->
-                                            <div class="ml-3 db-card__textarea-container my-2 feedback_green"
-                                                 t-att-value="val.revision_button">
+                                                <!--                                            </div>-->
+                                                <div class="ml-3 db-card__textarea-container my-2 feedback_green"
+                                                     t-att-value="val.revision_button">
+                                                    <!--                                                <t t-if="val.feedback">-->
+                                                    <textarea t-att-id="val.id" t-att-data-id="val.id"
+                                                              placeholder="FEEDBACK..."
+                                                              class="db-form-control db-form-control--textarea-2 post_feedback_textarea feedback_revision"
+                                                              name="feedback" style="color:#625454;">
+                                                        <t t-esc="val.feedback"/>
+                                                    </textarea>
+                                                    <div class="db-card__status">
+                                                        <button class="grey db-button db-button--actions db-button--round mr-2"
+                                                                t-att-data-id="val.id" t-att-id="'grey_'+str(val.id)"
+                                                                groups="social.group_social_manager">
+                                                            <i class="fa fa-check"/>
+                                                        </button>
+                                                        <button class="green db-button db-button--actions db-button--round-rev mr-2 "
+                                                                t-att-id="'green_'+str(val.id)">
+                                                            <i class="fa fa-check"/>
+                                                        </button>
+                                                        <div class="revision db-card__status-text mr-2"
+                                                             t-att-id="'revision_'+str(val.id)">
+                                                            Revision Done
+                                                        </div>
+                                                        <div class="revision_progress db-card__status mr-2"
+                                                             groups="!social.group_social_manager"
+                                                             t-att-id="'progress_'+str(val.id)"
+                                                             t-att-value="val.revision_progress">
+                                                            Revision in progress
+                                                        </div>
+                                                    </div>
 
-                                                <!--                                                <t t-if="val.feedback">-->
-                                                <textarea t-att-id="val.id" t-att-data-id="val.id"
-                                                          placeholder="FEEDBACK..."
-                                                          class="db-form-control db-form-control--textarea post_feedback_textarea feedback_revision"
-                                                          name="feedback" style="color:#AAA7A9;">
-                                                    <t t-esc="val.feedback"/>
-                                                </textarea>
-                                                <div class="db-card__status">
-                                                    <button class="grey db-button db-button--actions db-button--round mr-2"
-                                                            t-att-data-id="val.id" t-att-id="'grey_'+str(val.id)"
-                                                            groups="social.group_social_manager">
-                                                        <i class="fa fa-check"/>
-                                                    </button>
-                                                    <button class="green db-button db-button--actions db-button--round mr-2"
-                                                            t-att-id="'green_'+str(val.id)">
-                                                        <i class="fa fa-check"/>
-                                                    </button>
-                                                    <div class="revision db-card__status-text mr-2"
-                                                         t-att-id="'revision_'+str(val.id)">
-                                                        Revision Done
-                                                    </div>
-                                                    <div class="revision_progress db-card__status mr-2"
-                                                         groups="!social.group_social_manager"
-                                                         t-att-id="'progress_'+str(val.id)"
-                                                         t-att-value="val.revision_progress">
-                                                        Revision in progress
-                                                    </div>
                                                 </div>
+                                                <i class="delete_post  fa fa-trash" style="margin-top: -208px; color: #AAA7A9;"
+                                                   t-att-id="'delete_post_'+str(val.id)"></i>
                                             </div>
                                         </div>
                                     </div>
@@ -335,7 +402,8 @@
                             </div>
                             <div class="db-dialog__image-container">
                                 <a href="#" class="db-dialog__close" id="dialogClose">
-                                    <i class="fa fa-times" style="margin-left: -14px;margin-top: 11px;"/>
+                                    <i class="fa fa-times"
+                                       style="margin-left: -14px;margin-top: 11px; color: #625454;"/>
                                 </a>
                                 <img src="" class="db-dialog__image"/>
                             </div>
@@ -343,14 +411,19 @@
                                 <div class="row">
                                     <div class="col-sm-12 col-md-12 col-lg-12 d-flex align-items-start">
                                         <a href="#" class="db-overlay__button mr-2">
-                                            <i class="fa fa-heart-o"></i>
+                                            <!--                                            <i class="fa fa-heart-o"></i>-->
+                                            <img src="/dr_social_website/static/src/img/heart.png" style="width:35px"/>
                                             <!--                                            <img src="/dr_social_website/static/src/img/heart.png"/>-->
                                         </a>
                                         <a href="#" class="db-overlay__button mx-2">
-                                            <i class="fa fa-comment-o"></i>
+                                            <!--                                            <i class="fa fa-comment-o"></i>-->
+                                            <img src="/dr_social_website/static/src/img/message-dots-square.png"
+                                                 style="width:35px"/>
                                         </a>
                                         <a href="#" class="db-overlay__button mx-2">
-                                            <i class="fa fa-paper-plane-o"></i>
+                                            <!--                                            <i class="fa fa-paper-plane-o"></i>-->
+                                            <img src="/dr_social_website/static/src/img/send-01.png"
+                                                 style="width:35px"/>
                                         </a>
                                     </div>
                                     <div class="message_text"
@@ -501,7 +574,6 @@
                     <!--                        });-->
                     <!--                    </script>-->
                 </div>
-                <!--                </div>-->
             </div>
         </t>
     </template>

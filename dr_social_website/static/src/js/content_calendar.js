@@ -2,21 +2,20 @@ odoo.define('dr_social_website.content_calendar', function (require) {
 "use strict";
 const publicWidget = require('web.public.widget');
 var rpc = require('web.rpc');
-var id =  parseInt($('.dashboard-table')[0].dataset.id);
+console.log('kk',$('.last_post').val(),'ll',$('.last_post'))
+if ($('.dashboard-table')[0]) {
+   var id =  parseInt($('.dashboard-table')[0].dataset.id);
+}
+if ($('.last_post')[0]) {
+   var id =  parseInt($('.last_post').val());
+}
+
 var ajax = require('web.ajax');
 
 $(document).ready(function (ev) {
-console.log('ssssssssssssssssssssssssssssssssss')
-//    $('select').selectize({
-//          sortField: 'text'
-//      });
-//   $("select").select2();
-//    $('.client_selection').select2();
     $(".revision").hide();
-    $('.o_footer').addClass('header_hide')
-    $('.navbar').addClass('d-none')
-
-
+//    $('.o_footer').addClass('header_hide')
+//    $('.navbar').addClass('d-none')
     $(".delete_upload").hide();
     $(".search_upload").hide();
     $(".revision_progress").hide();
@@ -29,10 +28,8 @@ console.log('ssssssssssssssssssssssssssssssssss')
     var text = $('.text-overflow');
     var feedback = $('.feedback_green');
     var progress_revision = $('.revision_progress');
+    console.log('progress_revision',progress_revision.length)
      $('nav a[href^="/' + location.pathname.split("/")[1] + '"]').addClass('active');
-//    var more_zoom_id = $('.more_show')
-
-//    console.log(progress,'progress')
     for (let i = 0; i < text.length; i++) {
         rpc.query({
             model: 'social.post',
@@ -47,11 +44,6 @@ console.log('ssssssssssssssssssssssssssssssssss')
                 var more_id = 'more_'+ String(text[i].offsetParent.dataset.id);
                 $('#'+more_id).hide()
             }
-//            console.log('billo',$('.show_more'))
-////            var more_zoom_id = 'more_zoom_' + String(text[i].offsetParent.dataset.id);
-//                console.log('more_zoom_id',more_zoom_id)
-
-
         });
     }
     for (let i = 0; i < posts.length; i++) {
@@ -75,17 +67,7 @@ console.log('ssssssssssssssssssssssssssssssssss')
             $("#"+revision).show();
             $("#"+grey).hide();
         }
-      if (progress_revision == true){
-        if (progress_revision[i].attributes.value){
-//            var revision = 'revision_' +String(feedback[i].firstElementChild.id)
-//            var grey = 'grey_' +String(feedback[i].firstElementChild.id)
-            var progress = 'progress_' +String(feedback[i].firstElementChild.id)
-            $("#"+progress).show();
-//            $("#"+revision).show();
-//            $("#"+grey).hide();
-        }
-        }
-    }
+
     for (let i = 0; i < table_1.length; i++) {
         if (table_1[i].attributes.value.value === 'draft') {
             table_1[i].style.border = '2px solid #ffb914';
@@ -103,11 +85,23 @@ console.log('ssssssssssssssssssssssssssssssssss')
             var id = image_upload[i].dataset.id
             var upload_id = 'upload_id_' + String(id)
             var upload = document.getElementById(upload_id);
-            upload.classList.toggle("d-none");
+            upload.classList.remove("d-none");
             var delete_image = 'delete_' + String(id)
             $('#' + delete_image).hide();
             var search_image = 'search_' + String(id)
             $('#' + search_image).hide();
+
+        }
+    }
+     if (progress_revision.length > 0){
+        if (progress_revision[i].attributes.value){
+//            var revision = 'revision_' +String(feedback[i].firstElementChild.id)
+//            var grey = 'grey_' +String(feedback[i].firstElementChild.id)
+            var progress = 'progress_' +String(feedback[i].firstElementChild.id)
+            $("#"+progress).show();
+//            $("#"+revision).show();
+//            $("#"+grey).hide();
+        }
         }
     }
 //     for (let i = 0; i < more_zoom_id.length; i++) {
@@ -129,25 +123,16 @@ console.log('ssssssssssssssssssssssssssssssssss')
 publicWidget.registry.websiteEventSearchSponsor = publicWidget.Widget.extend({
 
 start: function () {
-
-//<!--                        var post_id = 'preview_' + String(id);-->
-                    var val =    $('.dateTimePicker').datetimepicker({
-                        format: 'h:mm A D MMMM YYYY',
-//<!--                        defaultDate: new Date()-->
-                        });
-                        console.log(val,'lll')
-//   var mmm =    $('.dateTimePicker_button').datetimepicker({
-//                        format: 'h:mm A D MMMM YYYY',
-////<!--                        defaultDate: new Date()-->
-//                        });
-//                        console.log(mmm,'mmm')
+    var val = $('.dateTimePicker').datetimepicker({
+    format: 'h:mm A D MMMM YYYY',
+    });
 },
-
 
  selector:'.content_calendar',
  events: {
         'click .new_post': '_new_post',
         'change .client_selection': '_client_selection',
+        'click .client_approval': '_client_approval',
         'click .grey': '_grey',
         'click .grey_button': '_grey_button',
         'click .toggle-view': '_toggle_view',
@@ -171,10 +156,12 @@ start: function () {
         'click .image_zoom_button': '_image_zoom_button',
         'blur .date_button': '_date_input',
         'blur .value_date_time': '_value_date_time',
+        'click .delete_post': '_delete_post',
+        'click .delete_post_button': '_delete_post_button',
     },
     _new_post:function(e){
         e.preventDefault();
-//        console.log('aaaaaaaaaaa',e)
+        console.log('aaaaaaaaaaa',e,id)
 //        var last_id = localStorage.setItem("last_id",last);
         id++
         console.log( id,'lllllllllll')
@@ -194,106 +181,215 @@ start: function () {
         var description_id = 'description_button_' + id
         var image_id = 'image_button_' + id
         var progress_id = 'progress_button_' + id
+        var post_button = 'post_button_' + id
+        var delete_post_id = 'delete_post_button_' + id
 //        var more_zoom = 'more_zoom_'+id
 
-        $('.dashboard-table')[0].insertAdjacentHTML('beforebegin',
-            `<div class="col-sm-12 col md-12 dashboard-table">
-            <div class="col-md-12 red-border" id="new_row">
-                    <div class="db-card new_post_border" id="${id}">
-                        <div class="d-flex justify-content-center align-items-center px-4 my-2">
-                            <button class="red_button db-button db-button--actions db-button--round mr-2"
-                                    id="${red_id}">
-                                <i class="fa fa-check"></i>
-                            </button>
-                            <button class="black_button db-button db-button--actions db-button--round"
-                                    id="${black_id}">
-                                <i class="fa fa-times db-button__icons"></i>
-                            </button>
+        if ( $('.dashboard-table')[0]){
+            $('.dashboard-table')[0].insertAdjacentHTML('beforebegin',
+                `<div class="col-sm-12 col md-12 dashboard-table">
+                <div class="col-md-12 red-border" id="new_row">
+                    <div t-att-id="${post_button}">
+                        <div class="db-card new_post_border" id="${id}">
+                            <div class="d-flex justify-content-center align-items-center px-4 my-2">
+                                <button class="red_button db-button db-button--actions db-button--round mr-2"
+                                        id="${red_id}">
+                                    <i class="fa fa-check"></i>
+                                </button>
+                                <button class="black_button db-button db-button--actions db-button--round"
+                                        id="${black_id}">
+                                    <i class="fa fa-times db-button__icons"></i>
+                                </button>
 
-                        </div>
-                        <div class="add_image sub-table-2 my-2">
-                            <div class="form-input">
-                                <div class="preview">
-                                    <a href="#" class="db-card__image-link image_zoom_button"
-                                       data-db-user-image="/dr_social_website/static/src/img/user.png"
-                                       data-db-description="${description_id}">
-
-                                        <img id="${preview_id}"/>
-                                    </a>
-                                </div>
-                                <div class="upload_view"
-                                     id="${upload_id}">
-                                    <label for="${image_id}">
-                                        <i class="fa fa-upload upload_button"></i>
-                                    </label>
-
-                                    <input type="file" id="${image_id}" accept="image/*"
-                                           class="post_uploded_image_button"/>
-                                </div>
                             </div>
-                            <i class="delete_image_button delete_button_post fa fa-trash"
-                                                   id="${delete_image_id}"></i>
-                            <i class="delete_upload_button delete_button_post fa fa-trash"
-                                                   id="${delete_upload_id}"></i>
-                            <i class="search_upload_button search_button_post fa fa-search"
-                                           id="${search_upload_id}"></i>
-                        </div>
+                            <div class="add_image sub-table-2 my-2">
+                                <div class="form-input">
+                                    <div class="preview">
+                                        <a href="#" class="db-card__image-link image_zoom_button"
+                                           data-db-user-image="/dr_social_website/static/src/img/user.png"
+                                           data-db-description="${description_id}">
 
-                        <div class="ml-4 db-card__textarea-container my-2">
-                            <textarea class="db-form-control db-form-control--textarea post_message_textarea_button text-overflow"
-                                    id="${chartdiv_id}" placeholder="MESSAGE..."
-                                    name="message" style="overflow:hidden"></textarea>
-                            <a href="#" class="toggle-view seeMore more-text"
-                               id="${more_id}">
-                                more...
-                            </a>
-                            <a href="#" class="toggle-view d-none seeLess more-text">
-                                less...
-                            </a>
-                        </div>
-                        <div class="container justify-content-center align-items-center px-4 my-2">
-                            <div class="row my-5">
-                                <div class="col-4 mx-auto">
-                                    <div class="db-datepicker-group">
-                                        <input type="text"
-                                               class="db-datepicker dateTimePicker_button date_button"/>
-                                        <i class="fa fa-chevron-down db-datepicker-group__icon"></i>
+                                            <img id="${preview_id}"/>
+                                        </a>
+                                    </div>
+                                    <div class="upload_view"
+                                         id="${upload_id}">
+                                        <label for="${image_id}">
+                                            <i class="fa fa-upload upload_button"></i>
+                                        </label>
+
+                                        <input type="file" id="${image_id}" accept="image/*"
+                                               class="post_uploded_image_button"/>
+                                    </div>
+                                </div>
+                                <i class="delete_image_button delete_button_post fa fa-trash"
+                                                       id="${delete_image_id}"></i>
+                                <i class="delete_upload_button delete_button_post fa fa-trash"
+                                                       id="${delete_upload_id}"></i>
+                                <i class="search_upload_button search_button_post fa fa-search"
+                                               id="${search_upload_id}"></i>
+                            </div>
+
+                            <div class="ml-4 db-card__textarea-container my-2">
+                                <textarea class="db-form-control db-form-control--textarea post_message_textarea_button text-overflow"
+                                        id="${chartdiv_id}" placeholder="MESSAGE..."
+                                        name="message" style="overflow:hidden"></textarea>
+                                <a href="#" class="toggle-view seeMore more-text"
+                                   id="${more_id}">
+                                    more...
+                                </a>
+                                <a href="#" class="toggle-view d-none seeLess more-text">
+                                    less...
+                                </a>
+                            </div>
+                            <div class="container justify-content-center align-items-center px-4 my-2">
+                                <div class="row my-5">
+                                    <div class="col-4 mx-auto">
+                                        <div class="db-datepicker-group">
+                                            <input type="text"
+                                                   class="db-datepicker dateTimePicker_button date_button"/>
+                                            <i class="fa fa-chevron-down db-datepicker-group__icon"></i>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="ml-3 db-card__textarea-container my-2 feedback_green">
-                            <textarea id="${id}"
-                                      placeholder="FEEDBACK..."
-                                      class="db-form-control db-form-control--textarea post_feedback_textarea_button feedback_revision_button"
-                                      name="feedback"></textarea>
-                            <div class="db-card__status">
-                                <button class="grey_button db-button db-button--actions db-button--round mr-2"
-                                        t-att-data-id="${id}" id="${grey_id}"
-                                        groups="social.group_social_manager">
-                                    <i class="fa fa-check"></i>
-                                </button>
-                                <button class="green_button db-button db-button--actions db-button--round mr-2"
-                                        id="${green_id}">
-                                    <i class="fa fa-check"></i>
-                                </button>
-                                <div class="revision_button db-card__status-text mr-2"
-                                     id="${revision_id}">
-                                    Revision Done
-                                </div>
-                                <div class="revision_progress_button db-card__status mr-2" groups="!social.group_social_manager"
-                                     id="${progress_id}">
-                                    Revision in progress
+                            <div class="ml-3 db-card__textarea-container my-2 feedback_green">
+                                <textarea id="${id}"
+                                          placeholder="FEEDBACK..."
+                                          class="db-form-control db-form-control--textarea post_feedback_textarea_button feedback_revision_button"
+                                          name="feedback"></textarea>
+                                <div class="db-card__status">
+                                    <button class="grey_button db-button db-button--actions db-button--round mr-2"
+                                            t-att-data-id="${id}" id="${grey_id}"
+                                            groups="social.group_social_manager">
+                                        <i class="fa fa-check"></i>
+                                    </button>
+                                    <button class="green_button db-button db-button--actions db-button--round mr-2"
+                                            id="${green_id}">
+                                        <i class="fa fa-check"></i>
+                                    </button>
+                                    <div class="revision_button db-card__status-text mr-2"
+                                         id="${revision_id}">
+                                        Revision Done
+                                    </div>
+                                    <div class="revision_progress_button db-card__status mr-2" groups="!social.group_social_manager"
+                                         id="${progress_id}">
+                                        Revision in progress
+                                    </div>
                                 </div>
                             </div>
+                            <i class="delete_post_button  fa fa-trash" style="margin-top: -208px; color: #AAA7A9;"
+                                   t-att-id="${delete_post_id}"></i>
                         </div>
-
                     </div>
-                </div>
-                </div>
+                    </div>
+                    </div>
 
 
-                  `);
+                      `);
+                      }
+       if ( $('.last_post')[0]){
+            $('.last_post')[0].insertAdjacentHTML('beforebegin',
+                `<div class="col-sm-12 col md-12 dashboard-table">
+                <div class="col-md-12 red-border" id="new_row">
+                <div t-att-id="${post_button}">
+                        <div class="db-card new_post_border" id="${id}">
+                            <div class="d-flex justify-content-center align-items-center px-4 my-2">
+                                <button class="red_button db-button db-button--actions db-button--round mr-2"
+                                        id="${red_id}">
+                                    <i class="fa fa-check"></i>
+                                </button>
+                                <button class="black_button db-button db-button--actions db-button--round"
+                                        id="${black_id}">
+                                    <i class="fa fa-times db-button__icons"></i>
+                                </button>
+
+                            </div>
+                            <div class="add_image sub-table-2 my-2">
+                                <div class="form-input">
+                                    <div class="preview">
+                                        <a href="#" class="db-card__image-link image_zoom_button"
+                                           data-db-user-image="/dr_social_website/static/src/img/user.png"
+                                           data-db-description="${description_id}">
+
+                                            <img id="${preview_id}"/>
+                                        </a>
+                                    </div>
+                                    <div class="upload_view"
+                                         id="${upload_id}">
+                                        <label for="${image_id}">
+                                            <i class="fa fa-upload upload_button"></i>
+                                        </label>
+
+                                        <input type="file" id="${image_id}" accept="image/*"
+                                               class="post_uploded_image_button"/>
+                                    </div>
+                                </div>
+                                <i class="delete_image_button delete_button_post fa fa-trash"
+                                                       id="${delete_image_id}"></i>
+                                <i class="delete_upload_button delete_button_post fa fa-trash"
+                                                       id="${delete_upload_id}"></i>
+                                <i class="search_upload_button search_button_post fa fa-search"
+                                               id="${search_upload_id}"></i>
+                            </div>
+
+                            <div class="ml-4 db-card__textarea-container my-2">
+                                <textarea class="db-form-control db-form-control--textarea post_message_textarea_button text-overflow"
+                                        id="${chartdiv_id}" placeholder="MESSAGE..."
+                                        name="message" style="overflow:hidden"></textarea>
+                                <a href="#" class="toggle-view seeMore more-text"
+                                   id="${more_id}">
+                                    more...
+                                </a>
+                                <a href="#" class="toggle-view d-none seeLess more-text">
+                                    less...
+                                </a>
+                            </div>
+                            <div class="container justify-content-center align-items-center px-4 my-2">
+                                <div class="row my-5">
+                                    <div class="col-4 mx-auto">
+                                        <div class="db-datepicker-group">
+                                            <input type="text"
+                                                   class="db-datepicker dateTimePicker_button date_button"/>
+                                            <i class="fa fa-chevron-down db-datepicker-group__icon"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ml-3 db-card__textarea-container my-2 feedback_green">
+                                <textarea id="${id}"
+                                          placeholder="FEEDBACK..."
+                                          class="db-form-control db-form-control--textarea post_feedback_textarea_button feedback_revision_button"
+                                          name="feedback"></textarea>
+                                <div class="db-card__status">
+                                    <button class="grey_button db-button db-button--actions db-button--round mr-2"
+                                            t-att-data-id="${id}" id="${grey_id}"
+                                            groups="social.group_social_manager">
+                                        <i class="fa fa-check"></i>
+                                    </button>
+                                    <button class="green_button db-button db-button--actions db-button--round mr-2"
+                                            id="${green_id}">
+                                        <i class="fa fa-check"></i>
+                                    </button>
+                                    <div class="revision_button db-card__status-text mr-2"
+                                         id="${revision_id}">
+                                        Revision Done
+                                    </div>
+                                    <div class="revision_progress_button db-card__status mr-2" groups="!social.group_social_manager"
+                                         id="${progress_id}">
+                                        Revision in progress
+                                    </div>
+                                </div>
+                            </div>
+                            <i class="delete_post_button  fa fa-trash" style="margin-top: -208px; color: #AAA7A9;"
+                                   t-att-id="${delete_post_id}"></i>
+                        </div>
+                    </div>
+                    </div>
+                    </div>
+                      `);
+                      }
+
                 $("#"+revision_id).hide();
                     $(".revision_progress_button").hide();
                     $(".search_upload_button").hide();
@@ -312,28 +408,35 @@ start: function () {
                         format: 'h:mm A D MMMM YYYY',
 //<!--                        defaultDate: new Date()-->
                         });
+
+                var client_search = $('.client_selection')[0].attributes.data.value;
+                console.log('client_search',client_search,this.res_model,$('.client_selection'),$('.client_selection')[0].attributes.data.value)
             this._rpc({
             model: 'social.post',
-            method: 'create',
-            args: [{res_model: this.res_model}],
+            method: 'new_post_create',
+            args: [ , client_search],
         }).then(function(result){})
+
     },
     _client_selection:function(e){
         e.preventDefault();
         console.log('kksdkdskkafuyyrjjey',e,e.target.value)
         var client_name = e.target.value
         $('.client_form').submit()
-//        ajax.jsonRpc('/client_name', 'call', {
-//        'client_name': client_name,
-//    }).then(function(result){
-////       console.log('result',result,'result')
-////         $('.div_client').html(result);
-//        })
-//        this._rpc({
-//            model: 'social.post',
-//            method: 'write',
-//            args: [[parseInt(id)], {revision_button: true, revision_progress:false}],
-//        }).then(function(result){})
+    },
+    _client_approval:function(e){
+        e.preventDefault();
+        console.log('kkkkkkkkkkkkkkk',e)
+        var client_search = $('.client_selection').val();
+         ajax.jsonRpc('/client_approval', 'call', {'client_name': client_search
+         }).then(function (data) {
+
+               });
+
+
+//        console.log('kksdkdskkafuyyrjjey',e,e.target.value)
+//        var client_name = e.target.value
+//        $('.client_form').submit()
     },
     _grey:function(e){
         e.preventDefault();
@@ -535,10 +638,8 @@ start: function () {
        var self = this
        var id = $(ev.target).data('id');
        var image = ev.target.files;
-       console.log('pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp',id,image)
        for (let i = 0; i < image.length; i++) {
            image = image[i]
-           console.log(image,';;;;;;;;;;;;;;;;;;;;;')
            var name = image.name
            var reader = new FileReader();
            reader.readAsDataURL(image);
@@ -836,6 +937,35 @@ start: function () {
             }
         });
     },
+    _delete_post: function (ev) {
+        console.log('aaaaaaaaaaaaaaaaa',ev,ev.target.offsetParent.dataset.id)
+        var id = ev.target.offsetParent.dataset.id
+        var post ='post_id_'+ String(id)
+        $('#'+ post).hide()
+        this._rpc({
+            model: 'social.post',
+            method: 'delete_posts',
+            args: [ ,parseInt(id)],
+
+        }).then(function(result){
+
+        });
+    },
+    _delete_post_button: function (ev) {
+        var id = ev.target.offsetParent.id
+        var post = String(id)
+                console.log('aaaaaaaaaaaaaaaaa',ev,post)
+
+        $('#'+ post).hide()
+        this._rpc({
+            model: 'social.post',
+            method: 'delete_posts',
+            args: [ ,parseInt(id)],
+
+        }).then(function(result){
+
+        });
+    },
 
 })
 //publicWidget.registry.websiteImageZoom = publicWidget.Widget.extend({
@@ -965,220 +1095,52 @@ start: function () {
 //})
 publicWidget.registry.websiteEventSearchSponsorss = publicWidget.Widget.extend({
 
- selector:'.db-wrapper',
+ selector:'.db-revision-lists',
  events: {
 //        'click #scheduleListButton': '_load_feedback',
-        'click .selected': '_load_client_name',
+        'click .delete_notification': '_load_client_name',
+        'click .db-revision-list__profile-update': '_load_client_names',
     },
 
 
-    willStart: function () {
-//        $('.o_header_standard').addClass('header_hide')
-    let locals_datas = []
-    console.log('locals_datas', locals_datas)
-
-    },
 
     init: function(parent, context) {
         this.action_id = context['id'];
         this._super(parent, context);
-            let locals_datas = []
+    },
 
-        let inputEl = $('#scheduleListInput');
-    let scheduleBtn = $('#scheduleListButton');
-    let scheduleListEl = $('.db-schedule-input-container__list');
-    let errorEl = $('.db-error');
-
-    /**
-     * Change Day of Week name to two letters
-     */
-
-    // Update selected DOW
-    function selectDOW(i, currISO, dow) {
-      let selectedDow = new Date(currISO).getDay();
-
-      // If dow is selected dow
-      if (i === selectedDow) {
-        dow.classList.add('selected');
-      }
-    }
-    // List of new days of week names
-    const DOW_NAMES = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-    // Get day of the week ISO String from selected date
-    let currISO = $('.db-schedule-container .day.selected').data('date');
-    // Get all the days of the week from the calendar widget
-    var dowOld = $('.db-schedule-container .dow');
-    // Loop through each existing day of week
-    dowOld.each(function (i, dow) {
-      // If dow is selected dow
-      selectDOW(i, currISO, dow);
-      // Replace the text of each day of the week with the new ones
-      dow.innerText = DOW_NAMES[i];
-    });
-
-    /**
-     * Chage DOW Highligh on Date click
-     */
-    // Listen for clicks in the date field
-    $('.db-schedule-container .day').on('click', function (e) {
-      // Clear all selected class from DOW
-      $('.db-schedule-container .dow').each(function (i, dow) {
-        dow.classList.remove('selected');
-      })
-      // Get day of the week ISO String from selected date
-      let currISO = $(this).data('date');
-
-      // Loop through each existing day of week
-      dowOld.each(function (i, dow) {
-        // If dow is selected dow
-        selectDOW(i, currISO, dow);
-      });
-    });
-
-    /**
-    * LOAD VALUES TO SHCEDULE LIST
-    * mode = 1: Execute on load only
-    */
-    function loadLocalData(selectedDate, mode) {
-      let localData = JSON.parse(localStorage.getItem(`cal_${selectedDate}`));
-      let selectedEl = $('.datepicker-cell.selected');
-
-
-      // Reset Schedule List
-      $(scheduleListEl).html(`
-            <li class="db-schedule-input-container__item">
-                <div class="db-schedule-input-container__bullet mr-3"></div>
-                <input class="db-schedule-input-container__input" id="scheduleListInput">
-              </li>
-        `);
-
-      if (localData) {
-        localData.items.forEach(function (item, i) {
-          $(scheduleListEl).append(`
-              <li class="db-schedule-input-container__item">
-                <div class="db-schedule-input-container__bullet mr-3"></div>
-                ${item}
-              </li>
-      `);
-
-        })
-      }
-    }
-    // Load Dots fore Dates
-    $('.db-schedule-container .day').each(function (i, elem) {
-      let currentItemDate = elem.dataset.date;
-      let currentLocalData = JSON.parse(localStorage.getItem(`cal_${currentItemDate}`));
-
-      // Check if local storage has an item for current date
-      if (currentLocalData) {
-        currentLocalData.items.forEach(function (item, i) {
-          if (i == 0) {
-            $(elem).append("<div class='db-schedule-dot-container'><span class='db-schedule-dot'></span></div>");
-          } else {
-            $('.datepicker-cell.selected .db-schedule-dot-container').append("<span class='db-schedule-dot'></span>");
-          }
-        })
-      };
-    })
-    // On selecting another date.
-    $('.db-schedule-container .day').on('click', function (e) {
-      let selectedDate = e.target.dataset.date;
-      loadLocalData(selectedDate, 0);
-    });
-    // On loading for the first time
-    $(window).on('load', function (e) {
-      let selectedDate = $('.datepicker-cell.selected').data('date');
-      loadLocalData(selectedDate, 1);
-    });
-
-    /**
-     * Schedule List
-     */
-
-    /// Add New Items
-
-    // Listen for submit button click.
-    scheduleBtn.on('click', function (e) {
-      // Clear Errors.
-      errorEl.html('');
-      // Get Selected Date.
-      let selectedDate = $('.datepicker-cell.selected');
-      let selectedDateDotContainer = $('.datepicker-cell.selected .db-schedule-dot-container');
-      //  Get Input Value.
-      let enteredValue = $('#scheduleListInput').val();
-      // Check if the entered value is empty.
-      if ($.trim(enteredValue).length == 0) {
-        errorEl.html('Please enter a value.')
-      } else {
-
-        /**
-         * SAVE DATA TO LOCAL STORAGE
-        */
-
-        // Read for local data
-        let localData = JSON.parse(localStorage.getItem(`cal_${selectedDate.data('date')}`));
-
-        // Check if data already exists for the selected date
-        if (localData) {
-          localData.items.push(enteredValue);
-        } else {
-          // Consturct a new object to be stored on the local storage
-          localData = {
-            'date': selectedDate.data('date'),
-            'items': new Array(enteredValue)
-          }
-        }
-
-
-            rpc.query({
-             model: 'revision.request.client',
-                    method: 'client_name',
-                    args: [localData,1,1],
-        }).then(function(result){
-            console.log("result!!!!!!!!!11",result);
-            console.log("result!!!!!!!!!11",result[0]);
-
-
-        });
-        locals_datas.push(localData)
-        // Save data to local storage
-        localStorage.setItem(`cal_${selectedDate.data('date')}`, JSON.stringify(localData));
-
-
-        // Clear input element.
-        inputEl.val('');
-        // Create a new schedule list element if entered value is not empty.
-        $(scheduleListEl).append(`
-              <li class="db-schedule-input-container__item">
-                <div class="db-schedule-input-container__bullet mr-3"></div>
-                ${enteredValue}
-              </li>
-      `);
-        // Check if the selected date already has events scheduled.
-        if (!$(selectedDate).find('.db-schedule-dot-container').length == 1) {
-          // If not add a new dot for the first time.
-          $(selectedDate).append("<div class='db-schedule-dot-container'><span class='db-schedule-dot'></span></div>");
-        } else {
-          // Else add dot along with existing ones.
-          $(selectedDateDotContainer).append("<span class='db-schedule-dot'></span>");
-        }
-      }
-    });
+    _load_client_names:function(ev){
+        $('.db-revision-list__item--active').removeClass("db-revision-list__item--active");
+//        var id = $('.db-schedule-input-container__bullet');
+//        var day = $('.focused');
+//        var month = $('.view-switch');
+//
+//        self.client_name = []
+//        var date_day = day[0].textContent
+//        var date_month = month[0].innerHTML
+//        var date_object =  date_day + ' ' +date_month
+//
+//        for (var i = 0 ; i < id.length ; i++) {
+//            self.client_name = id[i].parentElement.outerText
+//        }
     },
 
     _load_client_name:function(ev){
-        var id = $('.db-schedule-input-container__bullet');
-        var day = $('.focused');
-        var month = $('.view-switch');
-
-        self.client_name = []
-        var date_day = day[0].textContent
-        var date_month = month[0].innerHTML
-        var date_object =  date_day + ' ' +date_month
-
-        for (var i = 0 ; i < id.length ; i++) {
-            self.client_name = id[i].parentElement.outerText
-        }
+        var delete_notification = $('.delete_notification');
+        console.log('delete_notification', delete_notification)
+        $('.db-revision-list__item--active').hide()
+//        var id = $('.db-schedule-input-container__bullet');
+//        var day = $('.focused');
+//        var month = $('.view-switch');
+//
+//        self.client_name = []
+//        var date_day = day[0].textContent
+//        var date_month = month[0].innerHTML
+//        var date_object =  date_day + ' ' +date_month
+//
+//        for (var i = 0 ; i < id.length ; i++) {
+//            self.client_name = id[i].parentElement.outerText
+//        }
     },
 
 });
