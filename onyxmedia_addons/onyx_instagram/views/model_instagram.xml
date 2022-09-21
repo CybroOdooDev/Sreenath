@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+    <record id="onyx_view_form_instagram" model="ir.ui.view">
+        <field name="name">onyx instagram</field>
+        <field name="model">onyx.instagram</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="button_instagram" string="instagram"
+                            class="oe_highlight" type="object"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="client_id_instagram"/>
+                        <field name="client_secret_instagram"/>
+                        <!--&lt;!&ndash;                    <h1 class="head-class">&ndash;&gt;-->
+                        <!--&lt;!&ndash;                        <field name="name"/>&ndash;&gt;-->
+                        <!--&lt;!&ndash;                    </h1>&ndash;&gt;-->
+                        <!--&lt;!&ndash;                    <field name="visa_approvals_ids"/>&ndash;&gt;-->
+                    </group>
+                </sheet>
+            </form>
+        </field>
+
+    </record>
+    <record id="onyx_action_instagram" model="ir.actions.act_window">
+        <field name="name">onyx instagram</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">onyx.instagram</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <menuitem id="onyx_menu_instagram" name="instagram"
+              sequence="8"/>
+    <menuitem id="onyx_menu-link_instagram" name="Menu instagram"
+              parent="onyx_menu_instagram"
+              action='onyx_action_instagram'
+              sequence="8"/>
+
+</odoo>

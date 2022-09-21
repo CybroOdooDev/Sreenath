@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+    <record id="onyx_view_twitter_form" model="ir.ui.view">
+        <field name="name">onyx twitter</field>
+        <field name="model">onyx.twitter</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="button_twitter" string="Twitter"
+                            class="oe_highlight" type="object"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="consumer_key"/>
+                        <field name="consumer_secret_key"/>
+<!--                        <field name="access_token"/>-->
+<!--                        <field name="access_token_secret"/>-->
+<!--                        &lt;!&ndash;&lt;!&ndash;                    <h1 class="head-class">&ndash;&gt;&ndash;&gt;-->
+                        <!--&lt;!&ndash;                        <field name="name"/>&ndash;&gt;-->
+                        <!--&lt;!&ndash;                    </h1>&ndash;&gt;-->
+                        <!--&lt;!&ndash;                    <field name="visa_approvals_ids"/>&ndash;&gt;-->
+                    </group>
+                </sheet>
+            </form>
+        </field>
+
+    </record>
+    <record id="onyx_twitter_action" model="ir.actions.act_window">
+        <field name="name">onyx twitter</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">onyx.twitter</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <menuitem id="onyx_twitter_menu" name="twitter"
+              sequence="8"/>
+    <menuitem id="onyx_menu-link" name="Menu twitter"
+              parent="onyx_twitter_menu"
+              action='onyx_twitter_action'
+              sequence="8"/>
+
+</odoo>

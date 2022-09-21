@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record model="ir.module.category" id="dr_social_website">
+        <field name="name">Website</field>
+        <field name="description">User access level for Website</field>
+        <field name="sequence">20</field>
+    </record>
+
+    <record id="website_client" model="res.groups">
+        <field name="name">Client</field>
+        <field name="category_id" ref="dr_social_website"/>
+    </record>
+
+<!--    <record id="website_manager" model="res.groups">-->
+<!--        <field name="name">Manager</field>-->
+<!--        <field name="category_id" ref="dr_social_website"/>-->
+<!--    </record>-->
+</odoo>
+

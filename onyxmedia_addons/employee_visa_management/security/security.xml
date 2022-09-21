@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record model="ir.module.category" id="employee_management">
+        <field name="name">Visa</field>
+        <field name="description">Visa Management</field>
+        <field name="sequence">20</field>
+    </record>
+
+    <record id="visa_manager" model="res.groups">
+        <field name="name">Manager</field>
+        <field name="category_id" ref="employee_management"/>
+    </record>
+
+</odoo>

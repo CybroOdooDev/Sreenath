@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <!--    #FORM VIEW-->
+    <record id="visa_application_view_form" model="ir.ui.view">
+        <field name="name">visa_application</field>
+        <field name="model">visa.application</field>
+        <field name="arch" type="xml">
+            <form string="visa_application_view_form">
+                <sheet>
+                    <h1 class="head-class">
+                        <field name="name"/>
+                    </h1>
+                    <field name="visa_approvals_ids"/>
+                </sheet>
+            </form>
+        </field>
+
+    </record>
+    <record id="visa_application_action" model="ir.actions.act_window">
+        <field name="name">Visa Application</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">visa.application</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="visa_application" name="Visa Application"
+              parent="visa_management"
+              action='visa_application_action'
+              sequence="8"/>
+</odoo>

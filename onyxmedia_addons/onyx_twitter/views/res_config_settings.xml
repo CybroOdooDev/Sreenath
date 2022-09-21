@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="res_config_settings_twitter_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.twitter</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <div id="companies" position="after">
+                <h2>Twitter</h2>
+                <div class="row mt16 o_settings_container" >
+                    <div class="col-12 col-lg-6 o_setting_box" >
+                        <div class="o_setting_right_pane">
+                            <label string="Consumer Key" for="consumer_key"/>
+                            <div class="text-muted">
+                                Consumer key of Twitter
+                            </div>
+                            <div class="content-group">
+                                <div class="mt16">
+                                    <field name="consumer_key" class="o_light_label"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box" >
+                        <div class="o_setting_right_pane">
+                            <label string="Consumer secret key" for="consumer_secret_key"/>
+                            <div class="text-muted">
+                                Consumer secret key of Twitter</div>
+                            <div class="content-group">
+                                <div class="mt16">
+                                    <field name="consumer_secret_key" class="o_light_label"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+<!--                    <div class="col-12 col-lg-6 o_setting_box" >-->
+<!--                        <div class="o_setting_right_pane">-->
+<!--                            <label string="Consumer secret key" for="access_token"/>-->
+<!--                            <div class="text-muted">-->
+<!--                                Access token of Twitter</div>-->
+<!--                            <div class="content-group">-->
+<!--                                <div class="mt16">-->
+<!--                                    <field name="access_token" class="o_light_label"/>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="col-12 col-lg-6 o_setting_box" >-->
+<!--                        <div class="o_setting_right_pane">-->
+<!--                            <label string="Consumer secret key" for="access_token_secret"/>-->
+<!--                            <div class="text-muted">-->
+<!--                                Access token secret of Twitter</div>-->
+<!--                            <div class="content-group">-->
+<!--                                <div class="mt16">-->
+<!--                                    <field name="access_token_secret" class="o_light_label"/>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+                </div>
+            </div>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+    <record id="onyx_view_form" model="ir.ui.view">
+        <field name="name">onyx linkedin</field>
+        <field name="model">onyx.linkedin</field>
+        <field name="arch" type="xml">
+            <form string="visa_application_view_form">
+                <header>
+                    <button name="button_linked" string="Linked In"
+                            class="oe_highlight" type="object"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="client_id"/>
+                        <field name="client_secret"/>
+                        <!--&lt;!&ndash;                    <h1 class="head-class">&ndash;&gt;-->
+                        <!--&lt;!&ndash;                        <field name="name"/>&ndash;&gt;-->
+                        <!--&lt;!&ndash;                    </h1>&ndash;&gt;-->
+                        <!--&lt;!&ndash;                    <field name="visa_approvals_ids"/>&ndash;&gt;-->
+                    </group>
+                </sheet>
+            </form>
+        </field>
+
+    </record>
+    <record id="onyx_action" model="ir.actions.act_window">
+        <field name="name">onyx linkedin</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">onyx.linkedin</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <menuitem id="onyx_menu" name="MLinkedin"
+              sequence="8"/>
+    <menuitem id="onyx_menu-link" name="Menu Linkedin"
+              parent="onyx_menu"
+              action='onyx_action'
+              sequence="8"/>
+
+</odoo>

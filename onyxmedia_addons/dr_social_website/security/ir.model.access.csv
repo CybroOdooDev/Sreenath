@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_social_post_portal_user,social.post.user,model_onyx_social_post,base.group_portal,1,1,1,0
+access_revision_request_client,revision.request.client,model_revision_request_client,,1,1,1,1

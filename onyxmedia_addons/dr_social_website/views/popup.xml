@@ -1,0 +1,35 @@
+<odoo>
+    <template id="ppopup" name="PoPuP">
+        <t t-name="Popup_js">
+
+            <head>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+                <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+                <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"/>
+            </head>
+
+            <div class="modal fade" id="narratModal" tabindex="-1" role="dialog" aria-labelledby="narratModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title modal_head" id="narratModalLabel">Narration</h4>
+                            <button type="button" class="close cash-dismiss" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&amp;times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <label class="modal_note">Input</label>
+                            <input class="myInput form-control form-control-sm"/>
+                        </div>
+                        <div class="modal-footer narr_footer">
+                            <button type="button" class="btn btn-primary cashmodal_btn" id="narrat_ok"
+                                    data-dismiss="modal">OK
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>
