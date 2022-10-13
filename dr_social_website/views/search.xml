@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+<!--    <template id="client_search" name="Aircraft Listing Search Box">-->
+<!--        <form action="/content_calendar" class="search_style">-->
+<!--            <t t-call="website.website_search_box">-->
+<!--                <t t-set="action" t-value="'/content_calendar'"/>-->
+<!--&lt;!&ndash;                 <select id="dropdown_data" class="dropdown-menu products" name="states[]" multiple="multiple">&ndash;&gt;-->
+<!--&lt;!&ndash;                                <t t-foreach="docs" t-as="client">&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <option t-attf-value="{{client[0]}}">&ndash;&gt;-->
+<!--&lt;!&ndash;                                        <t t-esc="client[1]"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                                    </option>&ndash;&gt;-->
+<!--&lt;!&ndash;                                </t>&ndash;&gt;-->
+<!--&lt;!&ndash;                           </select>&ndash;&gt;-->
+
+<!--            </t>-->
+<!--        </form>-->
+<!--    </template>-->
+</odoo>

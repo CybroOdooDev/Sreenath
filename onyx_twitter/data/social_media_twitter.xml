@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="onyx_social_media_twitter" model="onyx.social.media">
+            <field name="name">Twitter</field>
+            <field name="onyx_media_type">twitter</field>
+            <field name="onyx_media_description">Manage your Twitter pages and schedule posts</field>
+            <field name="image" type="base64" file="onyx_twitter/static/src/img/twitter.svg"/>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="res_config_settings_facebook_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.facebook</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <div id="companies" position="after">
+                <h2>Facebook</h2>
+                <div class="row mt16 o_settings_container" >
+                    <div class="col-12 col-lg-6 o_setting_box" >
+                        <div class="o_setting_right_pane">
+                            <label string="Client Id" for="client_id_facebook"/>
+                            <div class="text-muted">
+                                Client Id of Facebook
+                            </div>
+                            <div class="content-group">
+                                <div class="mt16">
+                                    <field name="client_id_facebook" class="o_light_label"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box" >
+                        <div class="o_setting_right_pane">
+                            <label string="Client Secret" for="client_secret_facebook"/>
+                            <div class="text-muted">
+                                Client Secret of Facebook</div>
+                            <div class="content-group">
+                                <div class="mt16">
+                                    <field name="client_secret_facebook" class="o_light_label"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </field>
+    </record>
+
+</odoo>

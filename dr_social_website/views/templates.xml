@@ -1,0 +1,560 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="home" name="Social Home">
+        <div class="db-sidebar-container" style="margin-top: 91px;">
+            <!-- Sidebar -->
+            <nav class="db-sidebar-2 px-4" style="margin-top: -24px; z-index: 100;">
+                <div class="dropdown">
+                    <!--                                <a href="#" class="db-sidebar__item" id="dropdownMenuLink" data-toggle="dropdown"-->
+                    <!--                                   aria-expanded="false">-->
+                    <!--                                    <i class="fa fa-user"></i>-->
+                    <!--                                </a>-->
+
+                    <div class="dropdown-menu db-sidebar__dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <a class="dropdown-item" href="#">Action</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
+                </div>
+                <!--                            <a href="#" class="db-sidebar__item home">-->
+                <!--                                <img src="/dr_social_website/static/src/img/user1.png">Home</img>-->
+                <!--                            </a>-->
+                <a href="#" class="db-sidebar__item"
+                   style="margin-bottom: 37px; font-weight: bold;">
+                    <img src="/dr_social_website/static/src/img/OnyxMedia-Logo.png"
+                         style="margin-right: 12px; width: 100px; height: 100px; margin-top: 59px; margin-left: 9px;">
+                    </img>
+                    <!--                                <i class="fa fa-calendar" id="searchToggle">Content</i>-->
+                </a>
+                <t t-if="not onboarding_finished.onboarding">
+                     <a href="/content_calendar" class="db-sidebar__item" style="margin-bottom: 37px; margin-top: 102px;">
+                    <img src="/dr_social_website/static/src/img/calendar-check-02.png" style="margin-right: 12px;">
+                        Content
+                    </img>
+                    <!--                                <i class="fa fa-calendar" id="searchToggle">Content</i>-->
+                </a>
+                </t>
+                <t t-else="">
+                    <a href="#" class="db-sidebar__item" style="margin-bottom: 37px; margin-top: 102px;">
+                    <img src="/dr_social_website/static/src/img/calendar-check-02.png" style="margin-right: 12px;">
+                        Content
+                    </img>
+                    <!--                                <i class="fa fa-calendar" id="searchToggle">Content</i>-->
+                </a>
+                </t>
+                <a href="/social/home" class="db-sidebar__item" style="margin-bottom: 37px; font-weight: bold;">
+                    <img src="/dr_social_website/static/src/img/intersect-square.png"
+                         style="margin-right: 12px; filter: brightness(0) invert(1);">Pages
+                    </img>
+                    <!--                                <i class="fa fa-calendar">Pages</i>-->
+                </a>
+                <a href="/web/login" class="db-sidebar__item" >
+                    <img src="/dr_social_website/static/src/img/log-out-01.png"
+                         style="margin-right: 12px;">Logout
+                    </img>
+                </a>
+                <!--                            <a href="#" class="db-sidebar__item">-->
+                <!--                                <img src="/dr_social_website/static/src/img/more.png">More</img>-->
+                <!--                                &lt;!&ndash;                                <i class="fa fa-calendar">More</i>&ndash;&gt;-->
+                <!--                            </a>-->
+            </nav>
+            <!-- End of Sidebar -->
+        </div>
+        <t t-call="website.layout">
+            <div t-attf-class="h-100 dr_website_social #{'dr-onboarding-mode' if isOnbording else ' '}">
+                <div class="db-container container py-5">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12 col-lg-12">
+                            <strong class="db-text--main">Almost Done!</strong>
+                        </div>
+                        <div class="col-sm-12 col-md-12 col-lg-12">
+                            <div class="progress db-progress mt-2">
+                                <div class="db-progress__label db-shadow" style="left: 90%;">90%</div>
+                                <div class="progress-bar db-progress_bar db-progress_bar--primary" role="progressbar"
+                                     aria-valuenow="0"
+                                     aria-valuemin="0" aria-valuemax="100" style="width: 90%;"></div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col md-12 col-lg-12">
+                            <div class="db-shadow db-rounded d-flex justify-content-between align-items-center mt-5 mb-3 p-3">
+                                <strong class="db-text--main">Your Social Media Pages</strong>
+                                <button type="button"
+                                        class="dr_social_link  db-button db-button--border-sm db-button--primary">
+                                    Connect New social Media Pages
+                                </button>
+                            </div>
+                            <div class="db-shadow p-5 my-5 position-relative">
+                                <a href="#" class="db-text--main" style="position: absolute; right: 20px; top: 20px;">
+                                    <i
+                                            class="fa fa-times"></i>
+                                </a>
+                                <div class="d-flex flex-column align-items-center" style="min-height: 180px;">
+                                    <h2 class="w-75 text-center db-text--h3 mb-4">
+                                        <strong>Click on the icon to connect your page</strong>
+                                    </h2>
+                                    <div class="row d-flex justify-content-center flex-wrap">
+                                        <div class="col-sm-12 d-flex align-items-center">
+                                            <t t-foreach="linked_accounts" t-as="account">
+                                                <t t-set="media_sudo" t-value="account.media_id.sudo()"/>
+                                                <div style="margin-right: 27px;">
+                                                    <img class="img img-fluid" style="width: 100px !important;"
+                                                         t-attf-src="/web/image/onyx.social.account/#{account.id}/image"/>
+                                                    <br/>
+                                                    <strong class="mt-2">
+                                                        <t t-esc="media_sudo.name"/>
+                                                    </strong>
+                                                </div>
+                                            </t>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="w-100 d-flex justify-content-center">
+                        <t t-if="onboarding_finished.onboarding">
+                           <a role="button"  href="/social/thank_you" class="db-button db-button--border-sm db-button--primary small mx-auto"  style="width: 97px; font-size: 20px;">Finish</a>
+
+                        </t>
+          </div>
+                </div>
+                <!--                <div class="container pb-2"></div>  &lt;!&ndash; clear fix &ndash;&gt;-->
+
+                <!--                <div class="container">-->
+
+                <!--                    &lt;!&ndash; HEADER &ndash;&gt;-->
+                <!--                    <div class="d-flex bg-white rounded justify-content-between border mt-4 p-3">-->
+                <!--                        <div>-->
+                <!--                            <h4 class="mb-0">Your social accounts</h4>-->
+                <!--                        </div>-->
+                <!--                        <div class="pr-2">-->
+                <!--                            <button type="button"-->
+                <!--                                    class="dr_social_link btn btn-fill-primary h-100 py-0 float-right shadow-sm text-white">-->
+                <!--                                <span class="fa fa-plus" style="font-size: 13px;padding-right: 3px;"></span>-->
+                <!--                                <b>LINK NEW ACCOUNT</b>-->
+                <!--                            </button>-->
+                <!--                        </div>-->
+                <!--                    </div>-->
+
+                <!--                    &lt;!&ndash; Linked Account LIST &ndash;&gt;-->
+                <!--                    <div class="row mt-4" t-if="linked_accounts">-->
+                <!--                        <t t-foreach="linked_accounts" t-as="account">-->
+                <!--                            <div class="col-md-4">-->
+                <!--                                <div class="card mb-3" style="max-width: 540px;">-->
+                <!--                                    <t t-set="media_sudo" t-value="account.media_id.sudo()"/>-->
+                <!--                                    <div class="row no-gutters">-->
+                <!--                                        <div class="col-md-4 border-right">-->
+                <!--                                            <img class="img img-fluid w-100"-->
+                <!--                                                 t-attf-src="/web/image/social.account/#{account.id}/image"/>-->
+                <!--                                        </div>-->
+                <!--                                        <div class="col-md-8">-->
+                <!--                                            <div class="card-body p-3">-->
+                <!--                                                <h5 class="card-title mb-1" t-esc="account.name"/>-->
+                <!--                                                <small class="dr_media_pill border">-->
+                <!--                                                    <img class="dr_media_icon"-->
+                <!--                                                         t-attf-src="/dr_social_website/static/src/img/#{media_sudo.media_type}.svg"/>-->
+                <!--                                                    <t t-esc="media_sudo.name"/>-->
+                <!--                                                </small>-->
+                <!--                                                <div class="dr_status bg-danger" t-if="account.is_media_disconnected">-->
+                <!--                                                    <i class="fa fa-chain-broken"/>-->
+                <!--                                                </div>-->
+                <!--                                                <div class="dr_status bg-success" t-else="">-->
+                <!--                                                    <i class="fa fa-check"/>-->
+                <!--                                                </div>-->
+                <!--                                                <div t-if="account.is_media_disconnected" class="mt-1">-->
+                <!--                                                    <small class="text-danger">Disconncted</small>-->
+                <!--                                                    <button class="btn bg-danger btn-sm dr_relink_btn"-->
+                <!--                                                            t-att-data-media-id="media_sudo.id">-->
+                <!--                                                        <i class="fa fa-link"></i> Relink-->
+                <!--                                                    </button>-->
+                <!--                                                </div>-->
+                <!--                                            </div>-->
+                <!--                                        </div>-->
+                <!--                                    </div>-->
+                <!--                                </div>-->
+                <!--                            </div>-->
+                <!--                        </t>-->
+                <!--                        <t t-if="isOnbording">-->
+                <!--                            <div class="col-12 d-flex justify-content-center">-->
+                <!--                                <a role="button" class="btn btn-primary btn-lg m-3" href="/social/thank_you">-->
+                <!--                                    Finish-->
+                <!--                                </a>-->
+                <!--                            </div>-->
+                <!--                        </t>-->
+                <!--                    </div>-->
+
+                <!--                    <div class="row" t-else="">-->
+                <!--                        <div class="col-12">-->
+                <!--                            <div class="bg-100 rounded my-4 py-5 text-center"-->
+                <!--                                 style="box-shadow: 0px 0px 19px rgba(0, 0, 0, 0.05) inset;">-->
+                <!--                                <h4 class="mb-0 text-muted">You havn't linked any account.</h4>-->
+                <!--                                <small class="mb-0 text-muted">Please link your social account with given button.-->
+                <!--                                </small>-->
+                <!--                                <div>-->
+                <!--                                    <button type="button"-->
+                <!--                                            class="dr_social_link btn text-muted rounded-circle  text-muted mt-2 border"-->
+                <!--                                            style="border: 1px solid #b1b1b1 !important;">-->
+                <!--                                        <span class="fa fa-plus-circle"-->
+                <!--                                              style="font-size: 14px;padding-right: 3px;"></span>-->
+                <!--                                        <b>LINK NEW ACCOUNT</b>-->
+                <!--                                    </button>-->
+                <!--                                </div>-->
+                <!--                            </div>-->
+                <!--                        </div>-->
+                <!--                    </div>-->
+                <!--                </div>-->
+            </div>
+        </t>
+    </template>
+
+    <template id="my_social_account_link" name="Link to social portal" inherit_id="portal.user_dropdown">
+        <xpath expr="//*[@id='o_logout_divider']" position="before">
+            <a href="/social/home" role="menuitem" class="dropdown-item">Social Accounts</a>
+        </xpath>
+    </template>
+
+    <template id="portal_my_home" name="Show social accounts" customize_show="True" inherit_id="portal.portal_my_home"
+              priority="20">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="title">Social Accounts</t>
+                <t t-set="url" t-value="'/social/home'"/>
+                <t t-set="placeholder_count" t-value="'social_count'"/>
+            </t>
+        </xpath>
+    </template>
+
+    <template id="dr_thankyou" name="Thank You">
+        <t t-call="website.layout">
+            <div class="content_tour">
+                <div class="db-sidebar-container noclick">
+                    <!-- Sidebar -->
+                    <nav class="db-sidebar-2 px-4" style="margin-top: 24px;">
+                        <div class="dropdown">
+                            <!--                                <a href="#" class="db-sidebar__item" id="dropdownMenuLink" data-toggle="dropdown"-->
+                            <!--                                   aria-expanded="false">-->
+                            <!--                                    <i class="fa fa-user"></i>-->
+                            <!--                                </a>-->
+
+                            <div class="dropdown-menu db-sidebar__dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <a class="dropdown-item" href="#">Action</a>
+                                <a class="dropdown-item" href="#">Another action</a>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                            </div>
+                        </div>
+                        <!--                            <a href="#" class="db-sidebar__item home">-->
+                        <!--                                <img src="/dr_social_website/static/src/img/user1.png">Home</img>-->
+                        <!--                            </a>-->
+                        <a href="#" class="db-sidebar__item"
+                           style="margin-bottom: 37px; font-weight: bold;">
+                            <img src="/dr_social_website/static/src/img/OnyxMedia-Logo.png"
+                                 style="margin-right: 12px; width: 100px; height: 100px; margin-top: 59px; margin-left: 9px;">
+                            </img>
+                            <!--                                <i class="fa fa-calendar" id="searchToggle">Content</i>-->
+                        </a>
+                        <a href="#" class="db-sidebar__item menu_onboard"
+                           style="margin-bottom: 37px; font-weight: bold; margin-top: 102px;">
+                            <img src="/dr_social_website/static/src/img/calendar-check-02.png"
+                                 style="margin-right: 12px;">Content
+                            </img>
+                            <!--                                <i class="fa fa-calendar" id="searchToggle">Content</i>-->
+                        </a>
+                        <a href="#" class="db-sidebar__item menu_onboard" groups="!onyx_social_account.group_onyx_manager">
+                            <img src="/dr_social_website/static/src/img/intersect-square.png"
+                                 style="margin-right: 12px;">Pages
+                            </img>
+                            <!--                                <i class="fa fa-calendar">Pages</i>-->
+                        </a>
+                        <a href="#" class="db-sidebar__item menu_onboard" groups="onyx_social_account.group_onyx_manager" style="margin-bottom: 37px;">
+                            <img src="/dr_social_website/static/src/img/intersect-square.png"
+                                 style="margin-right: 12px;">Revision
+                            </img>
+                            <!--                                <i class="fa fa-calendar">Pages</i>-->
+                        </a>
+                        <a href="/web/login" class="db-sidebar__item">
+                            <img src="/dr_social_website/static/src/img/log-out-01.png"
+                                 style="margin-right: 12px;">Logout
+                            </img>
+                        </a>
+                        <!--                            <a href="#" class="db-sidebar__item">-->
+                        <!--                                <img src="/dr_social_website/static/src/img/more.png">More</img>-->
+                        <!--                                &lt;!&ndash;                                <i class="fa fa-calendar">More</i>&ndash;&gt;-->
+                        <!--                            </a>-->
+                    </nav>
+                    <!-- End of Sidebar -->
+                </div>
+                <div class="db-sidebar-container d-none clickable">
+                    <!-- Sidebar -->
+                    <nav class="db-sidebar-2 px-4" style="margin-top: 24px;">
+                        <div class="dropdown">
+                            <!--                                <a href="#" class="db-sidebar__item" id="dropdownMenuLink" data-toggle="dropdown"-->
+                            <!--                                   aria-expanded="false">-->
+                            <!--                                    <i class="fa fa-user"></i>-->
+                            <!--                                </a>-->
+
+                            <div class="dropdown-menu db-sidebar__dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <a class="dropdown-item" href="#">Action</a>
+                                <a class="dropdown-item" href="#">Another action</a>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                            </div>
+                        </div>
+                        <!--                            <a href="#" class="db-sidebar__item home">-->
+                        <!--                                <img src="/dr_social_website/static/src/img/user1.png">Home</img>-->
+                        <!--                            </a>-->
+                        <a href="#" class="db-sidebar__item"
+                           style="margin-bottom: 37px; font-weight: bold;">
+                            <img src="/dr_social_website/static/src/img/OnyxMedia-Logo.png"
+                                 style="margin-right: 12px; width: 100px; height: 100px; margin-top: 59px; margin-left: 9px;">
+                            </img>
+                            <!--                                <i class="fa fa-calendar" id="searchToggle">Content</i>-->
+                        </a>
+                        <a href="/content_calendar" class="db-sidebar__item"
+                           style="margin-bottom: 37px; font-weight: bold; margin-top: 102px;">
+                            <img src="/dr_social_website/static/src/img/calendar-check-02.png"
+                                 style="margin-right: 12px;">Content
+                            </img>
+                            <!--                                <i class="fa fa-calendar" id="searchToggle">Content</i>-->
+                        </a>
+                        <a href="#" class="db-sidebar__item" groups="!onyx_social_account.group_onyx_manager">
+                            <img src="/dr_social_website/static/src/img/intersect-square.png"
+                                 style="margin-right: 12px;">Pages
+                            </img>
+                            <!--                                <i class="fa fa-calendar">Pages</i>-->
+                        </a>
+                        <a href="/revision_requests" class="db-sidebar__item" groups="onyx_social_account.group_onyx_manager">
+                            <img src="/dr_social_website/static/src/img/intersect-square.png"
+                                 style="margin-right: 12px;">Revision
+                            </img>
+                            <!--                                <i class="fa fa-calendar">Pages</i>-->
+                        </a>
+                        <a href="/web/login" class="db-sidebar__item">
+                            <img src="/dr_social_website/static/src/img/log-out-01.png"
+                                 style="margin-right: 12px;">Logout
+                            </img>
+                        </a>
+                        <!--                            <a href="#" class="db-sidebar__item">-->
+                        <!--                                <img src="/dr_social_website/static/src/img/more.png">More</img>-->
+                        <!--                                &lt;!&ndash;                                <i class="fa fa-calendar">More</i>&ndash;&gt;-->
+                        <!--                            </a>-->
+                    </nav>
+                    <!-- End of Sidebar -->
+                </div>
+                <div class="db-container container py-5">
+                    <div class="d-none text_menu"
+                         style="border-radius: 5px;background-color: #defdff;width: 610px;height: 24px; position: absolute; top: 289px; z-index: 1940; left: 200px;">
+                        <p>
+                            <i class="fa fa-times close_text" style="margin-left: 8px; margin-right: 12px;"/>
+                            Please finish the onboarding process before accessing the dashboard
+                        </p>
+                    </div>
+                    <div class="row" style="margin-top: 5px;">
+                        <div class="col-sm-12 col-md-12 col-lg-12">
+                            <strong class="db-text--main">Almost Done!</strong>
+                        </div>
+                        <div class="col-sm-12 col-md-12 col-lg-12">
+                            <div class="progress db-progress mt-2">
+                                <div class="db-progress__label db-shadow" style="left: 95%;">100%</div>
+                                <div class="progress-bar db-progress_bar db-progress_bar--primary" role="progressbar"
+                                     aria-valuenow="0"
+                                     aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-12 col-lg-6 py-3 d-flex justify-content-center align-items-center">
+                            <img src="/dr_social_website/static/src/img/Onboarding - Image 2 copy .png" width="450"
+                                 height="432" class="db-onboarding__image"
+                                 style="width: 90%; margin-top: 26px; margin-left: 40px;"/>
+                        </div>
+                        <div class="col-sm-12 col-md-12 col-lg-6 d-flex flex-column justify-content-center align-items-start">
+                            <h1 class="db-text--main-dark">You&apos;re all setup!</h1>
+
+                            <p class="mt-4 mb-4">Let's take a quick tour to the platform!
+                                <br/>
+                                This only takes 1-2 minutes and will
+                                <br/>
+                                help you
+                                understand how to work with
+                                <br/>
+                                the platform and take full advantage
+                                <br/>
+                                of our service.
+                            </p>
+
+                            <button style="font-size: 14px; font-weight: bold;"
+                                    class="db-button db-button--border-sm db-button--primary text-uppercase small mr-3 tour_start">
+                                Start
+                            </button>
+                        </div>
+                        <!--                                        <div class="col-sm-12 col-md-12 col-lg-6 py-3 d-flex justify-content-center align-items-center">-->
+                        <!--                                            <img src="/dr_social_website/static/src/img/Onboarding - Image 2 copy .png" width="450"-->
+                        <!--                                                 height="432" class="db-onboarding__image"-->
+                        <!--                                                 style="width: 90%;"/>-->
+                        <!--                                        </div>-->
+                        <!--                                        <div class="col-sm-12 col-md-12 col-lg-6 d-flex flex-column justify-content-center align-items-start">-->
+                        <!--                                            <h1 class="db-text&#45;&#45;main-dark">You&apos;re ready to go!</h1>-->
+
+                        <!--                                            <p class="mt-4 mb-4">You will receive an email from your account manager in the next 24-hours.-->
+                        <!--                                                This is a great-->
+                        <!--                                                time to get to know your account manager and send over any questions you may still have.-->
+                        <!--                                            </p>-->
+                        <!--                                            <p class="mt-4 mb-5">You can now access the content calendar!</p>-->
+                        <!--                                        </div>-->
+                    </div>
+                    <div class="next1 d-none">
+                        <img src="/dr_social_website/static/src/img/Arrow 1.png"
+                             style="-ms-transform: rotate(90deg); transform: rotate(90deg);" class="next_1s"/>
+                        <p style="margin-left: 126px; margin-top: -171px;">Once we have created your posts you
+                            <br/>
+                            will be able to review them in your
+                            <br/>
+                            content calendar.
+                            <button style="font-size: 14px; font-weight: bold; margin-left: 152px; margin-top: -23px;"
+                                    class="db-button db-button--border-sm db-button--primary text-uppercase small mr-3 next_1">
+                                Next
+                            </button>
+                        </p>
+                    </div>
+                    <div class="next2 d-none" style="position: relative;">
+
+                        <img src="/dr_social_website/static/src/img/Post row.png"
+                             style="margin-left: -204px; margin-top: 327px; width: 1621px;" class="post_1"/>
+                        <img src="/dr_social_website/static/src/img/Arrow 1.png" style="margin-top: -575px;
+                    margin-left: -88px;" class="arrow_2"/>
+                        <p style="margin-top: -481px; margin-left: -158px;" class="text_2">Approve or disapprove your
+                            posts.
+                            <br/>
+                            <br/>
+                            NOTE: A post will only get published once<br/>you clicked the approve button.
+                            <button style="font-size: 14px; font-weight: bold; margin-left: 262px; margin-top: -23px;"
+                                    class="db-button db-button--border-sm db-button--primary text-uppercase small mr-3 next_2">
+                                Next
+                            </button>
+                        </p>
+                        <img src="/dr_social_website/static/src/img/Arrow 1.png"
+                             style="margin-top: -709px; margin-left: 32px;" class="d-none arrow_3"/>
+                        <p style="margin-top: -504px; margin-left: -99px;" class="text_3">Your graphic goes here. You
+                            can
+                            see the
+                            <br/>
+                            graphic in full size by clicking on it .
+
+                            <button style="font-size: 14px; font-weight: bold; margin-left: 286px; margin-top: -23px;"
+                                    class="db-button db-button--border-sm db-button--primary text-uppercase small mr-3 next_3">
+                                Next
+                            </button>
+                        </p>
+                        <img src="/dr_social_website/static/src/img/Arrow 1.png"
+                             style="margin-top: -709px; margin-left: 188px;" class="d-none arrow_4"/>
+                        <p style="margin-top: -504px; margin-left: 41px;" class="text_4">The caption (text) of your post
+                            will be dislayed
+                            <br/>
+                            here. You can alter the caption if needed.
+
+                            <button style="font-size: 14px; font-weight: bold; margin-left: 337px; margin-top: -23px;"
+                                    class="db-button db-button--border-sm db-button--primary text-uppercase small mr-3 next_4">
+                                Next
+                            </button>
+                        </p>
+                        <img src="/dr_social_website/static/src/img/Arrow 1.png"
+                             style="margin-top: -637px; margin-left: 743px;" class="d-none arrow_5"/>
+                        <p style="margin-top: -526px; margin-left: 562px;" class="text_5">The time and date your post
+                            will
+                            get published
+                            <br/>
+                            will be displayed here.You can change the time
+                            <br/>
+                            and date if needed.
+                            <button style="font-size: 14px; font-weight: bold; margin-left: 163px; margin-top: -23px;"
+                                    class="db-button db-button--border-sm db-button--primary text-uppercase small mr-3 next_5">
+                                Next
+                            </button>
+                        </p>
+                        <img src="/dr_social_website/static/src/img/Arrow 1.png"
+                             style="margin-top: -675px; margin-left: 1055px;" class="d-none arrow_6"/>
+                        <p style="position: absolute;
+                    top: 136px;
+                    right: -223px;" class="text_6 d-none">You can provide us with your feedback so we can
+                            <br/>
+                            make the changes for you.
+                            <button style="font-size: 14px; font-weight: bold; margin-left: 228px; margin-top: -23px;"
+                                    class="db-button db-button--border-sm db-button--primary text-uppercase small mr-3 next_6">
+                                Next
+                            </button>
+                        </p>
+                        <img src="/dr_social_website/static/src/img/post-rev.png"
+                             style="margin-left: -204px; margin-top: 327px; width: 1621px;" class="post_2 d-none"/>
+                        <img src="/dr_social_website/static/src/img/Arrow 1.png"
+                             style="margin-top: -483px; margin-left: 1277px; height: 262px; width: 30px;"
+                             class="d-none arrow_7"/>
+                        <p style="position: absolute; top: 136px; right: -223px;" class="text_7 d-none">A notification
+                            will
+                            appear once we have made
+                            <br/>
+                            the changes and the post is ready for your
+                            <br/>
+                            approval.
+                            <button style="font-size: 14px; font-weight: bold; margin-left: 87px; margin-top: -23px;"
+                                    class="db-button db-button--border-sm db-button--primary text-uppercase small mr-3 next_7">
+                                Next
+                            </button>
+                        </p>
+                    </div>
+                    <img src="/dr_social_website/static/src/img/Arrow 1.png" style="-ms-transform: rotate(90deg); transform: rotate(90deg); margin-top: 118px; width: 30px; height: 250px;
+                margin-left: -63px;" class="d-none arrow_8"/>
+                    <p style="margin-left: 126px; margin-top: -156px;" class="d-none text_8">If you would like to add,
+                        delete or
+                        <br/>
+                        reconnect your social pages, you can
+                        <br/>
+                        do that here.
+                        <button style="font-size: 14px; font-weight: bold; margin-left: 122px; margin-top: -22px;"
+                                class="finish_boarding db-button db-button--border-sm db-button--primary text-uppercase small mr-3 next_8">
+                            Finish
+                        </button>
+                    </p>
+                    <img src="/dr_social_website/static/src/img/Arrow 1.png"
+                         style="-ms-transform: rotate(90deg); transform: rotate(90deg); top: 145px; position: absolute; left: 312px; width: 20px;
+                         height: 241px; " class="d-none finish_last"/>
+                    <p class="d-none access_calendar" style="  position: absolute; top: 215px; left: 248px;">Access your
+                        calendar
+                    </p>
+                    <div class="col-sm-12 col-md-12 col-lg-6 py-3 d-flex justify-content-center align-items-center">
+
+                        <img src="/dr_social_website/static/src/img/Onboarding - Image 2 copy .png" width="450"
+                             height="432" class="db-onboarding__image d-none finish_page"
+                             style="width: 90%; position: absolute; top: 169px; left: 100px"/>
+                    </div>
+                    <div class="col-sm-12 col-md-12 flex-column justify-content-center align-items-start">
+                        <h1 class="db-text--main-dark d-none finish_text" style="position: absolute; top: 140px;
+                        right: 42px;">You&apos;re ready to go!
+                        </h1>
+
+                        <p class="mt-4 mb-4 d-none finish_text1" style="position: absolute; top: 233px;
+                        right: 136px;">You will receive an email from
+                            your<br/>account manager in the next 24-hours.
+                            <br/>
+                            This is a great
+                            time to get to know your<br/>account manager and send over any<br/>questions you may still
+                            have.
+                        </p>
+                        <p class="mt-4 mb-5 d-none finish_text2" style="position: absolute; right: 183px;
+                        top: 393px;">You can now access the content
+                            <br/>
+                            calendar!
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="dr_sign_in_template" name="Sign in to sign up" inherit_id="portal.user_sign_in">
+        <xpath expr="//li" position="replace">
+            <li groups="base.group_public" t-attf-class="#{_item_class} o_no_autohide_item">
+                <a t-attf-class="#{_link_class}" t-attf-href="/web/signup?{{ keep_query() }}">Sign up</a>
+            </li>
+        </xpath>
+    </template>
+
+</odoo>

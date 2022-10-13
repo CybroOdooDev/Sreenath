@@ -1,0 +1,266 @@
+<odoo>
+    <template id="revision_request" name="Revision Request">
+        <t t-name="SocialCalendar">
+            <t t-call="website.layout">
+                <head>
+                    <meta charset="UTF-8"/>
+                    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+                    <title>Dashboard</title>
+                    <link rel="stylesheet"
+                          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"
+                          integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg=="
+                          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+                    <link rel="stylesheet"
+                          href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+                          integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn"
+                          crossorigin="anonymous"/>
+                    <link rel="stylesheet" href="./datepicker.css"/>
+                    <link rel="stylesheet" href="style.css"/>
+                </head>
+                <body>
+                    <div class="">
+                        <div class="db-sidebar-container">
+                            <!-- Sidebar -->
+                            <div class="db-sidebar px-4">
+                                <div class="dropdown">
+                                    <a href="#" class="db-sidebar__item"
+                                       style="margin-bottom: 37px; font-weight: bold;">
+                                        <img src="/dr_social_website/static/src/img/OnyxMedia-Logo.png"
+                                             style="margin-right: 12px; width: 100px; height: 100px; margin-top: 98px; margin-left: -5px;">
+                                        </img>
+                                        <!--                                <i class="fa fa-calendar" id="searchToggle">Content</i>-->
+                                    </a>
+                                    <!--                                    <a href="#" class="db-sidebar__item" id="dropdownMenuLink" data-toggle="dropdown"-->
+                                    <!--                                       style="font-weight: bold; margin-top: 102px;" aria-expanded="false">-->
+                                    <!--                                        <i class="fa fa-user" aria-hidden="true"></i>-->
+                                    <!--                                        <span>Home</span>-->
+                                    <!--                                    </a>-->
+
+                                    <div class="dropdown-menu db-sidebar__dropdown-menu"
+                                         aria-labelledby="dropdownMenuLink">
+                                        <a class="dropdown-item" href="#">Action</a>
+                                        <a class="dropdown-item" href="#">Another action</a>
+                                        <a class="dropdown-item" href="#">Something else here</a>
+                                    </div>
+                                </div>
+
+                                <a href="/content_calendar" class="db-sidebar__item"
+                                   style="margin-bottom: 37px; font-weight: bold; margin-top: 102px;">
+                                     <img src="/dr_social_website/static/src/img/calendar-check-02.png"
+                                     style="margin-right: 12px;">Content
+                                </img>
+                                </a>
+                                <a href="#" class="db-sidebar__item active"
+                                   style="font-weight: bold; margin-bottom: 37px;">
+                                    <img src="/dr_social_website/static/src/img/intersect-square.png"
+                                         style="margin-right: 12px; filter: brightness(0) invert(1);">Revision
+                                    </img>
+                                </a>
+                                <a href="/web/login" class="db-sidebar__item">
+                                    <img src="/dr_social_website/static/src/img/log-out-01.png"
+                                         style="margin-right: 12px;">Logout
+                                    </img>
+                                </a>
+                            </div>
+                            <!-- End of Sidebar -->
+                        </div>
+                        <div class="db-container">
+                            <div class="row">
+                                <div class="col-sm-12 col-md-7 col-lg-7" style="padding-left: 327px;">
+                                    <div class="db-schedule-container">
+                                        <div id="dbDatepickerInline"></div>
+                                    </div>
+                                    <div class="db-schedule-input-container db-shadow">
+                                        <div class="db-schedule-input-container__day mb-2"></div>
+                                        <ul class="db-schedule-input-container__list mb-4">
+                                        </ul>
+                                        <div class="db-schedule-input-group">
+                                            <div class="db-scedule-input-container__add mr-2">+</div>
+                                            <input class="db-schedule-input-container__input db-schedule-input-container__input-plus"
+                                                   placeholder="Add Client" id="scheduleListInput"/>
+                                            <button class="db-button db-button--sm db-button--muted px-3"
+                                                    id="scheduleListButton">Add
+                                            </button>
+                                            <span class="db-error"></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-12 col-md-5 col-lg-5">
+                                    <div class="db-revision-container db-shadow">
+                                        <div class="db-revision-container__header">
+                                            <h1 class="db-revisoin-container__title">Revision Request</h1>
+                                            <div class="db-revision-container__select">
+                                                <span class="db-label mr-2">Filter</span>
+                                                <select class="db-select">
+                                                    <option value="1">Unread</option>
+                                                    <option value="2">Read</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="db-revision-container__body">
+                                            <div class="db-revision-container__section-head">
+                                                Today
+                                            </div>
+                                            <ul class="db-revision-lists">
+                                                <li class="db-revision-list">
+                                                    <!--                                                    <t t-esc="posts"/>-->
+
+                                                    <t t-foreach="posts" t-as="val">
+
+                                                        <!--                                                        <div class="db-revision-list__item db-revision-list__item&#45;&#45;active">-->
+                                                        <!--                                                            <div class="db-revision-list__status"></div>-->
+                                                        <!--                                                            <div class="db-revision-list__profile mr-4">-->
+
+                                                        <!--                                                                <img src="/dr_social_website/static/src/img/user1.png"-->
+                                                        <!--                                                                     width="46" height="46"-->
+                                                        <!--                                                                     class="db-revision-list__image"-->
+                                                        <!--                                                                     alt="User Profile"/>-->
+                                                        <!--                                                                <div class="db-revision-list__count mr-3">-->
+                                                        <!--&lt;!&ndash;                                                                    <t t-esc="val"/>&ndash;&gt;-->
+                                                        <!--                                                                </div>-->
+                                                        <!--                                                            </div>-->
+                                                        <!--                                                            <div class="db-revision-list__profile-details">-->
+                                                        <!--                                                                <span class="db-revision-list__profile-name">-->
+                                                        <!--                                                                    <t t-esc="val.client_name"/>-->
+                                                        <!--                                                                </span>-->
+                                                        <!--                                                                <span class="db-revision-list__profile-update">provided-->
+                                                        <!--                                                                    Feedback!-->
+                                                        <!--&lt;!&ndash;                                                                      <a t-attf-href="/content_calendar?{{client_id}}">View Feedback</a>&ndash;&gt;-->
+                                                        <!--                                                                </span>-->
+                                                        <!--                                                            </div>-->
+                                                        <!--                                                            <div> <i class="fa fa-times delete_notification" style="position: absolute;top: 10px; right: 14px; color: #4f4343;"/> </div>-->
+                                                        <!--                                                            &lt;!&ndash;                    <div class="db-revision-list__timestamp">2 min ago</div>&ndash;&gt;-->
+                                                        <!--                                                        </div>-->
+                                                        <div>
+                                                            <!--                                                            <t t-if="val['gave_feedback']==True">-->
+                                                            <div t-att-id="'notify_'+str(val['client_id'])"
+                                                                 class="db-revision-list__item db-revision-list__item--active">
+                                                                <div class="db-revision-list__status"></div>
+                                                                <div class="db-revision-list__profile mr-4">
+
+                                                                    <img src="/dr_social_website/static/src/img/user1.png"
+                                                                         width="46" height="46"
+                                                                         class="db-revision-list__image"
+                                                                         alt="User Profile"/>
+                                                                    <div class="db-revision-list__count mr-3">
+                                                                        <t t-esc="val['count']"/>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="db-revision-list__profile-details">
+                                                                    <span class="db-revision-list__profile-name">
+                                                                        <t t-esc="val['client_name']"/>
+                                                                    </span>
+                                                                    <span class="db-revision-list__profile-update">
+                                                                        provided
+                                                                        Feedback!
+                                                                        <a t-attf-href="/content_calendar?{{val['client_id']}}"
+                                                                           t-att-id="val['client_id']" t-att-value="val"
+                                                                           class="feedack_view">View Feedback
+                                                                        </a>
+                                                                    </span>
+                                                                </div>
+                                                                <i t-att-id="val['client_id']"
+                                                                   class="fa fa-times delete_notification"
+                                                                   style="position: absolute;top: 10px; right: 14px; color: #4f4343;"/>
+
+                                                                <!--                    <div class="db-revision-list__timestamp">2 min ago</div>-->
+                                                            </div>
+                                                            <!--                                                            </t>-->
+                                                        </div>
+                                                    </t>
+                                                </li>
+                                            </ul>
+                                            <!--              <div class="db-revision-container__section-head db-revision-container__section-head&#45;&#45;active">-->
+                                            <!--                Yesterday-->
+                                            <!--              </div>-->
+                                            <!--              <ul class="db-revision-lists">-->
+                                            <!--                <li class="db-revision-list">-->
+                                            <!--                  <div class="db-revision-list__item">-->
+                                            <!--                    <div class="db-revision-list__profile mr-4">-->
+                                            <!--                      <img src="/image/user-dark.png" width="46" height="46" class="db-revision-list__image"-->
+                                            <!--                        alt="User Profile" />-->
+                                            <!--                      <div class="db-revision-list__count mr-3">5</div>-->
+                                            <!--                    </div>-->
+                                            <!--                    <div class="db-revision-list__profile-details">-->
+                                            <!--                      <span class="db-revision-list__profile-name">Wade Warren</span>-->
+                                            <!--                      <span class="db-revision-list__profile-update">provided Feedback! <a href="#"-->
+                                            <!--                          class="db-revision-link&#45;&#45;blue">View-->
+                                            <!--                          feedback here</a></span>-->
+                                            <!--                    </div>-->
+                                            <!--                    <div class="db-revision-list__timestamp">2 min ago</div>-->
+                                            <!--                  </div>-->
+                                            <!--                </li>-->
+                                            <!--                <li class="db-revision-list">-->
+                                            <!--                  <div class="db-revision-list__item">-->
+                                            <!--                    <div class="db-revision-list__profile mr-4">-->
+                                            <!--                      <img src="/image/user-dark.png" width="46" height="46" class="db-revision-list__image"-->
+                                            <!--                        alt="User Profile" />-->
+                                            <!--                      <div class="db-revision-list__count mr-3">7</div>-->
+                                            <!--                    </div>-->
+                                            <!--                    <div class="db-revision-list__profile-details">-->
+                                            <!--                      <span class="db-revision-list__profile-name">Brooklyn Simmons</span>-->
+                                            <!--                      <span class="db-revision-list__profile-update">provided Feedback! <a href="#"-->
+                                            <!--                          class="db-revision-link&#45;&#45;blue">View-->
+                                            <!--                          feedback here</a></span>-->
+                                            <!--                    </div>-->
+                                            <!--                    <div class="db-revision-list__timestamp">2 min ago</div>-->
+                                            <!--                  </div>-->
+                                            <!--                </li>-->
+                                            <!--                <li class="db-revision-list">-->
+                                            <!--                  <div class="db-revision-list__item">-->
+                                            <!--                    <div class="db-revision-list__profile mr-4">-->
+                                            <!--                      <img src="/image/user-dark.png" width="46" height="46" class="db-revision-list__image"-->
+                                            <!--                        alt="User Profile" />-->
+                                            <!--                      <div class="db-revision-list__count mr-3">8</div>-->
+                                            <!--                    </div>-->
+                                            <!--                    <div class="db-revision-list__profile-details">-->
+                                            <!--                      <span class="db-revision-list__profile-name">Jenny Wilson</span>-->
+                                            <!--                      <span class="db-revision-list__profile-update">provided Feedback! <a href="#"-->
+                                            <!--                          class="db-revision-link&#45;&#45;blue">View-->
+                                            <!--                          feedback here</a></span>-->
+                                            <!--                    </div>-->
+                                            <!--                    <div class="db-revision-list__timestamp">2 min ago</div>-->
+                                            <!--                  </div>-->
+                                            <!--                </li>-->
+                                            <!--                <li class="db-revision-list">-->
+                                            <!--                  <div class="db-revision-list__item">-->
+                                            <!--                    <div class="db-revision-list__profile mr-4">-->
+                                            <!--                      <img src="/image/user-dark.png" width="46" height="46" class="db-revision-list__image"-->
+                                            <!--                        alt="User Profile" />-->
+                                            <!--                      <div class="db-revision-list__count mr-3">3</div>-->
+                                            <!--                    </div>-->
+                                            <!--                    <div class="db-revision-list__profile-details">-->
+                                            <!--                      <span class="db-revision-list__profile-name">Robert Fox</span>-->
+                                            <!--                      <span class="db-revision-list__profile-update">provided Feedback! <a href="#"-->
+                                            <!--                          class="db-revision-link&#45;&#45;blue">View-->
+                                            <!--                          feedback here</a></span>-->
+                                            <!--                    </div>-->
+                                            <!--                    <div class="db-revision-list__timestamp">2 min ago</div>-->
+                                            <!--                  </div>-->
+                                            <!--                </li>-->
+                                            <!--              </ul>-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Scripts -->
+                    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+                            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+                            crossorigin="anonymous"></script>
+                    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
+                            integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
+                            crossorigin="anonymous"></script>
+                    <script src="/dr_social_website/static/src/js/datepicker-full.min.js"></script>
+                    <script>
+                        const elem = document.getElementById('dbDatepickerInline');
+                        const datepicker = new Datepicker(elem, {});
+                    </script>
+                </body>
+            </t>
+        </t>
+    </template>
+</odoo>
