@@ -1,6 +1,0 @@
-"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
-access_onyx_social_media,access.onyx.social.media,model_onyx_social_media,,1,1,1,1
-access_onyx_social_account,access.onyx.social.account,model_onyx_social_account,,1,1,1,1
-access_onyx_social_post_template,access.onyx.social.post.template,model_onyx_social_post_template,,1,1,1,1
-access_onyx_social_post,access.onyx.social.post,model_onyx_social_post,,1,1,1,1
-access_onyx_social_live_post,access.onyx.social.live.post,model_onyx_social_live_post,,1,1,1,1
