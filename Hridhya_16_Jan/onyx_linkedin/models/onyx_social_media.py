@@ -1,0 +1,171 @@
+# -*- coding: utf-8 -*-
+# Part of Odoo. See LICENSE file for full copyright and licensing details.
+
+import requests
+from werkzeug.urls import url_encode, url_join
+from odoo.addons.onyx_linkedin.controllers.main import SocialLinkedinOnyxPost
+
+from odoo import _, models, fields
+from odoo.exceptions import UserError
+from odoo.http import request
+
+
+class OnyxLinkedin(models.Model):
+    _inherit = 'onyx.social.media'
+
+    # _LINKEDIN_ENDPOINT = 'https://api.linkedin.com/v2/'
+
+    # # Control the fields returned by the LinkedIn API
+    # # https://docs.microsoft.com/en-us/linkedin/shared/api-guide/concepts/decoration
+    # _LINKEDIN_ORGANIZATION_PROJECTION = 'localizedName,vanityName,logoV2(original~:playableStreams)'
+    # _LINKEDIN_PERSON_PROJECTION = 'id,localizedFirstName,localizedLastName,vanityName,profilePicture(displayImage~:playableStreams)'
+    # _LINKEDIN_TAG_PROJECTION = 'start,length,value(com.linkedin.common.MemberAttributedEntity(member~(vanityName)),com.linkedin.common.CompanyAttributedEntity(company~(vanityName)))'
+    # _LINKEDIN_COMMENT_PROJECTION = 'id,comments,$URN,content,message(text,attributes*(%s)),likesSummary,created(time, actor~person(%s)~organization(%s)),commentsSummary(totalFirstLevelComments,selectedComments(~comment(id,$URN,created)) )' % (_LINKEDIN_TAG_PROJECTION, _LINKEDIN_PERSON_PROJECTION, _LINKEDIN_ORGANIZATION_PROJECTION)
+    # _LINKEDIN_STREAM_POST_PROJECTION = 'id,totalShareStatistics,created(time), author~person(%s)~organization(%s), specificContent(com.linkedin.ugc.ShareContent(shareCommentary(text), media(originalUrl)))' % (_LINKEDIN_PERSON_PROJECTION, _LINKEDIN_ORGANIZATION_PROJECTION)
+
+    onyx_media_type = fields.Selection(selection_add=[('linkedin', 'LinkedIn')])
+
+    def _action_add_account_onyx(self):
+        print('jjjjj............................')
+        self.ensure_one()
+        if self.onyx_media_type != 'linkedin':
+            return super(OnyxLinkedin, self)._action_add_account_onyx()
+
+        # model = self.env['onyx.linkedin'].sudo().search([], limit=1)
+        # print(model, model.client_id)
+        linkedin_client_id = request.env['ir.config_parameter'].sudo().get_param('onyx_linkedin.client_id')
+        linkedin_client_secret = request.env['ir.config_parameter'].sudo().get_param('onyx_linkedin.client_secret')
+        # linkedin_client_secret = self.env['ir.config_parameter'].sudo().get_param('social.linkedin_client_secret')
+        #
+
+        params = {
+            'response_type': 'code',
+            'client_id': linkedin_client_id,
+            'redirect_uri': self._get_linkedin_redirect_uri(),
+            'state': '123456',
+            'scope': 'r_liteprofile r_emailaddress w_member_social rw_organization_admin w_organization_social r_organization_social'
+        }
+        print(params, 'https://www.linkedin.com/oauth/v2/authorization?%s' % url_encode(params),'vvvvvviiiiiiiiiiiiijjjjjjjjjjjjjj')
+
+        return {
+            'type': 'ir.actions.act_url',
+            'url': 'https://www.linkedin.com/oauth/v2/authorization?%s' % url_encode(params),
+            'target': 'self'
+        }
+
+    def _get_linkedin_redirect_uri(self):
+        return url_join(self.get_base_url(), '/social_linkedinss?' + str(self.id))
+
+
+
+    # if linkedin_app_id and linkedin_client_secret and linkedin_use_own_account:
+    #         return self._add_linkedin_accounts_from_configuration(linkedin_app_id)
+    #     else:
+    #         return self._add_linkedin_accounts_from_iap()
+    #
+    # def _add_linkedin_accounts_from_configuration(self, linkedin_app_id):
+    #     params = {
+    #         'response_type': 'code',
+    #         'client_id': linkedin_app_id,
+    #         'redirect_uri': self._get_linkedin_redirect_uri(),
+    #         'state': self.csrf_token,
+    #         'scope': 'r_liteprofile r_emailaddress w_member_social rw_organization_admin w_organization_social r_organization_social'
+    #     }
+    #
+    #     return {
+    #         'type': 'ir.actions.act_url',
+    #         'url': 'https://www.linkedin.com/oauth/v2/authorization?%s' % url_encode(params),
+    #         'target': 'self'
+    #     }
+    #
+    # def _add_linkedin_accounts_from_iap(self):
+    #     o_redirect_uri = url_join(self.get_base_url(), 'social_linkedin/callback')
+    #
+    #     social_iap_endpoint = self.env['ir.config_parameter'].sudo().get_param(
+    #         'social.social_iap_endpoint',
+    #         self.env['social.media']._DEFAULT_SOCIAL_IAP_ENDPOINT
+    #     )
+    #
+    #     iap_add_accounts_url = requests.get(url_join(social_iap_endpoint, 'api/social/linkedin/1/add_accounts'), params={
+    #         'state': self.csrf_token,
+    #         'scope': 'r_liteprofile r_emailaddress w_member_social rw_organization_admin w_organization_social r_organization_social',
+    #         'o_redirect_uri': o_redirect_uri,
+    #         'db_uuid': self.env['ir.config_parameter'].sudo().get_param('database.uuid')
+    #     }, timeout=5).text
+    #
+    #     if iap_add_accounts_url == 'unauthorized':
+    #         raise UserError(_("You don't have an active subscription. Please buy one here: %s", 'https://www.odoo.com/buy'))
+    #     elif iap_add_accounts_url == 'linkedin_missing_configuration' or iap_add_accounts_url == 'missing_parameters':
+    #         raise UserError(_("The url that this service requested returned an error. Please contact the author of the app."))
+    #
+    #     return {
+    #         'type': 'ir.actions.act_url',
+    #         'url': iap_add_accounts_url,
+    #         'target': 'self'
+    #     }
+    #
+    # def _get_linkedin_redirect_uri(self):
+    #     return url_join(self.get_base_url(), 'social_linkedin/callback')
+
+
+# class SocialPost(models.Model):
+#     """ A social.post represents a post that will be published on multiple social.accounts at once.
+#     It doesn't do anything on its own except storing the global post configuration (message, images, ...).
+#
+#     This model inherits from `social.post.template` which contains the common part of both
+#     (all fields related to the post content like the message, the images...). So we do not
+#     duplicate the code by inheriting from it. We can generate a `social.post` from a
+#     `social.post.template` with `action_generate_post`.
+#
+#     When posted, it actually creates several instances of social.live.posts (one per social.account)
+#     that will publish their content through the third party API of the social.account. """
+#
+#     _inherit = 'onyx.social.post'
+#
+#
+#     def linkedin_post(self):
+#         print('jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj')
+#         linkedin_client_id = self.env['ir.config_parameter'].sudo().get_param('onyx_linkedin.client_id')
+#         linkedin_client_secret = self.env['ir.config_parameter'].sudo().get_param(
+#             'onyx_linkedin.client_secret')
+#
+#         linkedin_message = self.env['ir.config_parameter'].sudo().set_param('onyx_linkedin.linkedin_message',
+#                                                                             self.message)
+#         #     # linkedin_image = self.env['ir.config_parameter'].sudo().set_param('onyx_linkedin.linkedin_image',
+#         #     #                                                                   url_join(self.get_base_url(),
+#         #     #                                                                            (self.image_ids.image_src)))
+#         #     # # if self.image_ids:
+#         #     #     self.image_ids.public
+#         #     # print('content', self.image_ids.public)
+#         #     #
+#         #     # from PIL import Image
+#         #     #
+#         #     # im1 = Image.open(linkedin_image)
+#         #     # print('linkedin_image', im1)
+#         #     # im1.save(str(self.image_ids.image_src))
+#         #     #
+#         #     # print('linkedin_image', linkedin_image)
+#         #     #
+#         #     # # linkedin_client_secret = self.env['ir.config_parameter'].sudo().get_param('social.linkedin_client_secret')
+#         #     #
+#         params = {
+#             'response_type': 'code',
+#             'client_id': linkedin_client_id,
+#             'redirect_uri': self._get_linkedin_post_redirect_uri(),
+#             'state': '123456',
+#             'scope': 'r_liteprofile r_emailaddress w_member_social rw_organization_admin w_organization_social r_organization_social'
+#         }
+#         #
+#         # return {
+#         #     'type': 'ir.actions.act_url',
+#         #     'url': 'https://www.linkedin.com/oauth/v2/authorization?%s' % url_encode(params),
+#         #     'target': 'self'
+#         # }
+#         #     print('hhhhhhhhhhhhhhhhhhhhhhhhhhhh')
+#         return request.redirect('/social_linkedin_post')
+#
+#     # def _get_linkedin_post_redirect_uri(self):
+#     #     print('cccccccccccccccccccccccccccccccccccccccccccccccc')
+#     #     return url_join(self.get_base_url(), '/social_linkedin_post')
+#
+#

@@ -1,0 +1,370 @@
+.ui.input input {
+  margin: 0;
+  max-width: 100%;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1 0 auto;
+  -ms-flex: 1 0 auto;
+  flex: 1 0 auto;
+  outline: 0;
+  -webkit-tap-highlight-color: rgba(255,255,255,0);
+  text-align: left;
+  line-height: 1.2142em;
+  font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+  padding: .67861429em 1em;
+  background: #FFF;
+  border: 1px solid rgba(34,36,38,.15);
+  color: #625454 !important;
+  border-radius: .28571429rem;
+  -webkit-transition: box-shadow .1s ease,border-color .1s ease;
+  transition: box-shadow .1s ease,border-color .1s ease;
+  box-shadow: none;
+}
+.ui.calendar .ui.table tr td {
+  padding-left: .1em;
+  padding-right: .1em;
+  color: #625454;
+  }
+
+// .text-overflow {
+//   width:250px;
+//   height:120px;
+//   display:block;
+//   overflow:hidden;
+//   word-break: break-word;
+//   word-wrap: break-word;
+// }
+.header_hide{
+    display: none;
+    }
+//
+// .btn-overflow {
+// display: none;
+// text-decoration: none;
+// }
+
+.db-modal-input{
+  border-radius: 15px;
+  padding: 15px;
+  background-color: var(--db-primary);
+  border: none;
+  width: 100%;
+}
+.db-modal-input:focus{
+  outline: none;
+}
+.db-modal-input::placeholder{
+  color: var(--db-primary-light);
+}
+/**
+* Search Modal
+*/
+.db-search-modal{
+margin-top: 46px;
+  position: fixed;
+  z-index: 2000;
+  left: 100px;
+  top: 40px;
+  background: white;
+  width: 350px;
+  padding: 20px;
+  border-radius: 15px;
+  top: 81px;
+}
+.db-search-modal__list{
+  padding-left: 0px;
+  list-style-type: none;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+.db-search-modal__item{
+  font-size: 18px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  color: var(--db-dark);
+  border-bottom: 1px solid var(--db-light-dark);
+}
+.db-search-modal__link{
+  color: var(--db-dark);
+}
+.db-search-modal__link:hover{
+  color: var(--db-dark);
+  text-decoration: none;
+}
+.db-search-modal__item:last-child{
+  border-bottom: none;
+  padding-bottom: 0px;
+}
+
+/**
+* Approval Modal
+*/
+.db-approval-modal__header{
+  font-size: 26px;
+  font-weight: bold;
+  color: var(--db-dark);
+}
+.db-approval-modal{
+  position: fixed;
+  z-index: 2000;
+  left: 480px;
+  top: 40px;
+  background: white;
+  width: 450px;
+  padding: 20px;
+  border-radius: 15px;
+}
+.db-approval-modal__input-group{
+  position: relative;
+}
+.db-approval-modal__button{
+  position: absolute;
+  background-color: white;
+  border-radius: 10px;
+  color: black;
+  border: none;
+  padding: 8px 10px;
+  right: 10px;
+  top: 5px;
+}
+.db-shadow {
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
+    rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+}
+.approval {
+top: 133px;
+}
+
+/* Top Navigation Bar */
+#top_menu_container{
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+    max-width: 100% !important;
+}
+#top{
+    margin-top: 1rem;
+}
+
+header .navbar-brand, header .navbar-brand.logo {
+  padding-top: 0;
+  padding-bottom: 0;
+  margin-left: -35px;
+  }
+
+header .navbar-brand.logo img {
+  object-fit: contain;
+  display: block;
+  width: auto;
+  height: 2.5rem;
+  width: 70px;
+  height: 70px;
+}
+
+.green{
+ color: #00F5BE;
+ border: 2px solid #00F5BE !important;
+ background-color: white;
+}
+.green_button{
+ color: #00F5BE;
+ border: 2px solid #00F5BE !important;
+ background-color: white;
+}
+
+.db-select, .db-datepicker {
+  border-radius: 50px;
+  border: none;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 8px;
+  box-shadow: rgba(17, 17, 26, 0.05) 0px 4px 16px,
+    rgba(17, 17, 26, 0.05) 0px 8px 32px;
+}
+.bootstrap-datetimepicker-widget .datepicker{
+  display: block !important;
+}
+.db-datepicker-group{
+  position: relative;
+}
+.db-datepicker {
+  padding: 8px 15px;
+  box-shadow: rgba(17, 17, 26, 0.05) 0px 4px 16px,
+    rgba(17, 17, 26, 0.05) 0px 8px 32px;
+  width: 225px;
+  margin-left: -80px;
+}
+.db-datepicker-group__icon
+{
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  font-size: -52px !important;
+  left: 117.833px;
+  pointer-events:none;
+}
+/*=========================================
+*             Custom Dropdown
+*=========================================*/
+.db-custom-select {
+  position: relative;
+  font-family: Arial;
+  box-shadow: rgba(17, 17, 26, 0.05) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px;
+}
+
+.db-custom-select select {
+  display: none; /*hide original SELECT element: */
+}
+
+.select-selected {
+  background-color: var(--db-white);
+}
+
+// /* Style the arrow inside the select element: */
+// .select-selected:after {
+//   position: absolute;
+//   content: "\f078";
+//   font-family: "FontAwesome";
+//   top: 8px;
+//   right: 30px;
+//   font-size: 12px;
+//   width: 0;
+//   height: 0;
+// }
+// .select-items {
+//   border-radius: 10px;
+// }
+// .select-items div {
+//   border-bottom: 1px solid var(--db-border) !important;
+// }
+// .select-items div:last-child {
+//   border-radius: 0 0 10px 10px;
+// }
+// /* Point the arrow upwards when the select box is open (active): */
+// .select-selected.select-arrow-active:after {
+//   content: "\f077";
+// }
+//
+// /* style the items (options), including the selected item: */
+// .select-items div,
+// .select-selected {
+//   color: var(--db-main-text-dark);
+//   padding: 8px 16px;
+//   border-color: transparent;
+//   cursor: pointer;
+// }
+// .select-items {
+//   box-shadow: rgba(17, 17, 26, 0.5) 0px 4px 16px, rgba(17, 17, 26, 0.5) 0px 8px 32px;
+// }
+//
+// /* Style items (options): */
+// .select-items {
+//   position: absolute;
+//   background-color: var(--db-white);
+//   top: 100%;
+//   left: 0;
+//   right: 0;
+//   z-index: 99;
+// }
+// .select-items:last-child {
+//   border-radius: 0 0 10px 10px;
+// }
+// /* Hide the items when the select box is closed: */
+// .select-hide {
+//   display: none;
+// }
+//
+// .select-items div:hover,
+// .same-as-selected {
+//   background-color: rgba(0, 0, 0, 0.1);
+// }
+
+
+.db-button-add {
+  cursor: pointer;
+  text-align: center;
+  border-radius: 25px;
+  border: none;
+  padding: 10px;
+  transition: all 0.3s ease-in-out;
+}
+
+.db-button-add:hover {
+  text-decoration: none;
+  transition: all 0.3s ease-in-out;
+}
+
+.db-button--sm {
+  padding: 5px;
+  font-size: 12px;
+}
+
+.db-button--border-sm {
+  border-radius: 10px;
+}
+
+.db-button--primary-add {
+  background-color: var(--db-primary);
+  color: white !important;
+  font-weight: bold !important;
+}
+
+.db-button--primary-add:hover {
+  filter: brightness(98%);
+  color: var(--db-white);
+}
+.db-button--light {
+  background-color: var(--db-white);
+  color: var(--db-main-text-dark);
+  border: 1px solid var(--db-border);
+}
+.db-button--light:hover {
+  background-color: var(--db-border);
+  color: var(--db-primary);
+}
+.db-button--dark {
+  background-color: var(--db-dark);
+  color: var(--db-white);
+}
+
+.db-button--muted {
+  color: var(--db-dark);
+  background-color: var(--db-border);
+}
+
+.db-button--primary-dark {
+  background-color: var(--db-primary-dark);
+  color: white;
+}
+
+.db-button--primary-dark:hover {
+  filter: contrast(80%);
+}
+
+// .db-button--actions {
+//   width: 30px;
+//   height: 30px;
+// }
+
+// .db-button--round {
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   border-radius: 50%;
+// }
+
+.db-button--long {
+  width: 100%;
+}
+
+.next_1s {
+height: 272px;
+width: 30px;
+opacity: 100%;
+margin-top: 26px !important;
+margin-left: -54px;
+}
+
+
+

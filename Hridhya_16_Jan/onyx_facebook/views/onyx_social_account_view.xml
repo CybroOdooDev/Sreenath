@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="onyx_view_facebook_form" model="ir.ui.view">
+        <field name="name">onyx facebook</field>
+        <field name="model">onyx.facebook</field>
+        <field name="arch" type="xml">
+            <form string="visa_application_view_form_facebook">
+                <header>
+                    <button name="button_facebook" string="facebook"
+                            class="oe_highlight" type="object"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="client_id_facebook"/>
+                        <field name="client_secret_facebook"/>
+                        <field name="oauth_token"/>
+                        <field name="oauth_verifier"/>
+                        <!--&lt;!&ndash;                    <h1 class="head-class">&ndash;&gt;-->
+                        <!--&lt;!&ndash;                        <field name="name"/>&ndash;&gt;-->
+                        <!--&lt;!&ndash;                    </h1>&ndash;&gt;-->
+                        <!--&lt;!&ndash;                    <field name="visa_approvals_ids"/>&ndash;&gt;-->
+                    </group>
+                </sheet>
+            </form>
+        </field>
+
+    </record>
+
+
+
+</odoo>

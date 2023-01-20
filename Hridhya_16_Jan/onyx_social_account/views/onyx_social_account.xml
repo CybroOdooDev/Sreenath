@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+
+        <!--    <record id="onyx_menu_social_account" model="ir.ui.menu">-->
+        <!--        <field name="action" ref="action_social_account" />-->
+        <!--    </record>-->
+
+        <record id="onyx_social_account_view_list" model="ir.ui.view">
+            <field name="name">onyx.social.account.view.tree</field>
+            <field name="model">onyx.social.account</field>
+            <field name="arch" type="xml">
+                <tree string="Social Accounts">
+                    <field name="name"/>
+                    <!--                <field name="onyx_media_id" />-->
+                    <field name="company_id" groups="base.group_multi_company"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="onyx_social_account_view_form" model="ir.ui.view">
+            <field name="name">onyx.social.account.view.form</field>
+            <field name="model">onyx.social.account</field>
+            <field name="arch" type="xml">
+                <form string="Social Account" create="0">
+                    <sheet>
+                        <field name="image" widget="image" class="oe_avatar"/>
+                        <div class="oe_title">
+                            <h1>
+                                <field class="o_text_overflow" name="display_name" placeholder="Name"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group name="social_account_global">
+                                <field name="onyx_active" invisible="1"/>
+                                <field name="name" string="Name"/>
+                                <field name="linkedin_accesstoken"/>
+                                <!--                            <field name="onyx_media_id" options="{'no_open': True}" />-->
+                                <field name="company_id" options="{'no_create': True}"
+                                       groups="base.group_multi_company"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="social_account_view_search" model="ir.ui.view">
+            <field name="name">onyx.social.account.view.search</field>
+            <field name="model">onyx.social.account</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name" string="Name"/>
+                    <field name="company_id" groups="base.group_multi_company"/>
+                    <filter name="onyx_filter_active" string="Archived" domain="[('active', '=', False)]"/>
+                    <group expand="1" string="Group By">
+                        <filter string="Company" name="onyx_filter_company_id" groups="base.group_multi_company"
+                                context="{'group_by':'company_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_onyx_social_account" model="ir.actions.act_window">
+            <field name="name">Onyx Social Accounts</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">onyx.social.account</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No Social Account yet!
+                </p>
+                <p>
+                    <a href="/web#action=social.action_social_media">Link an Account</a>
+                    to start posting from Odoo.
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="onyx_menu_social" name="Onyx Social Marketing"
+                  sequence="2"/>
+        <menuitem id="onyx_menu_social_configuration" name="Configuration"
+                  parent="onyx_menu_social"
+                  sequence="30"/>
+        <menuitem id="onyx_menu_social_account" name="Onyx Social Accounts"
+                  parent="onyx_menu_social_configuration"
+                  action='action_onyx_social_account'
+                  sequence="4"/>
+        <!--     <menuitem-->
+        <!--        id="onyx_menu_social_global"-->
+        <!--        name="Onyx Social Marketing"-->
+
+        <!--        sequence="1"-->
+        <!--        groups="base.group_user" />-->
+
+        <!--&lt;!&ndash;    <menuitem&ndash;&gt;-->
+        <!--&lt;!&ndash;        id="menu_social_stream_post"&ndash;&gt;-->
+        <!--&lt;!&ndash;        parent="menu_social_global"&ndash;&gt;-->
+        <!--&lt;!&ndash;        name="Feed"&ndash;&gt;-->
+        <!--&lt;!&ndash;        sequence="10" />&ndash;&gt;-->
+
+        <!--&lt;!&ndash;    <menuitem&ndash;&gt;-->
+        <!--&lt;!&ndash;        id="menu_social_post"&ndash;&gt;-->
+        <!--&lt;!&ndash;        parent="menu_social_global"&ndash;&gt;-->
+        <!--&lt;!&ndash;        name="Posts"&ndash;&gt;-->
+        <!--&lt;!&ndash;        sequence="20" />&ndash;&gt;-->
+
+        <!--    <menuitem-->
+        <!--        id="onyx_menu_social_configuration"-->
+        <!--        parent="onyx_menu_social_global"-->
+        <!--        name="Configuration"-->
+        <!--        sequence="30" />-->
+
+        <!--&lt;!&ndash;    <menuitem&ndash;&gt;-->
+        <!--&lt;!&ndash;        id="menu_social_global_settings"&ndash;&gt;-->
+        <!--&lt;!&ndash;        name="Settings"&ndash;&gt;-->
+        <!--&lt;!&ndash;        parent="menu_social_configuration"&ndash;&gt;-->
+        <!--&lt;!&ndash;        sequence="33"&ndash;&gt;-->
+        <!--&lt;!&ndash;        groups="base.group_no_one" />&ndash;&gt;-->
+
+<!--            <menuitem-->
+<!--                id="menu_social_media"-->
+<!--                groups="group_social_manager"-->
+<!--                parent="menu_social_configuration"-->
+<!--                name="Social Media"-->
+<!--                sequence="36" />-->
+
+        <!--    <menuitem-->
+        <!--        id="onyx_menu_social_account"-->
+        <!--        parent="onyx_menu_social_configuration"-->
+        <!--        action="action_onyx_social_account"-->
+        <!--        name="Onyx Social Accounts"-->
+        <!--        sequence="39" />-->
+
+        <!--&lt;!&ndash;    <menuitem&ndash;&gt;-->
+        <!--&lt;!&ndash;        id="menu_social_stream"&ndash;&gt;-->
+        <!--&lt;!&ndash;        groups="group_social_manager"&ndash;&gt;-->
+        <!--&lt;!&ndash;        parent="menu_social_configuration"&ndash;&gt;-->
+        <!--&lt;!&ndash;        name="Social Streams"&ndash;&gt;-->
+        <!--&lt;!&ndash;        sequence="42" />&ndash;&gt;-->
+
+    </data>
+</odoo>
