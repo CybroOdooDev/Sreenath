@@ -1,0 +1,28 @@
+<odoo>
+
+    <menuitem id="menu_odoo_delivery_boy"
+              name="Delivery Boy"
+              parent="stock.menu_stock_root"/>
+        <menuitem id="sub_menu_odoo_delivery_boy" name="Delivery Boy"
+                  action="odoo_delivery_boy.action_delivery_boy"
+                  parent="odoo_delivery_boy.menu_odoo_delivery_boy"
+                  sequence="0"/>
+        <menuitem id="sub_menu_odoo_delivery_boy_commission" name="Delivery Boy Commission"
+                  action="odoo_delivery_boy.action_delivery_boy_commission"
+                  parent="odoo_delivery_boy.menu_odoo_delivery_boy"
+                  sequence="10"/>
+        <menuitem id="sub_menu_odoo_delivery_boy_pickings" name="Delivery Boy Pickings"
+                  action="odoo_delivery_boy.action_delivery_boy"
+                  parent="odoo_delivery_boy.menu_odoo_delivery_boy"
+                  sequence="5"/>
+
+
+
+    <menuitem
+        id="res_partner_menu_delivery_boy"
+        name="Delivery Boys"
+        parent="odoo_delivery_boy.menu_odoo_delivery_boy"
+        action="odoo_delivery_boy.action__delivery_boy_partner_form"
+        sequence="5"/>
+
+</odoo>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="action_delivery_boy" model="ir.actions.act_window">
+            <field name="name">Delivery Boy</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">delivery.boy</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'search_default_partner_id': 1}</field>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                Create a Delivery Boy
+              </p>
+            </field>
+    </record>
+
+    <record id="delivery_boy_form_view_id" model="ir.ui.view">
+        <field name="name">delivery.boy.form.view</field>
+        <field name="model">delivery.boy</field>
+        <field name="arch" type="xml">
+            <form string="Delivery Boy">
+                <header>
+                    <button name="action_delivery_pickings" string="Delivery" type="object"
+                    attrs="{'invisible':[('state','=','delivered')]}" class="btn-primary" />
+                    <field name="state" widget="statusbar"/>
+                </header>
+
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" placeholder="e.g. John Doe" readonly="1" required="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="assigned_date"/>
+                            <field name="commission_date"/>
+                            <field name="sale_order_id"/>
+                            <field name="stock_picking_id"/>
+                            <field name="partner_id"/>
+                            <field name="commission_amount"/>
+                        </group>
+                    </group>
+
+<!--                    <div class="oe_button_box" position="inside">-->
+<!--                        <button class="oe_stat_button" type="object" name="document"-->
+<!--                                icon="fa-folder-open" attrs="{'invisible':[('document_count', '=', 0)]}" widget="statinfo">-->
+<!--                            <field string="Documents" name="document_count" widget="statinfo"/>-->
+<!--                        </button>-->
+<!--                    </div>-->
+
+<!--                    <notebook>-->
+<!--                        <page string="Discription">-->
+<!--                            <field name="discription"/>-->
+<!--                        </page>-->
+<!--                    </notebook>-->
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="delivery_boy_tree_view" model="ir.ui.view">
+        <field name="name">delivery.boy.tree</field>
+        <field name="model">delivery.boy</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="assigned_date"/>
+                <field name="commission_date"/>
+                <field name="sale_order_id"/>
+                <field name="stock_picking_id"/>
+                <field name="partner_id"/>
+                <field name="commission_amount"/>
+            </tree>
+        </field>
+    </record>
+
+   <record id="res_partner_view_search_delivery_boy" model="ir.ui.view">
+        <field name="name">res.partner.view.delivery.boy</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter"/>
+        <field name="arch" type="xml">
+                <filter name="inactive" position="after">
+                    <filter string="Inctive Delivery Boy" name="delivery_boy_actives"
+                            domain="[('delivery_boy_state', '!=', 'delivery_boy_active')]"/>
+                    <filter string="Active Delivery Boy" name="delivery_boy_inactives"
+                            domain="[('delivery_boy_state', '!=', 'delivery_boy_inactive')]"/>
+                    <separator/>
+                </filter>
+        </field>
+    </record>
+
+    <record id="action_delivery_boy_picking_search" model="ir.ui.view">
+        <field name="name">delivery.boy.selects</field>
+        <field name="model">delivery.boy</field>
+        <field name="arch" type="xml">
+            <search string="Search Partner">
+                <separator/>
+                <group expand="0" name="group_by" string="Group By">
+                    <filter name="partner_id" string="Delivery Boy Pickings" context="{'group_by' : 'partner_id'}" />
+                </group>
+            </search>
+        </field>
+    </record>
+
+<!--    <record id="document_workspace_tree_id" model="ir.ui.view">-->
+<!--            <field name="name">document.workspace.tree.view</field>-->
+<!--            <field name="model">document.workspace</field>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <tree string="Workspace">-->
+<!--                    <field name="display_name"/>-->
+<!--                    <field name="company_id"/>-->
+<!--                </tree>-->
+<!--            </field>-->
+<!--        </record>-->
+</odoo>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+        q<record id="action_delivery_boy_commission" model="ir.actions.act_window">
+                <field name="name">Delivery Boy Commission</field>
+                <field name="type">ir.actions.act_window</field>
+                <field name="res_model">delivery.boy.commission</field>
+                <field name="view_mode">tree,form</field>
+                <field name="help" type="html">
+                  <p class="o_view_nocontent_smiling_face">
+                    Create a Delivery Boy
+                  </p>
+                </field>
+        </record>
+
+        <record id="delivery_boy_commission_form_view_id" model="ir.ui.view">
+        <field name="name">delivery.boy.commission.form.view</field>
+        <field name="model">delivery.boy.commission</field>
+        <field name="arch" type="xml">
+            <form string="Delivery Boy">
+<!--                <header>-->
+<!--                    <field name="boolean" invisible="1"/>-->
+<!--                    <button name="action_upload_to_cloud" string="Upload" type="object" class="btn-primary" attrs="{'invisible':[('boolean','=',False)]}"/>-->
+<!--                </header>-->
+
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" placeholder="e.g. John Doe" required="1"/></h1>
+                    </div>
+
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="commission_type"/>
+                            <field name="product_id" attrs="{'invisible':[('commission_type', '!=', 'product')]}"/>
+                            <field name="product_categ_id" attrs="{'invisible':[('commission_type', '!=', 'product_category')]}"/>
+                            <field name="commission_mode"  attrs="{'invisible':[('commission_type', '=', 'order')]}"/>
+                            <field name="commission_amount"/>
+                            <field name="partner_id" widget="many2many_tags"/>
+                            <field name="company_id" invisible="1"/>
+                            <field name="company_currency_id" invisible="1"/>
+                        </group>
+                    </group>
+
+    <!--                    <div class="oe_button_box" position="inside">-->
+    <!--                        <button class="oe_stat_button" type="object" name="document"-->
+    <!--                                icon="fa-folder-open" attrs="{'invisible':[('document_count', '=', 0)]}" widget="statinfo">-->
+    <!--                            <field string="Documents" name="document_count" widget="statinfo"/>-->
+    <!--                        </button>-->
+    <!--                    </div>-->
+                    </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="delivery_boy_tree_view" model="ir.ui.view">
+        <field name="name">delivery.boy.commission.tree</field>
+        <field name="model">delivery.boy.commission</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="commission_type"/>
+                <field name="product_id"/>
+                <field name="commission_mode"/>
+                <field name="partner_id"/>
+            </tree>
+        </field>
+    </record>
+
+<!--    <record id="document_workspace_tree_id" model="ir.ui.view">-->
+<!--            <field name="name">document.workspace.tree.view</field>-->
+<!--            <field name="model">document.workspace</field>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <tree string="Workspace">-->
+<!--                    <field name="display_name"/>-->
+<!--                    <field name="company_id"/>-->
+<!--                </tree>-->
+<!--            </field>-->
+<!--        </record>-->
+</odoo>

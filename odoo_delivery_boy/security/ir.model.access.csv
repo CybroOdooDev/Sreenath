@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_delivery_boy,access_delivery_boy,model_delivery_boy,base.group_user,1,1,1,1
+access_delivery_boy_commission,access_delivery_boy_commission,model_delivery_boy_commission,base.group_user,1,1,1,1
+access_assign_delivery_boy,access_assign_delivery_boy,model_assign_delivery_boy,base.group_user,1,1,1,1

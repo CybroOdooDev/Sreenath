@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="assign_delivery_boy_wizard" model="ir.ui.view">
+            <field name="name">assign.delivery.boy.form</field>
+            <field name="model">assign.delivery.boy</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <group>
+                            <field name="partner_id" string="Delivery Boy" class="oe_inline"/>
+                            <field name="stock_picking_id" string="Picking" class="oe_inline"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="add_delivery_boy" string="Assign Delivery Boy" type="object"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

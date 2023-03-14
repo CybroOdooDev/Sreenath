@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_stock_picking_form" model="ir.ui.view">
+            <field name="name">stock.picking.property.form.inherit</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//header" position="inside">
+                    <button name="action_assign_delivery_boys" type="object"
+                        string="Assign Delivery Boy"
+                        class="oe_highlight"
+                        attrs="{'invisible': ['|', ('is_assigned', '=', True), ('state', 'in', ['done', 'cancel'])]}"
+                    />
+                    <button name="action_reassign_delivery_boys" type="object"
+                        string="Ressign Delivery Boy"
+                        class="oe_secondary"
+                        attrs="{'invisible': ['|', ('is_assigned', '=', False), ('state', 'in', ['done', 'cancel'])]}"
+                    />
+                </xpath>
+                <field name="location_id" position="after">
+                    <field name="delivery_boy"/>
+                    <field name="delivery_boy_picking"/>
+                    <field name="is_assigned"/>
+                </field>
+            </field>
+        </record>
+
+<!--        <record id="action_delivery_boy_picking_form" model="ir.actions.act_window">-->
+<!--            <field name="name">All Delivery Boys Pickings</field>-->
+<!--            <field name="type">ir.actions.act_window</field>-->
+<!--            <field name="res_model">delivery.boy</field>-->
+<!--            <field name="view_mode">tree,form</field>-->
+<!--&lt;!&ndash;            <field name="domain">[('delivery_boy_state','=','delivery_boy_active')]</field>&ndash;&gt;-->
+<!--            <field name="context">{'search_default_partner_id': 1}</field>-->
+<!--            <field name="search_view_id" ref="odoo_delivery_boy.res_partner_view_search_delivery_boy"/>-->
+<!--            <field name="help" type="html">-->
+<!--              <p class="o_view_nocontent_smiling_face">-->
+<!--                Create a Contact in your address book-->
+<!--              </p>-->
+<!--            </field>-->
+<!--        </record>-->
+
+    </data>
+</odoo>

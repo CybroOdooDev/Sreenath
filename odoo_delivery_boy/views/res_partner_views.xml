@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_partner_property_form" model="ir.ui.view">
+            <field name="name">res.partner.property.form.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <div name="button_box" position="inside">
+                    <button name="action_active_delivery_boys" type="object" class="oe_stat_button" icon="fa-user text-success"
+                            attrs="{'invisible': [('delivery_boy_state', '=', 'delivery_boy_inactive')]}">
+                        <div class="o_field_widget o_stat_info">
+                            <span class="o_stat_value text-success"><field name="delivery_boy_state" invisible="1"/></span>
+                            <span class="o_stat_text text-success">Delivery Boy</span>
+                        </div>
+                    </button>
+                    <button name="action_inactive_delivery_boys" type="object" class="oe_stat_button" icon="fa-user text-danger"
+                    attrs="{'invisible': [('delivery_boy_state', '=', 'delivery_boy_active')]}">
+                        <div class="o_field_widget o_stat_info">
+                            <span class="o_stat_value text-danger"><field name="delivery_boy_state" invisible="1"/></span>
+                            <span class="o_stat_text text-danger">Inactive</span>
+                        </div>
+                    </button>
+                </div>
+            </field>
+        </record>
+
+       <record id="res_partner_view_search_delivery_boy" model="ir.ui.view">
+            <field name="name">res.partner.view.delivery.boy</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_res_partner_filter"/>
+            <field name="arch" type="xml">
+                    <filter name="inactive" position="after">
+                        <filter string="Inctive Delivery Boy" name="delivery_boy_actives"
+                                domain="[('delivery_boy_state', '!=', 'delivery_boy_active')]"/>
+                        <filter string="Active Delivery Boy" name="delivery_boy_inactives"
+                                domain="[('delivery_boy_state', '!=', 'delivery_boy_inactive')]"/>
+                        <separator/>
+                    </filter>
+            </field>
+        </record>
+
+        <record id="res_partner_view_kanban_inherit_delivery_boy" model="ir.ui.view">
+            <field name="name">res.partner.view.kanban.inherit.delivery.boy</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.res_partner_kanban_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[hasclass('o_res_partner_kanban')]" position="inside">
+                    <div class="float-end">
+                        <field name="delivery_boy_state" invisible="1"/>
+                        <i class="fa fa-circle text-success" attrs="{'invisible': [('delivery_boy_state', '!=', 'delivery_boy_active')]}"/>
+                        <i class="fa fa-circle text-danger" attrs="{'invisible': [('delivery_boy_state', '!=', 'delivery_boy_inactive')]}"/>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="action__delivery_boy_partner_form" model="ir.actions.act_window">
+            <field name="name">Delivery Boys</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="domain">[('delivery_boy_state','=','delivery_boy_active')]</field>
+            <field name="context">{'search_default_delivery_boy_inactives': True}</field>
+            <field name="search_view_id" ref="odoo_delivery_boy.res_partner_view_search_delivery_boy"/>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                Create a Contact in your address book
+              </p>
+            </field>
+        </record>
+
+    </data>
+</odoo>
